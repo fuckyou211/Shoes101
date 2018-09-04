@@ -1,0 +1,42 @@
+server:
+  port: 8080
+
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    driverClassName: com.mysql.cj.jdbc.Driver
+    platform: mysql
+    url: jdbc:mysql://127.0.0.1:3306/shoes?useUnicode=true&characterEncoding=utf-8&useSSL=false&&serverTimezone=UTC
+    username: root
+    password: 123456
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT1FROMDUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    filters: stat,wall,log4j
+    logSlowSql: true
+
+
+
+
+mybatis:
+    mapper-locations: classpath:mapping/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+    type-aliases-package: com.shoes101.pojo  # 注意：对应实体类的路径
+
+redis:
+ host: 127.0.0.1
+ port: 6379
+ timeout: 10
+ password: 123
+ poolMaxTotal: 1000
+ poolMaxIdle: 500
+
+
+
+
