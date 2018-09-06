@@ -1,0 +1,30 @@
+@charset "UTF-8";
+
+.mylabel{
+    /* width: auto; */
+   padding-top: 50px;
+   font-size: 18px;
+   font-weight: normal
+   
+}
+.myp{
+   font-size: 18px;
+}
+.myp-right{
+	font-size: 18px;
+	text-align: right;
+}
+.input-show-type{
+	border: 0px;outline:none;
+	border-bottom:#000000 1px solid;
+}
+.onoffswitch-inner:before {
+    content: "上架";
+}
+.onoffswitch-inner:after {
+    content: "下架";
+}
+/*.onoffswitch {
+   position: relative; width: 68px;
+    -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+}*/

@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>101Shoes | 后台管理</title>
+
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../static/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="../static/css/animate.css" rel="stylesheet">
+    <link href="../static/css/style.css" rel="stylesheet">
+    
+    <link href="../static/css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
+    <link href="../static/css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
+    <link href="../static/css/admin.css" rel="stylesheet">
+
+    <link href="../static/css/plugins/summernote/summernote.css" rel="stylesheet">
+    <link href="../static/css/plugins/summernote/summernote-bs4.css" rel="stylesheet">
+</head>
+<body>
+    <div id="wrapper">
+
+        <!-- 左侧导航栏 -->
+        <nav class="navbar-default navbar-static-side" role="navigation">
+            <div class="sidebar-collapse">
+                <ul class="nav metismenu" id="side-menu">
+                    <li class="nav-header">
+                        <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
+                             </span>
+                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">欢迎你！</strong>
+                             </span> <span class="text-muted text-xs block">靓仔！<b class="caret"></b></span> </span> </a>
+                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
+                                <li><a href="profile.html">修改密码</a></li>
+                                <li class="divider"></li>
+                                <li><a href="login.html">退出</a></li>
+                            </ul>
+                        </div>
+                        <div class="logo-element">
+                            IN+
+                        </div>
+                    </li>
+                    <li>
+                        <a href="Admin.html"><i class="fa fa-user-circle-o"></i> <span class="nav-label">销售统计</span></a>
+                    </li>
+                    <li>
+                        <a href="Admin.html"><i class="fa fa-user-circle-o"></i> <span class="nav-label">会员管理</span></a>
+                    </li>
+                    <li >
+                        <a href="manager_shoes.html"><i class="fa fa-bandcamp"></i> <span class="nav-label">商品管理</span></a>
+                       
+                    </li>
+                    <li>
+                        <a href="layouts.html"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">订单管理</span><span class="label label-warning pull-right">10</span></a>
+                    </li>
+                    <li>
+                        <a href="mailbox.html"><i class="fa fa-rocket"></i> <span class="nav-label">抢购管理 </span></a>
+                    </li>
+                    <li>
+                        <a href="mailbox.html"><i class="fa fa-rocket"></i> <span class="nav-label">分类管理 </span></a>
+                    </li>
+                    <li>
+                        <a href="mailbox.html"><i class="fa fa-rocket"></i> <span class="nav-label">属性管理 </span></a>
+                    </li>
+                    <li class="active">
+                        <a href="metrics.html"><i class="fa fa-telegram"></i> <span class="nav-label">首页内容管理</span><span class="fa arrow"></span>  </a>
+                        <ul class="nav nav-second-level">
+                            <li class="active"><a href="index.html">导航栏管理</a></li>
+                            <li><a href="dashboard_2.html">轮播图管理</a></li>
+                            <li><a href="dashboard_3.html">推荐管理</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="metrics.html"><i class="fa fa-comments-o"></i> <span class="nav-label">聊天室</span><span class="label label-danger pull-right">16</span></a>
+                    </li>
+                    <li>
+                        <a href="metrics.html"><i class="fa fa-tags"></i> <span class="nav-label">系统说明</span>  </a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+
+        
+        <!-- 右边主演部分 -->
+        <div id="page-wrapper" class="gray-bg dashbard-1">
+            <!-- 正上方一小条 -->
+            <div class="row border-bottom">
+                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+                    <div class="navbar-header">
+                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+                    </div>
+                    <ul class="nav navbar-top-links navbar-right">
+                        <li>
+                            <span class="m-r-sm text-muted welcome-message">欢迎使用101Shoes后台管理系统</span>
+                        </li>
+        
+                        <li>
+                            <a href="login.html">
+                                <i class="fa fa-sign-out"></i> 退出
+                            </a>
+                        </li>
+                        <li>
+                            <a class="right-sidebar-toggle">
+                                <i class="fa fa-tasks"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+            
+        
+    
+            <div class="row wrapper border-bottom white-bg page-heading">
+                <div class="col-lg-10">
+                    <h2>添加商品</h2>
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="index.html">Home</a>
+                        </li>
+                        <li>
+                            <a>商品管理</a>
+                        </li>
+                        <li class="active">
+                            <strong>修改商品</strong>
+                        </li>
+                    </ol>
+                </div>
+                <div class="col-lg-2">
+
+                </div>
+            </div>
+
+            <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="tabs-container">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#tab-1" id="aTab_1">选择类目></a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-2" id="aTab_2"> 基本信息></a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-3" id="aTab_3"> 添加图片></a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-4" id="aTab_4"> 颜色分类></a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-5" id="aTab_5"> 选择尺码></a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-6" id="aTab_6"> 详情描述></a></li>
+                                <li class=""><a data-toggle="tab" href="#tab-7" id="aTab_7"> 填写库存</a></li>
+                            </ul>
+                            <div class="tab-content" id="aShoes">
+                                <div id="tab-1" class="tab-pane active">
+                                    <div class="panel-body">
+                                        <form id="shoesForm">
+                                            <fieldset class="form-horizontal">
+                                                <div class="" id="firsttype">
+                                                    <label class="col-sm-1 control-label mylabel">
+                                                        一级分类:
+                                                    </label>
+                                                    <div class="col-lg-3 m-l-n">
+                                                        <select class="form-control m-b" multiple name="shoestype">
+                                                            <option value="0"  v-for="type in types_1">{{type.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="" id="secondtype">
+                                                    <label class="col-sm-1 control-label mylabel" >
+                                                        二级分类:
+                                                    </label>
+                                                    <div class="col-lg-3 m-l-n">
+                                                        <select class="form-control m-b" multiple name="shoestype">
+                                                                <option value="0"  v-for="type in types_2">{{type.name}}</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group col-md-12">
+                                                    <label class="col-sm-12 control-label" style="margin-top: 18px;text-align: right">
+                                                        <a value="2" href="javascript:void(0);" onclick="nextTab(this)"> 请继续完成下一步....</a>
+                                                    </label>
+                                                </div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div id="tab-2" class="tab-pane">
+                                    <div class="panel-body">
+                                        <fieldset class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">
+                                                鞋子名称/标题:
+                                            </label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="shoesname" form="shoesForm">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">
+                                                鞋子价格:
+                                            </label>
+                                            <div class="col-sm-4">
+                                                <input type="text" class="form-control" name="shoesprice" form="shoesForm">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                        	<label class="col-sm-2 control-label">
+                                                上架时间:
+                                            </label>
+                                            <div class="radio radio-info radio-inline">
+                                                <input id="inlineRadio1" type="radio" name="radioInline" form="shoesForm" checked>
+                                                <label for="inlineRadio1">
+                                                    立即上架
+                                                </label>
+                                            </div>
+                                            <div class="radio radio-info radio-inline">
+                                                <input id="inlineRadio2" type="radio" name="radioInline" form="shoesForm">
+                                                <label for="inlineRadio2">
+                                                    稍后上架
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">
+                                                鞋子属性:
+                                            </label>
+                                        </div>
+                                        
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">
+                                                品牌:
+                                            </label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control m-b" form="shoesForm">
+                                                    <option value="0" v-for="item in PropertyValue"> {{item.pValue}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">
+                                                风格:
+                                            </label>
+                                            <div class="col-sm-4">
+                                                <select class="form-control m-b" form="shoesForm">
+                                                    <option value="0" v-for="item in PropertyValue"> {{item.pValue}}</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div id="shoesProperty">
+                                            <div class="form-group">
+                                                <div class="col-sm-2">
+                                                    <select class="form-control m-b" form="shoesForm">
+                                                        <option value="0"  v-for="Property in Propertys">{{Property.name}}</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-sm-4">
+                                                    <select class="form-control m-b" form="shoesForm">
+                                                        <option value="0" v-for="item in PropertyValue"> {{item.pValue}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-md-12">
+                                                <a class="btn btn-primary" id="addNewProperty">添加属性</a>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label class="col-sm-12 control-label" style="margin-top: 18px;text-align: right">
+                                                <a value="3" href="javascript:void(0);" onclick="nextTab(this)"> 请继续完成下一步....</a>
+                                            </label>
+                                        </div>
+                                        </fieldset>
+                                    </div>
+                                </div>
+                                <div id="tab-3" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div class="form-group col-md-12">
+                                            <label class="col-sm-12 control-label" style="margin-top: 18px;">
+                                                请上传商品图片/至多5张:
+                                            </label>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="ibox">
+                                                <div class="ibox-content product-box">
+                                                    <div class="product-imitation">
+                                                        <div id="pic1" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="btn-group">
+                                                <label title="Upload image file" for="1_inputImage" class="btn btn-primary">
+                                                    <input type="file" accept="image/*" multiple="multiple" name="fpic"
+                                                    form="shoesForm" id="1_inputImage" class="hide" onchange="preview(this)">
+                                                    上传图片
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="ibox">
+                                                <div class="ibox-content product-box">
+                                                    <div class="product-imitation">
+                                                        <div id="pic2" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="btn-group">
+                                                <label title="Upload image file" for="2_inputImage" class="btn btn-primary">
+                                                    <input type="file" accept="image/*" multiple="multiple" name="fpic"
+                                                        form="shoesForm" id="2_inputImage" class="hide" onchange="preview(this)">
+                                                    上传图片
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="ibox">
+                                                <div class="ibox-content product-box">
+                                                    <div class="product-imitation">
+                                                        <div id="pic3" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="btn-group">
+                                                <label title="Upload image file" for="3_inputImage" class="btn btn-primary">
+                                                    <input type="file" accept="image/*" multiple="multiple" name="fpic"
+                                                        form="shoesForm" id="3_inputImage" class="hide" onchange="preview(this)">
+                                                    上传图片
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="ibox">
+                                                <div class="ibox-content product-box">
+                                                    <div class="product-imitation">
+                                                        <div id="pic4" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="btn-group">
+                                                <label title="Upload image file" for="4_inputImage" class="btn btn-primary">
+                                                    <input type="file" accept="image/*" multiple="multiple" name="fpic"
+                                                        form="shoesForm" id="4_inputImage" class="hide" onchange="preview(this)">
+                                                    上传图片
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-3">
+                                            <div class="ibox">
+                                                <div class="ibox-content product-box">
+                                                    <div class="product-imitation">
+                                                        <div id="pic5" >
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="btn-group">
+                                                <label title="Upload image file" for="5_inputImage" class="btn btn-primary">
+                                                    <input type="file" accept="image/*" multiple="multiple" name="fpic"
+                                                        form="shoesForm" id="5_inputImage" class="hide" onchange="preview(this)">
+                                                    上传图片
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label class="col-sm-12 control-label" style="margin-top: 18px;text-align: right">
+                                                <a value="4" href="javascript:void(0);" onclick="nextTab(this)"> 请继续完成下一步....</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab-4" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div>
+                                            <div class="form-group col-md-12">
+                                                <label class="col-sm-12 control-label" style="margin-top: 18px;">
+                                                    请填写商品的颜色：
+                                                </label>
+                                            </div>
+                                            <div id="divforcolor">
+                                                <div class="form-group">
+                                                    <div class="col-md-3">
+                                                        <select class="form-control m-b" form="shoesForm">
+                                                            <option value="0" v-for="item in PropertyValue"> {{item.pValue}}</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <!-- <div class="ibox-content"> -->
+                                                            <div class="ibox float-e-margins">
+                                                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                                    <!-- <input type="text" class="form-control col-md-6" placeholder=""> -->
+                                                                    <span class="btn btn-default btn-file"><span class="fileinput-new">上传图片</span>
+                                                                    <span class="fileinput-exists">更改</span><input type="file" name="..." form="shoesForm"></span>
+                                                                    <span class="fileinput-filename"></span>
+                                                                    <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
+                                                                </div>
+                                                            </div>
+                                                        <!-- </div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <a class="btn btn-primary" id="addNewColor">添加颜色</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label class="col-sm-12 control-label" style="margin-top: 18px;text-align: right">
+                                                <a value="5" href="javascript:void(0);" onclick="nextTab(this)"> 请继续完成下一步....</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab-5" class="tab-pane">
+                                    <div class="panel-body">
+                                            <div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-12 control-label" style="margin-top: 18px;">
+                                                        请选择商品的拥有的尺码：
+                                                    </label>
+                                                </div>
+                                                <div id="shoesSize"  >
+                                                    <div class="col-sm-2" v-for="(val, index) in sizes">
+                                                        <div class="form-group">
+                                                            <div class="checkbox checkbox-success checkbox-circle ">
+                                                                <input :id="gernerateId(index)" type="checkbox" name="size" form="shoesForm">
+                                                                <label :for="gernerateId(index)">
+                                                                    {{val}}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <div class="form-group col-md-12">
+                                            <label class="col-sm-12 control-label" style="margin-top: 18px;text-align: right">
+                                                <a value="6" href="javascript:void(0);" onclick="nextTab(this)"> 请继续完成下一步....</a>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab-6" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div class="form-group col-md-12" style="margin-top: 18px;">
+                                            <label>请输入商品描述:</label>
+                                        </div>
+                                        <div>
+                                            <div class="ibox-content no-padding">
+                                                    <div class="summernote">
+                                                        <br/><br/><br/><br/>
+                                                        请描述商品的详细情况，简单介绍商品
+                                                        <br/><br/><br/><br/><br/><br/><br/>
+                                                    </div>
+                                                </div>
+                                        </div>
+                                        <div class="form-group col-md-12" style="margin-top: 18px;">
+                                            <a class="btn btn-success">完成</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="tab-7" class="tab-pane">
+                                    <div class="panel-body">
+                                        <div class="form-group col-md-12" style="margin-top: 18px;">
+                                            <label>请填写颜色对应的尺码的库存:</label>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="ibox float-e-margins">
+                                                <div class="ibox-content">
+                                                    <form id="" name="">
+                                                    	<div class="table-responsive">
+	                                                    	<table class="table table-bordered " id="countTable">
+	                                                            <tbody>
+	                                                                <tr>
+	                                                                    <td>库存</td>
+	                                                                    <td v-for="item in colors" >
+	                                                                    	<label class="col-sm-5">
+	                                                                    		{{item.color}}
+	                                                                    	</label>
+	                                                                    </td>
+	                                                                </tr>
+	                                                                <tr v-for="item in sizes">
+	                                                                    <td>{{item}}</td>
+	                                                                    <td v-for="n in count"><input  type="number" min="0" class="form-control col-sm-2" name="" /></td>
+                                                                	</tr>
+	                                                            </tbody>
+	                                                        </table>	
+                                                    	</div>
+                                                    </form>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="../static/js/jquery-3.1.1.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../static/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="../static/js/inspinia.js"></script>
+    <script src="../static/js/plugins/pace/pace.min.js"></script>
+
+    <!-- Jasny -->
+    <script src="../static/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+    
+    <!-- CodeMirror -->
+    <script src="../static/js/plugins/codemirror/codemirror.js"></script>
+    <script src="../static/js/plugins/codemirror/mode/xml/xml.js"></script>
+
+    <!-- SUMMERNOTE -->
+    <script src="../static/js/plugins/summernote/summernote.js"></script>
+    
+    <script src="../static/js/vue.js"></script>
+
+    <script>
+        //初始化文本编辑框
+        $(document).ready(function(){
+
+            $('.summernote').summernote();
+
+        });
+    </script>
+    <script>
+        //图片回显功能
+        function preview(file) {
+
+        var inputid = file.getAttribute("id");//stmp.substring(0,1)
+        var indexid=inputid.substring(0,1);
+        var picid = 'pic' + indexid;
+        var prevDiv = document.getElementById(picid);
+        if (file.files && file.files[0]) {
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+            
+            // $("#picid").parent().style.padding="0%";
+            prevDiv.innerHTML = '<img  src="' + evt.target.result + '" class="img-responsive center-block" />';
+            $("#pic"+indexid).parent().css("padding","0%");
+        }
+        reader.readAsDataURL(file.files[0]);
+        } else {
+                prevDiv.innerHTML = '<div class="img img-responsive center-block" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+            $("#pic"+indexid).parent().css("padding","0%");
+        }
+        }
+    </script>
+    <script>
+        //下一步
+        function nextTab(obj){
+            var tabindex=$(obj).attr("value");
+            $("#aTab_"+tabindex).trigger("click");
+            //$(this).attr("id");
+        }
+    </script>
+    <script>
+        //跟上传图片有关
+        Dropzone.options.dropzoneForm = {
+            paramName: "file", // The name that will be used to transfer the file
+            maxFilesize: 2, // MB
+            dictDefaultMessage: "<strong>Drop files here or click to upload. </strong></br> (This is just a demo dropzone. Selected files are not actually uploaded.)"
+        };
+
+        $(document).ready(function(){
+
+            var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
+                lineNumbers: true,
+                matchBrackets: true
+            });
+
+            var editor_two = CodeMirror.fromTextArea(document.getElementById("code2"), {
+                lineNumbers: true,
+                matchBrackets: true
+            });
+
+            var editor_two = CodeMirror.fromTextArea(document.getElementById("code3"), {
+                lineNumbers: true,
+                matchBrackets: true
+            });
+
+        });
+    </script>
+    <script>
+         $('#addNewColor').click(function (e) {
+            //e.preventDefault();
+             var data=$($('#divforcolor').children().get(0)).clone();
+             $('#divforcolor').append(data);
+        });
+
+        
+    </script>
+    <script>
+        new Vue({
+            el: '#firsttype',
+            data: {
+                types_1: [
+                { name: '男鞋' },
+                { name: '女鞋' },
+                { name: '儿童' },
+                { name: '靴子' }
+                ]
+            }
+        });
+        new Vue({
+            el: '#secondtype',
+            data: {
+                types_2: [
+                { name: '休闲' },
+                { name: '运动' },
+                { name: '其他' },
+                { name: '靴子' }
+                ]
+            }
+        });
+        new Vue({
+            el: '#shoesProperty',
+            data: {
+                Propertys: [
+                { name: '请选择属性' },
+                { name: '鞋面材质' },
+                { name: '鞋底材质' },
+                { name: '鞋跟' },
+                { name: '流行元素' },
+                { name: '闭合方式' },
+                { name: '鞋帮高度' },
+                { name: '季节' },
+                { name: '鞋头款式' }
+                ]
+            }
+        });
+        new Vue({
+            el: '#divforcolor',
+            data: {
+                PropertyValue: [
+                { pValue: '黑色' },
+                { pValue: '红色' },
+                { pValue: '白色' },
+                { pValue: '哈哈' }
+                ]
+            }
+        });
+        new Vue({
+            el: '#shoesSize',
+            data: {
+                sizes:["30","31","32","33","34","35","36","37","38","39","40","41"]
+            },
+            methods:{
+            gernerateId: function (index){
+                return "checkbox_" +index;
+                }
+            }
+        });
+
+        new Vue({
+            el:"#countTable",
+            data:{
+                colors: [
+                { color: '黑色' },
+                { color: '红色' },
+                { color: '黄色' },
+                { color: '白色' },
+                { color: '哈哈' }
+                ],
+                sizes:["30","31","32","33","34","35","36","37","38","39","40","41"],
+                count:5,
+            }
+        })
+
+         $('#addNewProperty').click(function (e) {
+            //e.preventDefault();
+            var data=$($('#shoesProperty').children().get(0)).clone();
+            $('#shoesProperty').append(data);
+        });
+    </script>
+    <script>
+    	var aShoes = new Vue({
+    		el:"#aShoes",
+    		data:{
+    			
+    		}
+    	})
+    </script>
+</body>
+</html>
