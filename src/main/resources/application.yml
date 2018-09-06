@@ -38,5 +38,9 @@ redis:
  poolMaxIdle: 500
 
 
-
+mapper:
+  mappers:
+  - com.shoes101.config.mybatis.BaseMapper
+  notEmpty: false
+  identity: MYSQL
 

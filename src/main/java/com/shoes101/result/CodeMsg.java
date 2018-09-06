@@ -1,5 +1,8 @@
 package com.shoes101.result;
 
+
+//代码匹配异常类
+
 public class CodeMsg {
     private int code;
     private String msg;

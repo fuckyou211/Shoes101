@@ -1,12 +1,22 @@
 package com.shoes101.pojo;
+
+
+import com.sun.javafx.beans.IDProperty;
+
+import javax.persistence.*;
+
 //<id column="user_id" property="userId" jdbcType="INTEGER" />
 //<result column="user_name" property="userName" jdbcType="VARCHAR" />
 //<result column="password" property="password" jdbcType="VARCHAR" />
 //<result column="phone" property="phone" jdbcType="VARCHAR" />
+@Table(name="user")
 public class User {
 
-    private String userName;
+    @Id
+    @GeneratedValue
     private int userId;
+    @Column(name="userName")
+    private String userName;
     private String password;
     private String phone;
 

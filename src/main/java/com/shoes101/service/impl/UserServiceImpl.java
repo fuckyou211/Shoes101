@@ -1,5 +1,7 @@
 package com.shoes101.service.impl;
 
+import com.shoes101.mapper.UserMapper;
+import com.shoes101.pojo.User;
 import com.shoes101.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,13 +13,15 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public int addUser(User user) {
-
+        System.out.println(user.getUserName());
+        System.out.println(user.getUserId());
+        System.out.println(user.getPhone());
         return userMapper.insert(user);
     }
 
-    @Override
-    public User getUser()
-    {
-        return userMapper.getUser();
-    }
+//    @Override
+//    public User getUser()
+//    {
+//        return userMapper.getUser();
+//    }
 }

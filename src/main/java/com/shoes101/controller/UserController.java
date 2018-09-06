@@ -3,6 +3,7 @@ package com.shoes101.controller;
 import com.shoes101.pojo.User;
 import com.shoes101.redis.RedisService;
 import com.shoes101.result.Result;
+import com.shoes101.service.DemoService;
 import com.shoes101.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,11 +14,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/user")
 public class UserController {
 
-        @Autowired
-        private RedisService redisService;
+    @Autowired
+    private RedisService redisService;
 
-        @Autowired
-        private UserService userService;
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private DemoService demoService;
 
 //        @RequestMapping(value="/get", produces = {"application/json;charset=UTF-8"})
 //        @ResponseBody
@@ -26,6 +30,19 @@ public class UserController {
 //
 //            return userService.getUser();
 //        }
+
+
+    @RequestMapping("/add")
+    public int add()
+    {
+        User user = new User();
+        user.setUserId(1);
+        user.setUserName("asd0");
+        user.setPhone("123123123");
+        user.setPassword("456456456");
+
+        return userService.addUser(user);
+    }
 
         @RequestMapping("/redis2")
         @ResponseBody

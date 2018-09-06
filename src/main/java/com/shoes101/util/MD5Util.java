@@ -24,10 +24,10 @@ public class MD5Util {
         return md5(str);
     }
 
-    public static void main(String[] args)
-    {
-        System.out.println(inputPassFormPass("123456"));
-        System.out.println(formPassToDBPass(inputPassFormPass("123456"),"1a2b3c4d"));
-    }
+//    public static void main(String[] args)
+//    {
+//        System.out.println(inputPassFormPass("123456"));
+//        System.out.println(formPassToDBPass(inputPassFormPass("123456"),"1a2b3c4d"));
+//    }
 
 }
