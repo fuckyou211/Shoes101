@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoes101.mapper.DemoMapper" >
+  <resultMap id="BaseResultMap" type="com.shoes101.pojo.Demo" >
+    <id column="did" property="did" jdbcType="INTEGER" />
+    <result column="dtext" property="dtext" jdbcType="VARCHAR" />
+    <result column="dstate" property="dstate" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from demo
+    where did = #{did,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shoes101.pojo.Demo" >
+    <selectKey resultType="java.lang.Integer" keyProperty="did" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into demo (dtext, dstate)
+    values (#{dtext,jdbcType=VARCHAR}, #{dstate,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Demo" >
+    update demo
+    set dtext = #{dtext,jdbcType=VARCHAR},
+      dstate = #{dstate,jdbcType=VARCHAR}
+    where did = #{did,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select did, dtext, dstate
+    from demo
+    where did = #{did,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select did, dtext, dstate
+    from demo
+  </select>
+</mapper>
