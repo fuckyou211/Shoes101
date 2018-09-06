@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>登录</title>
+		<link rel="stylesheet" href="https://cdn.bootcss.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  		<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/popper.js/1.12.5/umd/popper.min.js"></script>
+		<script src="https://cdn.bootcss.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+		
+		<style>
+			.container{
+				font-family: "微软雅黑";
+			}
+		</style>
+	</head>
+	<body style="background-image: url(img/bg_1.jpg); background-repeat:no-repeat;">
+		<div class="container" >
+			<div class="col-sm-8 col-md-6 col-lg-5" style="margin: auto;margin-top: 210px;">
+				<form action="/admin/login">
+					<h2>欢迎登录</h2>
+					<div class="form-group">
+						<input type="text" class="form-control" id="adminName" name="adminName" placeholder="用户名" />
+					</div>
+					<div class="form-group">
+						<input type="password" class="form-control" id="password" name="password" placeholder="密码" />
+					</div>
+					<div class="custom-control custom-checkbox mb-3">
+				      <input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
+				      <label class="custom-control-label" for="customCheck">记住密码</label>
+				    </div>
+				    <div class="form-group">
+				    	<a class="btn btn-primary" onclick="doLogin()">登录</a>
+				    </div>
+				</form>
+			</div>
+		</div>
+		
+	</body>
+<script>
+    function doLogin(){
+
+        // var inputPass = $("#password").val();
+        // var salt = g_passsword_salt;
+        // var str = ""+salt.charAt(0)+salt.charAt(2) + inputPass +salt.charAt(5) + salt.charAt(4);
+        // var password = md5(str);
+
+        $.ajax({
+            url: "/admin/doLogin",
+			dataType:"json",
+            type: "POST",
+            data:{
+                adminName:$("#adminName").val(),
+                password: $("#password").val()
+            },
+            success:function(data){
+               // console.log(data);
+                alert("用户名或密码错误");
+				 if(data == 'yes')
+				{
+                    window.location.href="result.html";
+				 }
+				//
+				// else
+				// {
+				//     alert("用户名或密码错误");
+				// }
+            },
+            error:function(data){
+            //    console.log(data);
+                alert("aaaaa");
+            }
+        });
+    }
+
+</script>
+</html>
