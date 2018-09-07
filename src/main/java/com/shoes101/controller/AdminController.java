@@ -23,12 +23,29 @@ public class AdminController {
     {
         return "login";
     }
+
+    //登录成功跳转到后台管理
+    @RequestMapping("/toback")
+    public String toback()
+    {
+        return "/back/index";
+    }
+
+    //跳转到商品管理
+    @RequestMapping("/toshoes")
+    public String toshoes()
+    {
+        return "back/manager_shoes";
+    }
+
+
     //登录测试样例
     @RequestMapping("/result")
     public String result()
     {
-        return "result";
+        return "/back/result";
     }
+
 
     // 登录
     @RequestMapping("/doLogin")

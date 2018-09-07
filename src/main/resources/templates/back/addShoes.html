@@ -38,7 +38,7 @@
                             <ul class="dropdown-menu animated fadeInRight m-t-xs">
                                 <li><a href="profile.html">修改密码</a></li>
                                 <li class="divider"></li>
-                                <li><a href="login.html">退出</a></li>
+                                <li><a href="../login.html">退出</a></li>
                             </ul>
                         </div>
                         <div class="logo-element">
@@ -61,7 +61,7 @@
                     <li>
                         <a href="mailbox.html"><i class="fa fa-rocket"></i> <span class="nav-label">抢购管理 </span></a>
                     </li>
-                    <li>
+                     <li>
                         <a href="mailbox.html"><i class="fa fa-rocket"></i> <span class="nav-label">分类管理 </span></a>
                     </li>
                     <li>
@@ -101,7 +101,7 @@
                         </li>
         
                         <li>
-                            <a href="login.html">
+                            <a href="../login.html">
                                 <i class="fa fa-sign-out"></i> 退出
                             </a>
                         </li>
@@ -127,7 +127,7 @@
                             <a>商品管理</a>
                         </li>
                         <li class="active">
-                            <strong>修改商品</strong>
+                            <strong>添加商品</strong>
                         </li>
                     </ol>
                 </div>
@@ -149,7 +149,7 @@
                                 <li class=""><a data-toggle="tab" href="#tab-6" id="aTab_6"> 详情描述></a></li>
                                 <li class=""><a data-toggle="tab" href="#tab-7" id="aTab_7"> 填写库存</a></li>
                             </ul>
-                            <div class="tab-content" id="aShoes">
+                            <div class="tab-content">
                                 <div id="tab-1" class="tab-pane active">
                                     <div class="panel-body">
                                         <form id="shoesForm">
@@ -683,14 +683,6 @@
             var data=$($('#shoesProperty').children().get(0)).clone();
             $('#shoesProperty').append(data);
         });
-    </script>
-    <script>
-    	var aShoes = new Vue({
-    		el:"#aShoes",
-    		data:{
-    			
-    		}
-    	})
     </script>
 </body>
 </html>
