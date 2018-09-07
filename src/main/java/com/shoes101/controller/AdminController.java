@@ -39,15 +39,15 @@ public class AdminController {
         //String data = "";
         //System.out.println("aaaa");
         //MD5Util md5Util = new MD5Util();
-
-        System.out.println(password);
+//        System.out.println("pass");
+//        System.out.println(password);
 
         //首次加密
-        String secondPass = MD5Util.inputPassToFormPass(password);
+        //String secondPass = MD5Util.inputPassToFormPass(password);
 
-        System.out.println(secondPass);
+        //System.out.println(secondPass);
         //二次加密
-        // String endPassword = MD5Util.formPassToDBPass(secondPass,MD5Util.getSalt());
+        String endPassword = MD5Util.formPassToDBPass(password,MD5Util.getSalt());
 
         //System.out.println(endPassword);
         //加密的密码在数据库找对应
@@ -60,7 +60,7 @@ public class AdminController {
             //System.out.println("1");
             return "0";
         }
-        else if (admin.getPassword().equals(secondPass))
+        else if (admin.getPassword().equals(endPassword))
         {
             //data = "yes";
             //System.out.println("2");
