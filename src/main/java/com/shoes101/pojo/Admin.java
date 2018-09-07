@@ -3,7 +3,7 @@ package com.shoes101.pojo;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+//管理员
 @Table(name="admin")
 public class Admin {
 

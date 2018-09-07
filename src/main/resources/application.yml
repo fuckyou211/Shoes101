@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
-    driverClassName: com.mysql.cj.jdbc.Driver
+    driverClassName: com.mysql.jdbc.Driver
     platform: mysql
     url: jdbc:mysql://127.0.0.1:3306/shoes?useUnicode=true&characterEncoding=utf-8&useSSL=false&&serverTimezone=UTC
     username: root
