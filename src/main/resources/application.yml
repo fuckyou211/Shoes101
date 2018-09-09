@@ -26,7 +26,7 @@ spring:
 
 
 mybatis:
-    mapper-locations: classpath:mapping/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
+    mapper-locations: classpath:com/shoes101/mappers/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
     type-aliases-package: com.shoes101.pojo  # 注意：对应实体类的路径
 
 redis:
@@ -38,9 +38,9 @@ redis:
  poolMaxIdle: 500
 
 
-mapper:
-  mappers:
-  - com.shoes101.config.mybatis.BaseMapper
-  notEmpty: false
-  identity: MYSQL
+#mapper:
+#  mappers:
+#  - com.shoes101.config.mybatis.BaseMapper
+#  notEmpty: false
+#  identity: MYSQL
 

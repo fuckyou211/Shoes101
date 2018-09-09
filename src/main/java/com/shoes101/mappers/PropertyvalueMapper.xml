@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoes101.mapper.PropertyvalueMapper" >
+  <resultMap id="BaseResultMap" type="com.shoes101.pojo.Propertyvalue" >
+    <id column="propertyvalueid" property="propertyvalueid" jdbcType="INTEGER" />
+    <id column="propertyid" property="propertyid" jdbcType="INTEGER" />
+    <result column="propertyvalue" property="propertyvalue" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map" >
+    delete from propertyvalue
+    where propertyvalueid = #{propertyvalueid,jdbcType=INTEGER}
+      and property = #{property,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shoes101.pojo.Propertyvalue" >
+    <selectKey resultType="java.lang.Integer" keyProperty="propertyvalueid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into propertyvalue (property, propertyvalue)
+    values (#{property,jdbcType=INTEGER}, #{propertyvalue,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Propertyvalue" >
+    update propertyvalue
+    set propertyvalue = #{propertyvalue,jdbcType=VARCHAR}
+    where propertyvalueid = #{propertyvalueid,jdbcType=INTEGER}
+      and property = #{property,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
+    select propertyvalueid, property, propertyvalue
+    from propertyvalue
+    where propertyvalueid = #{propertyvalueid,jdbcType=INTEGER}
+      and property = #{property,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select propertyvalueid, property, propertyvalue
+    from propertyvalue
+  </select>
+
+  <update id="updateProp">
+    update propertyvalue set propertyvalue=#{propertyvalue} where propertyid=#{propertyid}
+  </update>
+
+  <delete id="deleteProp" parameterType="Integer">
+    delete from propertyvalue where propertyid=#{propertyid}
+  </delete>
+  <!--&lt;!&ndash;获取到property的id 连同propertyvalue一同插入表中&ndash;&gt;-->
+  <!--<insert id="inserttwo" parameterType="java.lang.String">-->
+    <!--insert into property(propertyname) values (#{propertyname})-->
+  <!--</insert>-->
+</mapper>

@@ -1,7 +1,9 @@
 package com.shoes101.controller;
 
 import com.shoes101.pojo.Admin;
+import com.shoes101.pojo.Property;
 import com.shoes101.service.AdminService;
+import com.shoes101.service.PropertyService;
 import com.shoes101.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,33 +12,69 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
+import java.util.Map;
 
+/**
+ * 后台管理总控制器 实现功能跳转
+ */
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
 
     @Autowired
     private AdminService adminservice;
-    //跳转到后台管理员界面
+
+    @Autowired
+    private PropertyService propertyService;
+
+    /**
+     *  跳转到后台管理员界面
+     */
+
     @RequestMapping("/login")
     public String login()
     {
         return "login";
     }
 
-    //登录成功跳转到后台管理
+    /**
+     *  登录成功跳转到后台管理
+     */
+
     @RequestMapping("/toback")
     public String toback()
     {
         return "/back/index";
     }
 
-    //跳转到商品管理
+    /**
+     * 跳转到商品管理
+     */
+
     @RequestMapping("/toshoes")
     public String toshoes()
     {
         return "back/manager_shoes";
     }
+
+    /**
+     * 跳转到属性管理 获取全部属性
+     */
+
+    @RequestMapping("/toproperty")
+    public String toproperty(Map<String,Object> map)
+    {
+        System.out.println("1111111");
+        List<Property> list = propertyService.getAllProperty();
+        System.out.println(list.isEmpty());
+        System.out.println(list.isEmpty());
+        System.out.println(list.isEmpty());
+        map.put("list",list);
+        return "back/manager_property";
+    }
+
+
 
 
     //登录测试样例
@@ -47,7 +85,13 @@ public class AdminController {
     }
 
 
-    // 登录
+    /**
+     * 登录
+     * @param response
+     * @param adminName
+     * @param password
+     * @return
+     */
     @RequestMapping("/doLogin")
     @ResponseBody
     public Object doLogin(HttpServletResponse response, @RequestParam(value="adminName") String adminName,

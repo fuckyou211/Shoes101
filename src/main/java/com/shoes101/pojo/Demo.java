@@ -1,5 +1,5 @@
 package com.shoes101.pojo;
-//展示样例 实体类要加入注释
+
 import java.io.Serializable;
 
 public class Demo implements Serializable {
