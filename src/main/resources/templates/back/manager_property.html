@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 
     <meta charset="utf-8">
@@ -134,7 +134,7 @@
 							<div class="ibox float-e-margins">
 		                		<div class="ibox-content">
 		                			<div class="table-responsive">
-										<table class="table table-striped table-bordered table-hover" id="shoesType">
+										<table class="table table-striped table-bordered table-hover" id="shoesProprity">
 											<thead>
 												<tr>
 													<th><label class="col-xl-1">编号</label></th>
@@ -145,9 +145,9 @@
 												</tr>
 											</thead>
 											<tbody >
-												<tr v-for="item in types">
+												<tr v-for="item in propertys">
 													<td><p class="myp">{{}}</p></td>
-													<td><p class="myp">{{item.name}}</p></td>
+													<td><p class="myp">{{item.propertyname}}</p></td>
 													<td><a href="javascript:void(0)" onclick="getPropertyValue('123')">  查看属性值  </a></td>
 													<!--<td><p class="myp">添加子分类</p></td>-->
 													<td>
@@ -230,8 +230,31 @@
     <!-- Custom and plugin javascript -->
     <script src="../js/inspinia.js"></script>
     <script src="../js/plugins/pace/pace.min.js"></script>
-    
+
+    <script src="../js/vue.js"></script>
+
     <script>
+        $(document).ready(function(){
+            //${list}
+        var proList = new Vue({
+            el:"#shoesProprity",
+            data:{
+                propertys:[]
+            }
+        })
+        var temp="[[${list}]]";
+            temp= temp.replace(/&quot;/g,"\"");
+        console.log(temp);
+        console.log("[[${list}]]");
+        console.log(JSON.parse(temp));
+        proList.propertys = JSON.parse(temp);
+
+           /* // var temp= [[${list}]];
+            // console.log(temp);
+            // var data = JSON.parse(temp);
+            // //var data1=typeof [[${list}]];*/
+        //console.log('[[${list}]]);
+        });
     	function getPropertyValue(pid){
     		console.log(pid);
     		$("#btn-property").hide();

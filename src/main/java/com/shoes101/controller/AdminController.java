@@ -1,5 +1,6 @@
 package com.shoes101.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.shoes101.pojo.Admin;
 import com.shoes101.pojo.Property;
 import com.shoes101.service.AdminService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -63,14 +65,15 @@ public class AdminController {
      */
 
     @RequestMapping("/toproperty")
-    public String toproperty(Map<String,Object> map)
+    public String toproperty(HashMap<String,Object> map)
     {
         System.out.println("1111111");
-        List<Property> list = propertyService.getAllProperty();
-        System.out.println(list.isEmpty());
-        System.out.println(list.isEmpty());
-        System.out.println(list.isEmpty());
+        List<Property> list1 = propertyService.getAllProperty();
+        System.out.println(list1.isEmpty());
+        String list= JSON.toJSONString(list1);
         map.put("list",list);
+
+        System.out.println(list);
         return "back/manager_property";
     }
 
