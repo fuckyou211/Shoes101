@@ -23,7 +23,6 @@ public interface PropertyMapper{
     List<Property> selectAll();
 
     //增加属性进入两张表中
-    @Insert("insert into property where propertyname=#{propertyname}")
     public int inserttwo(String propertyname);
 
     //获取id

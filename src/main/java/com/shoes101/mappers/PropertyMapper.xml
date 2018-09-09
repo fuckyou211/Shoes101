@@ -5,10 +5,12 @@
     <id column="propertyid" jdbcType="INTEGER" property="propertyid" />
     <result column="propertyname" jdbcType="VARCHAR" property="propertyname" />
   </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from property
     where propertyid = #{propertyid,jdbcType=INTEGER}
   </delete>
+
   <insert id="insert" parameterType="com.shoes101.pojo.Property">
     <selectKey keyProperty="propertyid" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
@@ -16,16 +18,19 @@
     insert into property (propertyname)
     values (#{propertyname,jdbcType=VARCHAR})
   </insert>
+
   <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Property">
     update property
     set propertyname = #{propertyname,jdbcType=VARCHAR}
     where propertyid = #{propertyid,jdbcType=INTEGER}
   </update>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select propertyid, propertyname
     from property
     where propertyid = #{propertyid,jdbcType=INTEGER}
   </select>
+
   <select id="selectAll" resultMap="BaseResultMap">
     select propertyid, propertyname
     from property
