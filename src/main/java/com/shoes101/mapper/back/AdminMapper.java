@@ -1,4 +1,4 @@
-package com.shoes101.mapper;
+package com.shoes101.mapper.back;
 
 import com.shoes101.config.mybatis.BaseMapper;
 import com.shoes101.pojo.Admin;
