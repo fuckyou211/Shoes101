@@ -110,6 +110,7 @@ public class AdminController {
         //String secondPass = MD5Util.inputPassToFormPass(password);
 
         //System.out.println(secondPass);
+        System.out.println("Good afternoon");
         //二次加密
         String endPassword = MD5Util.formPassToDBPass(password,MD5Util.getSalt());
 
