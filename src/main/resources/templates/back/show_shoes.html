@@ -13,7 +13,7 @@
 
     <link href="../css/animate.css" rel="stylesheet">
     <link href="../css/style.css" rel="stylesheet">
-    
+
     <link href="../css/plugins/awesome-bootstrap-checkbox/awesome-bootstrap-checkbox.css" rel="stylesheet">
     <link href="../css/plugins/jasny/jasny-bootstrap.min.css" rel="stylesheet">
     <link href="../css/admin.css" rel="stylesheet">
@@ -22,433 +22,359 @@
     <link href="../css/plugins/summernote/summernote-bs4.css" rel="stylesheet">
 </head>
 <body>
-    <div id="wrapper">
+<div id="wrapper">
 
-        <!-- 左侧导航栏 -->
-        <nav class="navbar-default navbar-static-side" role="navigation">
-            <div class="sidebar-collapse">
-                <ul class="nav metismenu" id="side-menu">
-                    <li class="nav-header">
-                        <div class="dropdown profile-element"> <span>
-                            <img alt="image" class="img-circle" src="img/profile_small.jpg" />
-                             </span>
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">欢迎你！</strong>
-                             </span> <span class="text-muted text-xs block">靓仔！<b class="caret"></b></span> </span> </a>
-                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="profile.html">修改密码</a></li>
-                                <li class="divider"></li>
-                                <li><a href="../login.html">退出</a></li>
-                            </ul>
-                        </div>
-                        <div class="logo-element">
-                            IN+
-                        </div>
+    <!-- 左侧导航栏 -->
+    <div id="navigate">
+    </div>
+
+
+    <!-- 右边主演部分 -->
+    <div id="page-wrapper" class="gray-bg dashbard-1">
+        <!-- 正上方一小条 -->
+        <div id="navigate_2">
+        </div>
+
+
+        <!--这里是标题、指示的地方-->
+        <div class="row wrapper border-bottom white-bg page-heading">
+            <div class="col-lg-10">
+                <h2>添加商品</h2>
+                <ol class="breadcrumb">
+                    <li>
+                        <a href="index.html">Home</a>
                     </li>
                     <li>
-                        <a href="Admin.html"><i class="fa fa-user-circle-o"></i> <span class="nav-label">销售统计</span></a>
-                    </li>
-                    <li>
-                        <a href="Admin.html"><i class="fa fa-user-circle-o"></i> <span class="nav-label">会员管理</span></a>
-                    </li>
-                    <li >
-                        <a href="manager_shoes.html"><i class="fa fa-bandcamp"></i> <span class="nav-label">商品管理</span></a>
-                       
-                    </li>
-                    <li>
-                        <a href="layouts.html"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">订单管理</span><span class="label label-warning pull-right">10</span></a>
-                    </li>
-                    <li>
-                        <a href="mailbox.html"><i class="fa fa-rocket"></i> <span class="nav-label">抢购管理 </span></a>
-                    </li>
-                    <li>
-                        <a href="mailbox.html"><i class="fa fa-rocket"></i> <span class="nav-label">分类管理 </span></a>
-                    </li>
-                    <li>
-                        <a href="mailbox.html"><i class="fa fa-rocket"></i> <span class="nav-label">属性管理 </span></a>
+                        <a>商品管理</a>
                     </li>
                     <li class="active">
-                        <a href="metrics.html"><i class="fa fa-telegram"></i> <span class="nav-label">首页内容管理</span><span class="fa arrow"></span>  </a>
-                        <ul class="nav nav-second-level">
-                            <li class="active"><a href="index.html">导航栏管理</a></li>
-                            <li><a href="dashboard_2.html">轮播图管理</a></li>
-                            <li><a href="dashboard_3.html">推荐管理</a></li>
-                        </ul>
+                        <strong>查看商品</strong>
                     </li>
-                    <li>
-                        <a href="metrics.html"><i class="fa fa-comments-o"></i> <span class="nav-label">聊天室</span><span class="label label-danger pull-right">16</span></a>
-                    </li>
-                    <li>
-                        <a href="metrics.html"><i class="fa fa-tags"></i> <span class="nav-label">系统说明</span>  </a>
-                    </li>
-                </ul>
+                </ol>
+            </div>
+            <div class="col-lg-2">
 
             </div>
-        </nav>
+        </div>
 
-        
-        <!-- 右边主演部分 -->
-        <div id="page-wrapper" class="gray-bg dashbard-1">
-            <!-- 正上方一小条 -->
-            <div class="row border-bottom">
-                <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
-                    <div class="navbar-header">
-                        <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                    </div>
-                    <ul class="nav navbar-top-links navbar-right">
-                        <li>
-                            <span class="m-r-sm text-muted welcome-message">欢迎使用101Shoes后台管理系统</span>
-                        </li>
-        
-                        <li>
-                            <a href="../login.html">
-                                <i class="fa fa-sign-out"></i> 退出
-                            </a>
-                        </li>
-                        <li>
-                            <a class="right-sidebar-toggle">
-                                <i class="fa fa-tasks"></i>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            
-        
-    		<!--这里是标题、指示的地方-->
-            <div class="row wrapper border-bottom white-bg page-heading">
-                <div class="col-lg-10">
-                    <h2>添加商品</h2>
-                    <ol class="breadcrumb">
-                        <li>
-                            <a href="index.html">Home</a>
-                        </li>
-                        <li>
-                            <a>商品管理</a>
-                        </li>
-                        <li class="active">
-                            <strong>查看商品</strong>
-                        </li>
-                    </ol>
-                </div>
-                <div class="col-lg-2">
+        <div class="wrapper wrapper-content animated fadeInRight ecommerce">
+            <div class="row">
+                <div class="col-lg-12">
 
-                </div>
-            </div>
+                    <div class="form-horizontal">
+                        <div class="form-group">
+                            <p class="col-lg-2 myp-right">
+                                鞋子分类:
+                            </p>
+                            <div class="col-lg-10">
+                                <p class="myp">
+                                    男鞋/运动鞋
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="col-lg-2 myp-right">
+                                鞋子名称/标题:
+                            </p>
+                            <div class="col-lg-10">
+                                <p class="myp">
+                                    Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="col-lg-2 myp-right">
+                                鞋子价格:
+                            </p>
+                            <div class="col-lg-10">
+                                <p class="myp">
+                                    123
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="col-lg-2 myp-right">
+                                鞋子总库存:
+                            </p>
+                            <div class="col-lg-10">
+                                <p class="myp">
+                                    88
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="col-lg-2 myp-right">
+                                鞋子风格:
+                            </p>
+                            <div class="col-lg-10">
+                                <p class="myp">
+                                    深刻的价格
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="col-lg-2 myp-right">
+                                鞋子图片:
+                            </p>
+                            <div class="col-sm-3">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box">
+                                        <div class="product-imitation" style="padding: 0%;">
+                                            <img src="img/4.png" class="img-responsive center-block"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box">
+                                        <div class="product-imitation" style="padding: 0%;">
+                                            <img src="img/4.png" class="img-responsive center-block"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box">
+                                        <div class="product-imitation" style="padding: 0%;">
+                                            <img src="img/4.png" class="img-responsive center-block"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="wrapper wrapper-content animated fadeInRight ecommerce">
-                <div class="row">
-                    <div class="col-lg-12">
-                    	
-                    	<div class="form-horizontal">
-                    		<div class="form-group">
-                                <p class="col-lg-2 myp-right">
-                                   	 鞋子分类:
-                                </p>
-                                <div class="col-lg-10">
-                                	<p class="myp">
-                                    	男鞋/运动鞋
-                                	</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                            	<p class="col-lg-2 myp-right">
-                                   	 鞋子名称/标题:
-                                </p>
-                                <div class="col-lg-10">
-                                	<p class="myp">
-                                    	Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124
-                                	</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                            	<p class="col-lg-2 myp-right">
-                                   	 鞋子价格:
-                                </p>
-                                <div class="col-lg-10">
-                                	<p class="myp">
-                                    	123
-                                	</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                            	<p class="col-lg-2 myp-right">
-                                   	  鞋子总库存:
-                                </p>
-                                <div class="col-lg-10">
-                                	<p class="myp">
-                                    	88
-                                	</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                            	<p class="col-lg-2 myp-right">
-                                   	  鞋子风格:
-                                </p>
-                                <div class="col-lg-10">
-                                	<p class="myp">
-                                    	深刻的价格
-                                	</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <p class="col-lg-2 myp-right">
-                                   	  鞋子图片:
-                                </p>
-                                <div class="col-sm-3">
-                                    <div class="ibox">
-                                        <div class="ibox-content product-box">
-                                            <div class="product-imitation" style="padding: 0%;">
-                                            	<img src="img/4.png" class="img-responsive center-block"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="ibox">
-                                        <div class="ibox-content product-box">
-                                            <div class="product-imitation" style="padding: 0%;">
-                                            	<img src="img/4.png" class="img-responsive center-block"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="ibox">
-                                        <div class="ibox-content product-box">
-                                            <div class="product-imitation" style="padding: 0%;">
-                                            	<img src="img/4.png" class="img-responsive center-block"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                <div class="col-sm-3">
-                                    <div class="ibox">
-                                        <div class="ibox-content product-box">
-                                            <div class="product-imitation" style="padding: 0%;">
-                                            	<img src="img/4.png" class="img-responsive center-block"/>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="ibox">
-                                        <div class="ibox-content product-box">
-                                            <div class="product-imitation" style="padding: 0%;">
-                                            	<img src="img/4.png" class="img-responsive center-block"/>
-                                            </div>
+                            <div class="col-sm-3">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box">
+                                        <div class="product-imitation" style="padding: 0%;">
+                                            <img src="img/4.png" class="img-responsive center-block"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <p class="col-lg-2 myp-right">
-                                   	  鞋子颜色:
-                                </p>
-                                <div class="col-lg-10">
-                                	<p class="myp">
-                                    	红色
-                                	</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <p class="col-lg-2 myp-right">
-                                   	  鞋子尺码:
-                                </p>
-                                <div class="col-lg-10">
-                                	<p class="myp">
-                                    	31，21，25
-                                	</p>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <p class="col-lg-2 myp-right">
-                                   	  详情描述:
-                                </p>
-                                <div class="col-lg-10">
-                                	<div class="ibox-content no-padding">
-	                                    
-                                        <br/><br/><br/><br/>
-                                        请描述商品的详细情况，简单介绍商品<br/>
-                                        巴拉巴拉巴拉巴拉。。。。。
-                                        <br/><br/><br/><br/><br/><br/><br/>
-	                                    
-	                                </div>
-                                </div>
-                                
-                            </div>
-                    	</div>
-                    	
-                        <div class="tabs-container">
-                            <div class="tab-content" id="aShoes">
-                                <div id="tab-7" class="tab-pane">
-                                    <div class="panel-body">
-                                        <div class="form-group col-md-12" style="margin-top: 18px;">
-                                            <label>请填写颜色对应的尺码的库存:</label>
-                                        </div>
-                                        <div class="col-lg-12">
-                                            <div class="ibox float-e-margins">
-                                                <div class="ibox-content">
-                                                    <form id="" name="">
-                                                    	<div class="table-responsive">
-	                                                    	<table class="table table-bordered " id="countTable">
-	                                                            <tbody>
-	                                                                <tr>
-	                                                                    <td>库存</td>
-	                                                                    <td v-for="item in colors" >
-	                                                                    	<label class="col-sm-5">
-	                                                                    		{{item.color}}
-	                                                                    	</label>
-	                                                                    </td>
-	                                                                </tr>
-	                                                                <tr v-for="item in sizes">
-	                                                                    <td>{{item}}</td>
-	                                                                    <td v-for="n in count"><input  type="number" min="0" class="form-control col-sm-2" name="" /></td>
-                                                                	</tr>
-	                                                            </tbody>
-	                                                        </table>	
-                                                    	</div>
-                                                    </form>
-                                                </div>
-                                            </div>
-
+                            <div class="col-sm-3">
+                                <div class="ibox">
+                                    <div class="ibox-content product-box">
+                                        <div class="product-imitation" style="padding: 0%;">
+                                            <img src="img/4.png" class="img-responsive center-block"/>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group">
+                            <p class="col-lg-2 myp-right">
+                                鞋子颜色:
+                            </p>
+                            <div class="col-lg-10">
+                                <p class="myp">
+                                    红色
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="col-lg-2 myp-right">
+                                鞋子尺码:
+                            </p>
+                            <div class="col-lg-10">
+                                <p class="myp">
+                                    31，21，25
+                                </p>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <p class="col-lg-2 myp-right">
+                                详情描述:
+                            </p>
+                            <div class="col-lg-10">
+                                <div class="ibox-content no-padding">
 
+                                    <br/><br/><br/><br/>
+                                    请描述商品的详细情况，简单介绍商品<br/>
+                                    巴拉巴拉巴拉巴拉。。。。。
+                                    <br/><br/><br/><br/><br/><br/><br/>
+
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
+
+                    <div class="tabs-container">
+                        <div class="tab-content" id="aShoes">
+                            <div id="tab-7" class="tab-pane">
+                                <div class="panel-body">
+                                    <div class="form-group col-md-12" style="margin-top: 18px;">
+                                        <label>请填写颜色对应的尺码的库存:</label>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="ibox float-e-margins">
+                                            <div class="ibox-content">
+                                                <form id="" name="">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-bordered " id="countTable">
+                                                            <tbody>
+                                                            <tr>
+                                                                <td>库存</td>
+                                                                <td v-for="item in colors" >
+                                                                    <label class="col-sm-5">
+                                                                        {{item.color}}
+                                                                    </label>
+                                                                </td>
+                                                            </tr>
+                                                            <tr v-for="item in sizes">
+                                                                <td>{{item}}</td>
+                                                                <td v-for="n in count"><input  type="number" min="0" class="form-control col-sm-2" name="" /></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <!-- Mainly scripts -->
-    <script src="../js/jquery-3.1.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+<!-- Mainly scripts -->
+<script src="../js/jquery-3.1.1.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <!-- Custom and plugin javascript -->
-    <script src="../js/inspinia.js"></script>
-    <script src="../js/plugins/pace/pace.min.js"></script>
+<!-- Custom and plugin javascript -->
+<script src="../js/inspinia.js"></script>
+<script src="../js/plugins/pace/pace.min.js"></script>
 
-    <!-- Jasny -->
-    <script src="../js/plugins/jasny/jasny-bootstrap.min.js"></script>
-    
-    <!-- CodeMirror -->
-    <script src="../js/plugins/codemirror/codemirror.js"></script>
-    <script src="../js/plugins/codemirror/mode/xml/xml.js"></script>
+<!-- Jasny -->
+<script src="../js/plugins/jasny/jasny-bootstrap.min.js"></script>
 
-    <!-- SUMMERNOTE -->
-    <script src="../js/plugins/summernote/summernote.js"></script>
-    
-    <script src="../js/vue.js"></script>
+<!-- CodeMirror -->
+<script src="../js/plugins/codemirror/codemirror.js"></script>
+<script src="../js/plugins/codemirror/mode/xml/xml.js"></script>
 
-    <script>
-        //初始化文本编辑框
-        $(document).ready(function(){
+<!-- SUMMERNOTE -->
+<script src="../js/plugins/summernote/summernote.js"></script>
 
-            $('.summernote').summernote();
+<script src="../js/vue.js"></script>
 
-        });
-    </script>
-    <script>
-        //图片回显功能
-        function preview(file) {
+<script>
+    $("#navigate").load("navigate.html");
+    $("#navigate_2").load("navigate_2.html");
+</script>
+
+<script>
+    //初始化文本编辑框
+    $(document).ready(function(){
+
+        $('.summernote').summernote();
+
+    });
+</script>
+<script>
+    //图片回显功能
+    function preview(file) {
 
         var inputid = file.getAttribute("id");//stmp.substring(0,1)
         var indexid=inputid.substring(0,1);
         var picid = 'pic' + indexid;
         var prevDiv = document.getElementById(picid);
         if (file.files && file.files[0]) {
-        var reader = new FileReader();
-        reader.onload = function (evt) {
-            
-            // $("#picid").parent().style.padding="0%";
-            prevDiv.innerHTML = '<img  src="' + evt.target.result + '" class="img-responsive center-block" />';
-            $("#pic"+indexid).parent().css("padding","0%");
-        }
-        reader.readAsDataURL(file.files[0]);
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+
+                // $("#picid").parent().style.padding="0%";
+                prevDiv.innerHTML = '<img  src="' + evt.target.result + '" class="img-responsive center-block" />';
+                $("#pic"+indexid).parent().css("padding","0%");
+            }
+            reader.readAsDataURL(file.files[0]);
         } else {
-                prevDiv.innerHTML = '<div class="img img-responsive center-block" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
+            prevDiv.innerHTML = '<div class="img img-responsive center-block" style="filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale,src=\'' + file.value + '\'"></div>';
             $("#pic"+indexid).parent().css("padding","0%");
         }
-        }
-    </script>
-    <script>
-        //下一步
-        function nextTab(obj){
-            var tabindex=$(obj).attr("value");
-            $("#aTab_"+tabindex).trigger("click");
-            //$(this).attr("id");
-        }
-    </script>
-    <script>
-        //跟上传图片有关
-        Dropzone.options.dropzoneForm = {
-            paramName: "file", // The name that will be used to transfer the file
-            maxFilesize: 2, // MB
-            dictDefaultMessage: "<strong>Drop files here or click to upload. </strong></br> (This is just a demo dropzone. Selected files are not actually uploaded.)"
-        };
+    }
+</script>
+<script>
+    //下一步
+    function nextTab(obj){
+        var tabindex=$(obj).attr("value");
+        $("#aTab_"+tabindex).trigger("click");
+        //$(this).attr("id");
+    }
+</script>
+<script>
+    //跟上传图片有关
+    Dropzone.options.dropzoneForm = {
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: 2, // MB
+        dictDefaultMessage: "<strong>Drop files here or click to upload. </strong></br> (This is just a demo dropzone. Selected files are not actually uploaded.)"
+    };
 
-        $(document).ready(function(){
+    $(document).ready(function(){
 
-            var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
-                lineNumbers: true,
-                matchBrackets: true
-            });
-
-            var editor_two = CodeMirror.fromTextArea(document.getElementById("code2"), {
-                lineNumbers: true,
-                matchBrackets: true
-            });
-
-            var editor_two = CodeMirror.fromTextArea(document.getElementById("code3"), {
-                lineNumbers: true,
-                matchBrackets: true
-            });
-
-        });
-    </script>
-    <script>
-         $('#addNewColor').click(function (e) {
-            //e.preventDefault();
-             var data=$($('#divforcolor').children().get(0)).clone();
-             $('#divforcolor').append(data);
+        var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
+            lineNumbers: true,
+            matchBrackets: true
         });
 
-        
-    </script>
-    <script>
-        new Vue({
-            el: '#firsttype',
-            data: {
-                types_1: [
+        var editor_two = CodeMirror.fromTextArea(document.getElementById("code2"), {
+            lineNumbers: true,
+            matchBrackets: true
+        });
+
+        var editor_two = CodeMirror.fromTextArea(document.getElementById("code3"), {
+            lineNumbers: true,
+            matchBrackets: true
+        });
+
+    });
+</script>
+<script>
+    $('#addNewColor').click(function (e) {
+        //e.preventDefault();
+        var data=$($('#divforcolor').children().get(0)).clone();
+        $('#divforcolor').append(data);
+    });
+
+
+</script>
+<script>
+    new Vue({
+        el: '#firsttype',
+        data: {
+            types_1: [
                 { name: '男鞋' },
                 { name: '女鞋' },
                 { name: '儿童' },
                 { name: '靴子' }
-                ]
-            }
-        });
-        new Vue({
-            el: '#secondtype',
-            data: {
-                types_2: [
+            ]
+        }
+    });
+    new Vue({
+        el: '#secondtype',
+        data: {
+            types_2: [
                 { name: '休闲' },
                 { name: '运动' },
                 { name: '其他' },
                 { name: '靴子' }
-                ]
-            }
-        });
-        new Vue({
-            el: '#shoesProperty',
-            data: {
-                Propertys: [
+            ]
+        }
+    });
+    new Vue({
+        el: '#shoesProperty',
+        data: {
+            Propertys: [
                 { name: '请选择属性' },
                 { name: '鞋面材质' },
                 { name: '鞋底材质' },
@@ -458,60 +384,60 @@
                 { name: '鞋帮高度' },
                 { name: '季节' },
                 { name: '鞋头款式' }
-                ]
-            }
-        });
-        new Vue({
-            el: '#divforcolor',
-            data: {
-                PropertyValue: [
+            ]
+        }
+    });
+    new Vue({
+        el: '#divforcolor',
+        data: {
+            PropertyValue: [
                 { pValue: '黑色' },
                 { pValue: '红色' },
                 { pValue: '白色' },
                 { pValue: '哈哈' }
-                ]
-            }
-        });
-        new Vue({
-            el: '#shoesSize',
-            data: {
-                sizes:["30","31","32","33","34","35","36","37","38","39","40","41"]
-            },
-            methods:{
+            ]
+        }
+    });
+    new Vue({
+        el: '#shoesSize',
+        data: {
+            sizes:["30","31","32","33","34","35","36","37","38","39","40","41"]
+        },
+        methods:{
             gernerateId: function (index){
                 return "checkbox_" +index;
-                }
             }
-        });
+        }
+    });
 
-        new Vue({
-            el:"#countTable",
-            data:{
-                colors: [
+    new Vue({
+        el:"#countTable",
+        data:{
+            colors: [
                 { color: '黑色' },
                 { color: '红色' },
                 { color: '黄色' },
                 { color: '白色' },
                 { color: '哈哈' }
-                ],
-                sizes:["30","31","32","33","34","35","36","37","38","39","40","41"],
-                count:5,
-            }
-        })
+            ],
+            sizes:["30","31","32","33","34","35","36","37","38","39","40","41"],
+            count:5,
+        }
+    })
 
-         $('#addNewProperty').click(function (e) {
-            //e.preventDefault();
-            var data=$($('#shoesProperty').children().get(0)).clone();
-            $('#shoesProperty').append(data);
-        });
-    </script>
-    <script>
-    	var aShoes = new Vue({
-    		el:"#aShoes",
-    		data:{
-    			
-    		}
-    	})
-    </script>
+    $('#addNewProperty').click(function (e) {
+        //e.preventDefault();
+        var data=$($('#shoesProperty').children().get(0)).clone();
+        $('#shoesProperty').append(data);
+    });
+</script>
+<script>
+    var aShoes = new Vue({
+        el:"#aShoes",
+        data:{
+
+        }
+    })
+</script>
 </body>
 </html>
