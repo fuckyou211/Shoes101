@@ -136,5 +136,20 @@ public class AdminController {
         return "0";
     }
 
+    //分类管理
+    @RequestMapping("/tomanagerClassify")
+    public String tomanagerClassify()
+    {
+        return "/back/manager_classify";
+    }
+
+    //Add添加鞋
+    @RequestMapping("/addShoes")
+    public String addShoes()
+    {
+        return "/back/addShoes";
+    }
+
+
 
 }
