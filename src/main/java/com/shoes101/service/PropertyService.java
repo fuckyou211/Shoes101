@@ -1,6 +1,7 @@
 package com.shoes101.service;
 
 import com.shoes101.pojo.Property;
+import com.shoes101.pojo.Propertyvalue;
 
 import java.util.List;
 
@@ -20,4 +21,7 @@ public interface PropertyService {
 
     //删除属性 两张表一起删除
     public List<Property> deleteProp(int propertyid);
+
+    //获取详细属性值
+    public Propertyvalue getProperty(int propertyid);
 }

@@ -1,6 +1,7 @@
 package com.shoes101.controller;
 
 import com.shoes101.pojo.Property;
+import com.shoes101.pojo.Propertyvalue;
 import com.shoes101.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -62,12 +63,23 @@ public class PropertyController {
     /**
      * 删除属性 两张表一起删
      */
-    @RequestMapping("deleteProp")
+    @RequestMapping("/deleteProp")
     @ResponseBody
     public List<Property> deleteProp(@RequestParam("propertyid") int propertyid)
     {
         return propertyService.deleteProp(propertyid);
     }
+
+    /**
+     * 获取详细属性值 传入propertyid
+     */
+    @RequestMapping("/getDetail")
+    @ResponseBody
+    public Propertyvalue getDetail(@RequestParam int propertyid)
+    {
+        return propertyService.getProperty(propertyid);
+    }
+
 
     /**
      * 搜索属性

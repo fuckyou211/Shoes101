@@ -66,4 +66,10 @@ public class PropertyServiceImpl implements PropertyService {
     {
         return propertyvalueMapper.selectByPrimaryKey(propertyid);
     }
+
+    //获取详细属性值
+    public Propertyvalue getProperty(int propertyid)
+    {
+        return propertyvalueMapper.selectByPrimaryKey(propertyid);
+    }
 }
