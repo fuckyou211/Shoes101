@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoes101.mapper.ShopcartdetailsMapper" >
+  <resultMap id="BaseResultMap" type="com.shoes101.pojo.Shopcartdetails" >
+    <id column="scdid" property="scdid" jdbcType="INTEGER" />
+    <result column="scid" property="scid" jdbcType="INTEGER" />
+    <result column="skuid" property="skuid" jdbcType="INTEGER" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="price" property="price" jdbcType="DOUBLE" />
+    <result column="ticketprice" property="ticketprice" jdbcType="DOUBLE" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shopcartdetails
+    where scdid = #{scdid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shoes101.pojo.Shopcartdetails" >
+    <selectKey resultType="java.lang.Integer" keyProperty="scdid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into shopcartdetails (scid, skuid, quantity, 
+      price, ticketprice)
+    values (#{scid,jdbcType=INTEGER}, #{skuid,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, 
+      #{price,jdbcType=DOUBLE}, #{ticketprice,jdbcType=DOUBLE})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Shopcartdetails" >
+    update shopcartdetails
+    set scid = #{scid,jdbcType=INTEGER},
+      skuid = #{skuid,jdbcType=INTEGER},
+      quantity = #{quantity,jdbcType=INTEGER},
+      price = #{price,jdbcType=DOUBLE},
+      ticketprice = #{ticketprice,jdbcType=DOUBLE}
+    where scdid = #{scdid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select scdid, scid, skuid, quantity, price, ticketprice
+    from shopcartdetails
+    where scdid = #{scdid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select scdid, scid, skuid, quantity, price, ticketprice
+    from shopcartdetails
+  </select>
+</mapper>

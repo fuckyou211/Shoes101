@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoes101.mapper.ShoesorderMapper" >
+  <resultMap id="BaseResultMap" type="com.shoes101.pojo.Shoesorder" >
+    <id column="orderid" property="orderid" jdbcType="INTEGER" />
+    <result column="userid" property="userid" jdbcType="VARCHAR" />
+    <result column="totalprice" property="totalprice" jdbcType="DOUBLE" />
+    <result column="totticketprice" property="totticketprice" jdbcType="DOUBLE" />
+    <result column="buydate" property="buydate" jdbcType="DATE" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
+    <result column="contactname" property="contactname" jdbcType="VARCHAR" />
+    <result column="contactphone" property="contactphone" jdbcType="VARCHAR" />
+    <result column="receiptaddress" property="receiptaddress" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="cancel" property="cancel" jdbcType="VARCHAR" />
+    <result column="validity" property="validity" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shoesorder
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shoes101.pojo.Shoesorder" >
+    insert into shoesorder (orderid, userid, totalprice, 
+      totticketprice, buydate, remark, 
+      contactname, contactphone, receiptaddress, 
+      `state`, cancel, validity
+      )
+    values (#{orderid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{totalprice,jdbcType=DOUBLE}, 
+      #{totticketprice,jdbcType=DOUBLE}, #{buydate,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}, 
+      #{contactname,jdbcType=VARCHAR}, #{contactphone,jdbcType=VARCHAR}, #{receiptaddress,jdbcType=VARCHAR}, 
+      #{state,jdbcType=INTEGER}, #{cancel,jdbcType=VARCHAR}, #{validity,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Shoesorder" >
+    update shoesorder
+    set userid = #{userid,jdbcType=VARCHAR},
+      totalprice = #{totalprice,jdbcType=DOUBLE},
+      totticketprice = #{totticketprice,jdbcType=DOUBLE},
+      buydate = #{buydate,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR},
+      contactname = #{contactname,jdbcType=VARCHAR},
+      contactphone = #{contactphone,jdbcType=VARCHAR},
+      receiptaddress = #{receiptaddress,jdbcType=VARCHAR},
+      `state` = #{state,jdbcType=INTEGER},
+      cancel = #{cancel,jdbcType=VARCHAR},
+      validity = #{validity,jdbcType=INTEGER}
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select orderid, userid, totalprice, totticketprice, buydate, remark, contactname, 
+    contactphone, receiptaddress, `state`, cancel, validity
+    from shoesorder
+    where orderid = #{orderid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select orderid, userid, totalprice, totticketprice, buydate, remark, contactname, 
+    contactphone, receiptaddress, `state`, cancel, validity
+    from shoesorder
+  </select>
+</mapper>

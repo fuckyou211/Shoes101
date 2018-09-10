@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoes101.mapper.SpfilterMapper" >
+  <resultMap id="BaseResultMap" type="com.shoes101.pojo.Spfilter" >
+    <result column="shoesid" property="shoesid" jdbcType="INTEGER" />
+    <result column="propertyvalueid" property="propertyvalueid" jdbcType="INTEGER" />
+  </resultMap>
+  <insert id="insert" parameterType="com.shoes101.pojo.Spfilter" >
+    insert into spfilter (shoesid, propertyvalueid)
+    values (#{shoesid,jdbcType=INTEGER}, #{propertyvalueid,jdbcType=INTEGER})
+  </insert>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select shoesid, propertyvalueid
+    from spfilter
+  </select>
+</mapper>

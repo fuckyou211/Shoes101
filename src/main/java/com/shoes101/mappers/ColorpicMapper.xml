@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoes101.mapper.ColorpicMapper" >
+  <resultMap id="BaseResultMap" type="com.shoes101.pojo.Colorpic" >
+    <id column="colorpicid" property="colorpicid" jdbcType="INTEGER" />
+    <result column="skuid" property="skuid" jdbcType="INTEGER" />
+    <result column="colorpicaddredd" property="colorpicaddredd" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from colorpic
+    where colorpicid = #{colorpicid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shoes101.pojo.Colorpic" >
+    <selectKey resultType="java.lang.Integer" keyProperty="colorpicid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into colorpic (skuid, colorpicaddredd)
+    values (#{skuid,jdbcType=INTEGER}, #{colorpicaddredd,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Colorpic" >
+    update colorpic
+    set skuid = #{skuid,jdbcType=INTEGER},
+      colorpicaddredd = #{colorpicaddredd,jdbcType=VARCHAR}
+    where colorpicid = #{colorpicid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select colorpicid, skuid, colorpicaddredd
+    from colorpic
+    where colorpicid = #{colorpicid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select colorpicid, skuid, colorpicaddredd
+    from colorpic
+  </select>
+</mapper>
