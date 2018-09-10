@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoes101.mapper.ShoesMapper" >
+  <resultMap id="BaseResultMap" type="com.shoes101.pojo.Shoes" >
+    <id column="shoesid" property="shoesid" jdbcType="INTEGER" />
+    <result column="shoesname" property="shoesname" jdbcType="VARCHAR" />
+    <result column="catalogid" property="catalogid" jdbcType="INTEGER" />
+    <result column="sales" property="sales" jdbcType="INTEGER" />
+    <result column="isdropoff" property="isdropoff" jdbcType="VARCHAR" />
+    <result column="label" property="label" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from shoes
+    where shoesid = #{shoesid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shoes101.pojo.Shoes" >
+    <selectKey resultType="java.lang.Integer" keyProperty="shoesid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into shoes (shoesname, catalogid, sales, 
+      isdropoff, `label`)
+    values (#{shoesname,jdbcType=VARCHAR}, #{catalogid,jdbcType=INTEGER}, #{sales,jdbcType=INTEGER}, 
+      #{isdropoff,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Shoes" >
+    update shoes
+    set shoesname = #{shoesname,jdbcType=VARCHAR},
+      catalogid = #{catalogid,jdbcType=INTEGER},
+      sales = #{sales,jdbcType=INTEGER},
+      isdropoff = #{isdropoff,jdbcType=VARCHAR},
+      `label` = #{label,jdbcType=VARCHAR}
+    where shoesid = #{shoesid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select shoesid, shoesname, catalogid, sales, isdropoff, `label`
+    from shoes
+    where shoesid = #{shoesid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select shoesid, shoesname, catalogid, sales, isdropoff, `label`
+    from shoes
+  </select>
+</mapper>

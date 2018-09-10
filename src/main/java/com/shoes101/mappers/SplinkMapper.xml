@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoes101.mapper.SplinkMapper" >
+  <resultMap id="BaseResultMap" type="com.shoes101.pojo.Splink" >
+    <id column="spid" property="spid" jdbcType="INTEGER" />
+    <result column="shoesid" property="shoesid" jdbcType="INTEGER" />
+    <result column="propertyid" property="propertyid" jdbcType="INTEGER" />
+    <result column="propertyvalueid" property="propertyvalueid" jdbcType="INTEGER" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from splink
+    where spid = #{spid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shoes101.pojo.Splink" >
+    <selectKey resultType="java.lang.Integer" keyProperty="spid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into splink (shoesid, propertyid, propertyvalueid
+      )
+    values (#{shoesid,jdbcType=INTEGER}, #{propertyid,jdbcType=INTEGER}, #{propertyvalueid,jdbcType=INTEGER}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Splink" >
+    update splink
+    set shoesid = #{shoesid,jdbcType=INTEGER},
+      propertyid = #{propertyid,jdbcType=INTEGER},
+      propertyvalueid = #{propertyvalueid,jdbcType=INTEGER}
+    where spid = #{spid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select spid, shoesid, propertyid, propertyvalueid
+    from splink
+    where spid = #{spid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select spid, shoesid, propertyid, propertyvalueid
+    from splink
+  </select>
+</mapper>

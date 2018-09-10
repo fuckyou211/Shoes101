@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.shoes101.mapper.UseraddressMapper" >
+  <resultMap id="BaseResultMap" type="com.shoes101.pojo.Useraddress" >
+    <id column="userid" property="userid" jdbcType="INTEGER" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from useraddress
+    where userid = #{userid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.shoes101.pojo.Useraddress" >
+    <selectKey resultType="java.lang.Integer" keyProperty="userid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into useraddress (address)
+    values (#{address,jdbcType=VARCHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Useraddress" >
+    update useraddress
+    set address = #{address,jdbcType=VARCHAR}
+    where userid = #{userid,jdbcType=INTEGER}
+  </update>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select userid, address
+    from useraddress
+    where userid = #{userid,jdbcType=INTEGER}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap" >
+    select userid, address
+    from useraddress
+  </select>
+</mapper>
