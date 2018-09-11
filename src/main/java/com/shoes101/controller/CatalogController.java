@@ -75,7 +75,7 @@ public class CatalogController {
      * 点击上方分类处理
      */
 
-    @RequestMapping("/updataCatalog")
+    @RequestMapping("/respondCatalogPath")
     @ResponseBody
     public Result<String> respondCatalogPath(Integer catalogId){
         List<Shoescatalog> list = catalogService.getChildList(catalogId);
