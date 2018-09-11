@@ -3,7 +3,9 @@ package com.shoes101.controller;
 import com.alibaba.fastjson.JSON;
 import com.shoes101.pojo.Admin;
 import com.shoes101.pojo.Property;
+import com.shoes101.pojo.Shoescatalog;
 import com.shoes101.service.AdminService;
+import com.shoes101.service.CatalogService;
 import com.shoes101.service.PropertyService;
 import com.shoes101.util.MD5Util;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,9 @@ public class AdminController {
 
     @Autowired
     private PropertyService propertyService;
+
+    @Autowired
+    private CatalogService catalogService;
 
     /**
      *  跳转到后台管理员界面
@@ -138,8 +143,11 @@ public class AdminController {
 
     //分类管理
     @RequestMapping("/tomanagerClassify")
-    public String tomanagerClassify()
+    public String tomanagerClassify(HashMap<String,Object> map)
     {
+        List<Shoescatalog> list = catalogService.getParentCatalog(0);
+        //Result.success(list);
+        map.put("catalogParentList",list);
         return "/back/manager_classify";
     }
 
