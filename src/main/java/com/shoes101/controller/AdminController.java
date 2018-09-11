@@ -110,6 +110,7 @@ public class AdminController {
         //String secondPass = MD5Util.inputPassToFormPass(password);
 
         //System.out.println(secondPass);
+        System.out.println("Good afternoon");
         //二次加密
         String endPassword = MD5Util.formPassToDBPass(password,MD5Util.getSalt());
 
@@ -134,6 +135,21 @@ public class AdminController {
         //System.out.println("3");
         return "0";
     }
+
+    //分类管理
+    @RequestMapping("/tomanagerClassify")
+    public String tomanagerClassify()
+    {
+        return "/back/manager_classify";
+    }
+
+    //Add添加鞋
+    @RequestMapping("/addShoes")
+    public String addShoes()
+    {
+        return "/back/addShoes";
+    }
+
 
 
 }

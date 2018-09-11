@@ -1,6 +1,7 @@
 package com.shoes101.service.impl;
 
-import com.shoes101.mapper.AdminMapper;
+
+import com.shoes101.mapper.back.AdminMapper;
 import com.shoes101.pojo.Admin;
 import com.shoes101.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
