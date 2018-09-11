@@ -75,6 +75,17 @@ public class AdminController {
         return "back/manager_property";
     }
 
+    /**
+     * 跳转到用户管理界面
+     * @return
+     */
+
+    @RequestMapping("/touser")
+    public String touser(HashMap<String,Object> map)
+    {
+        return "back/manager_user";
+    }
+
 
 
 
