@@ -30,8 +30,6 @@ public class AdminController {
     @Autowired
     private PropertyService propertyService;
 
-    @Autowired
-    private CatalogService catalogService;
 
     /**
      *  跳转到后台管理员界面
@@ -63,35 +61,12 @@ public class AdminController {
         return "back/manager_shoes";
     }
 
-    /**
-     * 跳转到属性管理 获取全部属性
-     */
-
-    @RequestMapping("/toproperty")
-    public String toproperty(HashMap<String,Object> map)
+    //Add添加鞋
+    @RequestMapping("/addShoes")
+    public String addShoes()
     {
-        System.out.println("1111111");
-        List<Property> list1 = propertyService.getAllProperty();
-        System.out.println(list1.isEmpty());
-        String list= JSON.toJSONString(list1);
-        map.put("list",list);
-
-        System.out.println(list);
-        return "back/manager_property";
+        return "/back/addShoes";
     }
-
-    /**
-     * 跳转到用户管理界面
-     * @return
-     */
-
-    @RequestMapping("/touser")
-    public String touser(HashMap<String,Object> map)
-    {
-        return "back/manager_user";
-    }
-
-
 
 
     //登录测试样例
@@ -117,22 +92,9 @@ public class AdminController {
         return adminservice.findAdmin(adminName,password);
     }
 
-    //分类管理
-    @RequestMapping("/tomanagerClassify")
-    public String tomanagerClassify(HashMap<String,Object> map)
-    {
-        List<Shoescatalog> list = catalogService.getParentCatalog(0);
-        //Result.success(list);
-        map.put("catalogParentList",list);
-        return "/back/manager_classify";
-    }
 
-    //Add添加鞋
-    @RequestMapping("/addShoes")
-    public String addShoes()
-    {
-        return "/back/addShoes";
-    }
+
+
 
 
 
