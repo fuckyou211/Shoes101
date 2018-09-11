@@ -60,7 +60,7 @@
                                             <th><label class="col-xl-3">分类名称</label></th>
                                             <th><label class="col-xl-3">首页显示</label></th>
                                             <th><label class="col-xl-3">查看子分类</label></th>
-                                            <th><label class="col-xl-3">添加子分类</label></th>
+                                            <!--<th><label class="col-xl-3">添加子分类</label></th>-->
                                             <th><label class="col-xl-2">操作</label></th>
                                         </tr>
                                         </thead>
@@ -69,8 +69,8 @@
                                             <td><p class="myp">{{}}</p></td>
                                             <td><p class="myp">{{item.name}}</p></td>
                                             <td><p class="myp">是</p></td>
-                                            <td><a href="javascript:void(0);" :onclick="getPoints()"> <p class="myp">查看子分类</p></a></td>
-                                            <td><p class="myp">添加子分类</p></td>
+                                            <td><a href="javascript:void(0);" :onclick="getPoints(item.ceng)"> <p class="myp">查看子分类</p></a></td>
+                                            <!--<td><p class="myp">添加子分类</p></td>-->
                                             <td>
                                                 <p class="myp">
                                                     <a href="">修改</a>
@@ -81,11 +81,34 @@
                                         </tbody>
                                     </table>
                                 </div>
-                                <div class="col-sm-1">
-                                    <div class="title-action">
-                                        <a href="addShoes.html" class="btn btn-primary">添加分类</a>
+                                <div>
+                                    <div class="col-sm-1">
+                                        <div class="title-action">
+                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addclassify">添加分类</button>
+
+                                        </div>
                                     </div>
+                                    <div class="modal inmodal" id="addclassify" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content animated flipInY">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title">添加分类</h4>
+                                                    <!--<small class="font-bold">Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>-->
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="form-group"><label>分类名称</label> <input type="text" placeholder="Enter new type" class="form-control"></div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
+                                                    <button type="button" class="btn btn-primary">保存分类</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -123,22 +146,27 @@
         el: '#shoesType',
         data: {
             types:[]
+
         },
         methods:{
+            getPoints: function(ceng){
+                return "nextType_"+ceng+"('125')";
+            }
         }
     });
 
     function nextType_1(theId){
         data_1.types = [
-            { name: '男鞋' },
-            { name: '女鞋' },
-            { name: '儿童' },
-            { name: '靴子' }
+            { name: '男鞋' , ceng:2},
+            { name: '女鞋' , ceng:2},
+            { name: '儿童' , ceng:2},
+            { name: '靴子' , ceng:2}
+
         ];
-        data_1.methods=function getPoints  (){
-            return "nextType_2('123')" +"";
-        };
+
+
         console.log(theId);
+        //$("#ol_li").
     }
 
     function nextType_2(theId){
@@ -146,11 +174,15 @@
         var id=theId;
         var fatherName="男鞋"
         data_1.types = [
-            { name: '休闲' },
-            { name: '运动' }
+            { name: '休闲' , ceng:3},
+            { name: '运动' , ceng:3}
         ];
         $("#ol_li_1").text("男鞋");
         $("#ol_li_1").attr('href','#');
+        data_1.methods=function getPoints(fid){
+            return "nextType_3('125')" +"";
+        };
+
     }
 
     function nextType_3(theId){
@@ -167,10 +199,13 @@
 
     function previous_1(theId){
         console.log(theId);
+        //$("#ol_li").
     }
     function previous_2(theId){
         console.log(theId);
+        //$("#ol_li").
     }
+
 </script>
 </body>
 </html>
