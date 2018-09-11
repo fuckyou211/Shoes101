@@ -72,13 +72,24 @@ public class CatalogController {
     }
 
     /**
-     * 点击上方分类处理
+     * 点击上方分类路径的处理
      */
 
     @RequestMapping("/respondCatalogPath")
     @ResponseBody
     public Result<String> respondCatalogPath(Integer catalogId){
         List<Shoescatalog> list = catalogService.getChildList(catalogId);
+        String catalogLost = JSON.toJSONString(list);
+        return Result.success(catalogLost);
+    }
+
+    /**
+     * 获取根分类
+     */
+    @RequestMapping("/getParentCatalog")
+    @ResponseBody
+    public Result<String> getParentCatalog(){
+        List<Shoescatalog> list = catalogService.getParentCatalog(0);
         String catalogLost = JSON.toJSONString(list);
         return Result.success(catalogLost);
     }
