@@ -1,6 +1,9 @@
 package com.shoes101.mapper;
 
 import com.shoes101.pojo.User;
+import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
+
 import java.util.List;
 
 public interface UserMapper {
@@ -13,4 +16,7 @@ public interface UserMapper {
     List<User> selectAll();
 
     int updateByPrimaryKey(User record);
+
+    //冻结用户
+    public int getCold(@Param("userid") int userid);
 }

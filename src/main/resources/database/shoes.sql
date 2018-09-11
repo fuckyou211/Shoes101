@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50556
 File Encoding         : 65001
 
-Date: 2018-09-09 16:55:45
+Date: 2018-09-11 09:32:19
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -24,12 +24,13 @@ CREATE TABLE `admin` (
   `adminName` varchar(32) DEFAULT NULL,
   `password` varchar(32) DEFAULT NULL,
   PRIMARY KEY (`adminid`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of admin
 -- ----------------------------
 INSERT INTO `admin` VALUES ('1', 'admin', '99e5eafcac5a691429ebc17db8301275');
+INSERT INTO `admin` VALUES ('2', 'admi', '99e5eafcac5a691429ebc17db8301275');
 
 -- ----------------------------
 -- Table structure for colorpic
@@ -140,6 +141,7 @@ CREATE TABLE `shoes` (
   `catalogid` int(11) DEFAULT NULL,
   `sales` int(11) DEFAULT NULL,
   `isdropoff` varchar(255) DEFAULT NULL,
+  `label` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`shoesid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -313,15 +315,16 @@ CREATE TABLE `user` (
   `gender` varchar(10) DEFAULT NULL,
   `headpic` varchar(255) DEFAULT NULL,
   `paypassword` varchar(32) DEFAULT NULL,
+  `cold` int(32) DEFAULT NULL,
   PRIMARY KEY (`userid`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user
 -- ----------------------------
-INSERT INTO `user` VALUES ('1', 'asd0', '456456456', '123123123', null, null, null);
-INSERT INTO `user` VALUES ('2', 'asd0', '456456456', '123123123', null, null, null);
-INSERT INTO `user` VALUES ('3', 'asd0', '456456456', '123123123', null, null, null);
+INSERT INTO `user` VALUES ('1', 'asd0', '456456456', '123123123', null, null, null, null);
+INSERT INTO `user` VALUES ('2', 'asd0', '456456456', '123123123', null, null, null, null);
+INSERT INTO `user` VALUES ('3', 'asd0', '456456456', '123123123', null, null, null, null);
 
 -- ----------------------------
 -- Table structure for useraddress

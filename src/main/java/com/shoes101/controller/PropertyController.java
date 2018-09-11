@@ -1,5 +1,6 @@
 package com.shoes101.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.shoes101.pojo.Property;
 import com.shoes101.pojo.Propertyvalue;
 import com.shoes101.service.PropertyService;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +23,22 @@ public class PropertyController {
 
     @Autowired
     private PropertyService propertyService;
+
+    /**
+     * 跳转到属性管理 获取全部属性
+     */
+    @RequestMapping("/toproperty")
+    public String toproperty(HashMap<String,Object> map)
+    {
+        System.out.println("1111111");
+        List<Property> list1 = propertyService.getAllProperty();
+        System.out.println(list1.isEmpty());
+        String list= JSON.toJSONString(list1);
+        map.put("list",list);
+
+        System.out.println(list);
+        return "back/manager_property";
+    }
 
     /**
      * 验证是否有相同属性

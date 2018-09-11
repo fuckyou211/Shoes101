@@ -9,6 +9,7 @@
     <result column="gender" property="gender" jdbcType="VARCHAR" />
     <result column="headpic" property="headpic" jdbcType="VARCHAR" />
     <result column="paypassword" property="paypassword" jdbcType="VARCHAR" />
+    <result column="cold" property="cold" javaType="INTEGER"/>
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from user
@@ -19,10 +20,10 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into user (username, `password`, phone, 
-      gender, headpic, paypassword
+      gender, headpic, paypassword, cold
       )
     values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=VARCHAR}, #{headpic,jdbcType=VARCHAR}, #{paypassword,jdbcType=VARCHAR}
+      #{gender,jdbcType=VARCHAR}, #{headpic,jdbcType=VARCHAR}, #{paypassword,jdbcType=VARCHAR}, cold = #{cold,jdbcType=INTEGER}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.User" >
@@ -33,15 +34,21 @@
       gender = #{gender,jdbcType=VARCHAR},
       headpic = #{headpic,jdbcType=VARCHAR},
       paypassword = #{paypassword,jdbcType=VARCHAR}
+      cold = #{cold,jdbcType=INTEGER}
     where userid = #{userid,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select userid, username, `password`, phone, gender, headpic, paypassword
+    select userid, username, `password`, phone, gender, headpic, paypassword, cold
     from user
     where userid = #{userid,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select userid, username, `password`, phone, gender, headpic, paypassword
+    select userid, username, `password`, phone, gender, headpic, paypassword, cold
     from user
   </select>
+
+  <update id="getCold">
+    update user set cold=#{cold} where userid=#{userid}
+  </update>
+
 </mapper>

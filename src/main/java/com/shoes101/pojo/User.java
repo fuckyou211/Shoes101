@@ -17,6 +17,16 @@ public class User implements Serializable {
 
     private String paypassword;
 
+    private int cold;
+
+    public int getCold() {
+        return cold;
+    }
+
+    public void setCold(int cold) {
+        this.cold = cold;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getUserid() {
