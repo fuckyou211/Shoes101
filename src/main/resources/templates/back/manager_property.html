@@ -63,11 +63,10 @@
                                         </tr>
                                         </thead>
                                         <tbody >
-                                        <tr v-for="item in propertys">
-                                            <td><p class="myp">{{}}</p></td>
+                                        <tr v-for="(item, index) in propertys">
+                                            <td><p class="myp">{{index+1}}</p></td>
                                             <td><p class="myp">{{item.propertyname}}</p></td>
-                                            <td><a href="javascript:void(0)" onclick="getPropertyValue('123')">  查看属性值  </a></td>
-                                            <!--<td><p class="myp">添加子分类</p></td>-->
+                                            <td><a href="javascript:void(0)" @click="getPropertyValue(item.propertyid)"> 查看属性值</a></td>
                                             <td>
                                                 <p class="myp">
                                                     <a href="">修改</a>
@@ -155,20 +154,17 @@
     $("#navigate_2").load("../navigate/navigate_2.html");
 </script>
 <script>
+    var proList = new Vue({
+        el:"#shoesProprity",
+        data:{
+            propertys:[]
+        }
+    });
     $(document).ready(function(){
-        //${list}
-        $("#navigate").load("navigate.html");
-        $("#navigate_2").load("navigate_2.html");
-        var proList = new Vue({
-            el:"#shoesProprity",
-            data:{
-                propertys:[]
-            }
-        })
         var temp="[[${list}]]";
         temp= temp.replace(/&quot;/g,"\"");
-        console.log(temp);
-        console.log("[[${list}]]");
+        //console.log(temp);
+        //console.log("[[${list}]]");
         console.log(JSON.parse(temp));
         proList.propertys = JSON.parse(temp);
     });
