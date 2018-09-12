@@ -51,9 +51,12 @@ public class CatalogServiceImpl implements CatalogService {
     public Integer addCatalog(Shoescatalog catalog) {
         Integer catalogId = catalog.getParentid();
         Shoescatalog shoescatalog = shoescatalogMapper.selectByPrimaryKey(catalogId);
-        if(shoescatalog.getIsleaf() == 1){
-            shoescatalog.setIsleaf(0);
-            shoescatalogMapper.updateByPrimaryKey(shoescatalog);
+        if( shoescatalog!=null){
+            if(shoescatalog.getIsleaf()==1){
+                shoescatalog.setIsleaf(0);
+                shoescatalogMapper.updateByPrimaryKey(shoescatalog);
+            }
+
         }
         return shoescatalogMapper.insert(catalog);
     }
