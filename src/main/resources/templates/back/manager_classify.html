@@ -76,8 +76,8 @@
                                             <td><a href="javascript:void(0);" @click="nextType(item.catalogid, item.catalogname)"> <p class="myp">查看子分类</p></a></td>
                                             <td>
                                                 <p class="myp">
-                                                    <a href="javascript:void(0);" @click="editType(item.catalogid, item.catalogname)">修改</a>
-                                                    <a href="javascript:void(0);" @click="delType(item.catalogid)">删除</a>
+                                                    <a href="javascript:void(0);" @click="editType(item)">修改</a>
+                                                    <a href="javascript:void(0);" @click="delType(item)">删除</a>
                                                 </p>
                                             </td>
                                         </tr>
@@ -123,12 +123,30 @@
                                                 </div>
                                                 <div class="modal-body">
                                                     <div class="form-group"><label>分类名称</label>
-                                                        <input type="text" placeholder="Enter new type" CatalogId=""  name="newCatalogName" class="form-control">
+                                                        <input type="text" placeholder="" CatalogId=""  isleaf="" parentid="" name="newCatalogName" class="form-control">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
                                                     <button type="button" class="btn btn-primary" onclick="editCatalog()">保存并更新分类</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!--删除提示框-->
+                                    <div class="modal inmodal fade" id="delModa" tabindex="-1" role="dialog"  aria-hidden="true">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title">删除分类</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p><strong>确定删除该分类？</strong>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                                                    <button type="button" class="btn btn-primary" catalogid="" parentid="" id="delCatalogBtn" onclick="delCatalog()">确定</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -202,13 +220,20 @@
                     getNextType(catalogId);//再获取子分类
                 }
             },
-            editType:function (catalogId, catalogname) {
+            editType:function (catalog) {
                 //editCatalog(catalogId, catalogname);CatalogId
-                $("input[name='newCatalogName']").attr("CatalogId",catalogId);
+                $("input[name='newCatalogName']").attr("CatalogId",catalog.catalogid);//先赋值
+                $("input[name='newCatalogName']").attr("parentid",catalog.parentid);//先赋值placeholder
+                $("input[name='newCatalogName']").attr("placeholder",catalog.catalogname);
+                $("input[name='newCatalogName']").attr("isleaf",catalog.isleaf);
                 $("#editclassify").modal("show");
             },
-            delType:function (catalogId) {
-                delCatalog(catalogId);
+            delType:function (catalog) {
+                $("#delCatalogBtn").attr("catalogid",catalog.catalogid);
+                $("#delCatalogBtn").attr("parentid",catalog.parentid);
+                $("#delModa").modal("show");
+                console.log("成功传输的对象为"+catalog.catalogname);
+                //delCatalog(catalogId);delModa  parentid
             }
         }
     });
@@ -230,19 +255,12 @@
         }
     });
 
-   /* addcate = new Vue({
-       el:"#addclassify" ,
-       data:{
-          info:[]
-       }
-    });*/
-
     //显示导航条目
     function showHistory(theId,typeName){
         var newdata = {catalogId:theId,name:typeName};
         data_2.types.push(newdata);//把分类id和名字添加进去
-        data_2.catalogId=theId;
-        data_2.catalogname=typeName;
+        //data_2.catalogId=theId;
+       // data_2.catalogname=typeName;
         console.log("导航栏应该显示的名字为"+data_2.types);
     }
 
@@ -251,8 +269,8 @@
         data= data.replace(/&quot;/g,"\"");//把数据格式化
         data_1.types =JSON.parse(data);
 
-        var info_2={parentid:data_2.catalogId};//
-        Catalog =info_2;
+        /*var info_2={parentid:data_2.catalogId};//
+        Catalog =info_2;*/
     }
 
     //获取子分类
@@ -278,11 +296,11 @@
         data_2.types.splice(index+1);
     }
 
-    //获取上一级分类
+    //获取上一级分类catalogId
     function getPrevious(theId){
         var precatalogId = theId
         $.post({
-            url: "respondCatalogPath",
+            url: "getChildCatalog",
             type: 'post',
             data:{catalogId:precatalogId},
             dataType: 'json',
@@ -299,14 +317,13 @@
     //回到根目录
     function getParentCatalog() {
         $.post({
-            url: "getParentCatalog",
+            url: "getRootCatalog",
             type: 'post',
             dataType: 'json',
 
             success: function (result) {
                 data_2.types.splice(0);
                 loadData(result.data);
-
             },
             fail: function (err) {
                 console.log(err)
@@ -317,11 +334,13 @@
     //添加分类
     function addclassify() {
        var name = $("input[name='catalogname']").val();
-
-       var pid = Catalog.parentid;
-       if(pid==null||pid==""){
-           pid=0;
+       var pid;
+       if(data_2.types.length==0){
+            pid=0;
+        }else{
+           pid = data_2.types[data_2.types.length-1].catalogId;
        }
+
        console.log(" name:"+name+" pid:"+pid);
         $.post({
             url: "addCatalog",
@@ -351,7 +370,10 @@
     //编辑分类
     function editCatalog() {
         var newname=$("input[name='newCatalogName']").val();
-        var cid=$("input[name='newCatalogName']").attr("catalogId")
+        var cid=$("input[name='newCatalogName']").attr("catalogId");
+        var pid=$("input[name='newCatalogName']").attr("parentid");
+        var isleaf=$("input[name='newCatalogName']").attr("isleaf");
+        //{catalogId:precatalogId},catalogid
         $.post({
             url: "updataCatalog",
             type: 'post',
@@ -359,12 +381,14 @@
             data: {
                 catalogid: cid,
                 catalogname:newname,
+                isleaf:isleaf,
+                parentid:pid
 
             },
             success: function (result) {
                 if(result.code==0){
                     $("#editclassify").modal('hide');
-                    getNextType(cid);
+                    getNextType(pid);
                 }else{
                     alert("修改失败！");
                 }
@@ -378,7 +402,32 @@
     }
 
     //删除分类
-    function delCatalog(catalogId) {
+    function delCatalog(catalog) {
+       var catalogid= $("#delCatalogBtn").attr("catalogid");//parentid
+        console.log("删除的ID是"+catalogid)
+       var pid= $("#delCatalogBtn").attr("parentid");
+        $.post({
+            url: "deleteCatalog",
+            type: 'post',
+            dataType: 'json',
+            data: {
+                catalogId: catalogid,
+
+            },
+            success: function (result) {
+                if(result.code==0){
+                    $("#delModa").modal('hide');
+                    getNextType(pid);
+                }else{
+                    alert("删除失败！");
+                }
+
+            },
+            fail: function (err) {
+                alert("删除失败！");
+                console.log(err);
+            }
+        });
 
     }
 
