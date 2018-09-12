@@ -1,6 +1,5 @@
 package com.shoes101.service.impl;
 
-import com.shoes101.mapper.ShoesMapper;
 import com.shoes101.mapper.ShoescatalogMapper;
 import com.shoes101.pojo.Shoescatalog;
 import com.shoes101.service.CatalogService;

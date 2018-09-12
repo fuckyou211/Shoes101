@@ -13,7 +13,9 @@ public class Shoes implements Serializable {
 
     private String isdropoff;
 
-    private String label;
+    private String adddate;
+
+    private String shoesdetails;
 
     private static final long serialVersionUID = 1L;
 
@@ -57,12 +59,20 @@ public class Shoes implements Serializable {
         this.isdropoff = isdropoff == null ? null : isdropoff.trim();
     }
 
-    public String getLabel() {
-        return label;
+    public String getAdddate() {
+        return adddate;
     }
 
-    public void setLabel(String label) {
-        this.label = label == null ? null : label.trim();
+    public void setAdddate(String adddate) {
+        this.adddate = adddate == null ? null : adddate.trim();
+    }
+
+    public String getShoesdetails() {
+        return shoesdetails;
+    }
+
+    public void setShoesdetails(String shoesdetails) {
+        this.shoesdetails = shoesdetails == null ? null : shoesdetails.trim();
     }
 
     @Override
@@ -76,7 +86,8 @@ public class Shoes implements Serializable {
         sb.append(", catalogid=").append(catalogid);
         sb.append(", sales=").append(sales);
         sb.append(", isdropoff=").append(isdropoff);
-        sb.append(", label=").append(label);
+        sb.append(", adddate=").append(adddate);
+        sb.append(", shoesdetails=").append(shoesdetails);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

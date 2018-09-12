@@ -13,4 +13,7 @@ public interface ShoesMapper {
     List<Shoes> selectAll();
 
     int updateByPrimaryKey(Shoes record);
+
+    //获取所有鞋类
+    public List getAllShoes();
 }

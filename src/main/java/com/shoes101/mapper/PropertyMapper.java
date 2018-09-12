@@ -28,6 +28,9 @@ public interface PropertyMapper{
     //获取id
     public int getLastId();
 
+    //修改属性值
+    public int updateP(@Param("propertyid") int propertyid,@Param("propertyname") String propertyname);
+
 //    //删除属性 两张表一起删除
 //    public int deleteProp(@Param("propertyid") int propertyid);
 

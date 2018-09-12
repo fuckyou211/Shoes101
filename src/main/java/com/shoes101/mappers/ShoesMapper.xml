@@ -7,8 +7,10 @@
     <result column="catalogid" property="catalogid" jdbcType="INTEGER" />
     <result column="sales" property="sales" jdbcType="INTEGER" />
     <result column="isdropoff" property="isdropoff" jdbcType="VARCHAR" />
-    <result column="label" property="label" jdbcType="VARCHAR" />
+    <result column="adddate" property="adddate" jdbcType="VARCHAR" />
+    <result column="shoesdetails" property="shoesdetails" jdbcType="VARCHAR" />
   </resultMap>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from shoes
     where shoesid = #{shoesid,jdbcType=INTEGER}
@@ -18,9 +20,11 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into shoes (shoesname, catalogid, sales, 
-      isdropoff, `label`)
+      isdropoff, adddate, shoesdetails
+      )
     values (#{shoesname,jdbcType=VARCHAR}, #{catalogid,jdbcType=INTEGER}, #{sales,jdbcType=INTEGER}, 
-      #{isdropoff,jdbcType=VARCHAR}, #{label,jdbcType=VARCHAR})
+      #{isdropoff,jdbcType=VARCHAR}, #{adddate,jdbcType=VARCHAR}, #{shoesdetails,jdbcType=VARCHAR}
+      )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Shoes" >
     update shoes
@@ -28,16 +32,21 @@
       catalogid = #{catalogid,jdbcType=INTEGER},
       sales = #{sales,jdbcType=INTEGER},
       isdropoff = #{isdropoff,jdbcType=VARCHAR},
-      `label` = #{label,jdbcType=VARCHAR}
+      adddate = #{adddate,jdbcType=VARCHAR},
+      shoesdetails = #{shoesdetails,jdbcType=VARCHAR}
     where shoesid = #{shoesid,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select shoesid, shoesname, catalogid, sales, isdropoff, `label`
+    select shoesid, shoesname, catalogid, sales, isdropoff, adddate, shoesdetails
     from shoes
     where shoesid = #{shoesid,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select shoesid, shoesname, catalogid, sales, isdropoff, `label`
+    select shoesid, shoesname, catalogid, sales, isdropoff, adddate, shoesdetails
     from shoes
+  </select>
+
+  <select id="getAllShoes">
+    select shoes.shoesid,shoes.shoesname,shoes.isdropoff,shoes.adddate,shoespic.picaddress,shoessku.quantity from shoes,shoespic,shoessku
   </select>
 </mapper>

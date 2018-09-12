@@ -6,6 +6,7 @@ import com.shoes101.pojo.Property;
 import com.shoes101.pojo.Propertyvalue;
 import com.shoes101.service.PropertyService;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -45,7 +46,18 @@ public class PropertyServiceImpl implements PropertyService {
 
     }
 
-    //修改属性
+    //修改属性名
+    public List<Property> updateP(int propertyid,String propertyname)
+    {
+        int result = propertyMapper.updateP(propertyid,propertyname);
+        System.out.println(result);
+
+        return propertyMapper.selectAll();
+
+    }
+
+
+    //修改属性详细值
     public List<Property> updateProp(String propertyvalue, int propertyid)
     {
         int result = propertyvalueMapper.updateProp(propertyvalue,propertyid);
@@ -71,5 +83,11 @@ public class PropertyServiceImpl implements PropertyService {
     public Propertyvalue getProperty(int propertyid)
     {
         return propertyvalueMapper.selectByPrimaryKey(propertyid);
+    }
+
+    //获取所有详细属性值
+    public List<Propertyvalue> getAllPropertyValue()
+    {
+        return propertyvalueMapper.selectAll();
     }
 }

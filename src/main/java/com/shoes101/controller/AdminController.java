@@ -51,15 +51,7 @@ public class AdminController {
         return "/back/index";
     }
 
-    /**
-     * 跳转到商品管理
-     */
 
-    @RequestMapping("/toshoes")
-    public String toshoes()
-    {
-        return "back/manager_shoes";
-    }
 
     //Add添加鞋
     @RequestMapping("/addShoes")

@@ -71,6 +71,16 @@ public class PropertyController {
     /**
      * 修改属性
      */
+    @RequestMapping("/updateP")
+    @ResponseBody
+    public List<Property> updateP(@RequestParam("propertyid") int propertyid,@RequestParam("propertyname") String propertyname)
+    {
+        return propertyService.updateP(propertyid,propertyname);
+    }
+
+    /**
+     * 修改属性详细值
+     */
     @RequestMapping("/updateProp")
     @ResponseBody
     public List<Property> updateProp(@RequestParam("propertyvalue") String propertyvalue,@RequestParam("propertyid") int propertyid)
@@ -97,6 +107,7 @@ public class PropertyController {
     {
         return propertyService.getProperty(propertyid);
     }
+
 
 
     /**
