@@ -49,6 +49,12 @@ public class CatalogServiceImpl implements CatalogService {
     //添加一个分类
     @Override
     public Integer addCatalog(Shoescatalog catalog) {
+        Integer catalogId = catalog.getParentid();
+        Shoescatalog shoescatalog = shoescatalogMapper.selectByPrimaryKey(catalogId);
+        if(shoescatalog.getIsleaf() == 1){
+            shoescatalog.setIsleaf(0);
+            shoescatalogMapper.updateByPrimaryKey(shoescatalog);
+        }
         return shoescatalogMapper.insert(catalog);
     }
 
