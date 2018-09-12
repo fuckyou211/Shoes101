@@ -67,7 +67,11 @@ public class CatalogServiceImpl implements CatalogService {
         //获得此id的catalog对象
         Shoescatalog shoescatalog = shoescatalogMapper.selectByPrimaryKey(catalogId);
         System.out.println(shoescatalog);
+        if(shoescatalog==null){
+            return 0;
+        }
         List<Shoescatalog> nextList = new ArrayList<Shoescatalog>();
+        nextList.add(shoescatalog);
         nextList = this.nextCatalogList(nextList,shoescatalog);
         Integer maxSize = nextList.size();
         Integer result[] = new Integer[maxSize];
