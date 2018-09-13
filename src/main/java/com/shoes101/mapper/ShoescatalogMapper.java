@@ -21,9 +21,5 @@ public interface ShoescatalogMapper {
     @Select( " select * from shoescatalog where parentId = #{parentId}")
     List<Shoescatalog> findCatalogByPid(@Param("parentId") Integer  parentId);
 
-    //搜索一级分类类型值列表
-    @Select( " select * from shoescatalog where parentId = 0")
-    List<Shoescatalog> findCatalogByParent();
-
 
 }
