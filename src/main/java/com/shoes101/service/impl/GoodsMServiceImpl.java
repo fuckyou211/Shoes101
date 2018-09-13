@@ -33,10 +33,15 @@ public class GoodsMServiceImpl implements GoodsMService {
     @Override
     public String addShoesInformationAjax() {
         Map<String,Object> list=new HashMap<String,Object>();
-        list.put("catalog",shoescatalogMapper.findCatalogByParent());
+        list.put("catalog",shoescatalogMapper.findCatalogByPid(0));
         list.put("property",propertyMapper.selectAll());
         list.put("colorProperty",propertyvalueMapper.selectColorPropertyvalue(color));
 
         return JSONObject.toJSONString(list);
+    }
+
+    @Override
+    public String shoesCatalogAjax(Integer parentId) {
+        return JSONObject.toJSONString(shoescatalogMapper.findCatalogByPid(parentId));
     }
 }
