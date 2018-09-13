@@ -46,7 +46,7 @@
     from shoes
   </select>
 
-  <select id="getAllShoes">
+  <select id="getAllShoes" resultType="Map">
     select shoes.shoesid,shoes.shoesname,shoes.isdropoff,shoes.adddate,shoespic.picaddress,shoessku.quantity from shoes,shoespic,shoessku
   </select>
 </mapper>

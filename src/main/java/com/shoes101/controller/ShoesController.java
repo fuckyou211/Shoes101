@@ -16,7 +16,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * 商品控制器
+ * 商品控制器（后台）
  */
 
 
@@ -37,7 +37,6 @@ public class ShoesController {
      */
 
     @RequestMapping("/toshoes")
-    @ResponseBody
     public String toshoes(HashMap<String,Object> map)
     {
         System.out.println("1111111");
@@ -129,5 +128,10 @@ public class ShoesController {
 //            return ResponseEntity.notFound().build();
 //        }
 //    }
+
+
+    /**
+     * 增加商品
+     */
 
 }
