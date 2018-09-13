@@ -37,6 +37,8 @@ redis:
  poolMaxTotal: 1000
  poolMaxIdle: 500
 
+#color为颜色属性名
+color: "颜色"
 
 #mapper:
 #  mappers:
