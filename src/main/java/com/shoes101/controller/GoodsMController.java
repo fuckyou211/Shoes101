@@ -21,6 +21,7 @@ public class GoodsMController {
 
     @RequestMapping("/addShoes")
     public String addShoes(){
+        System.out.println("AKAKAKA");
         return "back/addShoes";
     }
 
@@ -30,7 +31,6 @@ public class GoodsMController {
     public String addShoesInformationAjax(){
 
        return  goodsMService.addShoesInformationAjax();
-
     //    return  JSONObject.toJSONString("111");
     }
 

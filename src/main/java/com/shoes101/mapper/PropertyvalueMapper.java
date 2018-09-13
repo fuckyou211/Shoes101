@@ -37,5 +37,10 @@ public interface PropertyvalueMapper{
     //删除属性 两张表一起删除
     public int deleteProp(@Param("propertyid") int propertyid);
 
+    //颜色属性值查询
+    @Select( "select * from propertyvalue where  propertyid= " +
+            "(select a.propertyid from property as a where a.propertyname = #{color} )")
+    public List<Propertyvalue> selectColorPropertyvalue(@Param("color") String color);
+
 
 }
