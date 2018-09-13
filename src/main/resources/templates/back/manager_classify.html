@@ -267,6 +267,7 @@
     //加载数据
     function loadData(data) {
         data= data.replace(/&quot;/g,"\"");//把数据格式化
+        console.log(JSON.parse(data));
         data_1.types =JSON.parse(data);
 
         /*var info_2={parentid:data_2.catalogId};//

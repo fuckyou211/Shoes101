@@ -87,8 +87,10 @@
                                                     一级分类:
                                                 </label>
                                                 <div class="col-lg-3 m-l-n">
-                                                    <select class="form-control m-b" multiple name="shoestype">
-                                                        <option value="0"  v-for="type in types_1">{{type.name}}</option>
+                                                    <select class="form-control m-b" multiple  name="shoestype" id="shoestype" v-model="selected">
+                                                        <option v-for="item in types" :value="item.catalogid">
+                                                            {{item.catalogname}}
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -97,8 +99,18 @@
                                                     二级分类:
                                                 </label>
                                                 <div class="col-lg-3 m-l-n">
-                                                    <select class="form-control m-b" multiple name="shoestype">
-                                                        <option value="0"  v-for="type in types_2">{{type.name}}</option>
+                                                    <select class="form-control m-b" multiple  name="">
+                                                        <option value="0"  v-for="item in types">{{item.catalogname}}</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="" id="thirdtype">
+                                                <label class="col-sm-1 control-label mylabel" >
+                                                    三级分类:
+                                                </label>
+                                                <div class="col-lg-3 m-l-n">
+                                                    <select class="form-control m-b" multiple name="">
+                                                        <option value="0"  v-for="item in types">{{item.catalogname}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -462,11 +474,104 @@
 <script>
     //初始化文本编辑框
     $(document).ready(function(){
-
         $('.summernote').summernote();
-
+        loadShoesInfo();
+        console.log("初始化啊！")
     });
+
+    var catalog_1,catalog_2,catalog_3;
+    //一级分类
+    catalog_1=new Vue({
+        el: '#firsttype',
+        data: {
+            types: [
+            ],
+            selected:"",
+            methods:{
+                nextType:function (catalogid) {
+                    console.log("catalogid="+catalogid);
+                    getNextType(catalogid);
+                },
+                getValue:function (catalogid) {
+                    return catalogid+"";
+                }
+            },
+            watch:{
+                selected:function (val) {
+                    console.log(this.list(val));
+                    //getNextType(val);
+                }
+            }
+        }
+    });
+    //二级分类
+    catalog_2= new Vue({
+        el: '#secondtype',
+        data: {
+            types: [
+            ]
+        }
+    });
+    //三级分类
+    catalog_3= new Vue({
+        el: '#thirdtype',
+        data: {
+            types: [
+            ]
+        }
+    });
+    $("#shoestype").change(function () {
+        //console.log($(this).val());
+    });
+    <!--加载添加鞋子的信息-->
+    function loadShoesInfo() {
+        $.post({
+            url: "addShoesAjax",
+            type: 'post',
+            dataType: 'json',
+            success: function (result) {
+                loadCatalog_1(result.catalog);
+            },
+            fail: function (err) {
+                console.log("失败："+err)
+            }
+        });
+    }
 </script>
+<script>
+    //加载一级分类
+    function loadCatalog_1(data) {
+        catalog_1.types= data;
+        catalog_2.types=[];//加载了一级分类，其他分类暂时置为空
+        catalog_3.types=[];
+    }
+
+    //加载二级分类
+    function loadCatalog_2(data) {
+        catalog_2.types=data;//加载了二级分类，其他分类暂时置为空
+        catalog_3.types=[];
+    }
+
+    //获取子分类
+    function getNextType(theId){
+        var catalogId=theId;
+        $.post({
+            url: "shoesCatalogAjax",
+            type: 'post',
+            data:{parentId:catalogId},
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                loadCatalog_2(result);
+            },
+            fail: function (err) {
+                console.log(err)
+            }
+        });
+
+    }
+</script>
+
 <script>
     //图片回显功能
     function preview(file) {
@@ -499,33 +604,6 @@
     }
 </script>
 <script>
-    //跟上传图片有关
-    Dropzone.options.dropzoneForm = {
-        paramName: "file", // The name that will be used to transfer the file
-        maxFilesize: 2, // MB
-        dictDefaultMessage: "<strong>Drop files here or click to upload. </strong></br> (This is just a demo dropzone. Selected files are not actually uploaded.)"
-    };
-
-    $(document).ready(function(){
-
-        var editor_one = CodeMirror.fromTextArea(document.getElementById("code1"), {
-            lineNumbers: true,
-            matchBrackets: true
-        });
-
-        var editor_two = CodeMirror.fromTextArea(document.getElementById("code2"), {
-            lineNumbers: true,
-            matchBrackets: true
-        });
-
-        var editor_two = CodeMirror.fromTextArea(document.getElementById("code3"), {
-            lineNumbers: true,
-            matchBrackets: true
-        });
-
-    });
-</script>
-<script>
     $('#addNewColor').click(function (e) {
         //e.preventDefault();
         var data=$($('#divforcolor').children().get(0)).clone();
@@ -534,29 +612,9 @@
 
 
 </script>
+
 <script>
-    new Vue({
-        el: '#firsttype',
-        data: {
-            types_1: [
-                { name: '男鞋' },
-                { name: '女鞋' },
-                { name: '儿童' },
-                { name: '靴子' }
-            ]
-        }
-    });
-    new Vue({
-        el: '#secondtype',
-        data: {
-            types_2: [
-                { name: '休闲' },
-                { name: '运动' },
-                { name: '其他' },
-                { name: '靴子' }
-            ]
-        }
-    });
+
     new Vue({
         el: '#shoesProperty',
         data: {
@@ -570,6 +628,12 @@
                 { name: '鞋帮高度' },
                 { name: '季节' },
                 { name: '鞋头款式' }
+            ],
+            PropertyValue: [
+                { pValue: '黑色' },
+                { pValue: '红色' },
+                { pValue: '白色' },
+                { pValue: '哈哈' }
             ]
         }
     });

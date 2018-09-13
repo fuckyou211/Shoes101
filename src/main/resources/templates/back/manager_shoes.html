@@ -139,6 +139,18 @@
 <script>
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
+
+        $.post({
+            url:"addShoesAjax",
+            type: 'post',
+            dataType: 'json',
+            success:function (data) {
+                console.log(data);
+            },
+            fail: function (err) {
+                console.log(err)
+            }
+        });
     });
 </script>
 <script>
