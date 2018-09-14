@@ -87,11 +87,12 @@
                                                     一级分类:
                                                 </label>
                                                 <div class="col-lg-3 m-l-n">
-                                                    <select class="form-control m-b" multiple  name="shoestype" id="shoestype" v-model="selected">
+                                                    <select class="form-control m-b" multiple  name="shoestype" v-model="selected">
                                                         <option v-for="item in types" :value="item.catalogid">
                                                             {{item.catalogname}}
                                                         </option>
                                                     </select>
+                                                    <!--<span>Selected: {{ selected }}</span>-->
                                                 </div>
                                             </div>
                                             <div class="" id="secondtype">
@@ -99,8 +100,10 @@
                                                     二级分类:
                                                 </label>
                                                 <div class="col-lg-3 m-l-n">
-                                                    <select class="form-control m-b" multiple  name="">
-                                                        <option value="0"  v-for="item in types">{{item.catalogname}}</option>
+                                                    <select class="form-control m-b" multiple  name="" v-model="selected">
+                                                        <option value="0"  v-for="item in types" :value="item.catalogid">
+                                                            {{item.catalogname}}
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -109,8 +112,10 @@
                                                     三级分类:
                                                 </label>
                                                 <div class="col-lg-3 m-l-n">
-                                                    <select class="form-control m-b" multiple name="">
-                                                        <option value="0"  v-for="item in types">{{item.catalogname}}</option>
+                                                    <select class="form-control m-b" multiple name="" v-model="selected">
+                                                        <option value="0"  v-for="item in types" :value="item.catalogid">
+                                                            {{item.catalogname}}
+                                                        </option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -175,26 +180,17 @@
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">
-                                                风格:
-                                            </label>
-                                            <div class="col-sm-4">
-                                                <select class="form-control m-b" form="shoesForm">
-                                                    <option value="0" v-for="item in PropertyValue"> {{item.pValue}}</option>
-                                                </select>
-                                            </div>
-                                        </div>
                                         <div id="shoesProperty">
                                             <div class="form-group">
-                                                <div class="col-sm-2">
-                                                    <select class="form-control m-b" form="shoesForm">
-                                                        <option value="0"  v-for="Property in Propertys">{{Property.name}}</option>
+                                                <div class="col-sm-2" id="shoesProp">
+                                                    <select class="form-control m-b" form="shoesForm" v-model="selected">
+                                                        <option value="" selected="selected">请选择属性</option>
+                                                        <option   v-for="property in propertys" v-if="property.propertyname != '颜色' && property.propertyname != '尺码'" :value="property.propertyid">{{property.propertyname}}</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-sm-4">
-                                                    <select class="form-control m-b" form="shoesForm">
-                                                        <option value="0" v-for="item in PropertyValue"> {{item.pValue}}</option>
+                                                <div class="col-sm-4" id="shoesPropVal">
+                                                    <select class="form-control m-b" form="shoesForm" v-model="selected">
+                                                        <option value="0" v-for="item in propVals"> {{item.propertyvalue}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -323,7 +319,7 @@
                                             <div class="form-group">
                                                 <div class="col-md-3">
                                                     <select class="form-control m-b" form="shoesForm">
-                                                        <option value="0" v-for="item in PropertyValue"> {{item.pValue}}</option>
+                                                        <option value="0" v-for="item in colors"> {{item.propertyvalue}}</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-9">
@@ -366,9 +362,9 @@
                                             <div class="col-sm-2" v-for="(val, index) in sizes">
                                                 <div class="form-group">
                                                     <div class="checkbox checkbox-success checkbox-circle ">
-                                                        <input :id="gernerateId(index)" type="checkbox" name="size" form="shoesForm">
-                                                        <label :for="gernerateId(index)">
-                                                            {{val}}
+                                                        <input :id="'checkbox_'+index" type="checkbox" name="size" form="shoesForm">
+                                                        <label :for="'checkbox_'+index">
+                                                            {{val.propertyvalue}}
                                                         </label>
                                                     </div>
                                                 </div>
@@ -479,37 +475,47 @@
         console.log("初始化啊！")
     });
 
-    var catalog_1,catalog_2,catalog_3;
+    var catalog_1,catalog_2,catalog_3;//分类
+    var property,propertyVal;//属性和属性值
+    var color, size;//颜色和尺码
     //一级分类
     catalog_1=new Vue({
         el: '#firsttype',
         data: {
-            types: [
-            ],
-            selected:"",
-            methods:{
-                nextType:function (catalogid) {
-                    console.log("catalogid="+catalogid);
-                    getNextType(catalogid);
-                },
-                getValue:function (catalogid) {
-                    return catalogid+"";
-                }
+            types: [],
+            selected:[],
+
+        },
+        watch: {
+            selected: function (val) {
+                console.log(val[0]);
+                getNextType(val[0], 2);
+            }
+        },
+        methods:{
+            nextType:function (catalogid) {
+                console.log("catalogid="+catalogid);
+                getNextType(catalogid,2);
             },
-            watch:{
-                selected:function (val) {
-                    console.log(this.list(val));
-                    //getNextType(val);
-                }
+            getValue:function (catalogid) {
+                return catalogid+"";
             }
         }
+
     });
     //二级分类
     catalog_2= new Vue({
         el: '#secondtype',
         data: {
             types: [
-            ]
+            ],
+            selected:[]
+        },
+        watch: {
+            selected: function (val) {
+                console.log(val[0]);
+                getNextType(val[0], 3);
+            }
         }
     });
     //三级分类
@@ -517,20 +523,73 @@
         el: '#thirdtype',
         data: {
             types: [
-            ]
+            ],
+            selected:[]
+        },
+        watch: {
+            selected: function (val) {
+                console.log(val[0]);
+            }
         }
     });
-    $("#shoestype").change(function () {
-        //console.log($(this).val());
+
+    //属性
+    property = new Vue({
+        el: "#shoesProp",
+        data:{
+            propertys:[],
+            selected:[]
+        },
+        watch: {
+            selected: function (val) {
+                console.log(val);
+                getPropVal(val);
+            }
+        }
     });
-    <!--加载添加鞋子的信息-->
+    //属性值
+    propertyVal = new Vue({
+        el: "#shoesPropVal",
+        data:{
+            propVals:[],
+            selected:[]
+        },
+        watch: {
+            selected: function (val) {
+                console.log(val);
+                //getPropVal(val);
+            }
+        }
+    });
+    //颜色
+    color = new Vue({
+        el: '#divforcolor',
+        data: {
+            colors: []
+        }
+    });
+
+    //尺码
+    size = new Vue({
+        el: '#shoesSize',
+        data: {
+            sizes:[]
+        },
+        methods:{
+        }
+    });
+    <!--ajax获取添加鞋子的信息-->
     function loadShoesInfo() {
         $.post({
             url: "addShoesAjax",
             type: 'post',
             dataType: 'json',
             success: function (result) {
-                loadCatalog_1(result.catalog);
+                console.log(result);
+                loadCatalog_1(result.catalog);//加载分类
+                loadProp(result.property);//加载属性 colorProperty
+                loadColor(result.colorProperty);//加载颜色
+                loadSize(result.sizeProperty)//加载尺码
             },
             fail: function (err) {
                 console.log("失败："+err)
@@ -551,9 +610,30 @@
         catalog_2.types=data;//加载了二级分类，其他分类暂时置为空
         catalog_3.types=[];
     }
-
+    //加载三级分类
+    function loadCatalog_3(data) {
+        catalog_3.types=data;
+    }
+    //加载属性
+    function loadProp(data) {
+        property.propertys=data;
+    }
+    ///加载属性值
+    function loadPropVal(data) {
+        console.log("属性值：");
+        propertyVal.propVals = data;
+    }
+    //加载颜色
+    function loadColor(data) {
+        console.log("jiazaiyansela：");
+        color.colors=data;
+    }
+    //加载尺码
+    function loadSize(data) {
+        size.sizes = data;
+    }
     //获取子分类
-    function getNextType(theId){
+    function getNextType(theId,ceng){
         var catalogId=theId;
         $.post({
             url: "shoesCatalogAjax",
@@ -562,13 +642,34 @@
             dataType: 'json',
             success: function (result) {
                 console.log(result);
-                loadCatalog_2(result);
+                if(ceng==2){
+                    loadCatalog_2(result);
+                }
+                else if(ceng==3){
+                    loadCatalog_3(result);
+                }
             },
             fail: function (err) {
                 console.log(err)
             }
         });
+    }
 
+    //获取相应的属性值
+    function getPropVal(propId) {
+        $.post({
+            url: "shoesPropertyAjax",
+            type: 'post',
+            data:{propertyId:propId},
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                loadPropVal(result);
+            },
+            fail: function (err) {
+                console.log(err)
+            }
+        });
     }
 </script>
 
@@ -614,30 +715,7 @@
 </script>
 
 <script>
-
-    new Vue({
-        el: '#shoesProperty',
-        data: {
-            Propertys: [
-                { name: '请选择属性' },
-                { name: '鞋面材质' },
-                { name: '鞋底材质' },
-                { name: '鞋跟' },
-                { name: '流行元素' },
-                { name: '闭合方式' },
-                { name: '鞋帮高度' },
-                { name: '季节' },
-                { name: '鞋头款式' }
-            ],
-            PropertyValue: [
-                { pValue: '黑色' },
-                { pValue: '红色' },
-                { pValue: '白色' },
-                { pValue: '哈哈' }
-            ]
-        }
-    });
-    new Vue({
+    /*new Vue({
         el: '#divforcolor',
         data: {
             PropertyValue: [
@@ -647,8 +725,8 @@
                 { pValue: '哈哈' }
             ]
         }
-    });
-    new Vue({
+    });*/
+    /*new Vue({
         el: '#shoesSize',
         data: {
             sizes:["30","31","32","33","34","35","36","37","38","39","40","41"]
@@ -658,7 +736,7 @@
                 return "checkbox_" +index;
             }
         }
-    });
+    });*/
 
     new Vue({
         el:"#countTable",
