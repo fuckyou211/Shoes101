@@ -40,6 +40,9 @@ redis:
 #color为颜色属性名
 color: "颜色"
 
+#size为尺码属性名
+size: "尺码"
+
 #mapper:
 #  mappers:
 #  - com.shoes101.config.mybatis.BaseMapper
