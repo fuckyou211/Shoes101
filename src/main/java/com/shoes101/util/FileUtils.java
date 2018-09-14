@@ -1,5 +1,6 @@
 package com.shoes101.util;
 
+import ch.qos.logback.core.util.FileUtil;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -48,4 +49,32 @@ public class FileUtils {
         }
 
     }
+
+    /**
+     * 反斜杆.
+     */
+    public static final String speratorAnti = "/";
+
+    /**
+     * 获取WebContent根目录地址.
+     */
+    public static String getWebContent() {
+        String path = FileUtil.class.getResource("/").getPath();
+        path = path.substring(1);
+        File file = new File(path);
+        return "/"+file.getParentFile().getParent();
+    }
+
+    /**
+     * 获取WEB-INF目录地址.
+     */
+    public static String getRoot() {
+        String path = FileUtil.class.getResource("/").getPath();
+        path = path.substring(1);
+        File file = new File(path);
+        return "/"+file.getParent();
+    }
+
+
+
 }
