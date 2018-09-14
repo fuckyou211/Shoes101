@@ -26,6 +26,9 @@ public class GoodsMServiceImpl implements GoodsMService {
     @Value("${color}")
     private String color;
 
+    @Value("${size}")
+    private String size;
+
     private  final Logger logger= LoggerFactory.getLogger(GoodsMServiceImpl.class) ;
 
     @Autowired
@@ -43,6 +46,7 @@ public class GoodsMServiceImpl implements GoodsMService {
         list.put("catalog",shoescatalogMapper.findCatalogByPid(0));
         list.put("property",propertyMapper.selectAll());
         list.put("colorProperty",propertyvalueMapper.selectColorPropertyvalue(color));
+        list.put("sizeProperty",propertyvalueMapper.selectColorPropertyvalue(size));
 
         return JSONObject.toJSONString(list);
     }
