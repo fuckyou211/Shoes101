@@ -42,5 +42,9 @@ public interface PropertyvalueMapper{
             "(select a.propertyid from property as a where a.propertyname = #{color} )")
     public List<Propertyvalue> selectColorPropertyvalue(@Param("color") String color);
 
+    //颜色属性值查询
+    @Select( "select * from propertyvalue where  propertyid= #{propertyId} ")
+    public List<Propertyvalue> selectPropertyvalueBypropertyId(@Param("propertyId") Integer propertyId);
+
 
 }
