@@ -1,0 +1,212 @@
+/*! shoes-info.css for shoes-info page show and choose */
+a:hover, a:link, a:active {
+    text-decoration: none;
+}
+
+.path-link {
+    height: 40px;
+    line-height: 40px;
+}
+
+.path-link li {
+    float: left;
+    padding: 0px 5px;
+
+}
+
+.path-link li a {
+    color: #3f3f3f;
+
+}
+
+.lg-border-padding {
+    border: 1px solid #A6E1EC;
+    padding: 15px;
+    margin-top: 20px;
+}
+
+.a-margin {
+    margin: 5px;
+}
+
+.l-margin {
+    margin-left: 5px;
+}
+
+.a-padding {
+    padding: 5px;
+}
+
+.l-padding {
+    padding-left: 5px;
+}
+
+.r-margin {
+    margin-right: 5px;
+}
+
+.r-padding {
+    padding-right: 5px;
+}
+
+.description-padding {
+    padding: 10px;
+}
+
+.description-height {
+    height: 150px;
+}
+
+.dashed-top-border {
+    border-top: 1px dashed #A6E1EC;
+
+}
+
+.dashed-bottom-border {
+    border-bottom: 1px dashed #A6E1EC;
+}
+
+.detail-li {
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.p-padding {
+    padding: 5px;
+}
+
+.fl {
+    float: left;
+}
+
+.fr {
+    float: right;
+}
+
+.dl-padding {
+    padding: 5px;
+}
+
+.dd-margin {
+    margin: 0px 5px;
+}
+
+.dd-padding {
+    padding: 5px;
+}
+
+.no-choose-border {
+    border: 1px dashed #1B6D85;
+}
+
+.choose-border {
+    border: 1px solid #f90b0b;
+    box-shadow: -1px 3px 9px 1px #a09b9b;
+}
+
+.small-show-img {
+    width: 30px;
+    height: 30px;
+}
+
+.number-of-shoe {
+    display: inline-block;
+    line-height: 20px;
+    text-align: center;
+    width: 20px;
+    height: 20px;
+    cursor: default; /*鼠标效果*/
+}
+
+.count-choose {
+    border: 1px solid #28A4C9;
+}
+
+.count-choose li {
+    line-height: 20px;
+    text-align: center;
+    padding: 0 10px;
+    height: 20px;
+}
+
+.count-choose li a {
+
+}
+
+.change-count {
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.count-show {
+    border-right: 1px solid #28A4C9;
+    width: 30px;
+    height: 40px;
+    line-height: 40px;
+    /*border-right: 1px solid #28A4C9;
+    border-left: 1px solid #28A4C9;
+    color: red;*/
+}
+
+.change-count-a {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+}
+
+.btn-cart, .btn-buy {
+    padding: 10px;
+    margin-left: 20px;
+}
+
+.m-shoes-li {
+    margin-top: 20px;
+}
+.m-shoes-li li {
+    float: left;
+    margin-right: 10px;
+}
+
+
+
+/* 详情页的左侧图片样式 */
+.detail-big-img{
+    width: 100%;
+    height: 100%;
+}
+.img-disabled {
+    /*box-shadow:1px -1px 20px 0px #ab9e9e inset*/
+
+    -webkit-filter: blur(1px); /* Chrome, Opera */
+    -moz-filter: blur(1px);
+    -ms-filter: blur(1px);
+    filter: blur(1px);
+
+    filter: progid:DXImageTransform.Microsoft.Blur(PixelRadius=1.5, MakeShadow=false); /* IE6~IE9 */
+}
+
+#detail-shoes-simg .img-active {
+    border: 1px solid #f90b0b;
+    box-shadow: -1px 3px 9px 1px #a09b9b;
+    -webkit-filter: none; /* Chrome, Opera */
+    -moz-filter: none;
+    -ms-filter: none;
+    filter: none;
+    filter: none;
+}
+
+#detail-shoes-size .number-active {
+    border: 1px solid red;
+    background-color: red;
+    color: #fff;
+}
+
+.number-disabled {
+    border: 1px dashed blue;
+    background-color: #fff;
+    color: #000;
+}

@@ -1,0 +1,82 @@
+body {
+	font: 12px/1.5 tahoma,arial,"\5b8b\4f53";
+}
+.order-addr-title {
+	padding: 10px 0px;
+	border-bottom: 2px solid #eee;
+}
+.order-addr-title span{
+	font-size: 16px;
+}
+.order-addr-list{
+	margin-top: 20px;
+}
+.order-addr-list li{
+	height: 30px;
+	line-height: 30px;
+	vertical-align: middle !important;
+	margin: 2px;
+	padding: 0px 80px;
+	color: #ccc;
+}
+.addr-seleted{
+	background-color: #e5e5e5;
+	border: 1px solid #e5e5e5;
+	font-weight: 600;
+	background-image: url(../images/jisong.png);
+	background-repeat: no-repeat;
+	background-size: auto 30px ;
+	color: #000 !important;
+}
+
+.order-info-vildate{
+	margin-top: 50px;
+	
+}
+.order-info-title{
+	display: block;
+	height: 40px;
+	line-height: 40px;
+    color: #333;
+    font-weight: 700;
+    font-size: 14px;
+}
+.order-items, .order-info-title {
+	
+	border-bottom: 2px solid #eee;
+}
+.order-tatol-show {
+	margin-top: 20px;
+}
+.order-card-warper{
+	border: 1px solid #EB9316;
+}
+.order-card{
+	border: 3px solid #fff0e8;
+    min-width: 230px;
+    padding: 10px 10px 10px 20px;
+    text-align: right;
+}
+.order-card span{
+	display: block;
+	padding: 5px 0px;
+}
+.addr-list span{
+	display: inline;
+}
+.order-caculate-btn{
+	
+}
+.order-caculate-btn #order-caculate-do{
+	display: inline-block;
+    width: 182px;
+    height: 39px;
+    vertical-align: middle;
+    line-height: 39px;
+    cursor: pointer;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 700;
+    background: #EB9316;
+    color: #fff;
+}

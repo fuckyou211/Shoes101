@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+		<title>101 Shoes|我的购物车</title>
+		<!--注意这样在提示成功加入购物车的时候，title要修改-->
+		<link rel="shortcut icon" href="img/101_favicon.ico" type="image/x-icon" />
+		<!--商品名称-->
+		<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+		<link rel="stylesheet" type="text/css" href="css/myrest.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-theme.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/shoes-cart.css" />
+		<link rel="stylesheet" type="text/css" href="css/style.css" >  
+    	<link rel="stylesheet" type="text/css" href="font/font-awesome.min.css" >
+
+		<script src="js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+
+	<body>
+	<header>
+
+			<!--用户栏目-->
+			<div class="container">
+				<div class="row">
+					<div class="col-md-7 col-md-offset-3">
+						<div class="call-support">
+							<p style="font-size: 15px;">101Shoes 欢迎您，请先
+								<a href="#">登陆</a>
+							</p>
+						</div>
+					</div>
+					<div class="col-md-2 col-sm-3">
+						<div class="dashboard">
+							<div class="account-menu">
+								<ul>
+									<li>
+										<a href="#">
+											<i class="fa fa-user" style="font-size: 20px;"></i>
+										</a>
+										<ul>
+											<li>
+												<a href="my-account.html">我的订单</a>
+											</li>
+											<li>
+												<a href="wishlist.html">我的信息</a>
+											</li>
+											<li>
+												<a href="checkout.html">退出</a>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</div>
+							<div class="cart-menu">
+								<ul>
+									<li>
+										<a href="#"><i class="fa fa-shopping-cart" style="font-size: 20px;"></i> <span>2</span> </a>
+										<div class="cart-info">
+											<ul>
+												<li>
+													<div class="cart-img">
+														<img src="img/1.png">
+													</div>
+													<div class="cart-details">
+														<a href="shoes-cart.html">商品1</a>
+														<p>1 x $174.00</p>
+													</div>
+													<div class="btn-edit"></div>
+													<div class="btn-remove"></div>
+												</li>
+												<li>
+													<div class="cart-img">
+														<img src="img/2.png" alt="">
+													</div>
+													<div class="cart-details">
+														<a href="shoes-cart.html">商品2</a>
+														<p>1 x $777.00</p>
+													</div>
+													<div class="btn-edit"></div>
+													<div class="btn-remove"></div>
+												</li>
+											</ul>
+											<h3>小计: <span> $951.00</span></h3>
+											<a href="checkout.html" class="checkout">查看</a>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!--商城导航-->
+			<div class="mainmenu-area product-items">
+				<div class="container">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="logo">
+								<a href="index.html">
+									<img src="images/newlogo.png" alt="">
+								</a>
+							</div>
+						</div>
+						<div class="col-md-9">
+							<div class="mainmenu">
+								<nav>
+									<ul>
+										<li>
+											<a href="index.html">101Shoes</a>
+										</li>
+										<li>
+											<a href="shop.html">女鞋</a>
+											<div class="mega-menu">
+												<ul>
+													<li class="col-md-12"><span><a class="subtitle" style="padding-top: 18px;font-size: 15px;" href="#">便利休闲</a></span>
+														<div class="row">
+															<div class="col-md-2">
+																<span><a href="#" style="padding-top: 5px;">好鞋</a></span>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</li>
+										<li>
+											<a href="shop.html">男鞋</a>
+											<div class="mega-menu">
+												<ul>
+													<li class="col-md-12"><span><a class="subtitle" style="padding-top: 18px;font-size: 15px;" href="#">便利休闲</a></span>
+														<div class="row">
+															<div class="col-md-2">
+																<span><a href="#" style="padding-top: 5px;">好鞋</a></span>
+															</div>
+														</div>
+													</li>
+												</ul>
+											</div>
+										</li>
+										<li>
+											<a href="shop.html">品牌</a>
+											<div class="mega-menu">
+												<ul>
+													<li class="col-md-12">
+														<div class="row">
+															<div class="col-md-2">
+																<span><a href="#" style="padding-top: 10px;">耐克</a></span>
+															</div>
+															<div class="col-md-2">
+																<span><a href="#" style="padding-top: 10px;">阿迪达斯</a></span>
+															</div>
+															
+														</div>
+													</li>
+												</ul>
+											</div>
+										</li>
+										<li class="mega-jewellery">
+											<a href="shoes-sale.html">疯狂抢购</a>
+										</li>
+										<li class="search">
+											<input type="text" class="myinput">
+											<button class="mybutton" title="搜索"><i class="fa fa-search myicon"></i></button>
+										</li>
+									</ul>
+								</nav>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</header>
+		
+		<div class="container">
+            <!-- 购物提示 -->
+            <div id="cart-tip-div">
+                <div class="row add-cart-tip">
+                    <!--显示加入购物车商品中图-->
+                    <div class="pull-left">
+                        <img src="images/mid-img/add-cart-tip.jpg"/>
+                    </div>
+                    <!--显示加入购物车的商品信息-->
+                    <div class="pull-left add-cart-tip-info">
+                        <p style="color: red; font-size: 16px;">已成功加入购物车...</p>
+                        <ul>
+                            <li>&nbsp;品牌:<b>Kobe Hunter</b></li>
+                            <li>&nbsp;名称:<b>Kobe 2th Killer</b></li>
+                            <li>&nbsp;颜色:<b>1040</b></li>
+                            <li>&nbsp;尺码:<b>40</b></li>
+                            <li>&nbsp;数量:<b>1</b></li>
+                            <li>&nbsp;小计:<b>¥17.50</b></li>
+                        </ul>
+                    </div>
+                    <div class="pull-right add-cart-tip-info">
+                        <div class="success-tip">
+
+                        </div>
+                        <div class="tip-link">
+                            <a href="javasrcipt:;" id="return-detail-btn">＜ 返回商品详情</a>
+                            <a href="javasrcipt:;" id="to-cart-btn">去购物车结算</a>
+                        </div>
+                    </div>
+                </div>
+                <!--清除浮动-->
+                <div class="clearfix">
+
+                </div>
+                <!-- 为了好看，把底部版权栏推下去-->
+                <div style="height: 300px;"></div>
+            </div>
+
+			<!-- 购物车列表 -->
+			<div id="cart-list-div" class="row">
+				<h3 class="h3 cart-title" style="border-bottom: 1px solid #f1858c;">
+					全部商品&nbsp;&nbsp;<span>50</span>
+				</h3>
+				
+				<table class="table">
+
+					<tr class="cart-list-th">
+						<td class="checkbox-w">
+							<input type="checkbox" class="checkbox-inline" id="" value="" />&nbsp;&nbsp;全选
+						</td>
+						<td class="cart-info-w">商品信息</td>
+						<td></td>
+						<td>单价</td>
+						<td>数量</td>
+						<td>金额</td>
+						<td>操作</td>
+					</tr>
+					<tr class="cart-list-line"></tr>
+					<tr class="cart-list-tr not-selected">
+						<td>
+							<input type="checkbox" class="checkbox-inline" id="" value="" />
+						</td>
+						<td>
+							<img src="images/cart-xiezi.jpg" style="width: 80px;height: 80px;"/>
+							<a class="cart-shoes-name" href="javascript:;">ADDS y3黑武士男鞋新款个性透气运动休闲鞋厚底增高时尚潮牌男鞋</a>
+						</td>
+						<td> 颜色分类：白蓝
+						尺码：39</td>
+						<td class="price-now">¥ 489.00</td>
+						<td>
+							<span class="cart-shoes-count">
+								<a href="javascript:;" class="cart-incr">∧</a>
+								<b>23</b>
+								<a href="javascript:;" class="cart-decr">∨</a>
+							</span>
+							
+						</td>
+						<td class="price-total">¥ 489.00</td>
+						<td>
+							<a href="javascript:;">删除</a>
+						</td>
+					</tr>
+					<!--隔行作用-->
+					<tr class="cart-list-line"></tr>
+					<tr class="cart-list-tr is-selected">
+						<td>
+							<input type="checkbox" class="checkbox-inline" id="" value="" />
+						</td>
+						<td>
+							<img src="images/cart-xiezi.jpg" style="width: 80px;height: 80px;"/>
+							<a class="cart-shoes-name" href="javascript:;">ADDS y3黑武士男鞋新款个性透气运动休闲鞋厚底增高时尚潮牌男鞋</a>
+						</td>
+						<td> 颜色分类：白蓝
+						尺码：39</td>
+						<td class="price-now">¥ 489.00</td>
+						<td>
+							<span class="cart-shoes-count">
+								<a href="javascript:;" class="cart-incr">∧</a>
+								<b>23</b>
+								<a href="javascript:;" class="cart-decr">∨</a>
+							</span>
+							
+						</td>
+						<td class="price-total">¥ 489.00</td>
+						<td>
+							<a href="javascript:;">删除</a>
+						</td>
+					</tr>
+				</table>
+				
+				<!-- 计算总额 -->
+				<div id="">
+					<div class="delete-tip">
+						成功删除&nbsp;<b>2</b>&nbsp;件宝贝!
+					</div>
+					<div class="cart-caculate">
+						<ul>
+							<li class="pull-left" style="padding: 0px 25px; color: #3f3f3f">
+								<input type="checkbox" name="" id="" value="" />&nbsp;全选
+							</li>
+							<li class="pull-left" style="padding: 0px 25px; color: #3f3f3f">
+								<a href="javascript:;">删除</a>
+							</li>
+							<li class="pull-right">
+								<a href="javascript:;" id="cart-jiesuan" class="cart-has-shoe-seleted">结算</a>
+							</li>
+							<li class="pull-right" style="margin: 0px 40px;">
+								合计：&nbsp;<b style="color: #f40;font-weight: 600; font-size: 16px;">¥ 489.00</b>
+							</li>
+							<li class="pull-right" style="margin: 0px 40px;">
+								已选商品&nbsp;<b style="color: #f40;font-weight: 600; font-size: 16px;">3</b>&nbsp;件
+							</li>
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!--尾部信息-->
+        <div class="footer-top-area" style="margin-top: 60px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-3 col-sm-4">
+                        <div class="footer-contact">
+                            <img src="img/logo_4.png"  alt="">
+                            <p align="center">101Shoes，买到就是赚到</p>
+                            <ul class="address">
+                          
+                                <li>
+                                    <span class="fa fa-phone"></span>
+                                    (000) 12580
+                                </li>
+                                <li>
+                                    <span class="fa fa-envelope-o"></span>
+                                    1048900106@qq.com
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-3 hidden-sm">
+                        <div class="footer-tweets">
+                            <div class="footer-title">
+                                <h3>我们的话</h3>
+                            </div>
+                            <div class="twitter-feed">
+                                <div class="twitter-article">
+                                    <div class="twitter-img">
+                                        <a href="#">
+                                            <img src="img/twitter-1.png"  alt="">
+                                        </a>
+                                    </div>
+                                    <div class="twitter-text">
+                                    	<p>101 shoes</p>
+                                        <a href="#">http://www.101shoes.com</a>
+                                    </div>
+                                </div>
+                                <div class="twitter-article">
+                                    <div class="twitter-img">
+                                        <a href="#">
+                                            <img src="img/twitter-1.png"  alt="">
+                                        </a>
+                                    </div>
+                                    <div class="twitter-text">
+                                    	<p>101 shoes</p>
+                                        <a href="#">http://www.101shoes.com</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="footer-support">
+                            <div class="footer-title">
+                                <h3>我们的支持</h3>
+                            </div>
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a href="#">您的账户</a></li>
+                                    <li><a href="#">隐私政策</a></li>
+                                    <li><a href="#">联系我们</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 col-sm-4">
+                        <div class="footer-info">
+                            <div class="footer-title">
+                                <h3>我们的信息</h3>
+                            </div>
+                            <div class="footer-menu">
+                                <ul>
+                                    <li><a href="" >关于我们</a></li>
+                                    <li><a href="#">客户服务</a></li>
+                                    <li><a href="#">隐私政策</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--版权信息-->
+        <footer class="footer-area">
+            <div class="container">
+                <div class="row" >
+                    <div class="footer-copyright" align="center">
+                        <p>Copyright &copy; 2018 <a href="#"> 山寨平台</a></p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+	</body>
+
+</html>
