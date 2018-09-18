@@ -29,21 +29,8 @@
         </div>            <!--这里是标题、指示的地方-->
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-4">
-                <h2>属性管理</h2>
-                <!--<ol class="breadcrumb">
-                    <li>
-                        <a href="index.html">This is</a>
-                    </li>
-                    <li class="active">
-                        <strong>Breadcrumb</strong>
-                    </li>
-                </ol>-->
+                <h2>属性值管理</h2>
             </div>
-            <!--<div class="col-sm-8">
-                <div class="title-action">
-                    <a href="" class="btn btn-primary">This is action area</a>
-                </div>
-            </div>-->
         </div>
         <div class="wrapper wrapper-content">
             <div class="row ">
@@ -56,21 +43,18 @@
                                         <thead>
                                         <tr>
                                             <th><label class="col-xl-1">编号</label></th>
-                                            <th><label class="col-xl-3">属性名称</label></th>
-                                            <th><label class="col-xl-3">查看属性值</label></th>
-                                            <!--<th><label class="col-xl-3">添加子分类</label></th>-->
+                                            <th><label class="col-xl-3">属性值名称</label></th>
                                             <th><label class="col-xl-2">操作</label></th>
                                         </tr>
                                         </thead>
                                         <tbody >
-                                        <tr v-for="(item, index) in propertys">
+                                        <tr v-for="(item, index) in propvals">
                                             <td><p class="myp">{{index+1}}</p></td>
-                                            <td><p class="myp">{{item.propertyname}}</p></td>
-                                            <td><a href="javascript:void(0)" @click="getPropertyValue(item.propertyid)"> 查看属性值</a></td>
+                                            <td><p class="myp">{{item.propertyvalue}}</p></td>
                                             <td>
                                                 <p class="myp">
-                                                    <a href="javascript:void(0)" @click="toEditProp(item)" >修改</a>
-                                                    <a href="javascript:void(0)"  >删除</a>
+                                                    <a href="">修改</a>
+                                                    <a href="">删除</a>
                                                 </p>
                                             </td>
                                         </tr>
@@ -101,33 +85,12 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label>属性名称</label>
-                                                        <input type="text" placeholder="Enter new property" name="propertyname" class="form-control" oninput="getAddBtn(this)">
+                                                        <input type="text" placeholder="Enter new property" name="propertyname" class="form-control" oninput="getAddBtn()">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                                                    <button type="button" class="btn btn-primary" disabled id="saveBtn" onclick="addProp()">保存</button>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--修改属性-->
-                                    <div class="modal inmodal" id="editProperty" tabindex="-1" role="dialog" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content animated flipInY">
-                                                <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                                    <h4 class="modal-title">修改属性</h4>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <div class="form-group">
-                                                        <label>属性名称</label>
-                                                        <input type="text" placeholder="输入新的属性名称" name="newpropertyname" class="form-control" oninput="getAddBtn(this)">
-                                                    </div>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                                                    <button type="button" class="btn btn-primary" disabled id="saveEditBtn" onclick="editProp()">保存</button>
+                                                    <button type="button" class="btn btn-primary" disabled id="saveBtn" onclick="checkProp()">保存</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -178,20 +141,11 @@
     $("#navigate_2").load("../navigate/navigate_2.html");
 </script>
 <script>
-    //一个空的属性对象
-    var property = {"propertyid":"", "properyname":""};
     //先定义一个vue
     var proList = new Vue({
         el:"#shoesProprity",
         data:{
             propertys:[]
-        },
-        methods:{
-            toEditProp: function (item) {
-                property = item;
-                console.log("要更改的id是:"+property.propertyid);
-                $("#editProperty").modal("show");
-            }
         }
     });
     $(document).ready(function(){
@@ -213,26 +167,20 @@
     }
 
     //监听输入框，为空时不能添加
-    function getAddBtn(obj) {
-        console.log("输入的值为："+$(obj).val());
-        var name = $(obj).val();
-        //var name = $("input[name='propertyname']").val();
+    function getAddBtn() {
+        console.log("diaonoasdg");
+        var name = $("input[name='propertyname']").val();
         if(name!=""){
-            //thisobj.removeAttr("disabled");
             $("#saveBtn").removeAttr("disabled");
-            $("#saveEditBtn").removeAttr("disabled");
         }else {
-            //thisobj.attr("disabled","disabled");
             $('#saveBtn').attr("disabled","disabled");
-            $('#saveEditBtn').attr("disabled","disabled");
         }
 
     }
 
     //检查属性是否存在
-    function checkProp(name) {
-        //var name = $("input[name='propertyname']").val();
-        var resultdata="";
+    function checkProp() {
+        var name = $("input[name='propertyname']").val();
         $.post({
             url: "checkExistP",
             type: 'post',
@@ -240,69 +188,34 @@
             dataType: 'json',
             success: function (result) {
                 console.log(result);
-                return result;
-                /*if(result==1){
+                if(result==1){
                     alert("已有相同属性啦！");
                 }else {
                     //如果不存在就可以添加
                     addProp(name);
-                }*/
+                }
             },
             fail: function (err) {
-                console.log("失败："+err);
-                return err;
+                console.log("失败："+err)
             }
         });
     }
 
     //添加属性
-    function addProp() {
-        var name = $("input[name='propertyname']").val();
-        var result = checkProp(name);
-        if(result==1){
-                    alert("已有相同属性啦！");
-        }else {
-            //如果不存在就可以添加
-            $.post({
-                url: "addProp",
-                type: 'post',
-                data: {"propertyname":name},
-                dataType: 'json',
-                success: function (result) {
-                    console.log(result);
-                    loadProp(result);
-                },
-                fail: function (err) {
-                    console.log("失败："+err)
-                }
-            });
-        }
-
-    }
-
-    //修改属性
-    function editProp() {
-        property.properyname = $("input[name='newpropertyname']").val();
-        var result = checkProp(property.properyname);
-        if(result==1){
-            alert("已有相同属性啦！");
-        }else {
-            //如果不存在就可以添加
-            $.post({
-                url: "updateP",
-                type: 'post',
-                data: property,
-                dataType: 'json',
-                success: function (result) {
-                    console.log(result);
-                    loadProp(result);
-                },
-                fail: function (err) {
-                    console.log("失败："+err)
-                }
-            });
-        }
-
+    function addProp(name) {
+        $.post({
+            url: "addProp",
+            type: 'post',
+            data: {"propertyname":name},
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                loadProp(result);
+            },
+            fail: function (err) {
+                console.log("失败："+err)
+            }
+        });
     }
 </script>
 
