@@ -45,8 +45,8 @@ function doAddCart() {
 
         // 加入cookie
         //localStorage.setItem('shoes',JSON.stringify(data));
-        // $.cookie("shoes",JSON.stringify(data));
-        window.location.href="./shoes-cart.html";
+         $.cookie("shoes",JSON.stringify(data));
+       // window.location.href="./shoes-cart.html";
     }
 }
 
