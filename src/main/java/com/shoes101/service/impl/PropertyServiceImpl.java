@@ -35,14 +35,24 @@ public class PropertyServiceImpl implements PropertyService {
             return 0;
         return 1;
     }
-
-    //新增属性 同时加到两张表 验证是否存在
-    public List<Property> addProp(String propertyname, String propertyvalue)
+    //新增属性
+    public List<Property> addProp1(String propertyname)
     {
-            propertyMapper.inserttwo(propertyname);
-            propertyvalueMapper.inserttwo(propertyvalue,propertyMapper.getLastId());
+        propertyMapper.inserttwo(propertyname);
+        return propertyMapper.selectAll();
+    }
 
-            return propertyMapper.selectAll();
+    //新增属性3 同时加到两张表 验证是否存在
+    public List<Property> addProp2(int propertyid, String propertyvalue)
+    {
+
+        Propertyvalue pv = new Propertyvalue();
+        pv.setPropertyId(propertyid);
+        pv.setPropertyvalue(propertyvalue);
+        propertyvalueMapper.insert(pv);
+//            propertyvalueMapper.inserttwo(propertyvalue,propertyMapper.getLastId());//旧版本是同时向两张表插入相关值 返回最新变更的id
+
+        return propertyMapper.selectAll();
 
     }
 

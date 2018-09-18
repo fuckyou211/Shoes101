@@ -64,21 +64,18 @@
             success:function(data){
                console.log(data);
                 //alert("用户名或密码错误");
-				 if(data == '1')
+				 if(data == 'yes')
 				 {
 
-				    //alert("hi");
                     window.location.href="/admin/toback";
 				 }
-				//
 				else
 				{
 				    alert("用户名或密码错误");
 				}
             },
             error:function(data){
-            //    console.log(data);
-                alert("aaaaa");
+                alert("系统异常，请重新登录！");
             }
         });
     }

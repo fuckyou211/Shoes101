@@ -40,4 +40,10 @@
     select detailid, orderid, skuid, quantity, price, ticketprice
     from orderdetail
   </select>
+  <select id="getOrderdetail" resultMap="BaseResultMap">
+    select * from orderdetail where orderid = #{orderid}
+  </select>
+  <delete id="deteleDetail">
+    delete from orderdetail where orderid = #{orderid}
+  </delete>
 </mapper>

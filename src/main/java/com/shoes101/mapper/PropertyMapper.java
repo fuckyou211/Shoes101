@@ -19,10 +19,11 @@ public interface PropertyMapper{
 
     int updateByPrimaryKey(Property record);
 
+
     //获取所有属性
     List<Property> selectAll();
 
-    //增加属性进入两张表中
+    //增加属性进入两张表中  分开增加  这里增加属性名 不增加属性值值
     public int inserttwo(String propertyname);
 
     //获取id

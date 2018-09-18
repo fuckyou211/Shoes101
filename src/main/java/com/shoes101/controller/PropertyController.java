@@ -50,15 +50,20 @@ public class PropertyController {
         return propertyService.checkExist(propertyvalue);
     }
 
+
     /**
      * 新增属性  会验证是否与之前的相同 将返回的列表装入Map返回
      */
     @RequestMapping("/addProp")
     @ResponseBody
-    public List<Property> addProp(@RequestParam("propertyname") String propertyname, @RequestParam("propertyvalue") String propertyvalue)
+    public List<Property> addProp1(@RequestParam("propertyname") String propertyname)
     {
-        return propertyService.addProp(propertyname,propertyvalue);
+        return propertyService.addProp1(propertyname);
     }
+//    public List<Property> addProp(@RequestParam("propertyname") String propertyname, @RequestParam("propertyvalue") String propertyvalue)
+//    {
+//        return propertyService.addProp(propertyname,propertyvalue);
+//    }
 //    备用方法
 //    @RequestMapping("/addProp")
 //    public String addProp(@RequestParam("propertyname") String propertyname, @RequestParam("propertyvalue") String propertyvalue, Map<String,Object> map)
@@ -67,6 +72,17 @@ public class PropertyController {
 //        map.put("list",list);
 //        return "back/manager_property";
 //    }
+
+    /**
+     * 新增属性值
+     */
+    @RequestMapping("/addpropv")
+    @ResponseBody
+    public List<Property> addPropV(@RequestParam("propertyid") int propertyid, @RequestParam("propertyvalue") String propertyvalue)
+    {
+       return propertyService.addProp2(propertyid,propertyvalue);
+   }
+
 
     /**
      * 修改属性
