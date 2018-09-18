@@ -80,14 +80,14 @@
 
 
                                     -->
-                                    <form id="shoesForm">
+                                    <form id="shoesForm"  >
                                         <fieldset class="form-horizontal">
                                             <div class="" id="firsttype">
                                                 <label class="col-sm-1 control-label mylabel">
                                                     一级分类:
                                                 </label>
                                                 <div class="col-lg-3 m-l-n">
-                                                    <select class="form-control m-b" multiple  name="shoestype" v-model="selected">
+                                                    <select class="form-control m-b" multiple  name="catalogid1" v-model="selected">
                                                         <option v-for="item in types" :value="item.catalogid">
                                                             {{item.catalogname}}
                                                         </option>
@@ -100,7 +100,7 @@
                                                     二级分类:
                                                 </label>
                                                 <div class="col-lg-3 m-l-n">
-                                                    <select class="form-control m-b" multiple  name="" v-model="selected">
+                                                    <select class="form-control m-b" multiple  name="catalogid2" v-model="selected">
                                                         <option value="0"  v-for="item in types" :value="item.catalogid">
                                                             {{item.catalogname}}
                                                         </option>
@@ -112,7 +112,7 @@
                                                     三级分类:
                                                 </label>
                                                 <div class="col-lg-3 m-l-n">
-                                                    <select class="form-control m-b" multiple name="" v-model="selected">
+                                                    <select class="form-control m-b" multiple name="catalogid3" v-model="selected">
                                                         <option value="0"  v-for="item in types" :value="item.catalogid">
                                                             {{item.catalogname}}
                                                         </option>
@@ -133,10 +133,18 @@
                                     <fieldset class="form-horizontal">
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">
-                                                鞋子名称/标题:
+                                                鞋子名称:
                                             </label>
                                             <div class="col-sm-10">
                                                 <input type="text" class="form-control" name="shoesname" form="shoesForm">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">
+                                                鞋子标题:
+                                            </label>
+                                            <div class="col-sm-10">
+                                                <input type="text" class="form-control" name="shoeslabel" form="shoesForm">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -152,13 +160,13 @@
                                                 上架时间:
                                             </label>
                                             <div class="radio radio-info radio-inline">
-                                                <input id="inlineRadio1" type="radio" name="radioInline" form="shoesForm" checked>
+                                                <input id="inlineRadio1" type="radio" name="isdropoff" value="0" form="shoesForm" checked>
                                                 <label for="inlineRadio1">
                                                     立即上架
                                                 </label>
                                             </div>
                                             <div class="radio radio-info radio-inline">
-                                                <input id="inlineRadio2" type="radio" name="radioInline" form="shoesForm">
+                                                <input id="inlineRadio2" type="radio" name="isdropoff" value="1" form="shoesForm">
                                                 <label for="inlineRadio2">
                                                     稍后上架
                                                 </label>
@@ -170,27 +178,27 @@
                                             </label>
                                         </div>
 
-                                        <div class="form-group">
+                                        <!--<div class="form-group">
                                             <label class="col-sm-2 control-label">
                                                 品牌:
                                             </label>
                                             <div class="col-sm-4">
-                                                <select class="form-control m-b" form="shoesForm">
+                                                <select class="form-control m-b"  form="shoesForm">
                                                     <option value="0" v-for="item in PropertyValue"> {{item.pValue}}</option>
                                                 </select>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         <div id="shoesProperty">
                                             <div class="form-group">
                                                 <div class="col-sm-2" id="shoesProp">
-                                                    <select class="form-control m-b" form="shoesForm" v-model="selected">
+                                                    <select class="form-control m-b" name="property" form="shoesForm" v-model="selected">
                                                         <option value="" selected="selected">请选择属性</option>
                                                         <option   v-for="property in propertys" v-if="property.propertyname != '颜色' && property.propertyname != '尺码'" :value="property.propertyid">{{property.propertyname}}</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-sm-4" id="shoesPropVal">
-                                                    <select class="form-control m-b" form="shoesForm" v-model="selected">
-                                                        <option value="0" v-for="item in propVals"> {{item.propertyvalue}}</option>
+                                                    <select class="form-control m-b" name="propertyvalue" form="shoesForm" v-model="selected">
+                                                        <option v-for="item in propVals" :value="item.propertyvalueid"> {{item.propertyvalue}}</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -226,7 +234,7 @@
                                         </div>
                                         <div class="btn-group">
                                             <label title="Upload image file" for="1_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="fpic"
+                                                <input type="file" accept="image/*" multiple="multiple" name="fpic1"
                                                        form="shoesForm" id="1_inputImage" class="hide" onchange="preview(this)">
                                                 上传图片
                                             </label>
@@ -243,7 +251,7 @@
                                         </div>
                                         <div class="btn-group">
                                             <label title="Upload image file" for="2_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="fpic"
+                                                <input type="file" accept="image/*" multiple="multiple" name="fpic2"
                                                        form="shoesForm" id="2_inputImage" class="hide" onchange="preview(this)">
                                                 上传图片
                                             </label>
@@ -260,7 +268,7 @@
                                         </div>
                                         <div class="btn-group">
                                             <label title="Upload image file" for="3_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="fpic"
+                                                <input type="file" accept="image/*" multiple="multiple" name="fpic3"
                                                        form="shoesForm" id="3_inputImage" class="hide" onchange="preview(this)">
                                                 上传图片
                                             </label>
@@ -277,7 +285,7 @@
                                         </div>
                                         <div class="btn-group">
                                             <label title="Upload image file" for="4_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="fpic"
+                                                <input type="file" accept="image/*" multiple="multiple" name="fpic4"
                                                        form="shoesForm" id="4_inputImage" class="hide" onchange="preview(this)">
                                                 上传图片
                                             </label>
@@ -294,7 +302,7 @@
                                         </div>
                                         <div class="btn-group">
                                             <label title="Upload image file" for="5_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="fpic"
+                                                <input type="file" accept="image/*" multiple="multiple" name="fpic5"
                                                        form="shoesForm" id="5_inputImage" class="hide" onchange="preview(this)">
                                                 上传图片
                                             </label>
@@ -318,8 +326,8 @@
                                         <div id="divforcolor">
                                             <div class="form-group">
                                                 <div class="col-md-3">
-                                                    <select class="form-control m-b" form="shoesForm">
-                                                        <option value="0" v-for="item in colors"> {{item.propertyvalue}}</option>
+                                                    <select class="form-control m-b" name="shoescolor" form="shoesForm">
+                                                        <option  v-for="item in colors" :value="item.propertyvalueid"> {{item.propertyvalue}}</option>
                                                     </select>
                                                 </div>
                                                 <div class="col-md-9">
@@ -328,7 +336,7 @@
                                                         <div class="fileinput fileinput-new" data-provides="fileinput">
                                                             <!-- <input type="text" class="form-control col-md-6" placeholder=""> -->
                                                             <span class="btn btn-default btn-file"><span class="fileinput-new">上传图片</span>
-                                                                    <span class="fileinput-exists">更改</span><input type="file" name="..." form="shoesForm"></span>
+                                                                    <span class="fileinput-exists">更改</span><input type="file" name="shoescolorpic" form="shoesForm"></span>
                                                             <span class="fileinput-filename"></span>
                                                             <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                                         </div>
@@ -362,7 +370,7 @@
                                             <div class="col-sm-2" v-for="(val, index) in sizes">
                                                 <div class="form-group">
                                                     <div class="checkbox checkbox-success checkbox-circle ">
-                                                        <input :id="'checkbox_'+index" type="checkbox" name="size" form="shoesForm">
+                                                        <input :id="'checkbox_'+index" type="checkbox" name="shoessize" :value="val.propertyvalueid" form="shoesForm">
                                                         <label :for="'checkbox_'+index">
                                                             {{val.propertyvalue}}
                                                         </label>
@@ -393,7 +401,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-md-12" style="margin-top: 18px;">
-                                        <a class="btn btn-success">完成</a>
+                                        <a class="btn btn-success" onclick="addShoes()">完成</a>
                                     </div>
                                 </div>
                             </div>
@@ -596,6 +604,23 @@
             }
         });
     }
+
+
+    //添加鞋子
+    /*async:false*/
+    // cache: false,
+    // processData: false,
+    //     contentType: false
+    function addShoes() {
+        //var sHTML = $('.summernote').code();
+        var shoes = $("#shoesForm").serialize();
+        //var shoes = new FormData($('#shoesForm'));
+       //var shoes = $("#shoesForm").serializeObject();
+       console.log("要添加鞋子了！")
+       console.log(shoes);
+       //
+    }
+
 </script>
 <script>
     //加载一级分类
