@@ -144,7 +144,7 @@
                                                 鞋子标题:
                                             </label>
                                             <div class="col-sm-10">
-                                                <input type="text" class="form-control" name="shoeslabel" form="shoesForm">
+                                                <input type="text" class="form-control" name="label" form="shoesForm">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -152,7 +152,7 @@
                                                 鞋子价格:
                                             </label>
                                             <div class="col-sm-4">
-                                                <input type="text" class="form-control" name="shoesprice" form="shoesForm">
+                                                <input type="text" class="form-control" name="price" form="shoesForm">
                                             </div>
                                         </div>
                                         <div class="form-group">
@@ -234,7 +234,7 @@
                                         </div>
                                         <div class="btn-group">
                                             <label title="Upload image file" for="1_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="fpic1"
+                                                <input type="file" accept="image/*" multiple="multiple" name="shoespic"
                                                        form="shoesForm" id="1_inputImage" class="hide" onchange="preview(this)">
                                                 上传图片
                                             </label>
@@ -251,7 +251,7 @@
                                         </div>
                                         <div class="btn-group">
                                             <label title="Upload image file" for="2_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="fpic2"
+                                                <input type="file" accept="image/*" multiple="multiple" name="shoespic"
                                                        form="shoesForm" id="2_inputImage" class="hide" onchange="preview(this)">
                                                 上传图片
                                             </label>
@@ -268,7 +268,7 @@
                                         </div>
                                         <div class="btn-group">
                                             <label title="Upload image file" for="3_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="fpic3"
+                                                <input type="file" accept="image/*" multiple="multiple" name="shoespic"
                                                        form="shoesForm" id="3_inputImage" class="hide" onchange="preview(this)">
                                                 上传图片
                                             </label>
@@ -285,7 +285,7 @@
                                         </div>
                                         <div class="btn-group">
                                             <label title="Upload image file" for="4_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="fpic4"
+                                                <input type="file" accept="image/*" multiple="multiple" name="shoespic"
                                                        form="shoesForm" id="4_inputImage" class="hide" onchange="preview(this)">
                                                 上传图片
                                             </label>
@@ -302,7 +302,7 @@
                                         </div>
                                         <div class="btn-group">
                                             <label title="Upload image file" for="5_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="fpic5"
+                                                <input type="file" accept="image/*" multiple="multiple" name="shoespic"
                                                        form="shoesForm" id="5_inputImage" class="hide" onchange="preview(this)">
                                                 上传图片
                                             </label>
@@ -335,8 +335,11 @@
                                                     <div class="ibox float-e-margins">
                                                         <div class="fileinput fileinput-new" data-provides="fileinput">
                                                             <!-- <input type="text" class="form-control col-md-6" placeholder=""> -->
-                                                            <span class="btn btn-default btn-file"><span class="fileinput-new">上传图片</span>
-                                                                    <span class="fileinput-exists">更改</span><input type="file" name="shoescolorpic" form="shoesForm"></span>
+                                                            <span class="btn btn-default btn-file">
+                                                                <span class="fileinput-new">上传图片</span>
+                                                                <span class="fileinput-exists">更改</span>
+                                                                <input type="file" name="shoescolorpic" accept="image/*" form="shoesForm">
+                                                            </span>
                                                             <span class="fileinput-filename"></span>
                                                             <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">&times;</a>
                                                         </div>
@@ -607,20 +610,60 @@
 
 
     //添加鞋子
-    /*async:false*/
-    // cache: false,
-    // processData: false,
-    //     contentType: false
+
     function addShoes() {
-        var sHTML = $('.summernote').summernote('code');
-        var shoes = $("#shoesForm").serialize();
-        shoes: $.extend(shoes,{shoesdetails: sHTML})
+        console.log("要添加鞋子了！");
+        var sHTML = $('.summernote').summernote('code');//获取详情描述
+        //var shoes = $("#shoesForm").serialize();
+        //var jsonData = $("#shoesForm").serializeArray();
+        //shoes = shoes + "&shoesdetails=" + sHTML;
+
+        var formData = new FormData($("#shoesForm")[0]);//序列化表单 catalogid1
+        formData.append("shoesdetails", sHTML);
+        var catalogid, catalogid1, catalogid2, catalogid3;
+        catalogid1 = formData.get("catalogid1");
+        catalogid2 = formData.get("catalogid2");
+        catalogid3 = formData.get("catalogid3");
+        if(catalogid1!=null && catalogid1!=""){
+            catalogid = catalogid1;
+        }
+        if(catalogid2!=null && catalogid2!=""){
+            catalogid = catalogid2;
+        }
+        if(catalogid3!=null && catalogid3!=""){
+            catalogid = catalogid3;
+        }
+        formData.append("catalogid", catalogid);
+        var name = formData.get("shoesname");
+        console.log("鞋子名称为："+name);
+        console.log(formData);
+        var pic = formData.get("shoespic");
+        console.log(pic);
+        //shoes: $.extend(shoes,{shoesdetails: sHTML})
         //var shoes = new FormData($('#shoesForm'));
        //var shoes = $("#shoesForm").serializeObject();
-       console.log("要添加鞋子了！");
-       console.log(sHTML);
-       console.log(shoes);
+
+       //console.log(sHTML);
+       //console.log(shoes);
+       //console.log(jsonData);
        //
+
+        $.post({
+            url: "",//addShoesForm
+            type: 'post',
+            data:formData,
+            async:false,
+            cache: false,
+            processData: false,
+            contentType: false,
+            dataType: 'json',
+            success: function (result) {
+               console.log("添加成功！");
+            },
+            fail: function (err) {
+                console.log("失败："+err)
+            }
+        });
     }
 
 </script>
