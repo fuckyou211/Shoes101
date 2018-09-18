@@ -20,7 +20,7 @@ public interface PropertyMapper{
     int updateByPrimaryKey(Property record);
 
     //验证属性名是否存在
-    int findIfExist(@Param("propertyname") String propertyname);
+    Property findIfExist(@Param("propertyname") String propertyname);
 
     //获取所有属性
     List<Property> selectAll();

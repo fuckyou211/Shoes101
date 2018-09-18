@@ -157,6 +157,7 @@
     $("#navigate_2").load("../navigate/navigate_2.html");
 </script>
 <script>
+    //先定义一个vue
     var proList = new Vue({
         el:"#shoesProprity",
         data:{
@@ -164,19 +165,24 @@
         }
     });
     $(document).ready(function(){
-        var temp="[[${list}]]";
+        var temp="[[${list}]]";//获取数据
         temp= temp.replace(/&quot;/g,"\"");
-        //console.log(temp);
-        //console.log("[[${list}]]");
         console.log(JSON.parse(temp));
-        proList.propertys = JSON.parse(temp);
+        loadProp(JSON.parse(temp));//加载数据
     });
+
+    //加载数据
+    function loadProp(data) {
+        proList.propertys = data;
+    }
+
     function getPropertyValue(pid){
         console.log(pid);
         $("#btn-property").hide();
         $("#btn-proValue").show();
     }
-    
+
+    //监听输入框，为空时不能添加
     function getAddBtn() {
         console.log("diaonoasdg");
         var name = $("input[name='propertyname']").val();
@@ -188,19 +194,20 @@
 
     }
 
+    //检查属性是否存在
     function checkProp() {
         var name = $("input[name='propertyname']").val();
         $.post({
             url: "checkExistP",
             type: 'post',
-            data: name,
+            data: {"propertyname":name},
             dataType: 'json',
             success: function (result) {
                 console.log(result);
                 if(result==1){
                     alert("已有相同属性啦！");
-
                 }else {
+                    //如果不存在就可以添加
                     addProp(name);
                 }
             },
@@ -210,20 +217,16 @@
         });
     }
 
+    //添加属性
     function addProp(name) {
         $.post({
             url: "addProp",
             type: 'post',
-            data: name,
+            data: {"propertyname":name},
             dataType: 'json',
             success: function (result) {
                 console.log(result);
-                if(result==1){
-                    alert("添加成功");
-
-                }else {
-                    alert("添加不成功");
-                }
+                loadProp(result);
             },
             fail: function (err) {
                 console.log("失败："+err)

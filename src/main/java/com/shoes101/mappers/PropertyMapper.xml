@@ -51,7 +51,7 @@
   </update>
 
 <!--验证属性是否存在-->
-  <select id="findIfExis">
+  <select id="findIfExist" resultMap="BaseResultMap">
     select * from property where propertyname=#{propertyname}
   </select>
 </mapper>

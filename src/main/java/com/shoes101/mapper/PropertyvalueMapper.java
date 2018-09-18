@@ -25,7 +25,7 @@ public interface PropertyvalueMapper{
 
     //验证是否存在属性
     @Select("select * from propertyvalue where propertyvalue=#{propertyvalue}")
-    int findIfExist(@Param("propertyvalue") String propertyvalue);
+    Propertyvalue findIfExist(@Param("propertyvalue") String propertyvalue);
 
     //增加属性进入两张表中
     @Insert("insert into propertyvalue(propertyvalue,propertyid) values (#{propertyvalue},#{propertyid})")

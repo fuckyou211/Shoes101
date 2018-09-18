@@ -31,17 +31,17 @@ public class PropertyServiceImpl implements PropertyService {
     //验证属性值
     public int checkExist(String propertyvalue)
     {
-        if(propertyvalueMapper.findIfExist(propertyvalue) == 1)
-            return 1;
-        return 0;
+        if(propertyvalueMapper.findIfExist(propertyvalue) == null)
+            return 0;
+        return 1;
     }
 
     //验证属性名
     public int checkExistP(String propertyname)
     {
-        if(propertyMapper.findIfExist(propertyname) == 1)
-            return 1;
-        return 0;
+        if(propertyMapper.findIfExist(propertyname) == null)
+            return 0;
+        return 1;
     }
 
     //新增属性
