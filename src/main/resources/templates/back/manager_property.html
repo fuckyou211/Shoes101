@@ -106,7 +106,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                                                    <button type="button" class="btn btn-primary" disabled="disabled"  onclick="addProp()">保存</button>
+                                                    <button type="button" class="btn btn-primary" disabled id="saveBtn" onclick="checkProp()">保存</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -178,14 +178,57 @@
     }
     
     function getAddBtn() {
-        $(".modal-footer .btn btn-primary").removeAttr("disabled");
+        console.log("diaonoasdg");
+        var name = $("input[name='propertyname']").val();
+        if(name!=""){
+            $("#saveBtn").removeAttr("disabled");
+        }else {
+            $('#saveBtn').attr("disabled","disabled");
+        }
+
     }
 
-    function addProp() {
+    function checkProp() {
         var name = $("input[name='propertyname']").val();
-        if(name==""){
-            
-        }
+        $.post({
+            url: "checkExistP",
+            type: 'post',
+            data: name,
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                if(result==1){
+                    alert("已有相同属性啦！");
+
+                }else {
+                    addProp(name);
+                }
+            },
+            fail: function (err) {
+                console.log("失败："+err)
+            }
+        });
+    }
+
+    function addProp(name) {
+        $.post({
+            url: "addProp",
+            type: 'post',
+            data: name,
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                if(result==1){
+                    alert("添加成功");
+
+                }else {
+                    alert("添加不成功");
+                }
+            },
+            fail: function (err) {
+                console.log("失败："+err)
+            }
+        });
     }
 </script>
 

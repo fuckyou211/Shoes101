@@ -602,7 +602,9 @@
                 loadProp(result.property);//加载属性 colorProperty
                 loadColor(result.colorProperty);//加载颜色
                 loadSize(result.sizeProperty)//加载尺码
+                console.log(result.shoesid);
                 shoesid=result.shoesid;
+
             },
             fail: function (err) {
                 console.log("失败："+err)
@@ -637,11 +639,12 @@
         }
         formData.append("catalogid", catalogid);
         formData.append("shoesid",shoesid);
+        console.log("shoesid="+shoesid);
         var name = formData.get("shoesname");
         console.log("鞋子名称为："+name);
         console.log(formData);
-        var pic = formData.get("shoespic");
-        console.log(pic);
+        //var pic = formData.get("shoespic");
+       // console.log(pic);
         //shoes: $.extend(shoes,{shoesdetails: sHTML})
         //var shoes = new FormData($('#shoesForm'));
        //var shoes = $("#shoesForm").serializeObject();
