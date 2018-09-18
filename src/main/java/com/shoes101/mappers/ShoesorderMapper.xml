@@ -57,4 +57,10 @@
     contactphone, receiptaddress, `state`, cancel, validity
     from shoesorder
   </select>
+  <update id="changeState">
+    update shoesorder set state = #{state} where orderid = #{orderid}
+  </update>
+  <update id="iscancel">
+    update shoesorder set cancel =#{cancel} where orderid = #{orderid}
+  </update>
 </mapper>

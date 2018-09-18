@@ -13,8 +13,11 @@ public interface PropertyService {
     //验证属性
     public int checkExist(String propertyvalue);
 
+    //新增属性
+    public List<Property> addProp1(String propertyname);
+
     //新增属性 同时加到两张表
-    public List<Property> addProp(String propertyname, String propertyvalue);
+    public List<Property> addProp2(int propertyid, String propertyvalue);
 
     //修改属性名
     public List<Property> updateP(int propertyid,String propertyname);

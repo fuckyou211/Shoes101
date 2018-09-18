@@ -50,4 +50,5 @@
     update set propertyname=#{propertyname} where propertyid=#{propertyid}
   </update>
 
+
 </mapper>
