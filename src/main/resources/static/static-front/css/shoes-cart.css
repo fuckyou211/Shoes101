@@ -1,0 +1,236 @@
+.cart-color {
+	color: #f1858c;
+}
+
+.cart-head {
+	height: 95px;
+	line-height: 95px;
+	vertical-align: middle;
+}
+
+.cart-logo {
+	height: 95px;
+}
+
+.cart-logo img {
+	height: 95px;
+	width: auto;
+}
+
+.cart-title {
+	padding: 0 0 20px 0px;
+	color: #f1858c;
+	font-weight: 700;
+	font-size: 16px;
+	font-family: 'Hiragino Sans GB', 'Lantinghei SC', 'Microsoft Yahei', SimSun;
+}
+
+.add-cart-tip{
+	height: 200px;
+	/*background-color: blue;*/
+	margin-top: 20px;
+	position: relative;
+	
+}
+.add-cart-tip-info{
+	padding-left: 20px;
+	height: 200px;
+	font: 12px/2 tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;
+}
+.tip-link{
+	
+	position: absolute;
+	right: 0px;
+	bottom: 0px;
+}
+.tip-link #return-detail-btn, .tip-link #to-cart-btn{
+	border: 1px solid #F1858C;
+	padding: 10px;
+	font-size: 16px;
+	font-weight: 600;
+}
+.tip-link #return-detail-btn{
+	background-color: #fff;
+	color: #f1858c;
+	margin-right: 20px;
+}
+.tip-link #to-cart-btn{
+	background-color: #f1858c;
+	color: #fff;
+}
+.tip-link #return-detail-btn:hover{
+	color: #fff;
+}
+.tip-link #to-cart-btn:hover,.tip-link #return-detail-btn:hover{
+	background-color: red;
+	border: 1px solid red;
+}
+.tip-link a:hover{
+	
+}
+.table tbody tr td {
+	border: none;
+	font: 12px/1.5 tahoma, arial, "\5b8b\4f53";
+}
+
+.cart-list-th {
+	height: 50px;
+	line-height: 50px;
+}
+
+.checkbox-w {
+	width: 10%;
+}
+
+.cart-info-w {
+	width: 30%;
+}
+
+.cart-list-tr {
+	border: 1px solid #ccc;
+	float: none;
+	margin-bottom: 15px;
+	height: 80px;
+	line-height: 80px;
+	vertical-align: middle;
+}
+
+.cart-list-line {
+	float: none;
+	margin-bottom: 15px;
+	height: 20px;
+	line-height: 20px;
+	vertical-align: middle;
+}
+
+.table th,
+.table td {
+	text-align: center;
+	vertical-align: middle!important;
+}
+
+.cart-shoes-name {
+	font-size: 12px;
+	display: inline-block;
+	max-width: 150px !important;
+	max-height: 36px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	text-decoration: none;
+	color: #3e3e3e;
+}
+
+.is-selected {
+	background-color: #e5e5e5;
+	border: 1px solid #e5e5e5;
+	
+}
+.is-selected td{
+	font-weight: 600 !important;
+}
+.not-selected {
+	background-color: #fff;
+	border: 1px solid #ccc;
+}
+
+.price-now {
+	color: #3c3c3c;
+	font-weight: 700 !important;
+	font-family: Verdana, Tahoma, arial;
+}
+
+.price-total {
+	color: red;
+	font-weight: 700 !important;
+	font-family: Verdana, Tahoma, arial;
+}
+
+.cart-shoes-count {
+	border: 1px solid #ccc;
+	padding: 5px;
+}
+
+.cart-incr,
+.cart-decr {
+	text-decoration: none;
+	display: inline-block;
+	width: 20px;
+	height: 20px;
+	line-height: 20px;
+	text-align: center;
+	color: #ccc;
+}
+a{
+	color: #3f3f3f;
+}
+a:hover,
+a:link,
+a:active {
+	text-decoration: none;
+}
+.delete-tip{
+	border: 1px dashed #f1858c;
+	color: #f1858c;
+	padding: 15px;
+	margin-bottom: 20px;
+}
+.cart-caculate{
+	background-color: #e5e5e5;
+	height: 50px;
+	line-height: 50px;
+	vertical-align: middle !important;
+	overflow: hidden;
+	font: 12px/50px tahoma,arial,'Hiragino Sans GB','\5b8b\4f53',sans-serif;
+}
+#cart-jiesuan{
+	display: inline-block;
+	width: 120px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 20px;
+	color: #fff;
+	font-weight: 700;
+}
+.cart-no-shoe-seleted{
+	background-color: #b0b0b0;
+}
+.cart-has-shoe-seleted{
+	background-color: red;
+}
+/*
+.cart-search{
+	width: 490px;
+	height: 41px;
+	line-height: 41px;
+	vertical-align: middle;
+	
+}
+.cart-search-input {
+	display: inline-block;
+	width: 490px;
+	height: 41px;
+	background-color: #f1858c;
+	vertical-align: middle;
+	padding: 3px;
+}
+.cart-search-input input{
+	display: inline-block;
+	border: none;
+	height: 35px;
+	
+	margin: 0px;
+	padding: 0px;
+}
+.cart-search-input a{
+	color: #fff;
+	font-weight: 700;
+	font-size: 16px;
+	font-family: "微软雅黑";
+	padding: 0px 10px;
+	cursor: default;
+}
+.cart-search-input a:hover,.cart-search-input a:link,.cart-search-input a:active{
+	text-decoration: none;
+}
+*/
