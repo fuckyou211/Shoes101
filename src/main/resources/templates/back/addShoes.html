@@ -67,8 +67,8 @@
                             <li class=""><a data-toggle="tab" href="#tab-3" id="aTab_3"> 添加图片></a></li>
                             <li class=""><a data-toggle="tab" href="#tab-4" id="aTab_4"> 颜色分类></a></li>
                             <li class=""><a data-toggle="tab" href="#tab-5" id="aTab_5"> 选择尺码></a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-6" id="aTab_6"> 详情描述></a></li>
-                            <li class=""><a data-toggle="tab" href="#tab-7" id="aTab_7"> 填写库存</a></li>
+                            <li class=""><a data-toggle="tab" href="#tab-6" id="aTab_6"> 详情描述</a></li>
+                            <!--<li class=""><a data-toggle="tab" href="#tab-7" id="aTab_7"> 填写库存</a></li>-->
                         </ul>
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane active">
@@ -408,7 +408,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div id="tab-7" class="tab-pane">
+                            <!--<div id="tab-7" class="tab-pane">
                                 <div class="panel-body">
                                     <div class="form-group col-md-12" style="margin-top: 18px;">
                                         <label>请填写颜色对应的尺码的库存:</label>
@@ -441,7 +441,7 @@
 
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
 
@@ -489,6 +489,7 @@
     var catalog_1,catalog_2,catalog_3;//分类
     var property,propertyVal;//属性和属性值
     var color, size;//颜色和尺码
+    var shoesid;
     //一级分类
     catalog_1=new Vue({
         el: '#firsttype',
@@ -601,6 +602,7 @@
                 loadProp(result.property);//加载属性 colorProperty
                 loadColor(result.colorProperty);//加载颜色
                 loadSize(result.sizeProperty)//加载尺码
+                shoesid=result.shoesid;
             },
             fail: function (err) {
                 console.log("失败："+err)
@@ -634,6 +636,7 @@
             catalogid = catalogid3;
         }
         formData.append("catalogid", catalogid);
+        formData.append("shoesid",shoesid);
         var name = formData.get("shoesname");
         console.log("鞋子名称为："+name);
         console.log(formData);
@@ -659,6 +662,7 @@
             dataType: 'json',
             success: function (result) {
                console.log("添加成功！");
+
             },
             fail: function (err) {
                 console.log("失败："+err)

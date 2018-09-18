@@ -101,12 +101,12 @@
                                                 <div class="modal-body">
                                                     <div class="form-group">
                                                         <label>属性名称</label>
-                                                        <input type="text" placeholder="Enter new property" name="propertyname" class="form-control">
+                                                        <input type="text" placeholder="Enter new property" name="propertyname" class="form-control" oninput="getAddBtn()">
                                                     </div>
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                                                    <button type="button" class="btn btn-primary" onclick="addProp()">保存</button>
+                                                    <button type="button" class="btn btn-primary" disabled="disabled"  onclick="addProp()">保存</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -125,7 +125,7 @@
                                                 </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-white" data-dismiss="modal">关闭</button>
-                                                    <button type="button" class="btn btn-primary">保存</button>
+                                                    <button type="button" class="btn btn-primary" >保存</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -176,10 +176,16 @@
         $("#btn-property").hide();
         $("#btn-proValue").show();
     }
-
+    
+    function getAddBtn() {
+        $(".modal-footer .btn btn-primary").removeAttr("disabled");
+    }
 
     function addProp() {
-        $("input[name='propertyname']").val();
+        var name = $("input[name='propertyname']").val();
+        if(name==""){
+            
+        }
     }
 </script>
 
