@@ -41,7 +41,7 @@ public class PropertyController {
     }
 
     /**
-     * 验证是否有相同属性
+     * 验证是否有相同属性值
      */
     @RequestMapping("/checkExist")
     @ResponseBody
@@ -50,6 +50,15 @@ public class PropertyController {
         return propertyService.checkExist(propertyvalue);
     }
 
+    /**
+     * 验证是否有相同属性
+     */
+    @RequestMapping("/checkExistP")
+    @ResponseBody
+    public int checkExistP(@RequestParam("propertyname") String propertyname)
+    {
+        return propertyService.checkExistP(propertyname);
+    }
 
     /**
      * 新增属性  会验证是否与之前的相同 将返回的列表装入Map返回

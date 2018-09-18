@@ -28,13 +28,22 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyMapper.selectAll();
     }
 
-    //验证属性
+    //验证属性值
     public int checkExist(String propertyvalue)
     {
         if(propertyvalueMapper.findIfExist(propertyvalue) == 1)
-            return 0;
-        return 1;
+            return 1;
+        return 0;
     }
+
+    //验证属性名
+    public int checkExistP(String propertyname)
+    {
+        if(propertyMapper.findIfExist(propertyname) == 1)
+            return 1;
+        return 0;
+    }
+
     //新增属性
     public List<Property> addProp1(String propertyname)
     {

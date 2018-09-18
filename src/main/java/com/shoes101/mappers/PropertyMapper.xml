@@ -50,5 +50,8 @@
     update set propertyname=#{propertyname} where propertyid=#{propertyid}
   </update>
 
-
+<!--验证属性是否存在-->
+  <select id="findIfExis">
+    select * from property where propertyname=#{propertyname}
+  </select>
 </mapper>

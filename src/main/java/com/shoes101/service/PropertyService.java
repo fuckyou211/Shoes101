@@ -10,8 +10,11 @@ public interface PropertyService {
     //获取所有属性
     public List<Property> getAllProperty();
 
-    //验证属性
+    //验证属性值
     public int checkExist(String propertyvalue);
+
+    //验证属性
+    public int checkExistP(String propertyname);
 
     //新增属性
     public List<Property> addProp1(String propertyname);
