@@ -50,6 +50,10 @@ html {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
 
+@-ms-viewport {
+  width: device-width;
+}
+
 article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
   display: block;
 }
@@ -1819,6 +1823,11 @@ pre code {
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+  .form-control {
+    transition: none;
+  }
+}
 
 .form-control::-ms-expand {
   background-color: transparent;
@@ -2295,6 +2304,11 @@ textarea.form-control {
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+  .btn {
+    transition: none;
+  }
+}
 
 .btn:hover, .btn:focus {
   text-decoration: none;
@@ -2919,6 +2933,11 @@ input[type="button"].btn-block {
   transition: opacity 0.15s linear;
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+  .fade {
+    transition: none;
+  }
+}
 
 .fade:not(.show) {
   opacity: 0;
@@ -2935,6 +2954,11 @@ input[type="button"].btn-block {
   transition: height 0.35s ease;
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+  .collapsing {
+    transition: none;
+  }
+}
 
 .dropup,
 .dropright,
@@ -3734,6 +3758,11 @@ input[type="button"].btn-block {
   appearance: none;
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+  .custom-range::-webkit-slider-thumb {
+    transition: none;
+  }
+}
 
 .custom-range::-webkit-slider-thumb:active {
   background-color: #b3d7ff;
@@ -3760,6 +3789,11 @@ input[type="button"].btn-block {
   appearance: none;
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+  .custom-range::-moz-range-thumb {
+    transition: none;
+  }
+}
 
 .custom-range::-moz-range-thumb:active {
   background-color: #b3d7ff;
@@ -3786,6 +3820,12 @@ input[type="button"].btn-block {
   border-radius: 1rem;
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   appearance: none;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .custom-range::-ms-thumb {
+    transition: none;
+  }
 }
 
 .custom-range::-ms-thumb:active {
@@ -3817,6 +3857,14 @@ input[type="button"].btn-block {
 .custom-file-label,
 .custom-select {
   transition: background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .custom-control-label::before,
+  .custom-file-label,
+  .custom-select {
+    transition: none;
+  }
 }
 
 .nav {
@@ -5030,6 +5078,12 @@ input[type="button"].btn-block {
   transition: width 0.6s ease;
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+  .progress-bar {
+    transition: none;
+  }
+}
+
 .progress-bar-striped {
   background-image: linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
   background-size: 1rem 1rem;
@@ -5318,6 +5372,12 @@ button.close {
   transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
   -webkit-transform: translate(0, -25%);
   transform: translate(0, -25%);
+}
+
+@media screen and (prefers-reduced-motion: reduce) {
+  .modal.fade .modal-dialog {
+    transition: none;
+  }
 }
 
 .modal.show .modal-dialog {
@@ -5779,6 +5839,13 @@ button.close {
   transition: transform 0.6s ease, -webkit-transform 0.6s ease;
 }
 
+@media screen and (prefers-reduced-motion: reduce) {
+  .carousel-item.active,
+  .carousel-item-next,
+  .carousel-item-prev {
+    transition: none;
+  }
+}
 
 .carousel-item-next,
 .carousel-item-prev {
@@ -6683,7 +6750,10 @@ button.bg-dark:focus {
     -ms-flex-pack: justify !important;
     justify-content: space-between !important;
   }
-
+  .justify-content-sm-around {
+    -ms-flex-pack: distribute !important;
+    justify-content: space-around !important;
+  }
   .align-items-sm-start {
     -ms-flex-align: start !important;
     align-items: flex-start !important;
@@ -6819,7 +6889,10 @@ button.bg-dark:focus {
     -ms-flex-pack: justify !important;
     justify-content: space-between !important;
   }
-
+  .justify-content-md-around {
+    -ms-flex-pack: distribute !important;
+    justify-content: space-around !important;
+  }
   .align-items-md-start {
     -ms-flex-align: start !important;
     align-items: flex-start !important;
@@ -6955,7 +7028,10 @@ button.bg-dark:focus {
     -ms-flex-pack: justify !important;
     justify-content: space-between !important;
   }
-
+  .justify-content-lg-around {
+    -ms-flex-pack: distribute !important;
+    justify-content: space-around !important;
+  }
   .align-items-lg-start {
     -ms-flex-align: start !important;
     align-items: flex-start !important;
@@ -7091,7 +7167,10 @@ button.bg-dark:focus {
     -ms-flex-pack: justify !important;
     justify-content: space-between !important;
   }
-
+  .justify-content-xl-around {
+    -ms-flex-pack: distribute !important;
+    justify-content: space-around !important;
+  }
   .align-items-xl-start {
     -ms-flex-align: start !important;
     align-items: flex-start !important;

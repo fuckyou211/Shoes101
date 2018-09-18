@@ -399,8 +399,18 @@ body {
     position: relative;
     float: none;
 }
+.btn-edit {
+    background-image: url("btn_edit.gif")/*tpa=http://www.17sucai.com/preview/1191101/2018-05-14/james/img/cart/btn_edit.gif*/;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    height: 11px;
+    position: absolute;
+    right: 25px;
+    width: 11px;
+    top: 4px;
+}
 .btn-remove {
-    background-image: url("../img/btn_remove.png")/*tpa=http://www.17sucai.com/preview/1191101/2018-05-14/james/img/cart/btn_remove.png*/;
+    background-image: url("img/btn_remove.png")/*tpa=http://www.17sucai.com/preview/1191101/2018-05-14/james/img/cart/btn_remove.png*/;
     background-repeat: no-repeat;
     cursor: pointer;
     height: 13px;
@@ -1230,7 +1240,7 @@ body {
     padding-top: 60px;
 }
 .home2 .owl-theme .owl-controls .owl-buttons div {
-    background: rgba(0, 0, 0, 0) url("../img/button-slider2.png")/*tpa=http://www.17sucai.com/preview/1191101/2018-05-14/james/img/button-slider2.png*/ no-repeat scroll 0 0;
+    background: rgba(0, 0, 0, 0) url("img/button-slider2.png")/*tpa=http://www.17sucai.com/preview/1191101/2018-05-14/james/img/button-slider2.png*/ no-repeat scroll 0 0;
     height: 28px;
     width: 33px;
 }
@@ -1336,6 +1346,12 @@ body {
 /*  12. Another banner area
 /*----------------------------------------*/
 
+.another-banner-area {
+    background-image: url("banner-bg.jpg")/*tpa=http://www.17sucai.com/preview/1191101/2018-05-14/james/img/banner/banner-bg.jpg*/;
+    background-position: center top;
+    min-height: 440px;
+    padding-top: 50px;
+}
 .big-banner a {
     box-shadow: -22px -22px rgba(99, 100, 101, 0.58);
     display: block;
@@ -1364,6 +1380,13 @@ body {
 /*  13. Testimonial area
 /*----------------------------------------*/
 
+.testimonial-area {
+    background-image: url("testimonial-bg.jpg")/*tpa=http://www.17sucai.com/preview/1191101/2018-05-14/james/img/testimonial/testimonial-bg.jpg*/;
+    background-color: #0e0e0e;
+    background-position: center top;
+    -webkit-background-size: cover;
+    background-size: cover;
+}
 .testimonial-slider {
     padding-bottom: 30px;
     padding-top: 40px;
@@ -2192,7 +2215,10 @@ ul.address li span {
     right: auto;
     top: auto;
 }
-
+.single-product-details .owl-theme .owl-controls .owl-buttons div {
+    background: rgba(0, 0, 0, .3) url("single-product-slider-control.png")/*tpa=http://www.17sucai.com/preview/1191101/2018-05-14/james/img/product/single-product-slider-control.png*/ no-repeat scroll 0 100%;
+    border-radius: 0px;
+}
 .single-product-details .owl-theme .owl-controls .owl-buttons div:hover {
     background-color: #e03550;
 }

@@ -1174,6 +1174,10 @@ if ( typeof Object.create !== 'function' ) {
             var self = this;
             var newImg = new Image();
 
+            if(self.options.loadingIcon){
+                self.spinner = $('<div style="background: url(\''+self.options.loadingIcon+'\') no-repeat center;height:'+self.nzHeight+'px;width:'+self.nzWidth+'px;z-index: 2000;position: absolute; background-position: center center;"></div>');
+                self.$elem.after(self.spinner);
+            }
 
             self.options.onImageSwap(self.$elem);
 

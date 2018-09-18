@@ -73,4 +73,7 @@
 }
 
 /* preloading images */
-
+.owl-item.loading{
+    min-height: 150px;
+    background: url(AjaxLoader.gif)/*tpa=http://www.17sucai.com/preview/1191101/2018-05-14/james/css/AjaxLoader.gif*/ no-repeat center center
+}

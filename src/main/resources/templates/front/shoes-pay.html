@@ -16,8 +16,12 @@
 		<link rel="stylesheet" type="text/css" href="../../static/static-front/css/style.css">
 		<link rel="stylesheet" type="text/css" href="../../static/static-front/font/font-awesome.min.css">
 
-		<script src="../../static/static-front/js/jquery-1.9.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="../../static/static-front/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../../static/static-front/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../../static/static-front/js/common.js"></script>
+        <script src="../../static/static-front/js/js.cookie.js"></script>
+		<script src="../../static/static-front/js/shoes-pay.js"></script>
+
 
 	</head>
 
@@ -29,8 +33,13 @@
 				<div class="row">
 					<div class="col-md-7 col-md-offset-3">
 						<div class="call-support">
-							<p style="font-size: 15px;">101Shoes 欢迎您，请先
-								<a href="#">登陆</a>
+							<p id="login-tip" style="font-size: 15px;">101Shoes 欢迎您，
+								<!-- 如果没有登录显示这个信息 -->
+								<s style="text-decoration: none">请先
+									<a id="login-link" href="#">登陆</a>
+								</s>
+								<!-- 登录成功的话显示这个 -->
+								<!--<b>隔壁老王</b>-->
 							</p>
 						</div>
 					</div>
@@ -197,7 +206,37 @@
 					<dd class="order-addr-list">
 						<ul>
 							<li>
-								<span><input type="radio" name="" value="" /></span> &nbsp; &nbsp; &nbsp;
+								<span><input type="radio" name="" id="a4" value="" /></span> &nbsp; &nbsp; &nbsp;
+								<!-- 拼接地址字符串，中间用空格隔开-->
+								<span>广东省 肇庆市 端州区 端州区黄岗街道 </span>
+								<!--详细地址信息-->
+								<span>肇庆学院主校区</span>
+								<span>(&nbsp;</span>
+								<!--收货人名字-->
+								<span>郭冠志</span>
+								<span>&nbsp;收 )</span>
+								<!-- 收货人电话-->
+								<em style="font-weight: 600;">132264798955</em>
+								<!--用于一些动作处理预留的标签 ，如鼠标移进、选中该li-->
+								<span id="a5"></span>
+							</li>
+							<li>
+								<span><input type="radio" name="" id="a6" value="" /></span> &nbsp; &nbsp; &nbsp;
+								<!-- 拼接地址字符串，中间用空格隔开-->
+								<span>广东省 肇庆市 端州区 端州区黄岗街道 </span>
+								<!--详细地址信息-->
+								<span>肇庆学院主校区</span>
+								<span>(&nbsp;</span>
+								<!--收货人名字-->
+								<span>郭冠志</span>
+								<span>&nbsp;收 )</span>
+								<!-- 收货人电话-->
+								<em style="font-weight: 600;">132264798955</em>
+								<!--用于一些动作处理预留的标签 ，如鼠标移进、选中该li-->
+								<span id="a8"></span>
+							</li>
+							<li class="addr-seleted">
+								<span><input type="radio" name="" id="a7" value="" /></span> &nbsp; &nbsp; &nbsp;
 								<!-- 拼接地址字符串，中间用空格隔开-->
 								<span>广东省 肇庆市 端州区 端州区黄岗街道 </span>
 								<!--详细地址信息-->
@@ -210,36 +249,6 @@
 								<em style="font-weight: 600;">132264798955</em>
 								<!--用于一些动作处理预留的标签 ，如鼠标移进、选中该li-->
 								<span id="action-do"></span>
-							</li>
-							<li>
-								<span><input type="radio" name="" value="" /></span> &nbsp; &nbsp; &nbsp;
-								<!-- 拼接地址字符串，中间用空格隔开-->
-								<span>广东省 肇庆市 端州区 端州区黄岗街道 </span>
-								<!--详细地址信息-->
-								<span>肇庆学院主校区</span>
-								<span>(&nbsp;</span>
-								<!--收货人名字-->
-								<span>郭冠志</span>
-								<span>&nbsp;收 )</span>
-								<!-- 收货人电话-->
-								<em style="font-weight: 600;">132264798955</em>
-								<!--用于一些动作处理预留的标签 ，如鼠标移进、选中该li-->
-								<!--<span id="action-do"></span>-->
-							</li>
-							<li class="addr-seleted">
-								<span><input type="radio" name="" id="" value="" /></span> &nbsp; &nbsp; &nbsp;
-								<!-- 拼接地址字符串，中间用空格隔开-->
-								<span>广东省 肇庆市 端州区 端州区黄岗街道 </span>
-								<!--详细地址信息-->
-								<span>肇庆学院主校区</span>
-								<span>(&nbsp;</span>
-								<!--收货人名字-->
-								<span>郭冠志</span>
-								<span>&nbsp;收 )</span>
-								<!-- 收货人电话-->
-								<em style="font-weight: 600;">132264798955</em>
-								<!--用于一些动作处理预留的标签 ，如鼠标移进、选中该li-->
-								<!--<span id="action-do"></span>-->
 							</li>
 						</ul>
 					</dd>
@@ -343,112 +352,13 @@
 			</div>
 		</div>
 
-		<!--尾部信息-->
-		<div class="footer-top-area" style="margin-top: 60px;">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-sm-4">
-						<div class="footer-contact">
-							<img src="../../static/static-front/img/logo_4.png" alt="">
-							<p align="center">101Shoes，买到就是赚到</p>
-							<ul class="address">
+		<!--尾部-->
+		<div id="the_footer"></div>
 
-								<li>
-									<span class="fa fa-phone"></span> (000) 12580
-								</li>
-								<li>
-									<span class="fa fa-envelope-o"></span> 1048900106@qq.com
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-3 hidden-sm">
-						<div class="footer-tweets">
-							<div class="footer-title">
-								<h3>我们的话</h3>
-							</div>
-							<div class="twitter-feed">
-								<div class="twitter-article">
-									<div class="twitter-img">
-										<a href="#">
-											<img src="../../static/static-front/img/twitter-1.png" alt="">
-										</a>
-									</div>
-									<div class="twitter-text">
-										<p>101 shoes</p>
-										<a href="#">http://www.101shoes.com</a>
-									</div>
-								</div>
-								<div class="twitter-article">
-									<div class="twitter-img">
-										<a href="#">
-											<img src="../../static/static-front/img/twitter-1.png" alt="">
-										</a>
-									</div>
-									<div class="twitter-text">
-										<p>101 shoes</p>
-										<a href="#">http://www.101shoes.com</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-4">
-						<div class="footer-support">
-							<div class="footer-title">
-								<h3>我们的支持</h3>
-							</div>
-							<div class="footer-menu">
-								<ul>
-									<li>
-										<a href="#">您的账户</a>
-									</li>
-									<li>
-										<a href="#">隐私政策</a>
-									</li>
-									<li>
-										<a href="#">联系我们</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-4">
-						<div class="footer-info">
-							<div class="footer-title">
-								<h3>我们的信息</h3>
-							</div>
-							<div class="footer-menu">
-								<ul>
-									<li>
-										<a href="">关于我们</a>
-									</li>
-									<li>
-										<a href="#">客户服务</a>
-									</li>
-									<li>
-										<a href="#">隐私政策</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!--版权信息-->
-		<footer class="footer-area">
-			<div class="container">
-				<div class="row">
-					<div class="footer-copyright" align="center">
-						<p>Copyright &copy; 2018
-							<a href="#"> 山寨平台</a>
-						</p>
-					</div>
-				</div>
-			</div>
-		</footer>
+		<!--载入尾部-->
+		<script>
+            $("#the_footer").load("shoes-footer.html");
+		</script>
 	</body>
 
 </html>

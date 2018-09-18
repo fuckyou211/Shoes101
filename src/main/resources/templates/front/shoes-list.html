@@ -36,8 +36,13 @@
 				<div class="row">
 					<div class="col-md-7 col-md-offset-3">
 						<div class="call-support">
-							<p style="font-size: 15px;">101Shoes 欢迎您，请先
-								<a href="#">登陆</a>
+							<p id="login-tip" style="font-size: 15px;">101Shoes 欢迎您，
+								<!-- 如果没有登录显示这个信息 -->
+								<s style="text-decoration: none">请先
+									<a id="login-link" href="#">登陆</a>
+								</s>
+								<!-- 登录成功的话显示这个 -->
+								<!--<b>隔壁老王</b>-->
 							</p>
 						</div>
 					</div>
@@ -218,7 +223,7 @@
 									<h3>品牌</h3>
 								</div>
 								<div class="single-sidebar-content">
-									<div class="row">
+									<div id="a1" class="row">
 										<dl class="fl col-xs-9 shopping-choose">
 											<dd><span>全部</span></dd>
 											<dd>
@@ -244,7 +249,7 @@
 									<h3>颜色</h3>
 								</div>
 								<div class="single-sidebar-content">
-									<div class="row">
+									<div id="a2" class="row">
 										<dl class="fl col-xs-9 shopping-choose">
 											<dd><span>全部</span></dd>
 											<dd>
@@ -366,8 +371,8 @@
                                             <div class="single-product " >
                                                 <div class="product-img ">
 												<a href="shoes-detail.html">
-													<img src="../../static/static-front/img/9.png" alt="" class="primary-img">
-													<img src="../../static/static-front/img/10.png" alt="" class="secondary-img">
+													<img src="img/9.png" alt="" class="primary-img">
+													<img src="img/10.png" alt="" class="secondary-img">
 												</a>
 											</div>
 											<div class="actions">
@@ -385,8 +390,8 @@
 										<div class="single-product">
 											<div class="product-img">
                                                     <a href="shoes-detail.html " >
-                                                        <img src="../../static/static-front/img/9.png "  alt=" " class="primary-img ">
-                                                        <img src="../../static/static-front/img/10.png "  alt=" " class="secondary-img ">
+                                                        <img src="img/9.png "  alt=" " class="primary-img ">
+                                                        <img src="img/10.png "  alt=" " class="secondary-img ">
                                                     </a>
                                                 </div>
                                                 <div class="actions ">
@@ -402,10 +407,10 @@
                                         </div>
                                         <div class="col-lg-3 col-sm-6 " align="center ">
                                             <div class="single-product " >
-                                                <div class="product-img ">
+                                                <div class="product-img">
 												<a href="shoes-detail.html">
-													<img src="../../static/static-front/img/9.png" alt="" class="primary-img">
-													<img src="../../static/static-front/img/10.png" alt="" class="secondary-img">
+													<img src="img/9.png" alt="" class="primary-img">
+													<img src="img/10.png" alt="" class="secondary-img">
 												</a>
 											</div>
 											<div class="actions">
@@ -423,8 +428,8 @@
 										<div class="single-product">
 											<div class="product-img">
                                                     <a href="shoes-detail.html " >
-                                                        <img src="../../static/static-front/img/9.png "  alt=" " class="primary-img ">
-                                                        <img src="../../static/static-front/img/10.png "  alt=" " class="secondary-img ">
+                                                        <img src="img/9.png "  alt=" " class="primary-img ">
+                                                        <img src="img/10.png "  alt=" " class="secondary-img ">
                                                     </a>
                                                 </div>
                                                 <div class="actions ">
@@ -440,10 +445,10 @@
                                         </div>
                                         <div class="col-lg-3 col-sm-6 " align="center ">
                                             <div class="single-product " >
-                                                <div class="product-img ">
+                                                <div class="product-img">
 												<a href="shoes-detail.html">
-													<img src="../../static/static-front/img/9.png" alt="" class="primary-img">
-													<img src="../../static/static-front/img/10.png" alt="" class="secondary-img">
+													<img src="img/9.png" alt="" class="primary-img">
+													<img src="img/10.png" alt="" class="secondary-img">
 												</a>
 											</div>
 											<div class="actions">
@@ -461,8 +466,8 @@
 										<div class="single-product">
 											<div class="product-img">
                                                     <a href="shoes-detail.html " >
-                                                        <img src="../../static/static-front/img/9.png "  alt=" " class="primary-img ">
-                                                        <img src="../../static/static-front/img/10.png "  alt=" " class="secondary-img ">
+                                                        <img src="img/9.png "  alt=" " class="primary-img ">
+                                                        <img src="img/10.png "  alt=" " class="secondary-img ">
                                                     </a>
                                                 </div>
                                                 <div class="actions ">
@@ -478,10 +483,10 @@
                                         </div>
                                         <div class="col-lg-3 col-sm-6 " align="center ">
                                             <div class="single-product " >
-                                                <div class="product-img ">
+                                                <div class="product-img">
 												<a href="shoes-detail.html">
-													<img src="../../static/static-front/img/9.png" alt="" class="primary-img">
-													<img src="../../static/static-front/img/10.png" alt="" class="secondary-img">
+													<img src="img/9.png" alt="" class="primary-img">
+													<img src="img/10.png" alt="" class="secondary-img">
 												</a>
 											</div>
 											<div class="actions">
@@ -523,115 +528,8 @@
 			</div>
 		</div>
 
-		<!--尾部信息-->
-		<div class="footer-top-area">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-3 col-sm-4">
-						<div class="footer-contact">
-							<img src="../../static/static-front/img/logo_4.png" alt="">
-							<p align="center">101Shoes，买到就是赚到</p>
-							<ul class="address">
-
-								<li>
-									<span class="fa fa-phone"></span> (000) 12580
-								</li>
-								<li>
-									<span class="fa fa-envelope-o"></span> 1048900106@qq.com
-								</li>
-							</ul>
-						</div>
-					</div>
-					<div class="col-md-3 hidden-sm">
-						<div class="footer-tweets">
-							<div class="footer-title">
-								<h3>我们的话</h3>
-							</div>
-							<div class="twitter-feed">
-								<div class="twitter-article">
-									<div class="twitter-img">
-										<a href="#">
-											<img src="../../static/static-front/img/twitter-1.png" alt="">
-										</a>
-									</div>
-									<div class="twitter-text">
-										<p>101shoes</p>
-										<a href="#">http://www.101Shoes.com</a>
-									</div>
-								</div>
-								<div class="twitter-article">
-									<div class="twitter-img">
-										<a href="#">
-											<img src="../../static/static-front/img/twitter-1.png" alt="">
-										</a>
-									</div>
-									<div class="twitter-text">
-										<p>101shoes</p>
-										<a href="#">http://www.101Shoes.com</a>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-4">
-						<div class="footer-support">
-							<div class="footer-title">
-								<h3>我们的支持</h3>
-							</div>
-							<div class="footer-menu">
-								<ul>
-									<li>
-										<a href="#">您的账户</a>
-									</li>
-									<li>
-										<a href="#">隐私政策</a>
-									</li>
-									<li>
-										<a href="#">联系我们</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-					<div class="col-md-3 col-sm-4">
-						<div class="footer-info">
-							<div class="footer-title">
-								<h3>我们的信息</h3>
-							</div>
-							<div class="footer-menu">
-								<ul>
-									<li>
-										<a href="">关于我们</a>
-									</li>
-									<li>
-										<a href="#">客户服务</a>
-									</li>
-									<li>
-										<a href="#">隐私政策</a>
-									</li>
-								</ul>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<!--版权信息-->
-		<footer class="footer-area">
-			<div class="container">
-				<div class="row">
-					<div class="footer-copyright" align="center">
-						<p>Copyright &copy; 2018
-							<a href="#"> 山寨平台</a>
-						</p>
-					</div>
-				</div>
-			</div>
-
-			<!--返回顶层-->
-			<a href="#" id="scrollUp"><i class="fa fa fa-arrow-up"></i></a>
-		</footer>
+		<!--尾部-->
+		<div id="the_footer"></div>
 
 		<!--添加到购物车-->
 		<div id="quickview-wrapper">
@@ -706,22 +604,30 @@
 		<script src="../../static/static-front/js/jquery.elevatezoom.js"></script>
 		<script src="../../static/static-front/js/jquery.scrollUp.min.js"></script>
 		<script src="../../static/static-front/js/main.js"></script>
+
+		<script type="text/javascript">
+            var btn1 = document.getElementById('thebtn');
+            var box1 = document.getElementById('thebox');
+
+            function btn() {
+
+                if(btn1.value == "收起") {
+                    box1.style.display = 'none';
+                    btn1.value = "更多";
+                } else {
+                    box1.style.display = 'block';
+                    btn1.value = "收起";
+                }
+            }
+		</script>
+
+		<!--载入尾部-->
+		<script>
+            $("#the_footer").load("shoes-footer.html");
+		</script>
+
 	</body>
 
-	<script type="text/javascript">
-		var btn1 = document.getElementById('thebtn');
-		var box1 = document.getElementById('thebox');
 
-		function btn() {
-
-			if(btn1.value == "收起") {
-				box1.style.display = 'none';
-				btn1.value = "更多";
-			} else {
-				box1.style.display = 'block';
-				btn1.value = "收起";
-			}
-		}
-	</script>
 
 </html>

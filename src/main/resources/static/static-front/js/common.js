@@ -159,3 +159,13 @@ function getShoesMaxStock(id) {
 
     return Number($($_Id(id)).html());
 }
+
+/**
+ * 判断是否登录
+ */
+function isLogin() {
+    let login_tip = $($_Id("login-tip"));
+
+    // 如果有<b> 标签就表示已经登录
+    return login_tip.children("b:first-child").length === 1 ? true:false;
+}
