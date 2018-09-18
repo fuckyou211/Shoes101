@@ -43,6 +43,7 @@ public class GoodsMServiceImpl implements GoodsMService {
     @Override
     public String addShoesInformationAjax() {
         Map<String,Object> list=new HashMap<String,Object>();
+        list.put("shoesid",new Date().getTime());
         list.put("catalog",shoescatalogMapper.findCatalogByPid(0));
         list.put("property",propertyMapper.selectAll());
         list.put("colorProperty",propertyvalueMapper.selectColorPropertyvalue(color));
