@@ -393,7 +393,7 @@
                                     </div>
                                     <div>
                                         <div class="ibox-content no-padding">
-                                            <div class="summernote">
+                                            <div class="summernote" id="shoesdetails">
                                                 <br/><br/><br/><br/>
                                                 请描述商品的详细情况，简单介绍商品
                                                 <br/><br/><br/><br/><br/><br/><br/>
@@ -612,11 +612,13 @@
     // processData: false,
     //     contentType: false
     function addShoes() {
-        //var sHTML = $('.summernote').code();
+        var sHTML = $('.summernote').summernote('code');
         var shoes = $("#shoesForm").serialize();
+        shoes: $.extend(shoes,{shoesdetails: sHTML})
         //var shoes = new FormData($('#shoesForm'));
        //var shoes = $("#shoesForm").serializeObject();
-       console.log("要添加鞋子了！")
+       console.log("要添加鞋子了！");
+       console.log(sHTML);
        console.log(shoes);
        //
     }
