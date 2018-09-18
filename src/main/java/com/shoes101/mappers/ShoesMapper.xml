@@ -9,6 +9,7 @@
     <result column="isdropoff" property="isdropoff" jdbcType="VARCHAR" />
     <result column="adddate" property="adddate" jdbcType="VARCHAR" />
     <result column="shoesdetails" property="shoesdetails" jdbcType="VARCHAR" />
+    <result column="label" property="label" jdbcType="VARCHAR"/>
   </resultMap>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -20,10 +21,10 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into shoes (shoesname, catalogid, sales, 
-      isdropoff, adddate, shoesdetails
+      isdropoff, adddate, shoesdetails,label
       )
     values (#{shoesname,jdbcType=VARCHAR}, #{catalogid,jdbcType=INTEGER}, #{sales,jdbcType=INTEGER}, 
-      #{isdropoff,jdbcType=VARCHAR}, #{adddate,jdbcType=VARCHAR}, #{shoesdetails,jdbcType=VARCHAR}
+      #{isdropoff,jdbcType=VARCHAR}, #{adddate,jdbcType=VARCHAR}, #{shoesdetails,jdbcType=VARCHAR},#{label,jdbcType=VARCHAR}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Shoes" >
@@ -33,16 +34,17 @@
       sales = #{sales,jdbcType=INTEGER},
       isdropoff = #{isdropoff,jdbcType=VARCHAR},
       adddate = #{adddate,jdbcType=VARCHAR},
-      shoesdetails = #{shoesdetails,jdbcType=VARCHAR}
+      shoesdetails = #{shoesdetails,jdbcType=VARCHAR},
+      label = #{label,jdbcType=VARCHAR}
     where shoesid = #{shoesid,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select shoesid, shoesname, catalogid, sales, isdropoff, adddate, shoesdetails
+    select shoesid, shoesname, catalogid, sales, isdropoff, adddate, shoesdetails, label
     from shoes
     where shoesid = #{shoesid,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select shoesid, shoesname, catalogid, sales, isdropoff, adddate, shoesdetails
+    select shoesid, shoesname, catalogid, sales, isdropoff, adddate, shoesdetails, label
     from shoes
   </select>
 

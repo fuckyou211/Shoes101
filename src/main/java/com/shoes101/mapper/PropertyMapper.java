@@ -2,7 +2,7 @@ package com.shoes101.mapper;
 
 import com.shoes101.config.mybatis.BaseMapper;
 import com.shoes101.pojo.Property;
-import com.sun.xml.internal.rngom.parse.host.Base;
+//import com.sun.xml.internal.rngom.parse.host.Base;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;

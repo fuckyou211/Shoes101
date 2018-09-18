@@ -17,6 +17,16 @@ public class Shoes implements Serializable {
 
     private String shoesdetails;
 
+    private String label;
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
+    }
+
     private static final long serialVersionUID = 1L;
 
     public Integer getShoesid() {
