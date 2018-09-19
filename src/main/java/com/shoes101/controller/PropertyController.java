@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.shoes101.pojo.Property;
 import com.shoes101.pojo.Propertyvalue;
 import com.shoes101.service.PropertyService;
+import org.springframework.beans.PropertyValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -127,10 +128,11 @@ public class PropertyController {
      * 获取详细属性值 传入propertyid
      */
     @RequestMapping("/getDetail")
-    @ResponseBody
-    public Propertyvalue getDetail(@RequestParam int propertyid)
+    public String getDetail(@RequestParam int propertyid,HashMap<String,Object> map)
     {
-        return propertyService.getProperty(propertyid);
+        Propertyvalue pv = propertyService.getProperty(propertyid);
+        map.put("pv",pv);
+        return "back/manager_propval";
     }
 
 
