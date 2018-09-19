@@ -32,10 +32,10 @@
                 <h2>属性管理</h2>
                 <ol class="breadcrumb" id="toFront">
                     <li>
-                        <a href="/toproperty">属性管理</a>
+                        <a href="toproperty">属性管理</a>
                     </li>
                     <li class="active">
-                        <strong>{{}}</strong>
+                        <strong>{{property.propertyname}}</strong>
                     </li>
                 </ol>
             </div>
@@ -66,8 +66,8 @@
                                             <td><p class="myp">{{item.propertyvalue}}</p></td>
                                             <td>
                                                 <p class="myp">
-                                                    <a href="javascript:void(0)" @click="toEditProp(item)" >修改</a>
-                                                    <a href="javascript:void(0)" @click="toDelProp(item)" >删除</a>
+                                                    <a href="javascript:void(0)" @click="toEditPropVal(item)" >修改</a>
+                                                    <a href="javascript:void(0)" @click="toDelPropVal(item)" >删除</a>
                                                 </p>
                                             </td>
                                         </tr>
@@ -171,10 +171,12 @@
     //一个空的属性值对象
     var propertyvalue = {"propertyid":"", "propertyvalue":"", "propertyvalueid":""};
 
+    var property = {"propertyid":"", "propertyname":""}
+
     var tofront = new Vue({
         el:"#toFront",
         data:{
-            property:""
+            property:[]
         }
     })
     //先定义一个vue
@@ -187,27 +189,33 @@
             toEditPropVal: function (item) {
                 propertyvalue = item;
                 console.log("要更改的id是:"+propertyvalue.propertyvalueid);
-                //$("#editProperty").modal("show");
+                $("#editPropVal").modal("show");
             },
             toDelPropVal: function (item) {
                 propertyvalue = item;
                 console.log("要删除的id是:"+propertyvalue.propertyvalueid);
-                //$("#delProperty").modal("show");
+                $("#delPropVal").modal("show");
             }
         }
     });
     $(document).ready(function(){
-        var temp="[[${pv}]]";//获取数据
+        var temp="[[${pv}]]";//获取数据 pname
         console.log(temp);
         temp= temp.replace(/&quot;/g,"\"");
         console.log(JSON.parse(temp));
         loadPropVal(JSON.parse(temp));//加载数据
+
+        var prop = "[[${property}]]";//这是属性名
+        prop = prop.replace(/&quot;/g,"\"");
+        //property = JSON.parse(prop);
+        //console.log("属性名为："+property.propertyname);
+        tofront.property = JSON.parse(prop);//导航状态栏赋值
+        console.log("属性名为："+tofront.property.propertyname);
     });
 
     //加载数据
     function loadPropVal(data) {
-        propValList.propvals = data;
-        propertyvalue.propertyid = data[0].propertyId;
+        propValList.propvals = data;//这是表格赋值
     }
 
     /*function getPropertyValue(pid){
@@ -270,7 +278,7 @@
             $.post({
                 url: "addpropv",
                 type: 'post',
-                data: {"propertyid":propertyvalue.propertyid,"propertyvalue":propertyvalue.propertyvalue},
+                data: {"propertyid":tofront.property.propertyid,"propertyvalue":propertyvalue.propertyvalue},
                 dataType: 'json',
                 success: function (result) {
                     console.log(result);
@@ -289,15 +297,15 @@
     function editPropVal() {
         propertyvalue.propertyvalue = $("input[name='newpropval']").val();
         var result = checkPropVal(propertyvalue.propertyvalue);
-        //console.log("新属性："+property.properyname);
+        console.log("新属性："+propertyvalue.propertyvalue);
         if(result==1){
             alert("已有相同属性啦！");
         }else {
-            //如果不存在就可以修改
+            //如果不存在就可以修改 propertyvalue propertyvalueid
             $.post({
                 url: "updateProp",
                 type: 'post',
-                data: {"propertyvalueid":property.propertyvalueid, "propertyvalue": propertyvalue.propertyvalue},
+                data: {"propertyvalueid":propertyvalue.propertyvalueid, "propertyvalue": propertyvalue.propertyvalue},
                 dataType: 'json',
                 success: function (result) {
                     console.log(result);
@@ -312,9 +320,9 @@
     }
 
     //删除属性
-    function delProp() {
+    function delPropVal() {//propertyvalue.propertyvalueid
         $.post({
-            url: "",
+            url: "deletePropV",
             type: 'post',
             data: {"propertyvalueid":propertyvalue.propertyvalueid},
             dataType: 'json',

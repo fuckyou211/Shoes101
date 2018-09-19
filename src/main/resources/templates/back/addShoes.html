@@ -561,7 +561,9 @@
             url: "addShoesAjax",
             type: 'post',
             dataType: 'json',
-            success: function (result) {
+            success: function (data) {
+                var result = JSON.parse(data.data);
+
                 console.log(result);
                 loadCatalog_1(result.catalog);//加载分类
                 loadProp(result.property);//加载属性 colorProperty
@@ -629,8 +631,12 @@
             contentType: false,
             dataType: 'json',
             success: function (result) {
-                console.log("添加成功！");
-
+                if(result.code==0){
+                    console.log("添加成功！");
+                    alert(result.msg);
+                }else if(result.code==1){
+                    alert(result.msg);
+                }
             },
             fail: function (err) {
                 console.log("失败："+err)
