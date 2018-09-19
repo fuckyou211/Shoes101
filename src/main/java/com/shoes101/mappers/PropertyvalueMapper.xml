@@ -35,6 +35,12 @@
     from propertyvalue
   </select>
 
+  <select id="selectpv" resultMap="BaseResultMap" parameterType="map" >
+    select *
+    from propertyvalue
+    where propertyid = #{propertyid,jdbcType=INTEGER}
+  </select>
+
   <update id="updateProp">
     update propertyvalue set propertyvalue=#{propertyvalue} where propertyid=#{propertyid}
   </update>

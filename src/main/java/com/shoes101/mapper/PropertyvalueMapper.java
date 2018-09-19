@@ -20,8 +20,10 @@ public interface PropertyvalueMapper{
 
     int updateByPrimaryKey(Propertyvalue record);
 
-    //根据属性id查询属性详情
     Propertyvalue selectByPrimaryKey(@Param("propertyid") Integer propertyid);
+
+    //根据属性id查询属性详情
+    Propertyvalue selectpv(@Param("propertyid") Integer propertyid);
 
     //验证是否存在属性
     @Select("select * from propertyvalue where propertyvalue=#{propertyvalue}")
