@@ -20,6 +20,16 @@
 
     <link href="../css/plugins/summernote/summernote.css" rel="stylesheet">
     <link href="../css/plugins/summernote/summernote-bs4.css" rel="stylesheet">
+
+    <style>
+        .product-imitation{
+            padding:0;
+        }
+        .carousel-map .product-imitation {
+            margin: 22px;
+        }
+
+    </style>
 </head>
 <body>
 <div id="wrapper">
@@ -219,79 +229,34 @@
                             <div id="tab-3" class="tab-pane">
                                 <div class="panel-body">
                                     <div class="form-group col-md-12">
-                                        <label class="col-sm-12 control-label" style="margin-top: 18px;">
-                                            请上传商品图片/至多5张:
+                                        <label class="col-sm-12 control-label" style="margin-top: 18px;">请上传商品图片/至多5张:
                                         </label>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="ibox">
-                                            <div class="ibox-content product-box">
-                                                <div class="product-imitation">
-                                                    <div id="pic1" >
+                                    <div class="carousel-map" id="toAddNewPic">
+                                        <div class="col-lg-4" v-for="n in sum">
+                                            <div class="ibox">
+                                                <div class="ibox-content product-box">
+                                                    <div class="product-imitation">
+                                                        <div :id="'pic'+n">
+                                                            <!--<img src="../img/p_big1.jpg" class="img-responsive center-block"/>-->
+                                                        </div>
+                                                    </div>
+                                                    <div class="product-imitation">
+                                                        <label title="Upload image file" :for="n+'_inputImage'" class="btn btn-primary">
+                                                            <input type="file" accept="image/*" multiple="multiple" name="shoespic"
+                                                                   form="shoesForm" :id="n+'_inputImage'" class="hide" onchange="preview(this)">选择图片
+                                                        </label>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="btn-group">
-                                            <label title="Upload image file" for="1_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="shoespic"
-                                                       form="shoesForm" id="1_inputImage" class="hide" onchange="preview(this)">
-                                                上传图片
-                                            </label>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <a class="btn btn-primary" @click="addnewpic()">添加图片</a>
                                         </div>
                                     </div>
-                                    <div class="col-md-3">
-                                        <div class="ibox">
-                                            <div class="ibox-content product-box">
-                                                <div class="product-imitation">
-                                                    <div id="pic2" >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <label title="Upload image file" for="2_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="shoespic"
-                                                       form="shoesForm" id="2_inputImage" class="hide" onchange="preview(this)">
-                                                上传图片
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="ibox">
-                                            <div class="ibox-content product-box">
-                                                <div class="product-imitation">
-                                                    <div id="pic3" >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <label title="Upload image file" for="3_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="shoespic"
-                                                       form="shoesForm" id="3_inputImage" class="hide" onchange="preview(this)">
-                                                上传图片
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="ibox">
-                                            <div class="ibox-content product-box">
-                                                <div class="product-imitation">
-                                                    <div id="pic4" >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <label title="Upload image file" for="4_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="shoespic"
-                                                       form="shoesForm" id="4_inputImage" class="hide" onchange="preview(this)">
-                                                上传图片
-                                            </label>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-3">
+                                    <!--<div class="col-md-3">
                                         <div class="ibox">
                                             <div class="ibox-content product-box">
                                                 <div class="product-imitation">
@@ -307,7 +272,7 @@
                                                 上传图片
                                             </label>
                                         </div>
-                                    </div>
+                                    </div>-->
                                     <div class="form-group col-md-12">
                                         <label class="col-sm-12 control-label" style="margin-top: 18px;text-align: right">
                                             <a value="4" href="javascript:void(0);" onclick="nextTab(this)"> 请继续完成下一步....</a>
@@ -644,15 +609,15 @@
         console.log("鞋子名称为："+name);
         console.log(formData);
         //var pic = formData.get("shoespic");
-       // console.log(pic);
+        // console.log(pic);
         //shoes: $.extend(shoes,{shoesdetails: sHTML})
         //var shoes = new FormData($('#shoesForm'));
-       //var shoes = $("#shoesForm").serializeObject();
+        //var shoes = $("#shoesForm").serializeObject();
 
-       //console.log(sHTML);
-       //console.log(shoes);
-       //console.log(jsonData);
-       //
+        //console.log(sHTML);
+        //console.log(shoes);
+        //console.log(jsonData);
+        //
 
         $.post({
             url: "addShoesForm",//addShoesForm
@@ -664,7 +629,7 @@
             contentType: false,
             dataType: 'json',
             success: function (result) {
-               console.log("添加成功！");
+                console.log("添加成功！");
 
             },
             fail: function (err) {
@@ -782,12 +747,30 @@
     }
 </script>
 <script>
-    $('#addNewColor').click(function (e) {
+    $('#addNewColor').click(function (e) {//动态添加颜色
         //e.preventDefault();
         var data=$($('#divforcolor').children().get(0)).clone();
         $('#divforcolor').append(data);
     });
 
+
+    var shoespic = new Vue({
+        el:"#tab-3",
+        data:{
+            sum:1,
+
+        },
+        methods:{
+            addnewpic:function (){
+                if(this.sum==5){
+                    alert("最多上传5张！如有需要，请开通VIP！")
+                }else{
+                    this.sum++;
+                }
+
+            }
+        }
+    })
 
 </script>
 
