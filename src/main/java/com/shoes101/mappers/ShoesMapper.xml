@@ -16,8 +16,8 @@
     delete from shoes
     where shoesid = #{shoesid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.shoes101.pojo.Shoes" >
-    <selectKey resultType="java.lang.Integer" keyProperty="shoesid" order="AFTER" >
+  <insert id="insert"  useGeneratedKeys="true"  parameterType="com.shoes101.pojo.Shoes" >
+    <selectKey resultType="java.lang.Integer"  keyProperty="shoesid" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into shoes (shoesname, catalogid, sales, 

@@ -14,7 +14,7 @@
     delete from shoessku
     where skuid = #{skuid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.shoes101.pojo.Shoessku" >
+  <insert id="insert" useGeneratedKeys="true" parameterType="com.shoes101.pojo.Shoessku" >
     <selectKey resultType="java.lang.Integer" keyProperty="skuid" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>

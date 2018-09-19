@@ -40,4 +40,8 @@ public interface PropertyMapper{
 //    //删除属性 两张表一起删除
 //    public int deleteProp(@Param("propertyid") int propertyid);
 
+    //属性值查询
+    @Select( "select a.propertyid from property as a where a.propertyname = #{propertyname} ")
+    public Integer selectColorPropertyvalue(@Param("propertyname") String propertyname);
+
 }
