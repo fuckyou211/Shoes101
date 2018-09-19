@@ -126,13 +126,23 @@ public class PropertyController {
     }
 
     /**
-     * 删除属性值 两张表一起删
+     * 删除属性 两张表一起删
      */
-    @RequestMapping("/deleteProp")
+    @RequestMapping("/deletePropAndValue")
     @ResponseBody
-    public List<Propertyvalue> deleteProp(@RequestParam("propertyvalueid") int propertyvalueid)
+    public List<Property> deleteProp(@RequestParam("propertyid") int propertyid)
     {
-        return propertyService.deleteProp(propertyvalueid);
+        return deleteProp(propertyid);
+    }
+
+    /**
+     * 删除属性值 只动Propertyvalue
+     */
+    @RequestMapping("/deletePropV")
+    @ResponseBody
+    public List<Propertyvalue> deletePropV(@RequestParam("propertyvalueid") int propertyvalueid)
+    {
+        return propertyService.deletePropV(propertyvalueid);
     }
 
     /**
