@@ -144,9 +144,9 @@ public class PropertyController {
         List<Propertyvalue> pv = propertyService.getProperty(propertyid);
         String list= JSON.toJSONString(pv);
         String propname = propertyService.getPropname(propertyid);
-        Object pname = JSON.parse(propname);
+        Property property = propertyService.getPropertyAndName(propertyid);
         map.put("pv",list);
-        map.put("pname",pname);
+        map.put("property",property);
         return "back/manager_propval";
     }
 

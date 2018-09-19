@@ -10,6 +10,9 @@ public interface PropertyService {
     //获取所有属性
     public List<Property> getAllProperty();
 
+    //根据id获得属性和属性名
+    public Property getPropertyAndName(int propertyid);
+
     //验证属性值
     public int checkExist(String propertyvalue);
 

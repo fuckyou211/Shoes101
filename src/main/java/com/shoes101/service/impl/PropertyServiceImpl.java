@@ -28,6 +28,12 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyMapper.selectAll();
     }
 
+    //根据id获得属性和属性名
+    public Property getPropertyAndName(int propertyid)
+    {
+        return propertyMapper.selectByPrimaryKey(propertyid);
+    }
+
     //验证属性值
     public int checkExist(String propertyvalue)
     {
