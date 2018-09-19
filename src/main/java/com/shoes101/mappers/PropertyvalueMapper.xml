@@ -41,7 +41,7 @@
   </select>
 
   <update id="updateProp">
-    update propertyvalue set propertyvalue=#{propertyvalue} where propertyid=#{propertyid}
+    update propertyvalue set propertyvalue=#{propertyvalue} where propertyvalueid=#{propertyid}
   </update>
 
   <delete id="deleteProp" parameterType="Integer">
