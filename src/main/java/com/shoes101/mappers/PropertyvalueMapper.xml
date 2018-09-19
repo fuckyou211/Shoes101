@@ -22,7 +22,6 @@
     update propertyvalue
     set propertyvalue = #{propertyvalue,jdbcType=VARCHAR}
     where propertyvalueid = #{propertyvalueid,jdbcType=INTEGER}
-      and property = #{property,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="map" >
     select propertyvalueid, property, propertyvalue
@@ -31,7 +30,7 @@
       and property = #{property,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select propertyvalueid, property, propertyvalue
+    select propertyvalueid, propertyid, propertyvalue
     from propertyvalue
   </select>
 

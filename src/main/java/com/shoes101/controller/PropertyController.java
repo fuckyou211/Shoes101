@@ -83,15 +83,15 @@ public class PropertyController {
 //        return "back/manager_property";
 //    }
 
-    /**
-     * 根据id获取属性名
-     */
-    @RequestMapping("/getPropname")
-    @ResponseBody
-    public String getPropname(@RequestParam("propertyid") int propertyid)
-    {
-        return propertyService.getPropname(propertyid);
-    }
+//    /**
+//     * 根据id获取属性名
+//     */
+//    @RequestMapping("/getPropname")
+//    @ResponseBody
+//    public String getPropname(@RequestParam("propertyid") int propertyid)
+//    {
+//        return propertyService.getPropname(propertyid);
+//    }
 
 
     /**
@@ -143,7 +143,9 @@ public class PropertyController {
     {
         List<Propertyvalue> pv = propertyService.getProperty(propertyid);
         String list= JSON.toJSONString(pv);
+        String propname = propertyService.getPropname(propertyid);
         map.put("pv",list);
+        map.put("pname",propname);
         return "back/manager_propval";
     }
 
