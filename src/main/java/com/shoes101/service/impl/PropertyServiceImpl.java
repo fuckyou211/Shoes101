@@ -99,9 +99,9 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     //获取详细属性值
-    public Propertyvalue getProperty(int propertyid)
+    public List<Propertyvalue> getProperty(int propertyid)
     {
-        return propertyvalueMapper.selectByPrimaryKey(propertyid);
+        return propertyvalueMapper.selectpv(propertyid);
     }
 
     //获取所有详细属性值

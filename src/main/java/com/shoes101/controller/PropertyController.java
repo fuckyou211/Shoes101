@@ -128,9 +128,9 @@ public class PropertyController {
      * 获取详细属性值 传入propertyid
      */
     @RequestMapping("/getDetail")
-    public String getDetail(@RequestParam int propertyid,HashMap<String,Object> map)
+    public String getDetail(@RequestParam("propertyid") int propertyid,HashMap<String,Object> map)
     {
-        Propertyvalue pv = propertyService.getProperty(propertyid);
+        List<Propertyvalue> pv = propertyService.getProperty(propertyid);
         map.put("pv",pv);
         return "back/manager_propval";
     }

@@ -32,7 +32,7 @@ public interface PropertyService {
     public List<Property> deleteProp(int propertyid);
 
     //获取详细属性值
-    public Propertyvalue getProperty(int propertyid);
+    public List<Propertyvalue> getProperty(int propertyid);
 
     //获取所有详细属性值
     public List<Propertyvalue> getAllPropertyValue();
