@@ -12,7 +12,7 @@ public class Admin {
     @Id
     @GeneratedValue
     private int adminId;
-    private String adminName;
+    private String adminname;
     private String password;
 
     public int getAdminId() {
@@ -24,11 +24,11 @@ public class Admin {
     }
 
     public String getAdminName() {
-        return adminName;
+        return adminname;
     }
 
     public void setAdminName(String adminName) {
-        this.adminName = adminName;
+        this.adminname = adminname;
     }
 
     public String getPassword() {
