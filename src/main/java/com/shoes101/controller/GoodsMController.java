@@ -2,6 +2,7 @@ package com.shoes101.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shoes101.pojo.Addshoes;
+import com.shoes101.result.Result;
 import com.shoes101.service.GoodsMService;
 import org.hibernate.validator.constraints.EAN;
 import org.slf4j.Logger;
@@ -37,9 +38,9 @@ public class GoodsMController {
 
     @RequestMapping("/addShoesAjax")
     @ResponseBody
-    public String addShoesInformationAjax(){
+    public Result<String> addShoesInformationAjax(){
         logger.info("addShoesInformationAjax");
-       return  goodsMService.addShoesInformationAjax();
+       return  Result.success(goodsMService.addShoesInformationAjax());
     //    return  JSONObject.toJSONString("111");
     }
 
@@ -55,7 +56,6 @@ public class GoodsMController {
     @RequestMapping("/shoesCatalogAjax")
     @ResponseBody
     public String shoesCatalogAjax(@RequestParam(name="parentId",required=false) Integer parentId){
-
         return  goodsMService.shoesCatalogAjax(parentId);
         //    return  JSONObject.toJSONString("111");
     }

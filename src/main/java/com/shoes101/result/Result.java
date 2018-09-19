@@ -19,6 +19,8 @@ public class Result<T> {
 
     private Result(T data)
     {
+        this.code = CodeMsg.SUCCESS.getCode();
+        this.msg  = CodeMsg.SUCCESS.getMsg();
         this.data = data;
     }
 
