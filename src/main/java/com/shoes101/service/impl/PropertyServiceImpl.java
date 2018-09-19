@@ -54,9 +54,6 @@ public class PropertyServiceImpl implements PropertyService {
     //新增属性值
     public List<Propertyvalue> addPropv(int propertyid,String propertyvalue)
     {
-        Propertyvalue pv = new Propertyvalue();
-        pv.setPropertyId(propertyid);
-        pv.setPropertyvalue(propertyvalue);
         propertyvalueMapper.addPropv(propertyid,propertyvalue);
 
         return propertyvalueMapper.selectAll();
