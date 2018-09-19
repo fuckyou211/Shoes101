@@ -91,9 +91,11 @@ public class PropertyServiceImpl implements PropertyService {
 
 
     //修改属性详细值
-    public List<Propertyvalue> updateProp(String propertyvalue, int propertyid)
+    public List<Propertyvalue> updateProp(String propertyvalue, int propertyvalueid)
     {
-        int result = propertyvalueMapper.updateProp(propertyvalue,propertyid);
+        int result = propertyvalueMapper.updateProp(propertyvalue,propertyvalueid);
+        //根据pvid寻找pid
+        int propertyid = propertyvalueMapper.delAndGetPropid(propertyvalueid);
         System.out.println(result);
         return propertyvalueMapper.selectpv(propertyid);
     }

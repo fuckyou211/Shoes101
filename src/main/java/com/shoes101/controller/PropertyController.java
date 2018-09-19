@@ -4,7 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.shoes101.pojo.Property;
 import com.shoes101.pojo.Propertyvalue;
 import com.shoes101.service.PropertyService;
-import org.springframework.beans.PropertyValue;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -120,9 +119,9 @@ public class PropertyController {
      */
     @RequestMapping("/updateProp")
     @ResponseBody
-    public List<Propertyvalue> updateProp(@RequestParam("propertyvalue") String propertyvalue,@RequestParam("propertyid") int propertyid)
+    public List<Propertyvalue> updateProp(@RequestParam("propertyvalue") String propertyvalue,@RequestParam("propertyvalueid") int propertyvalueid)
     {
-        return propertyService.updateProp(propertyvalue,propertyid);
+        return propertyService.updateProp(propertyvalue,propertyvalueid);
     }
 
     /**
