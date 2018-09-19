@@ -11,16 +11,16 @@ public class Admin {
 
     @Id
     @GeneratedValue
-    private int adminId;
+    private int adminid;
     private String adminname;
     private String password;
 
-    public int getAdminId() {
-        return adminId;
+    public int getAdminid() {
+        return adminid;
     }
 
-    public void setAdminId(int adminId) {
-        this.adminId = adminId;
+    public void setAdminid(int adminid) {
+        this.adminid = adminid;
     }
 
     public String getAdminName() {
