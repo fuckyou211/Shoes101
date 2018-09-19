@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 //管理员
 //@Table(name="admin")
-
+@Entity(name = "admin")
 public class Admin {
 
     @Id
@@ -23,11 +23,11 @@ public class Admin {
         this.adminid = adminid;
     }
 
-    public String getAdminName() {
+    public String getAdminname() {
         return adminname;
     }
 
-    public void setAdminName(String adminName) {
+    public void setAdminname(String adminname) {
         this.adminname = adminname;
     }
 
@@ -37,5 +37,8 @@ public class Admin {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Admin() {
     }
 }

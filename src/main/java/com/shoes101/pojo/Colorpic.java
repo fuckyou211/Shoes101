@@ -1,8 +1,14 @@
 package com.shoes101.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 
+@Entity(name = "colorpic")
 public class Colorpic implements Serializable {
+    @Id
+    @GeneratedValue
     private Integer colorpicid;
 
     private Integer skuid;
@@ -47,5 +53,8 @@ public class Colorpic implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Colorpic() {
     }
 }

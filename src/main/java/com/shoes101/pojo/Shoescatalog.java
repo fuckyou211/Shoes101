@@ -1,8 +1,14 @@
 package com.shoes101.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 
+@Entity(name = "shoescatalog")
 public class Shoescatalog implements Serializable {
+    @Id
+    @GeneratedValue
     private Integer catalogid;
 
     private String catalogname;
@@ -58,5 +64,8 @@ public class Shoescatalog implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Shoescatalog() {
     }
 }

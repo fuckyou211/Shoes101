@@ -1,9 +1,15 @@
 package com.shoes101.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 import java.util.Date;
 
+@Entity(name = "shopcart")
 public class Shopcart implements Serializable {
+    @Id
+    @GeneratedValue
     private Integer scid;
 
     private Integer userid;
@@ -70,5 +76,8 @@ public class Shopcart implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Shopcart() {
     }
 }

@@ -22,6 +22,10 @@ spring:
     filters: stat,wall,log4j
     logSlowSql: true
 
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
 
 
 

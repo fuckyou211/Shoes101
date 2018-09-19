@@ -1,9 +1,15 @@
 package com.shoes101.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import java.io.Serializable;
-@Table(name="propertyvalue")
+//@Table(name="propertyvalue")
+@Entity(name = "propertyvalue")
 public class Propertyvalue implements Serializable {
+    @Id
+    @GeneratedValue
     private Integer propertyvalueid;
 
     private Integer propertyid;
@@ -48,5 +54,8 @@ public class Propertyvalue implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Propertyvalue() {
     }
 }

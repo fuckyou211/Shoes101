@@ -1,8 +1,14 @@
 package com.shoes101.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 
+@Entity(name = "orderdetail")
 public class Orderdetail implements Serializable {
+    @Id
+    @GeneratedValue
     private Integer detailid;
 
     private Integer orderid;
@@ -80,5 +86,8 @@ public class Orderdetail implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Orderdetail() {
     }
 }

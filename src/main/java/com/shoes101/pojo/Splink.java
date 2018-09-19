@@ -1,8 +1,14 @@
 package com.shoes101.pojo;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.io.Serializable;
 
+@Entity(name = "splink")
 public class Splink implements Serializable {
+    @Id
+    @GeneratedValue
     private Integer spid;
 
     private Integer shoesid;
@@ -58,5 +64,8 @@ public class Splink implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+    public Splink() {
     }
 }
