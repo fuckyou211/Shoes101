@@ -66,11 +66,11 @@
                                         <tr v-for="(item, index) in propertys">
                                             <td><p class="myp">{{index+1}}</p></td>
                                             <td><p class="myp">{{item.propertyname}}</p></td>
-                                            <td><a href="javascript:void(0)" @click="getPropertyValue(item.propertyid)"> 查看属性值</a></td>
+                                            <td><a href="javascript:void(0)" @click="getPropertyValue(item)"> 查看属性值</a></td>
                                             <td>
                                                 <p class="myp">
                                                     <a href="javascript:void(0)" @click="toEditProp(item)" >修改</a>
-                                                    <a href="javascript:void(0)"  >删除</a>
+                                                    <a href="javascript:void(0)" @click="toDelProp(item)" >删除</a>
                                                 </p>
                                             </td>
                                         </tr>
@@ -132,6 +132,24 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <!--删除属性-->
+                                    <div class="modal inmodal fade" id="delProperty" tabindex="-1" role="dialog"  aria-hidden="true">
+                                        <div class="modal-dialog modal-sm">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                    <h4 class="modal-title">删除属性</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <p><strong>确定删除该属性？</strong>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-white" data-dismiss="modal">取消</button>
+                                                    <button type="button" class="btn btn-primary" onclick="delProp()">确定</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                     <!--添加属性值-->
                                     <div class="modal inmodal" id="addPropertyValue" tabindex="-1" role="dialog" aria-hidden="true">
                                         <div class="modal-dialog">
@@ -187,10 +205,20 @@
             propertys:[]
         },
         methods:{
+            getPropertyValue:function (item){
+                var url="getDetail?propertyid="+item.propertyid;
+                console.log(url);
+                window.location.href=url;
+            },
             toEditProp: function (item) {
                 property = item;
                 console.log("要更改的id是:"+property.propertyid);
                 $("#editProperty").modal("show");
+            },
+            toDelProp: function (item) {
+                property = item;
+                console.log("要更改的id是:"+property.propertyid);
+                $("#delProperty").modal("show");
             }
         }
     });
@@ -206,11 +234,11 @@
         proList.propertys = data;
     }
 
-    function getPropertyValue(pid){
+    /*function getPropertyValue(pid){
         console.log(pid);
         $("#btn-property").hide();
         $("#btn-proValue").show();
-    }
+    }*/
 
     //监听输入框，为空时不能添加
     function getAddBtn(obj) {
@@ -305,8 +333,26 @@
                 }
             });
         }
-
     }
+
+    //删除属性
+    function delProp() {
+        $.post({
+            url: "deleteProp",
+            type: 'post',
+            data: {"propertyid":property.propertyid},
+            dataType: 'json',
+            success: function (result) {
+                console.log(result);
+                $("#delProperty").modal("hide");
+                loadProp(result);
+            },
+            fail: function (err) {
+                console.log("失败："+err)
+            }
+        });
+    }
+
 </script>
 
 </body>

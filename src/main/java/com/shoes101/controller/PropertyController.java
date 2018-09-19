@@ -131,7 +131,8 @@ public class PropertyController {
     public String getDetail(@RequestParam("propertyid") int propertyid,HashMap<String,Object> map)
     {
         List<Propertyvalue> pv = propertyService.getProperty(propertyid);
-        map.put("pv",pv);
+        String list= JSON.toJSONString(pv);
+        map.put("pv",list);
         return "back/manager_propval";
     }
 
