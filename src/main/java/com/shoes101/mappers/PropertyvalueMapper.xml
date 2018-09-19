@@ -48,6 +48,14 @@
   <delete id="deleteProp" parameterType="Integer">
     delete from propertyvalue where propertyid=#{propertyid}
   </delete>
+
+  <insert id="addPropv" parameterType="com.shoes101.pojo.Propertyvalue">
+    <selectKey resultType="java.lang.Integer" keyProperty="propertyvalueid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into propertyvalue (propertyid, propertyvalue)
+    values (#{propertyid,jdbcType=INTEGER}, #{propertyvalue,jdbcType=VARCHAR})
+  </insert>
   <!--&lt;!&ndash;获取到property的id 连同propertyvalue一同插入表中&ndash;&gt;-->
   <!--<insert id="inserttwo" parameterType="java.lang.String">-->
     <!--insert into property(propertyname) values (#{propertyname})-->

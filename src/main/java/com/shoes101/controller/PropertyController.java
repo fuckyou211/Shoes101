@@ -84,13 +84,24 @@ public class PropertyController {
 //    }
 
     /**
+     * 根据id获取属性名
+     */
+    @RequestMapping("/getPropname")
+    @ResponseBody
+    public String getPropname(@RequestParam("propertyid") int propertyid)
+    {
+        return propertyService.getPropname(propertyid);
+    }
+
+
+    /**
      * 新增属性值
      */
     @RequestMapping("/addpropv")
     @ResponseBody
-    public List<Property> addPropV(@RequestParam("propertyid") int propertyid, @RequestParam("propertyvalue") String propertyvalue)
+    public List<Propertyvalue> addPropV(@RequestParam("propertyid") int propertyid, @RequestParam("propertyvalue") String propertyvalue)
     {
-       return propertyService.addProp2(propertyid,propertyvalue);
+       return propertyService.addPropv(propertyid,propertyvalue);
    }
 
 

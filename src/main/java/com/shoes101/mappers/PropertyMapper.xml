@@ -54,4 +54,9 @@
   <select id="findIfExist" resultMap="BaseResultMap">
     select * from property where propertyname=#{propertyname}
   </select>
+
+  <!--根据Id返回属性名-->
+  <select id="getPropname" resultType="java.lang.String">
+    select propertyname from property where propertyid = #{propertyid}
+  </select>
 </mapper>

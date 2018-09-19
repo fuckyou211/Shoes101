@@ -34,6 +34,9 @@ public interface PropertyMapper{
     //修改属性值
     public int updateP(@Param("propertyid") int propertyid,@Param("propertyname") String propertyname);
 
+    //根据idf返回属性名
+    public String getPropname(int propertyid);
+
 //    //删除属性 两张表一起删除
 //    public int deleteProp(@Param("propertyid") int propertyid);
 

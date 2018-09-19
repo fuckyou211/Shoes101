@@ -19,6 +19,9 @@ public interface PropertyService {
     //新增属性
     public List<Property> addProp1(String propertyname);
 
+    //新增属性值
+    public List<Propertyvalue> addPropv(int propertyid,String propertyvalue);
+
     //新增属性 同时加到两张表
     public List<Property> addProp2(int propertyid, String propertyvalue);
 
@@ -36,5 +39,8 @@ public interface PropertyService {
 
     //获取所有详细属性值
     public List<Propertyvalue> getAllPropertyValue();
+
+    //根据id获取属性名
+    public String getPropname(int propertyid);
 
 }

@@ -51,6 +51,17 @@ public class PropertyServiceImpl implements PropertyService {
         return propertyMapper.selectAll();
     }
 
+    //新增属性值
+    public List<Propertyvalue> addPropv(int propertyid,String propertyvalue)
+    {
+        Propertyvalue pv = new Propertyvalue();
+        pv.setPropertyId(propertyid);
+        pv.setPropertyvalue(propertyvalue);
+        propertyvalueMapper.addPropv(propertyid,propertyvalue);
+
+        return propertyvalueMapper.selectAll();
+    }
+
     //新增属性3 同时加到两张表 验证是否存在
     public List<Property> addProp2(int propertyid, String propertyvalue)
     {
@@ -108,5 +119,11 @@ public class PropertyServiceImpl implements PropertyService {
     public List<Propertyvalue> getAllPropertyValue()
     {
         return propertyvalueMapper.selectAll();
+    }
+
+    //根据Id获取属性名
+    public String getPropname(int propertyid)
+    {
+        return propertyMapper.getPropname(propertyid);
     }
 }

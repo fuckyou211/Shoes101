@@ -39,6 +39,9 @@ public interface PropertyvalueMapper{
     //删除属性 两张表一起删除
     public int deleteProp(@Param("propertyid") int propertyid);
 
+    //新增属性值
+    public int addPropv(@Param("propertyid") int propertyid,@Param("propertyvalue") String propertyvalue);
+
     //属性值查询
     @Select( "select * from propertyvalue where  propertyid= " +
             "(select a.propertyid from property as a where a.propertyname = #{propertyname} )")
