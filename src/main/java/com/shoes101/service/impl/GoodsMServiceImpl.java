@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -82,6 +83,7 @@ public class GoodsMServiceImpl implements GoodsMService {
     }
 
     @Override
+    @Transactional
     public String addShoesForm(Addshoes addshoes, HttpServletRequest request) {
         addshoes.setShoesid(SetShoesBean(addshoes));
         uploadShoespic(request,addshoes.getShoesid());
@@ -89,7 +91,7 @@ public class GoodsMServiceImpl implements GoodsMService {
         uploadColorpic(request,shoessku,addshoes.getShoesid());
         SetSplink(addshoes);
         Spfilter(addshoes);
-        return null;
+        return "添加成功";
     }
 
     public Integer SetShoesBean(Addshoes addshoes){

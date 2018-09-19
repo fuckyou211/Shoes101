@@ -46,10 +46,10 @@ public class GoodsMController {
 
     @RequestMapping("/addShoesForm")
     @ResponseBody
-    public String addShoesForm(Addshoes addshoes,HttpServletRequest request){
+    public Result<String> addShoesForm(Addshoes addshoes,HttpServletRequest request){
         logger.info("addShoesForm");
         logger.info(JSONObject.toJSONString(addshoes));
-        return  goodsMService.addShoesForm(addshoes,request);
+        return  Result.success(goodsMService.addShoesForm(addshoes,request));
     }
 
 
