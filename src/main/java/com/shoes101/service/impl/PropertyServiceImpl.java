@@ -56,7 +56,7 @@ public class PropertyServiceImpl implements PropertyService {
     {
         propertyvalueMapper.addPropv(propertyid,propertyvalue);
 
-        return propertyvalueMapper.selectAll();
+        return propertyvalueMapper.selectpv(propertyid);
     }
 
     //新增属性3 同时加到两张表 验证是否存在

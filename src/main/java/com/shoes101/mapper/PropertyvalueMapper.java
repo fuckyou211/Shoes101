@@ -22,6 +22,9 @@ public interface PropertyvalueMapper{
 
     Propertyvalue selectByPrimaryKey(@Param("propertyid") Integer propertyid);
 
+    //获取当前属性名的属性值
+    public List<Propertyvalue> selectAllOfPropertyId(@Param("propertyid") int propertyid);
+
     //根据属性id查询属性详情
     List<Propertyvalue> selectpv(@Param("propertyid") Integer propertyid);
 
