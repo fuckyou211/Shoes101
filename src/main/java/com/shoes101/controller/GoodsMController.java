@@ -67,6 +67,12 @@ public class GoodsMController {
         return goodsMService.shoesPropertyAjax(propertyId);
     }
 
+    @RequestMapping("/shoesShowAjax")
+    @ResponseBody
+    public Result<String> shoesShowAjax(){
+        return Result.success(goodsMService.shoesShowAjax());
+    }
+
 
 
 }

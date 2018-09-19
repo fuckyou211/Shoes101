@@ -20,4 +20,6 @@ public interface GoodsMService {
 
     public String uploadColorpic(HttpServletRequest request, List<List<Shoessku>> shoessku,Integer shoesid);
 
+    public String shoesShowAjax();
+
 }

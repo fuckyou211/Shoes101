@@ -59,6 +59,7 @@ public class GoodsMServiceImpl implements GoodsMService {
     @Autowired
     private ColorpicMapper colorpicMapper;
 
+
     @Override
     public String addShoesInformationAjax() {
         Map<String,Object> list=new HashMap<String,Object>();
@@ -92,6 +93,21 @@ public class GoodsMServiceImpl implements GoodsMService {
         SetSplink(addshoes);
         Spfilter(addshoes);
         return "添加成功";
+    }
+
+    @Override
+    public String shoesShowAjax() {
+        List<Shoes> list=shoesMapper.selectAll();
+        List<Shoespic> list2=new ArrayList<>();
+        for(int i=0;i<list.size();i++)
+        {
+            list2.add(shoespicMapper.selectByshoesid(list.get(i).getShoesid()));
+        }
+        Map<String,Object> map=new HashMap<>();
+        map.put("GoodsList",list);
+        map.put("picList",list2);
+        logger.info(JSONObject.toJSONString(map));
+        return JSONObject.toJSONString(map);
     }
 
     public Integer SetShoesBean(Addshoes addshoes){
