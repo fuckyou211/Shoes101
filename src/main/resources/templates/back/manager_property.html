@@ -270,6 +270,7 @@
                 dataType: 'json',
                 success: function (result) {
                     console.log(result);
+                    $("#addProperty").modal("hide");
                     loadProp(result);
                 },
                 fail: function (err) {
@@ -284,6 +285,7 @@
     function editProp() {
         property.properyname = $("input[name='newpropertyname']").val();
         var result = checkProp(property.properyname);
+        //console.log("新属性："+property.properyname);
         if(result==1){
             alert("已有相同属性啦！");
         }else {
@@ -291,10 +293,11 @@
             $.post({
                 url: "updateP",
                 type: 'post',
-                data: property,
+                data: {"propertyid":property.propertyid, "propertyname": property.properyname},
                 dataType: 'json',
                 success: function (result) {
                     console.log(result);
+                    $("#editProperty").modal("hide");
                     loadProp(result);
                 },
                 fail: function (err) {

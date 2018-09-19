@@ -47,7 +47,7 @@
 
   <!--修改属性名-->
   <update id="updateP">
-    update set propertyname=#{propertyname} where propertyid=#{propertyid}
+    update property set propertyname=#{propertyname} where propertyid=#{propertyid}
   </update>
 
 <!--验证属性是否存在-->
