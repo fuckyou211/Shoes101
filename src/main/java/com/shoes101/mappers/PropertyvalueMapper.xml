@@ -62,6 +62,11 @@
     from propertyvalue
     where propertyid = #{propertyid,jdbcType=INTEGER}
   </select>
+
+  <!--根据要删除的id获取属性值id-->
+  <select id="delAndGetPropid" resultType="Integer">
+    select propertyid from propertyvalue where propertyvalueid = #{propertyvalueid}
+  </select>
   <!--&lt;!&ndash;获取到property的id 连同propertyvalue一同插入表中&ndash;&gt;-->
   <!--<insert id="inserttwo" parameterType="java.lang.String">-->
     <!--insert into property(propertyname) values (#{propertyname})-->

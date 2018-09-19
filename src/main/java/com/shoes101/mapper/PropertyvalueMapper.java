@@ -25,6 +25,9 @@ public interface PropertyvalueMapper{
     //获取当前属性名的属性值
     public List<Propertyvalue> selectAllOfPropertyId(@Param("propertyid") int propertyid);
 
+    //根据删除的pvid获取pid
+    public int delAndGetPropid(@Param("propertyvalueid") int propertyvalueid);
+
     //根据属性id查询属性详情
     List<Propertyvalue> selectpv(@Param("propertyid") Integer propertyid);
 

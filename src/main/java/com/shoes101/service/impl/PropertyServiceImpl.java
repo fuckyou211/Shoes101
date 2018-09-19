@@ -85,19 +85,21 @@ public class PropertyServiceImpl implements PropertyService {
 
 
     //修改属性详细值
-    public List<Property> updateProp(String propertyvalue, int propertyid)
+    public List<Propertyvalue> updateProp(String propertyvalue, int propertyid)
     {
         int result = propertyvalueMapper.updateProp(propertyvalue,propertyid);
         System.out.println(result);
-        return propertyMapper.selectAll();
+        return propertyvalueMapper.selectpv(propertyid);
     }
 
-    //删除属性 两张表一起删除
-    public List<Property> deleteProp(int propertyid)
+    //删除属性值 两张表一起删除
+    public List<Propertyvalue> deleteProp(int propertyvalueid)
     {
-       int result1 = propertyvalueMapper.deleteProp(propertyid);
-       int result2 = propertyMapper.deleteByPrimaryKey(propertyid);
-        return propertyMapper.selectAll();
+        //根据删除的pvid获取pid
+        int propertyid = propertyvalueMapper.delAndGetPropid(propertyvalueid);
+        int result1 = propertyvalueMapper.deleteProp(propertyvalueid);
+        return propertyvalueMapper.selectpv(propertyid);
+//      int result2 = propertyMapper.deleteByPrimaryKey(propertyid);
     }
 
     //查看详情

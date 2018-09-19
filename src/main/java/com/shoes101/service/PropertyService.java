@@ -29,10 +29,10 @@ public interface PropertyService {
     public List<Property> updateP(int propertyid,String propertyname);
 
     //修改属性详细值
-    public List<Property> updateProp(String propertyvalue, int propertyid);
+    public List<Propertyvalue> updateProp(String propertyvalue, int propertyid);
 
     //删除属性 两张表一起删除
-    public List<Property> deleteProp(int propertyid);
+    public List<Propertyvalue> deleteProp(int propertyvalueid);
 
     //获取详细属性值
     public List<Propertyvalue> getProperty(int propertyid);

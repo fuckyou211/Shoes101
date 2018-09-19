@@ -120,19 +120,19 @@ public class PropertyController {
      */
     @RequestMapping("/updateProp")
     @ResponseBody
-    public List<Property> updateProp(@RequestParam("propertyvalue") String propertyvalue,@RequestParam("propertyid") int propertyid)
+    public List<Propertyvalue> updateProp(@RequestParam("propertyvalue") String propertyvalue,@RequestParam("propertyid") int propertyid)
     {
         return propertyService.updateProp(propertyvalue,propertyid);
     }
 
     /**
-     * 删除属性 两张表一起删
+     * 删除属性值 两张表一起删
      */
     @RequestMapping("/deleteProp")
     @ResponseBody
-    public List<Property> deleteProp(@RequestParam("propertyid") int propertyid)
+    public List<Propertyvalue> deleteProp(@RequestParam("propertyvalueid") int propertyvalueid)
     {
-        return propertyService.deleteProp(propertyid);
+        return propertyService.deleteProp(propertyvalueid);
     }
 
     /**
@@ -144,8 +144,9 @@ public class PropertyController {
         List<Propertyvalue> pv = propertyService.getProperty(propertyid);
         String list= JSON.toJSONString(pv);
         String propname = propertyService.getPropname(propertyid);
+        Object pname = JSON.parse(propname);
         map.put("pv",list);
-        map.put("pname",propname);
+        map.put("pname",pname);
         return "back/manager_propval";
     }
 
