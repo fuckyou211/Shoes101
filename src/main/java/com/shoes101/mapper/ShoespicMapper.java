@@ -1,6 +1,7 @@
 package com.shoes101.mapper;
 
 import com.shoes101.pojo.Shoespic;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
@@ -17,6 +18,6 @@ public interface ShoespicMapper {
     int updateByPrimaryKey(Shoespic record);
 
     @Select( "select a.picaddress from shoespic as a where a.shoesid = #{shoesid} limit 1 ")
-    Shoespic selectByshoesid(Integer shoesid);
+    Shoespic selectByshoesid(@Param("shoesid")Integer shoesid);
 
 }

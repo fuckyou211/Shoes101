@@ -99,13 +99,16 @@ public class GoodsMServiceImpl implements GoodsMService {
     public String shoesShowAjax() {
         List<Shoes> list=shoesMapper.selectAll();
         List<Shoespic> list2=new ArrayList<>();
+        List<Integer> list3=new ArrayList<>();
         for(int i=0;i<list.size();i++)
         {
+            list3.add(shoesskuMapper.selectByshoesIdSum(list.get(i).getShoesid()));
             list2.add(shoespicMapper.selectByshoesid(list.get(i).getShoesid()));
         }
         Map<String,Object> map=new HashMap<>();
         map.put("GoodsList",list);
         map.put("picList",list2);
+        map.put("number",list3);
         logger.info(JSONObject.toJSONString(map));
         return JSONObject.toJSONString(map);
     }
