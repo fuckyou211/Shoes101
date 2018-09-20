@@ -68,27 +68,27 @@
                                     </tr>
                                     </thead>
                                     <tbody >
-                                    <tr v-for="item in lists">
-                                        <td><label class="mylabel">{{item.id}}</label></td>
+                                    <tr v-for="(item, index) in lists.GoodsList">
+                                        <td><label class="mylabel">{{index+1}}</label></td>
                                         <td>
                                             <div class="col-sm-3">
                                                 <div class="ibox">
                                                     <div class="product-imitation" style="padding: 0%;">
-                                                        <img class="image" :src="getPicUrl(item.pic)"  style="width: 100px;height: 100px;" />
+                                                        <img class="image" :src="getPicUrl(index)"  style="width: 100px;height: 100px;" />
                                                     </div>
                                                 </div>
                                             </div>
 
                                         </td>
-                                        <td><label class="mylabel">{{item.name}}</label></td>
-                                        <td><label class="mylabel">{{item.addtime}}</label></td>
-                                        <td><label class="mylabel">{{item.count}}<a href="editt_shoesQuantity.html"><i class="fa fa-eyedropper"></i></a></label></td>
+                                        <td><label class="mylabel">{{item.shoesname}}</label></td>
+                                        <td><label class="mylabel">{{item.adddate}}</label></td>
+                                        <td><label class="mylabel">{{}}<a href="editt_shoesQuantity.html"><i class="fa fa-eyedropper"></i></a></label></td>
                                         <td>
                                             <label class="mylabel">
                                                 <div class="switch">
                                                     <div class="onoffswitch">
-                                                        <input type="checkbox" checked class="onoffswitch-checkbox" :id="gernerateId(item.id)" nane="">
-                                                        <label class="onoffswitch-label" :for="gernerateId(item.id)">
+                                                        <input type="checkbox" checked class="onoffswitch-checkbox" :id="'checkbox_'+item.index" nane="">
+                                                        <label class="onoffswitch-label" :for="'checkbox_'+item.index">
                                                             <span class="onoffswitch-inner"></span>
                                                             <span class="onoffswitch-switch"></span>
                                                         </label>
@@ -109,7 +109,7 @@
                             </div>
                         </div>
 
-                        <div class="">
+                        <div class="" id="abc">
                             <p>下一页</p>
                         </div>
                     </div>
@@ -141,11 +141,13 @@
         $('[data-toggle="tooltip"]').tooltip();
 
         $.post({
-            url:"addShoesAjax",
+            url:"../goodsM/shoesShowAjax",
             type: 'post',
             dataType: 'json',
             success:function (data) {
-                console.log(data);
+                var shoeslist = JSON.parse(data.data);
+                loadShoes(shoeslist);
+                console.log(shoeslist);
             },
             fail: function (err) {
                 console.log(err)
@@ -153,9 +155,40 @@
         });
     });
 </script>
+
+<script>
+     var shoes = new Vue({
+         el:"#shoesInfo",
+         data:{
+             lists:[],
+         },
+         methods:{
+             getPicUrl: function (index){
+                 return "../"+this.lists.picList[index].picaddress;
+             },
+             gernerateId: function (index){
+                 return "checkbox_" +index;
+             }
+         },
+     });
+
+    var test = new Vue({
+        el:"#abc",
+        data:{
+            lists:[],
+        }
+    });
+
+    function loadShoes(data) {
+        shoes.lists = data;
+        test.lists = data;
+
+        console.log(test.lists.picList[0].picaddress);
+    }
+</script>
 <script>
     console.log("aa");
-    var aa=new Vue({
+    /*var aa=new Vue({
         el:"#shoesInfo",
         data:{
             lists: [
@@ -174,8 +207,8 @@
                     addtime: "2018/08/08", count:"200", status:"checked"},
                 { id:"7", pic:"img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
                     addtime: "2018/08/08", count:"200", status:"checked"}
-                /*{ "id":"8", "pic":"img/4.png", "name":"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                "addtime", "2018/08/08", "count":"200", "status":"checked"}*/
+                /!*{ "id":"8", "pic":"img/4.png", "name":"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
+                "addtime", "2018/08/08", "count":"200", "status":"checked"}*!/
             ]
         },
 
@@ -188,8 +221,8 @@
             }
         },
 
-    });
-    console.log(aa.getPicUrl("fsdgs"));
+    });*/
+    //console.log(aa.getPicUrl("fsdgs"));
 </script>
 </body>
 </html>
