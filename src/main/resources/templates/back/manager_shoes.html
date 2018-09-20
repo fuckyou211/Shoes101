@@ -164,7 +164,9 @@
          },
          methods:{
              getPicUrl: function (index){
-                 return "../"+this.lists.picList[index].picaddress;
+                 var url = "../"+this.lists.picList[index].picaddress;
+                 console.log(url);
+                 return url;
              },
              gernerateId: function (index){
                  return "checkbox_" +index;
