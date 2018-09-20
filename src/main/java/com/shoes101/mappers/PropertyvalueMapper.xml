@@ -45,7 +45,7 @@
   </update>
 
   <delete id="deleteProp" parameterType="Integer">
-    delete from propertyvalue where propertyid=#{propertyid}
+    delete from propertyvalue where propertyvalueid=#{propertyid}
   </delete>
 
   <insert id="addPropv" parameterType="com.shoes101.pojo.Propertyvalue">
