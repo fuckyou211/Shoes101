@@ -183,39 +183,43 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">
-                                                鞋子属性:
+                                            <label class="col-sm-6">
+                                                请选择鞋子拥有的属性:
                                             </label>
                                         </div>
+                                        <div id="shoesProperty" >
 
-                                        <!--<div class="form-group">
-                                            <label class="col-sm-2 control-label">
-                                                品牌:
-                                            </label>
-                                            <div class="col-sm-4">
-                                                <select class="form-control m-b"  form="shoesForm">
-                                                    <option value="0" v-for="item in PropertyValue"> {{item.pValue}}</option>
-                                                </select>
-                                            </div>
-                                        </div>-->
-                                        <div id="shoesProperty">
-                                            <div class="form-group">
-                                                <div class="col-sm-2" id="shoesProp">
-                                                    <select class="form-control m-b" name="property" form="shoesForm" v-model="selected">
+                                            <!--<div class="col-sm-12" v-for="(property, index) in propertys" v-if="property.propertyname != '颜色' && property.propertyname != '尺码'">
+                                                <div class="form-group">
+                                                    <div class="checkbox checkbox-success checkbox-circle ">
+                                                        <input :id="'checkbox_'+index" type="checkbox" name="shoesprop" :value="property.propertyid" form="shoesForm">
+                                                        <label :for="'checkbox_'+index">
+                                                            {{property.propertyname}}
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>-->
+                                            <shooes-property :propertys="propertys" :propvals="propvals" :propselected="propselected" :propvalselected="propvalselected"></shooes-property>
+
+
+                                            <!--<div class="form-group" v-for="n in sum">
+                                                <div class="col-sm-2" >
+                                                    <select class="form-control m-b" name="property" form="shoesForm" v-model="propselected">
                                                         <option value="" selected="selected">请选择属性</option>
                                                         <option   v-for="property in propertys" v-if="property.propertyname != '颜色' && property.propertyname != '尺码'" :value="property.propertyid">{{property.propertyname}}</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-sm-4" id="shoesPropVal">
-                                                    <select class="form-control m-b" name="propertyvalue" form="shoesForm" v-model="selected">
+                                                <div class="col-sm-4">
+                                                    <select class="form-control m-b" name="propertyvalue" form="shoesForm" v-model="propvalselected">
                                                         <option v-for="item in propVals" :value="item.propertyvalueid"> {{item.propertyvalue}}</option>
                                                     </select>
                                                 </div>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-md-12">
-                                                <a class="btn btn-primary" id="addNewProperty">添加属性</a>
+                                            </div>-->
+
+                                            <div class="form-group">
+                                                <div class="col-md-12">
+                                                    <a class="btn btn-primary" @click="addNewProperty()">添加属性</a>
+                                                </div>
                                             </div>
                                         </div>
                                         <div class="form-group col-md-12">
@@ -407,6 +411,24 @@
                                     </div>
                                 </div>
                             </div>-->
+
+                            <div class="modal inmodal fade" id="toEditQuantity" tabindex="-1" role="dialog"  aria-hidden="true" data-backdrop="static" data-keyboard="false">
+                                <div class="modal-dialog modal-sm">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title">添加成功</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p><strong>立即填写库存......</strong>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <!--<button type="button" class="btn btn-white" data-dismiss="modal">取消</button>-->
+                                            <button type="button" class="btn btn-primary" onclick="delProp()">确定</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -512,32 +534,114 @@
 
     //属性
     property = new Vue({
-        el: "#shoesProp",
+        el: "#shoesProperty",
         data:{
             propertys:[],
-            selected:[]
+            propselected:[],
+            propvals:[],
+            propvalselected:[],
+            sum:1
         },
         watch: {
-            selected: function (val) {
+            propselected: function (val) {
                 console.log(val);
                 getPropVal(val);
+            },
+            propvalselected: function (val) {
+                console.log(val);
+                //getPropVal(val);
+            }
+        },
+        methods:{
+            addNewProperty:function () {
+                if(this.sum==5){
+                    alert("最多上传5张！如有需要，请开通VIP！")
+                }else{
+                    this.sum++;
+                }
             }
         }
     });
+
+
+    Vue.component('blog-post', {
+        props: ['post'],
+        template: `
+    <div class="blog-post">
+      <h3>{{ post.title }}</h3>
+      <div v-html="post.content"></div>
+    </div>
+  `
+    });
+
+    Vue.component('custom-input', {
+        props: ['value'],
+        template: `
+    <input
+      v-bind:value="value"
+      v-on:input="$emit('input', $event.target.value)"
+    >
+  `
+    })
+
+
+    Vue.component('shooes-property',{
+        props: ['propertys', "propVals", "propselected", "propvalselected"],
+        template:'<div class="form-group">\n' +
+            '         <div class="col-sm-2" >\n' +
+            '            <select class="form-control m-b" name="property" form="shoesForm" v-model="propselected">\n' +
+            '                <option value="" selected="selected">请选择属性</option>\n' +
+            '                <option   v-for="property in propertys" v-if="property.propertyname != \'颜色\' && property.propertyname != \'尺码\'" :value="property.propertyid">{{property.propertyname}}</option>\n' +
+            '            </select>\n' +
+            '        </div>\n' +
+            '        <div class="col-sm-4">\n' +
+            '           <select class="form-control m-b" name="propertyvalue" form="shoesForm" v-model="propvalselected">\n' +
+            '               <option v-for="item in propvals" :value="item.propertyvalueid"> {{item.propertyvalue}}</option>\n' +
+            '           </select>\n' +
+            '        </div>\n' +
+            '    </div>'
+    })
+
+
+    /*var Child = {
+        template: "<div class='form-group'>"+
+                        "<div class='col-sm-2' >"+
+                            "<select class='form-control m-b' name='property' form='shoesForm' v-model='propselected'>"+
+                                 "<option value='' selected='selected'>请选择属性</option>"+
+                                 "<option   v-for='property in propertys' v-if='property.propertyname != '颜色' && property.propertyname != '尺码'' :value='property.propertyid'>{{property.propertyname}}</option>"+
+                            "</select>"+
+                        "</div>"+
+                        "<div class='col-sm-4'>"+
+                            "<select class='form-control m-b' name='propertyvalue' form='shoesForm' v-model='propvalselected'>"+
+                                "<option v-for='item in propVals' :value='item.propertyvalueid'> {{item.propertyvalue}}</option>"+
+                            "</select>"+
+                        "</div>"+
+                 "</div>"
+    }*/
+
+    // 创建根实例
+    /*new Vue({
+        el: '#shoesProperty',
+        props: ['propertys', "propVals"],
+        components: {
+            // <runoob> 将只在父模板可用
+            'shooes-property': Child
+        }
+    })*/
     //属性值
-    propertyVal = new Vue({
+    /*propertyVal = new Vue({
         el: "#shoesPropVal",
         data:{
             propVals:[],
-            selected:[]
+            propvalselected:[]
         },
         watch: {
-            selected: function (val) {
+            propvalselected: function (val) {
                 console.log(val);
                 //getPropVal(val);
             }
         }
-    });
+    });*/
     //颜色
     color = new Vue({
         el: '#divforcolor',
@@ -633,7 +737,8 @@
             success: function (result) {
                 if(result.code==0){
                     console.log("添加成功！");
-                    alert(result.msg);
+                    $("#toEditQuantity").modal("show");
+                    //alert(result.msg);
                 }else if(result.code==1){
                     alert(result.msg);
                 }
@@ -669,7 +774,8 @@
     ///加载属性值
     function loadPropVal(data) {
         console.log("属性值：");
-        propertyVal.propVals = data;
+        property.propvals="";
+        property.propvals = data;
     }
     //加载颜色
     function loadColor(data) {
@@ -776,7 +882,23 @@
 
             }
         }
-    })
+    });
+
+    /*var shoesproperty = new Vue({
+        el:"#shoesProperty",
+        data:{
+            sum:1
+        },
+        methods:{
+            addNewProperty:function () {
+                if(this.sum==5){
+                    alert("最多上传5张！如有需要，请开通VIP！")
+                }else{
+                    this.sum++;
+                }
+            }
+        }
+    })*/
 
 </script>
 
@@ -819,11 +941,11 @@
         }
     })
 
-    $('#addNewProperty').click(function (e) {
+    /*$('#addNewProperty').click(function (e) {
         //e.preventDefault();
         var data=$($('#shoesProperty').children().get(0)).clone();
         $('#shoesProperty').append(data);
-    });
+    });*/
 </script>
 </body>
 </html>
