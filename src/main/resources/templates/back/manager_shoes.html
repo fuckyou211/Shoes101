@@ -87,8 +87,9 @@
                                             <label class="mylabel">
                                                 <div class="switch">
                                                     <div class="onoffswitch">
-                                                        <input type="checkbox" checked class="onoffswitch-checkbox" :id="'checkbox_'+item.index" nane="">
-                                                        <label class="onoffswitch-label" :for="'checkbox_'+item.index">
+                                                        <input type="checkbox" :checked="getStatus(item.isdropoff)" class="onoffswitch-checkbox"
+                                                               :id="'checkbox_'+index" nane="" v-model="selected">
+                                                        <label class="onoffswitch-label" :for="'checkbox_'+index">
                                                             <span class="onoffswitch-inner"></span>
                                                             <span class="onoffswitch-switch"></span>
                                                         </label>
@@ -168,8 +169,11 @@
                  console.log(url);
                  return url;
              },
-             gernerateId: function (index){
-                 return "checkbox_" +index;
+             getStatus: function (sataus){
+                 if(sataus==1)
+                    return true;
+                 else
+                     return false;
              }
          },
      });
