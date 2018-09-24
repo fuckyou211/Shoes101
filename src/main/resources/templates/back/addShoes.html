@@ -189,18 +189,36 @@
                                         </div>
                                         <div id="shoesProperty" >
 
-                                            <!--<div class="col-sm-12" v-for="(property, index) in propertys" v-if="property.propertyname != '颜色' && property.propertyname != '尺码'">
-                                                <div class="form-group">
-                                                    <div class="checkbox checkbox-success checkbox-circle ">
-                                                        <input :id="'checkbox_'+index" type="checkbox" name="shoesprop" :value="property.propertyid" form="shoesForm">
-                                                        <label :for="'checkbox_'+index">
-                                                            {{property.propertyname}}
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>-->
-                                            <shooes-property :propertys="propertys" :propvals="propvals" :propselected="propselected" :propvalselected="propvalselected"></shooes-property>
 
+                                            <div v-for="n in sum">
+                                                <shoespropcomponent :proplist="propertys"></shoespropcomponent>
+                                            </div>
+
+                                            <!--<div class="col-sm-12" v-for="(property, index) in propertys" v-if="property.propertyname != '颜色' && property.propertyname != '尺码'">
+                                                                                            <div class="form-group">
+                                                                                                <div class="checkbox checkbox-success checkbox-circle ">
+                                                                                                    <input :id="'checkbox_'+index" type="checkbox" name="shoesprop"
+                                                                                                           :value="property.propertyid" form="shoesForm" v-model="checked">
+                                                                                                    <label :for="'checkbox_'+index">
+                                                                                                        {{property.propertyname}}
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                                <div class="col-sm-8">
+                                                                                                    <select class="form-control m-b" name="propertyvalue" form="shoesForm" v-model="propvalselected" >
+                                                                                                        <option v-for="item in propvals" :value="item.propertyvalueid"> {{item.propertyvalue}}</option>
+                                                                                                    </select>
+                                                                                                </div>
+                                                                                            </div>
+
+                                                                                        </div>-->
+                                            <!--<div class="col-sm-8">
+                                                <select class="form-control m-b" name="propertyvalue" form="shoesForm" v-model="propvalselected">
+                                                    <option v-for="item in getpropvals()" :value="item.propertyvalueid"> {{item.propertyvalue}}</option>
+                                                </select>
+                                            </div>-->
+                                            <!--<div >
+                                                <shoes-property :propertys="propertys" :propvals.sync="propvals"></shoes-property>
+                                            </div>-->
 
                                             <!--<div class="form-group" v-for="n in sum">
                                                 <div class="col-sm-2" >
@@ -215,13 +233,14 @@
                                                     </select>
                                                 </div>
                                             </div>-->
-
                                             <div class="form-group">
                                                 <div class="col-md-12">
-                                                    <a class="btn btn-primary" @click="addNewProperty()">添加属性</a>
+                                                    <a class="btn btn-primary" @click="addpropbtn()">添加属性</a>
                                                 </div>
                                             </div>
                                         </div>
+
+
                                         <div class="form-group col-md-12">
                                             <label class="col-sm-12 control-label" style="margin-top: 18px;text-align: right">
                                                 <a value="3" href="javascript:void(0);" onclick="nextTab(this)"> 请继续完成下一步....</a>
@@ -439,6 +458,7 @@
 </div>
 
 <!-- Mainly scripts -->
+
 <script src="../js/jquery-3.1.1.min.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
@@ -477,6 +497,9 @@
     var property,propertyVal;//属性和属性值
     var color, size;//颜色和尺码
     var shoesid;
+
+    var proplist = [];
+
     //一级分类
     catalog_1=new Vue({
         el: '#firsttype',
@@ -532,61 +555,8 @@
         }
     });
 
-    //属性
-    property = new Vue({
-        el: "#shoesProperty",
-        data:{
-            propertys:[],
-            propselected:[],
-            propvals:[],
-            propvalselected:[],
-            sum:1
-        },
-        watch: {
-            propselected: function (val) {
-                console.log(val);
-                getPropVal(val);
-            },
-            propvalselected: function (val) {
-                console.log(val);
-                //getPropVal(val);
-            }
-        },
-        methods:{
-            addNewProperty:function () {
-                if(this.sum==5){
-                    alert("最多上传5张！如有需要，请开通VIP！")
-                }else{
-                    this.sum++;
-                }
-            }
-        }
-    });
-
-
-    Vue.component('blog-post', {
-        props: ['post'],
-        template: `
-    <div class="blog-post">
-      <h3>{{ post.title }}</h3>
-      <div v-html="post.content"></div>
-    </div>
-  `
-    });
-
-    Vue.component('custom-input', {
-        props: ['value'],
-        template: `
-    <input
-      v-bind:value="value"
-      v-on:input="$emit('input', $event.target.value)"
-    >
-  `
-    })
-
-
-    Vue.component('shooes-property',{
-        props: ['propertys', "propVals", "propselected", "propvalselected"],
+    Vue.component('shoespropcomponent',{
+        props:['sum','proplist'],
         template:'<div class="form-group">\n' +
             '         <div class="col-sm-2" >\n' +
             '            <select class="form-control m-b" name="property" form="shoesForm" v-model="propselected">\n' +
@@ -599,49 +569,74 @@
             '               <option v-for="item in propvals" :value="item.propertyvalueid"> {{item.propertyvalue}}</option>\n' +
             '           </select>\n' +
             '        </div>\n' +
-            '    </div>'
-    })
+            '    </div>',
+        data:function(){
+            return{
+                propselected:[],
+                propvalselected:[],
+                propertys:this.proplist,
+                propvals:[],
 
-
-    /*var Child = {
-        template: "<div class='form-group'>"+
-                        "<div class='col-sm-2' >"+
-                            "<select class='form-control m-b' name='property' form='shoesForm' v-model='propselected'>"+
-                                 "<option value='' selected='selected'>请选择属性</option>"+
-                                 "<option   v-for='property in propertys' v-if='property.propertyname != '颜色' && property.propertyname != '尺码'' :value='property.propertyid'>{{property.propertyname}}</option>"+
-                            "</select>"+
-                        "</div>"+
-                        "<div class='col-sm-4'>"+
-                            "<select class='form-control m-b' name='propertyvalue' form='shoesForm' v-model='propvalselected'>"+
-                                "<option v-for='item in propVals' :value='item.propertyvalueid'> {{item.propertyvalue}}</option>"+
-                            "</select>"+
-                        "</div>"+
-                 "</div>"
-    }*/
-
-    // 创建根实例
-    /*new Vue({
-        el: '#shoesProperty',
-        props: ['propertys', "propVals"],
-        components: {
-            // <runoob> 将只在父模板可用
-            'shooes-property': Child
-        }
-    })*/
-    //属性值
-    /*propertyVal = new Vue({
-        el: "#shoesPropVal",
-        data:{
-            propVals:[],
-            propvalselected:[]
+            }
         },
+        /*created:function() {
+            //获取数据
+            var self= this;
+            $.ajax({
+                url: "addShoesAjax",
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    var result = JSON.parse(data.data);
+                    //console.log(result.property);
+                    //self.propertys=result.property;//加载属性
+
+                },
+                fail: function (err) {
+                    console.log("失败："+err)
+                }
+            });
+
+        },*/
+
         watch: {
-            propvalselected: function (val) {
-                console.log(val);
-                //getPropVal(val);
+            propselected:{
+                handler(val, oldName) {
+                    var propId = val;
+                    var self = this;
+                    $.post({
+                        url: "shoesPropertyAjax",
+                        type: 'post',
+                        data:{propertyId:propId},
+                        dataType: 'json',
+                        success: function (result) {
+                            self.propvals = result;
+                        },
+                        fail: function (err) {
+                            console.log(err)
+                        }
+                    });
+                }
+            },
+            propvalselected:function () {
+
             }
         }
-    });*/
+    });
+
+    property = new Vue({
+        el:'#shoesProperty',
+        data:{
+            sum:0,
+            propertys:[],
+        },
+        methods:{
+            addpropbtn:function () {
+
+                this.sum++;
+            }
+        }
+    });
     //颜色
     color = new Vue({
         el: '#divforcolor',
@@ -670,7 +665,7 @@
 
                 console.log(result);
                 loadCatalog_1(result.catalog);//加载分类
-                loadProp(result.property);//加载属性 colorProperty
+                loadProp(result.property);//加载属性
                 loadColor(result.colorProperty);//加载颜色
                 loadSize(result.sizeProperty)//加载尺码
                 console.log(result.shoesid);
@@ -689,9 +684,6 @@
     function addShoes() {
         console.log("要添加鞋子了！");
         var sHTML = $('.summernote').summernote('code');//获取详情描述
-        //var shoes = $("#shoesForm").serialize();
-        //var jsonData = $("#shoesForm").serializeArray();
-        //shoes = shoes + "&shoesdetails=" + sHTML;
 
         var formData = new FormData($("#shoesForm")[0]);//序列化表单 catalogid1
         formData.append("shoesdetails", sHTML);
@@ -714,15 +706,6 @@
         var name = formData.get("shoesname");
         console.log("鞋子名称为："+name);
         console.log(formData);
-        //var pic = formData.get("shoespic");
-        // console.log(pic);
-        //shoes: $.extend(shoes,{shoesdetails: sHTML})
-        //var shoes = new FormData($('#shoesForm'));
-        //var shoes = $("#shoesForm").serializeObject();
-
-        //console.log(sHTML);
-        //console.log(shoes);
-        //console.log(jsonData);
         //
 
         $.post({
@@ -751,41 +734,6 @@
 
 </script>
 <script>
-    //加载一级分类
-    function loadCatalog_1(data) {
-        catalog_1.types= data;
-        catalog_2.types=[];//加载了一级分类，其他分类暂时置为空
-        catalog_3.types=[];
-    }
-
-    //加载二级分类
-    function loadCatalog_2(data) {
-        catalog_2.types=data;//加载了二级分类，其他分类暂时置为空
-        catalog_3.types=[];
-    }
-    //加载三级分类
-    function loadCatalog_3(data) {
-        catalog_3.types=data;
-    }
-    //加载属性
-    function loadProp(data) {
-        property.propertys=data;
-    }
-    ///加载属性值
-    function loadPropVal(data) {
-        console.log("属性值：");
-        property.propvals="";
-        property.propvals = data;
-    }
-    //加载颜色
-    function loadColor(data) {
-        console.log("jiazaiyansela：");
-        color.colors=data;
-    }
-    //加载尺码
-    function loadSize(data) {
-        size.sizes = data;
-    }
     //获取子分类
     function getNextType(theId,ceng){
         var catalogId=theId;
@@ -817,14 +765,61 @@
             data:{propertyId:propId},
             dataType: 'json',
             success: function (result) {
-                console.log(result);
-                loadPropVal(result);
+                propertyVal = result;
+                //console.log(result);
+                //var stringlist = JSON.stringify(result)
+                console.log(propertyVal);
+                return result;
+                //loadPropVal(result);
             },
             fail: function (err) {
                 console.log(err)
             }
         });
     }
+
+    //加载一级分类
+    function loadCatalog_1(data) {
+        catalog_1.types= data;
+        catalog_2.types=[];//加载了一级分类，其他分类暂时置为空
+        catalog_3.types=[];
+    }
+
+    //加载二级分类
+    function loadCatalog_2(data) {
+        catalog_2.types=data;//加载了二级分类，其他分类暂时置为空
+        catalog_3.types=[];
+    }
+    //加载三级分类
+    function loadCatalog_3(data) {
+        catalog_3.types=data;
+    }
+    //加载属性
+    function loadProp(data) {
+        property.propertys=data;
+        proplist = data;
+        console.log(data);
+        //loadPropVal(data);
+    }
+    //加载属性值
+    function loadPropVal(data) {
+        console.log(propvallist);
+       /* $("input[name='ch']").each(function(i){
+            if($(this).attr('checked')==true)
+            {
+                //一些操作代码
+            }*/
+    }
+    //加载颜色
+    function loadColor(data) {
+        console.log("jiazaiyansela：");
+        color.colors=data;
+    }
+    //加载尺码
+    function loadSize(data) {
+        size.sizes = data;
+    }
+
 </script>
 
 <script>
@@ -884,21 +879,6 @@
         }
     });
 
-    /*var shoesproperty = new Vue({
-        el:"#shoesProperty",
-        data:{
-            sum:1
-        },
-        methods:{
-            addNewProperty:function () {
-                if(this.sum==5){
-                    alert("最多上传5张！如有需要，请开通VIP！")
-                }else{
-                    this.sum++;
-                }
-            }
-        }
-    })*/
 
 </script>
 
@@ -926,7 +906,7 @@
         }
     });*/
 
-    new Vue({
+    /*new Vue({
         el:"#countTable",
         data:{
             colors: [
@@ -939,9 +919,9 @@
             sizes:["30","31","32","33","34","35","36","37","38","39","40","41"],
             count:5,
         }
-    })
+    });
 
-    /*$('#addNewProperty').click(function (e) {
+    $('#addNewProperty').click(function (e) {
         //e.preventDefault();
         var data=$($('#shoesProperty').children().get(0)).clone();
         $('#shoesProperty').append(data);
