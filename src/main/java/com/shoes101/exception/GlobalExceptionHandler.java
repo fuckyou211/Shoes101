@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
 import java.util.List;
 
 @ControllerAdvice
@@ -24,8 +25,13 @@ public class GlobalExceptionHandler {
 		}else if(e instanceof BindException) {
 			BindException ex = (BindException)e;
 			List<ObjectError> errors = ex.getAllErrors();
-			ObjectError error = errors.get(0);
-			String msg = error.getDefaultMessage();
+			List<String> msg=new ArrayList<>();
+			for(int i=0;i<errors.size();i++)
+			{
+				ObjectError error = errors.get(i);
+				msg.add(error.getDefaultMessage());
+			}
+
 			return Result.error(CodeMsg.BIND_ERROR.fillArgs(msg));
 		}else {
 			return Result.error(CodeMsg.SERVER_ERROR);
