@@ -1,10 +1,8 @@
 package com.shoes101.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.shoes101.exception.GlobalException;
 import com.shoes101.mapper.*;
 import com.shoes101.pojo.*;
-import com.shoes101.result.CodeMsg;
 import com.shoes101.service.GoodsMService;
 import com.shoes101.util.FileUtils;
 import org.slf4j.Logger;
