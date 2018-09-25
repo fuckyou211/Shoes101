@@ -1,14 +1,22 @@
 package com.shoes101.pojo;
 
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 public class Addshoes {
+
+    @NotNull(message = "校验Id不能为空")
     private Integer shoesid;
 
+    @NotNull(message = "商品名称不能为空")
+    @Size(min=0, max=255,message = "名字范围：0-255")
     private String shoesname;
 
+    @NotNull(message = "分类列表不能为空")
     private Integer catalogid;
 
+    @NotNull(message = "商品标签不能为空")
     private String label;
 
     private Integer sales;
@@ -17,16 +25,22 @@ public class Addshoes {
 
     private String adddate;
 
+    @NotNull(message = "商品详情不能为空")
     private String shoesdetails;
 
+    @NotNull(message = "属性不能为空")
     private List<Integer> property;
 
+    @NotNull(message = "属性值不能为空")
     private List<Integer> propertyvalue;
 
+    @NotNull(message = "颜色不能为空")
     private List<Integer> shoescolor;
 
+    @NotNull(message = "尺码不能为空")
     private List<Integer> shoessize;
 
+    @NotNull(message = "商品标价不能为空")
     private Double price;
 
     private Double ticketprice;
