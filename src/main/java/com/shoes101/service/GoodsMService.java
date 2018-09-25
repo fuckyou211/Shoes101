@@ -22,4 +22,6 @@ public interface GoodsMService {
 
     public String shoesShowAjax();
 
+    public String editQuantitAjax(Integer shoesid);
+
 }

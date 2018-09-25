@@ -80,5 +80,12 @@ public class GoodsMController {
         return "back/editt_shoesQuantity";
     }
 
+    @RequestMapping("/editQuantitAjax")
+    @ResponseBody
+    public Result<String> editQuantitAjax(@RequestParam(name="shoesid",required=false) Integer shoesid){
+        return Result.success(goodsMService.editQuantitAjax(shoesid));
+    }
+
+
 
 }

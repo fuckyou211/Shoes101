@@ -59,6 +59,9 @@ public class GoodsMServiceImpl implements GoodsMService {
     @Autowired
     private ColorpicMapper colorpicMapper;
 
+    @Autowired
+    private SplinkMapper splinkMapper;
+
 
     @Override
     public String addShoesInformationAjax() {
@@ -283,8 +286,6 @@ public class GoodsMServiceImpl implements GoodsMService {
                     colorpicMapper.insert(colorpic);
                 }
                 logger.info("图片颜色图 第"+i+"张图上传成功");
-
-
             } else {
                 msg = "上传失败！";
                 logger.info("图片颜色图 第"+i+"张图上传失败");
@@ -295,4 +296,32 @@ public class GoodsMServiceImpl implements GoodsMService {
         return "000";
     }
 
+    @Override
+    public String editQuantitAjax(Integer shoesid) {
+
+        Map<String,Object> map=new HashMap<>();
+        Integer colorId=propertyMapper.selectColorPropertyvalue(color);
+        Integer sizeId=propertyMapper.selectColorPropertyvalue(size);
+        logger.info("shoesid:"+shoesid+"colorId:"+colorId+" size:"+sizeId);
+        List<Splink> listColor=splinkMapper.selectByShoesIdProperty(shoesid,colorId);
+        List<Splink> listSize=splinkMapper.selectByShoesIdProperty(shoesid,sizeId);
+
+        map.put("listColor",listColor);
+        map.put("listSize",listSize);
+        List<List<Shoessku>> listQuantit=new ArrayList<>();
+
+        for(int i=0;i<listSize.size();i++)
+        {
+            List<Shoessku> list=new ArrayList<>();
+            for(int j=0;j<listColor.size();j++)
+            {
+               String skuproperty= "{"+colorId+":"+listColor.get(j).getPropertyvalueid()+","+sizeId+":"+listSize.get(i).getPropertyvalueid()+"}";
+               list.add(shoesskuMapper.selectskuproperty(shoesid,skuproperty));
+            }
+            listQuantit.add(list);
+        }
+        map.put("listQuantit",listQuantit);
+        logger.info(JSONObject.toJSONString(map));
+        return JSONObject.toJSONString(map);
+    }
 }

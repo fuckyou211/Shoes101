@@ -19,4 +19,7 @@ public interface ShoesskuMapper {
 
     @Select("select sum(quantity) from shoessku where shoesid = #{shoesid}")
     int selectByshoesIdSum(@Param("shoesid")Integer shoesid);
+
+    @Select("select skuid,quantity from shoessku where shoesid=#{shoeid} and skuproperty=#{skuproperty}")
+    Shoessku selectskuproperty(@Param("shoeid") Integer shoesid,@Param("skuproperty") String skuproperty);
 }
