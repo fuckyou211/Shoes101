@@ -9,12 +9,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 /**
  * 添加商品管理
@@ -46,7 +48,7 @@ public class GoodsMController {
 
     @RequestMapping("/addShoesForm")
     @ResponseBody
-    public Result<String> addShoesForm(Addshoes addshoes,HttpServletRequest request){
+    public Result<String> addShoesForm(HttpServletRequest request,@Valid Addshoes addshoes){
         logger.info("addShoesForm");
         logger.info(JSONObject.toJSONString(addshoes));
         return  Result.success(goodsMService.addShoesForm(addshoes,request));
@@ -73,6 +75,10 @@ public class GoodsMController {
         return Result.success(goodsMService.shoesShowAjax());
     }
 
+    @RequestMapping("/editQuantit")
+    public String editQuantit(){
+        return "back/editt_shoesQuantity";
+    }
 
 
 }
