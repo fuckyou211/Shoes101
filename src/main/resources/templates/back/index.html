@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!--后台主页面-->
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,59 +16,36 @@
 
 </head>
 <body>
-    <div id="wrapper">
-
-        <!-- 左侧导航栏 -->
-        <div id="navigate">
-        </div>
-
-        <!-- 右边主演部分 -->
-        <div id="page-wrapper" class="gray-bg">
-            <!-- 正上方一小条 -->
-            <div id="navigate_2">
-            </div>
-            <!--这里是标题、指示的地方-->
-			<div class="row wrapper border-bottom white-bg page-heading">
-                <div class="col-sm-4">
-                    <h2>This is main title</h2>
-                    <ol class="breadcrumb">
-                        <li>
-                            <a href="index.html">This is</a>
-                        </li>
-                        <li class="active">
-                            <strong>Breadcrumb</strong>
-                        </li>
-                    </ol>
-                </div>
-                <div class="col-sm-8">
-                    <div class="title-action">
-                        <a href="" class="btn btn-primary">This is action area</a>
-                    </div>
-                </div>
-            </div>
-            <div class="wrapper wrapper-content">
-                <div class="row ">
-                    <div class="row col-lg-12">
-
-                    </div>
-                </div>
-            </div>
-        </div>
+<div id="wrapper">
+    <!-- 左侧导航栏 -->
+    <div id="navigate">
+        <navigate></navigate>
     </div>
 
-    <!-- Mainly scripts -->
-    <script src="../js/jquery-3.1.1.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="../s/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+    <!-- 右边主要部分 -->
+    <div id="page-wrapper" class="gray-bg">
+        <!-- 正上方一小条 -->
+        <div id="navigate-assist">
+            <navigate-assist></navigate-assist>
+        </div>
 
-    <!-- Custom and plugin javascript -->
-    <script src="../js/inspinia.js"></script>
-    <script src="../js/plugins/pace/pace.min.js"></script>
 
-    <script>
-        $("#navigate").load("../navigate/navigate.html");
-        $("#navigate_2").load("../navigate/navigate_2.html");
-    </script>
+    </div>
+</div>
+
+<!-- Mainly scripts -->
+<script src="../js/jquery-3.1.1.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="../js/inspinia.js"></script>
+<script src="../js/plugins/pace/pace.min.js"></script>
+
+<script src="../js/vue.js"></script>
+<script src="../navigate/navigate.js"></script>
+
+<script>new Vue({el:"#navigate"});new Vue({el:"#navigate-assist"})</script>
 </body>
 </html>
