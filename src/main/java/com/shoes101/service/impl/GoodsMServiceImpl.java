@@ -95,7 +95,7 @@ public class GoodsMServiceImpl implements GoodsMService {
         uploadColorpic(request,shoessku,addshoes.getShoesid());
         SetSplink(addshoes);
         Spfilter(addshoes);
-        return "添加成功";
+        return addshoes.getShoesid().toString();
     }
 
     @Override
