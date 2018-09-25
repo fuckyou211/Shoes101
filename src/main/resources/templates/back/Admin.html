@@ -19,13 +19,16 @@
 <div id="wrapper">
     <!-- 左侧导航栏 -->
     <div id="navigate">
+        <navigate></navigate>
     </div>
 
     <!-- 右边主要部分 -->
     <div id="page-wrapper" class="gray-bg">
         <!-- 正上方一小条 -->
-        <div id="navigate_2">
+        <div id="navigate-assist">
+            <navigate-assist></navigate-assist>
         </div>
+
 
     </div>
 </div>
@@ -40,9 +43,10 @@
 <script src="../js/inspinia.js"></script>
 <script src="../js/plugins/pace/pace.min.js"></script>
 
-<script>
-    $("#navigate").load("../navigate/navigate.html");
-    $("#navigate_2").load("../navigate/navigate_2.html");
-</script>
+<script src="../js/vue.js"></script>
+<script src="../navigate/navigate.js"></script>
+
+<script>new Vue({el:"#navigate"});new Vue({el:"#navigate-assist"})</script>
+
 </body>
 </html>

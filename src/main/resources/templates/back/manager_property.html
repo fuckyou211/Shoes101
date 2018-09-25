@@ -20,13 +20,16 @@
 
     <!-- 左侧导航栏 -->
     <div id="navigate">
+        <navigate></navigate>
     </div>
 
     <!-- 右边主演部分 -->
     <div id="page-wrapper" class="gray-bg">
         <!-- 正上方一小条 -->
-        <div id="navigate_2">
-        </div>            <!--这里是标题、指示的地方-->
+        <div id="navigate-assist">
+            <navigate-assist></navigate-assist>
+        </div>
+        <!--这里是标题、指示的地方-->
         <div class="row wrapper border-bottom white-bg page-heading">
             <div class="col-sm-4">
                 <h2>属性管理</h2>
@@ -191,10 +194,9 @@
 <script src="../js/plugins/pace/pace.min.js"></script>
 
 <script src="../js/vue.js"></script>
-<script>
-    $("#navigate").load("../navigate/navigate.html");
-    $("#navigate_2").load("../navigate/navigate_2.html");
-</script>
+<script src="../navigate/navigate.js"></script>
+<script>new Vue({el:"#navigate"});new Vue({el:"#navigate-assist"})</script>
+
 <script>
     //一个空的属性对象
     var property = {"propertyid":"", "properyname":""};
