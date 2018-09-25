@@ -1,8 +1,10 @@
 package com.shoes101.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.shoes101.exception.GlobalException;
 import com.shoes101.mapper.*;
 import com.shoes101.pojo.*;
+import com.shoes101.result.CodeMsg;
 import com.shoes101.service.GoodsMService;
 import com.shoes101.util.FileUtils;
 import org.slf4j.Logger;
@@ -206,6 +208,11 @@ public class GoodsMServiceImpl implements GoodsMService {
 
         for (int i = 0; i < fileList.size(); ++i) {
             file = fileList.get(i);
+            logger.error(JSONObject.toJSONString(file));
+            if (file.isEmpty())
+            {
+                continue;
+            }
             logger.info("i:"+i);
             // 要上传的目标文件存放路径
             String savePath = FileUtils.getWebContent() + File.separator + "src" + File.separator + "main" +
@@ -251,6 +258,10 @@ public class GoodsMServiceImpl implements GoodsMService {
             file = fileList.get(i);
             logger.info("i:"+i);
             // 要上传的目标文件存放路径
+            if (file.isEmpty())
+            {
+                continue;
+            }
 
             String savePath = FileUtils.getWebContent() + File.separator + "src" + File.separator + "main" +
                     File.separator+"resources"+ File.separator+"static"+ File.separator+"uploadfiles"+File.separator+"shoesGoods"+File.separator+shoesid;
