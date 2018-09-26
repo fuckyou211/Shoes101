@@ -4,6 +4,7 @@ import com.shoes101.config.mybatis.BaseMapper;
 import com.shoes101.pojo.Propertyvalue;
 import java.util.List;
 
+import com.shoes101.pojo.Splink;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -56,6 +57,10 @@ public interface PropertyvalueMapper{
     //ID属性值查询
     @Select( "select * from propertyvalue where  propertyid= #{propertyId} ")
     public List<Propertyvalue> selectPropertyvalueBypropertyId(@Param("propertyId") Integer propertyId);
+
+    @Select("select c.* from splink a ,propertyvalue c where a.shoesid=#{shoesId} and a.propertyid=#{propertyid} and a.propertyvalueid=c.propertyvalueid " +
+            "order by (select b.propertyvalue  from propertyvalue b where a.propertyvalueid=b.propertyvalueid ) ")
+    List<Propertyvalue> selectByShoesIdProperty(@Param("shoesId") Integer shoesId, @Param("propertyid") Integer propertyid);
 
 
 }

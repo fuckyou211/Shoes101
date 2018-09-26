@@ -306,8 +306,8 @@ public class GoodsMServiceImpl implements GoodsMService {
         List<Splink> listColor=splinkMapper.selectByShoesIdProperty(shoesid,colorId);
         List<Splink> listSize=splinkMapper.selectByShoesIdProperty(shoesid,sizeId);
 
-        map.put("listColor",listColor);
-        map.put("listSize",listSize);
+        map.put("listColor",propertyvalueMapper.selectByShoesIdProperty(shoesid,colorId));
+        map.put("listSize",propertyvalueMapper.selectByShoesIdProperty(shoesid,sizeId));
         List<List<Shoessku>> listQuantit=new ArrayList<>();
 
         for(int i=0;i<listSize.size();i++)
