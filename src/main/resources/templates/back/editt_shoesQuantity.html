@@ -178,11 +178,12 @@
         });
         console.log(quantity);
         console.log(skuid);
+        console.log(skuid.toString());
         //用ajax提交表单
         $.post({
             url: "setQuantitAjax",
             type: 'post',
-            data:{quantity:quantity,skuid:skuid,temp:123},
+            data:{quantity:quantity.toString(),skuid:skuid.toString(),temp:123},
             dataType: 'json',
             success: function (result) {
                 console.log(result);
