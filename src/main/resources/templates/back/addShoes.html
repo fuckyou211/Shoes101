@@ -82,13 +82,7 @@
                         <div class="tab-content">
                             <div id="tab-1" class="tab-pane active">
                                 <div class="panel-body">
-                                    <!--
-
-
-                                     表单
-
-
-                                    -->
+                                    <!--表单-->
                                     <form id="shoesForm"  >
                                         <fieldset class="form-horizontal">
                                             <div class="" id="firsttype">
@@ -239,23 +233,6 @@
                                             <a class="btn btn-primary" @click="addnewpic()">添加图片</a>
                                         </div>
                                     </div>
-                                    <!--<div class="col-md-3">
-                                        <div class="ibox">
-                                            <div class="ibox-content product-box">
-                                                <div class="product-imitation">
-                                                    <div id="pic5" >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="btn-group">
-                                            <label title="Upload image file" for="5_inputImage" class="btn btn-primary">
-                                                <input type="file" accept="image/*" multiple="multiple" name="shoespic"
-                                                       form="shoesForm" id="5_inputImage" class="hide" onchange="preview(this)">
-                                                上传图片
-                                            </label>
-                                        </div>
-                                    </div>-->
                                     <div class="form-group col-md-12">
                                         <label class="col-sm-12 control-label" style="margin-top: 18px;text-align: right">
                                             <a value="4" href="javascript:void(0);" onclick="nextTab(this)"> 请继续完成下一步....</a>
@@ -345,14 +322,14 @@
                                     <div>
                                         <div class="ibox-content no-padding">
                                             <div class="summernote" id="shoesdetails">
-                                                <br/><br/><br/><br/>
+                                                <br/><br/><br/><br/><br/><br/>
                                                 请描述商品的详细情况，简单介绍商品
                                                 <br/><br/><br/><br/><br/><br/><br/>
                                             </div>
                                         </div>
                                     </div>
                                     <div class="form-group col-md-12" style="margin-top: 18px;">
-                                        <a class="btn btn-success" onclick="addShoesDone()">完成</a>
+                                        <a class="btn btn-success" onclick="addShoes()">完成</a>
                                     </div>
                                 </div>
                             </div>
@@ -395,7 +372,7 @@
                                 <div class="modal-dialog modal-sm">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <button type="button" class="close"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <a type="button" class="close" href="../shoes/toshoes"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
                                             <h4 class="modal-title">添加成功</h4>
                                         </div>
                                         <div class="modal-body">
@@ -403,7 +380,7 @@
                                         </div>
                                         <div class="modal-footer">
                                             <!--<button type="button" class="btn btn-white" data-dismiss="modal">取消</button>-->
-                                            <button type="button" class="btn btn-primary" onclick="delProp()">确定</button>
+                                            <button type="button" class="btn btn-primary" onclick="addShoesDone()">确定</button>
                                         </div>
                                     </div>
                                 </div>
@@ -453,7 +430,7 @@
     var catalog_1,catalog_2,catalog_3;//分类
     var property,propertyVal;//属性和属性值
     var color, size;//颜色和尺码
-    var shoesid;
+    var shoesid,editshoesid;
 
     var proplist = [];
 
@@ -664,7 +641,7 @@
         console.log("鞋子名称为："+name);
         console.log(formData);
         //
-
+        //添加鞋子
         $.post({
             url: "addShoesForm",//addShoesForm
             type: 'post',
@@ -675,13 +652,16 @@
             contentType: false,
             dataType: 'json',
             success: function (result) {
-                if(result.code==0){
+                console.log(result);
+                editshoesid = result.data;
+                $("#toEditQuantity").modal("show");
+                /*if(result.code==0){
                     console.log("添加成功！");
                     $("#toEditQuantity").modal("show");
                     //alert(result.msg);
                 }else if(result.code==1){
                     alert(result.msg);
-                }
+                }*/
             },
             fail: function (err) {
                 console.log("失败："+err)
@@ -778,7 +758,9 @@
     }
 
     function addShoesDone() {
-        window.load('editQuantity?shoesid=skldjg');
+        var url ='editQuantit?shoesid='+editshoesid;
+        window.location.href=url;
+
     }
 </script>
 
