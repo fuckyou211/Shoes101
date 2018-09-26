@@ -91,6 +91,7 @@
                                             <button onclick="saveQuantity()" class="btn btn-primary">修改完成</button>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -175,11 +176,13 @@
             var id=$(this).attr("skuid");
             skuid.push(id);
         });
+        console.log(quantity);
+        console.log(skuid);
         //用ajax提交表单
         $.post({
             url: "setQuantitAjax",
             type: 'post',
-            data:{"quantity":quantity,"skuid":skuid},
+            data:{quantity:quantity,skuid:skuid},
             dataType: 'json',
             success: function (result) {
                 console.log(result);
