@@ -77,8 +77,6 @@
 
                                                             <input  type="number" min="0" class="form-control col-sm-2":value="item[index].quantity"
                                                                     :skuid="item[index].skuid" oninput="getSum()" name="skuquantity" />
-
-
                                                         </td>
                                                     </tr>
                                                     </tbody>
@@ -158,8 +156,8 @@
             skuid.push(id);
 
         });
-        console.log(sum);
-        console.log(skuid);
+        //console.log(sum);
+        //console.log(skuid);
         $("#shoesSum").text(sum);
     }
 
@@ -187,6 +185,7 @@
             dataType: 'json',
             success: function (result) {
                 console.log(result);
+                alert("修改成功！");
             },
             fail: function (err) {
                 console.log("失败："+err)

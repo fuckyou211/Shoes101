@@ -86,13 +86,13 @@
                                         </td>
                                         <td><label class="mylabel">{{item.shoesname}}</label></td>
                                         <td><label class="mylabel">{{item.adddate}}</label></td>
-                                        <td><label class="mylabel">{{}}<a :href="'../goodsM/editQuantit?shoesid='+item.shoesid"><i class="fa fa-eyedropper"></i></a></label></td>
+                                        <td><label class="mylabel">{{getquantity(index)}}&nbsp;<a :href="'../goodsM/editQuantit?shoesid='+item.shoesid"><i class="fa fa-eyedropper"></i></a></label></td>
                                         <td>
                                             <label class="mylabel">
                                                 <div class="switch">
                                                     <div class="onoffswitch">
                                                         <input type="checkbox" :checked="getStatus(item.isdropoff)" class="onoffswitch-checkbox"
-                                                               :id="'checkbox_'+index" nane="" v-model="selected">
+                                                               :id="'checkbox_'+index" :value="item.shoesid"  onclick="updatastatus(this)">
                                                         <label class="onoffswitch-label" :for="'checkbox_'+index">
                                                             <span class="onoffswitch-inner"></span>
                                                             <span class="onoffswitch-switch"></span>
@@ -164,18 +164,23 @@
          el:"#shoesInfo",
          data:{
              lists:[],
+             selected:[]
          },
          methods:{
+             getquantity:function(index){
+                 return this.lists.number[index];
+             },
              getPicUrl: function (index){
                  var url = "../"+this.lists.picList[index].picaddress;
                  console.log(url);
                  return url;
              },
              getStatus: function (sataus){
+                 console.log(sataus);
                  if(sataus==1)
-                    return true;
+                    return "true";
                  else
-                     return false;
+                     return "false";
              }
          },
      });
@@ -184,6 +189,9 @@
         el:"#abc",
         data:{
             lists:[],
+        },
+        methods:{
+
         }
     });
 
@@ -195,42 +203,33 @@
     }
 </script>
 <script>
-    console.log("aa");
-    /*var aa=new Vue({
-        el:"#shoesInfo",
-        data:{
-            lists: [
-                { id: "1", pic: "img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                    addtime: "2018/08/08", count:"200", status:"checked"},
 
-                { id:"2", pic:"img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                    addtime: "2018/08/08", count:"200", status:"checked"},
-                { id:"3", pic:"img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                    addtime: "2018/08/08", count:"200", status:"checked"},
-                { id:"4", pic:"img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                    addtime: "2018/08/08", count:"200", status:"checked"},
-                { id:"5", pic:"img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                    addtime: "2018/08/08", count:"200", status:"checked"},
-                { id:"6", pic:"img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                    addtime: "2018/08/08", count:"200", status:"checked"},
-                { id:"7", pic:"img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                    addtime: "2018/08/08", count:"200", status:"checked"}
-                /!*{ "id":"8", "pic":"img/4.png", "name":"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                "addtime", "2018/08/08", "count":"200", "status":"checked"}*!/
-            ]
-        },
+    //修改上下架
+    function updatastatus(obj) {
+        var status = 0;
+        var shoesid = $(obj).val();
+        if (obj.checked == true){
+            status = 1;
+        }
+        else {
 
-        methods:{
-            getPicUrl: function (url){
-                return ""+url;
+        };
+        $.post({
+            url:"setisdroffAjax",
+            type: 'post',
+            dataType: 'json',
+            data:{"shoesid":shoesid,"isdropoff":status},
+            success:function (data) {
+                console.log("updata success!");
+                console.log(data);
             },
-            gernerateId: function (index){
-                return "checkbox_" +index;
+            fail: function (err) {
+                console.log(err)
             }
-        },
-
-    });*/
-    //console.log(aa.getPicUrl("fsdgs"));
+        });
+        console.log("状态"+status);
+        console.log("鞋子id"+shoesid);
+    }
 </script>
 </body>
 </html>
