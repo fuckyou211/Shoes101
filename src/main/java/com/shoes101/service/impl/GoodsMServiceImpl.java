@@ -334,6 +334,15 @@ public class GoodsMServiceImpl implements GoodsMService {
             logger.info("skuid:"+skuid.get(i)+"quantity:"+quantity.get(i));
             shoesskuMapper.selectquantity(skuid.get(i),quantity.get(i));
         }
-        return null;
+        return "";
     }
+
+    @Override
+    @Transactional
+    public String setisdropoffAjax(Integer shoesid,String status) {
+
+        shoesMapper.selectupdateisdropoff(shoesid,status);
+        return "";
+    }
+
 }

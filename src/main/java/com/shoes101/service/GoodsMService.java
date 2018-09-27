@@ -2,6 +2,7 @@ package com.shoes101.service;
 
 import com.shoes101.pojo.Addshoes;
 import com.shoes101.pojo.Shoessku;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -26,4 +27,5 @@ public interface GoodsMService {
 
     public String setQuantitAjax(List<Integer> quantity,List<Integer> skuid);
 
+    public String setisdropoffAjax(Integer shoesid, String status);
 }

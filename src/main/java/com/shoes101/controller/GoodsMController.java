@@ -97,4 +97,12 @@ public class GoodsMController {
         logger.info(JSONObject.toJSONString(quantity));
         return  Result.success(goodsMService.setQuantitAjax(skuid,quantity));
     }
+
+    @RequestMapping("/setisdropoffAjax")
+    @ResponseBody
+    public Result<String> setisdropoffAjax(@RequestParam(name="shoesid",required=false) Integer shoesid,@RequestParam(name="isdropoff",required=false) String isdropoff) {
+        logger.info("shoesid:"+shoesid+"  isdropoff:"+isdropoff);
+        return  Result.success(goodsMService.setisdropoffAjax(shoesid,isdropoff));
+    }
+
 }
