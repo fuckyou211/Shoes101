@@ -24,4 +24,6 @@ public interface GoodsMService {
 
     public String editQuantitAjax(Integer shoesid);
 
+    public String setQuantitAjax(List<Integer> quantity,List<Integer> skuid);
+
 }

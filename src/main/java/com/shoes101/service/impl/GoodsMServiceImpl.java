@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import javax.servlet.http.HttpServletRequest;
+import java.beans.Transient;
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -323,5 +324,16 @@ public class GoodsMServiceImpl implements GoodsMService {
         map.put("listQuantit",listQuantit);
         logger.info(JSONObject.toJSONString(map));
         return JSONObject.toJSONString(map);
+    }
+
+    @Override
+    @Transactional
+    public String setQuantitAjax(List<Integer> skuid,List<Integer> quantity) {
+        for(int i=0;i<skuid.size();i++)
+        {
+            logger.info("skuid:"+skuid.get(i)+"quantity:"+quantity.get(i));
+            shoesskuMapper.selectquantity(skuid.get(i),quantity.get(i));
+        }
+        return null;
     }
 }

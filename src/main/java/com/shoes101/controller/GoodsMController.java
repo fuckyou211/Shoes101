@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * 添加商品管理
@@ -89,5 +90,11 @@ public class GoodsMController {
     }
 
 
-
+    @RequestMapping("/setQuantitAjax")
+    @ResponseBody
+    public Result<String> setQuantitAjax(@RequestParam(name="quantity",required=false) List<Integer> quantity,@RequestParam(name="skuid",required=false) List<Integer> skuid) {
+        logger.info(JSONObject.toJSONString(skuid));
+        logger.info(JSONObject.toJSONString(quantity));
+        return  Result.success(goodsMService.setQuantitAjax(skuid,quantity));
+    }
 }
