@@ -23,13 +23,13 @@
 	<body style="background-image: url(../static-front/images/loginbackgroud.jpg); background-repeat:no-repeat;">
 		<div class="container">
 			<div class="col-sm-8 col-md-6 col-lg-5 a1" style="margin: auto;margin-top: 210px;padding: 30px 15px 20px 15px;background-color: rgba(255,255,255,0.5);">
-				<form action="/login/do_login">
+				<form >
 					<h2 style="text-align:center;">欢迎登录</h2>
 					<div class="form-group">
-						<input name="mobile" type="text" class="form-control" id="username1" placeholder="username" />
+						<input  type="text" class="form-control d1" id="username1" placeholder="username" />
 					</div>
 					<div class="form-group">
-						<input name="password" type="password"  class="form-control" id="password1" placeholder="password" />
+						<input type="password"  class="form-control d2" id="password1" placeholder="password" />
 					</div>
 					<div class="custom-control custom-checkbox mb-3">
 						<input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
@@ -38,7 +38,7 @@
 					</div>
 					<div class="form-group">
 						<div style="margin: auto;">
-                            <input type="submit" class="btn btn-primary" value="登陆" />
+                            <input type="button" class="btn btn-primary denglu" value="登陆" />
 							<!--<a class="btn btn-primary" >登录</a>-->
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<a class="btn btn-warning b1">注册</a>
@@ -129,7 +129,31 @@
 					$("div.a2").hide();
 					$("div.a1").show();
 				});
-			})
+			});
+            $(function(){
+                $(".denglu").click(function(){
+                    $.post({url:"/login/do_login",
+                        dataType:'json',
+                        type: 'post',
+                        data:{
+                            mobile:$(".d1").val(),
+							password:$(".d2").val()
+						},
+                        success:function(result){
+                            //eval函数解析json数据
+                            // alert(result.toString());
+                            console.log(result);
+                            // console.log(result.toString());
+                        },
+                        fail: function (err) {
+                            alert("修改失败！");
+                            console.log(err);
+                        }
+                    });
+                });
+            });
+
+
 		</script>
 
 	</body>
