@@ -21,17 +21,16 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
 
     @Autowired
     UserArgumentResolver userArgumentResolver;
-/*
     @Autowired
     AdminArgumentResolver adminArgumentResolver;
 
     @Autowired
-    AdminInterceptor adminInterceptor;*/
+    AdminInterceptor adminInterceptor;
 
     @Override
     public void addArgumentResolvers(List<HandlerMethodArgumentResolver> argumentResolvers) {
         argumentResolvers.add(userArgumentResolver);
-      //  argumentResolvers.add(adminArgumentResolver);
+        //argumentResolvers.add(adminArgumentResolver);
     }
 
     public void addInterceptors(InterceptorRegistry registry)
@@ -42,7 +41,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         //registry.addInterceptor(/*new一个拦截器*/).addPathPatterns(/*控制器*/);
         //super.addInterceptors(registry);
         registry.addInterceptor(accessInterceptor);
-     //   registry.addInterceptor(adminInterceptor);
+        registry.addInterceptor(adminInterceptor);
 
     }
 }

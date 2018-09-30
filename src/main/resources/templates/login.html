@@ -58,20 +58,19 @@
 			dataType:"json",
             type: "POST",
             data:{
-                adminName:$("#adminName").val(),
+                adminname:$("#adminName").val(),
                 password: password
             },
             success:function(data){
                console.log(data);
                 //alert("用户名或密码错误");
-				 if(data == 'yes')
+				 if(data.code == 0)
 				 {
-
                     window.location.href="/admin/toback";
 				 }
 				else
 				{
-				    alert("用户名或密码错误");
+				    alert(data.msg);
 				}
             },
             error:function(data){
