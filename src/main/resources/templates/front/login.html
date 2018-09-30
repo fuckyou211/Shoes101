@@ -5,13 +5,13 @@
 		<meta charset="UTF-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="shortcut icon" type="image/x-icon" href="../../static/static-front/img/101_favicon.ico">
+		<link rel="shortcut icon" type="image/x-icon" href="../static-front/img/101_favicon.ico">
 		<title>登录</title>
-		<link rel="stylesheet" href="../../static/static-front/css/bootstrap.css">
-		<script src="../../static/static-front/js/jquery-3.2.1.min.js"></script>
+		<link rel="stylesheet" href="../static-front/css/bootstrap.css">
+		<script src="../static-front/js/jquery-3.2.1.min.js"></script>
 
-		<script src="../../static/static-front/js/popper.js"></script>
-		<script src="../../static/static-front/js/bootstrap.js"></script>
+		<script src="../static-front/js/popper.js"></script>
+		<script src="../static-front/js/bootstrap.js"></script>
 
 		<style>
 			.container {
@@ -20,16 +20,16 @@
 		</style>
 	</head>
 
-	<body style="background-image: url(../../static/static-front/images/loginbackgroud.jpg); background-repeat:no-repeat;">
+	<body style="background-image: url(../static-front/images/loginbackgroud.jpg); background-repeat:no-repeat;">
 		<div class="container">
 			<div class="col-sm-8 col-md-6 col-lg-5 a1" style="margin: auto;margin-top: 210px;padding: 30px 15px 20px 15px;background-color: rgba(255,255,255,0.5);">
-				<form>
+				<form action="/login/do_login">
 					<h2 style="text-align:center;">欢迎登录</h2>
 					<div class="form-group">
-						<input type="text" class="form-control" id="username1" placeholder="username" />
+						<input name="mobile" type="text" class="form-control" id="username1" placeholder="username" />
 					</div>
 					<div class="form-group">
-						<input type="password" class="form-control" id="password1" placeholder="password" />
+						<input name="password" type="password"  class="form-control" id="password1" placeholder="password" />
 					</div>
 					<div class="custom-control custom-checkbox mb-3">
 						<input type="checkbox" class="custom-control-input" id="customCheck" name="example1">
@@ -38,7 +38,8 @@
 					</div>
 					<div class="form-group">
 						<div style="margin: auto;">
-							<a class="btn btn-primary">登录</a>
+                            <input type="submit" class="btn btn-primary" value="登陆" />
+							<!--<a class="btn btn-primary" >登录</a>-->
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 							<a class="btn btn-warning b1">注册</a>
 						</div>
@@ -46,7 +47,7 @@
 				</form>
 			</div>
 			<div class="col-sm-8 col-md-6 col-lg-5 a2" style="margin: auto;margin-top: 210px;padding: 30px 15px 20px 15px;background-color: rgba(255,255,255,0.5);display: none;">
-				<form>
+				<form action="/login/do_login">
 					<h2 style="text-align:center;">欢迎注册</h2>
 					<div class="form-group  row">
 						<div class="col-3">
@@ -104,9 +105,9 @@
 
 					<div class="form-group">
 						<div style="margin: auto;">
-							<a class="btn btn-success b2">注册</a>
+							<a class="btn btn-warning  b2">注册</a>
 							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-							<a class="btn btn-danger b3">返回</a>
+							<a class="btn btn-warning  b3">返回</a>
 						</div>
 					</div>
 				</form>
