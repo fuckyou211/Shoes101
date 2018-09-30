@@ -1,21 +1,14 @@
 package com.shoes101.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.shoes101.pojo.Property;
-import com.shoes101.pojo.Shoescatalog;
+import com.shoes101.pojo.Admin;
+import com.shoes101.result.Result;
 import com.shoes101.service.AdminService;
-import com.shoes101.service.CatalogService;
 import com.shoes101.service.PropertyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * 后台管理总控制器 实现功能跳转
@@ -72,22 +65,13 @@ public class AdminController {
     /**
      * 登录
      * @param response
-     * @param adminName
-     * @param password
      * @return
      */
     @RequestMapping("/doLogin")
     @ResponseBody
-    public Object doLogin(HttpServletResponse response, @RequestParam(value="adminName") String adminName,
-                          @RequestParam(value="password") String password)
+    public Result<String> doLogin(HttpServletResponse response, Admin admin)
     {
-        return adminservice.findAdmin(adminName,password);
+        return Result.success(adminservice.login(response,admin));
     }
-
-
-
-
-
-
 
 }

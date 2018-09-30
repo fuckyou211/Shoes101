@@ -71,7 +71,7 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
 		return true;
 	}
 	
-	private void render(HttpServletResponse response, CodeMsg cm)throws Exception {
+	public static void render(HttpServletResponse response, CodeMsg cm)throws Exception {
 		response.setContentType("application/json;charset=UTF-8");
 		OutputStream out = response.getOutputStream();
 		String str  = JSON.toJSONString(Result.error(cm));
