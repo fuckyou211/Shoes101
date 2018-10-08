@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @Controller
+@RequestMapping("/header")
 public class NavBarController {
 
     @Autowired
@@ -37,5 +38,8 @@ public class NavBarController {
         }
         return  Result.success( map);
     }
-
+    @RequestMapping("/toShoes-header")
+    public String toShoesHeader(){
+        return "/front/shoes-header";
+    }
 }
