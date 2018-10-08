@@ -10,7 +10,7 @@ public interface MUserService {
     public List<User> getAllUser();
 
     //冻结用户
-    public List<User> getCold(int userid);
+    public List<User> getCold(int userid,int cold);
 
 
 }

@@ -39,13 +39,13 @@ public class MUserController {
     }
 
     /**
-     * 冻结用户
+     * 冻结与解冻用户
      */
     @RequestMapping("/colduser")
     @ResponseBody
-    public List<User> coldUser(@RequestParam("userid") int userid)
+    public List<User> coldUser(@RequestParam("userid") int userid,@RequestParam("cold") int cold)
     {
-        return mUserService.getCold(userid);
+        return mUserService.getCold(userid,cold);
     }
 
 

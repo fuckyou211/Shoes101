@@ -21,6 +21,9 @@ public interface UserMapper {
     //冻结用户
     public int getCold(@Param("userid") int userid);
 
+    //解冻用户
+    public int getWarm(@Param("userid") int userid);
+
 
     @Select("select * from user where phone=#{phone}")
     public User getByMobile(@Param("phone") String phone);
