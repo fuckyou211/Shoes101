@@ -918,7 +918,7 @@ body {
     border-top: 1px solid #cecece;
 }
 .product-menu .menu-title {
-    border-left: 3px solid #000;
+    /*border-left: 3px solid #000;*/
     padding: 10px;
 }
 .product-menu .menu-title h2 {
@@ -1004,7 +1004,7 @@ body {
 }
 .product-name a {
     color: #444;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 500;
     text-transform: uppercase;
     font-family: "Montserrat",sans-serif;
@@ -1013,12 +1013,12 @@ body {
     color: #f6435b;
 }
 .price-rating span.old-price {
-    font-size: 12px;
+    font-size: 13px;
     margin-right: 5px;
     text-decoration: line-through;
 }
 .price-rating span {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 700;
     font-family: "Montserrat",sans-serif;
 }
