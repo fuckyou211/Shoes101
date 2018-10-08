@@ -19,9 +19,19 @@ public class MUserServiceImpl implements MUserService {
     }
 
     @Override
-    public List<User> getCold(int userid) {
-        int result = userMapper.getCold(userid);
-        System.out.println(result);
+    public List<User> getCold(int userid,int cold) {
+        //cold = 1 冻结
+        if(cold == 1)
+        {
+            int result = userMapper.getCold(userid);
+            System.out.println(result);
+        }
+        //cold = 0 解冻
+        else
+        {
+            int result = userMapper.getWarm(userid);
+            System.out.println(result);
+        }
         return userMapper.selectAll();
     }
 }

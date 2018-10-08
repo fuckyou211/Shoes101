@@ -22,6 +22,7 @@ public class CodeMsg {
     public static CodeMsg PASSWORD_ERROR = new CodeMsg(500215, "密码错误");
     public static CodeMsg ADMIN_NOT_EXIST = new CodeMsg(500216, "用户名不存在");
     public static CodeMsg ADMIN_NOT_LOGIN = new CodeMsg(500217, "请登录再访问");
+    public static CodeMsg USER_COLD_ERROR = new CodeMsg(500218, "您的用户已被冻结，请联系客服！");
 
 
     //商品模块 5003XX

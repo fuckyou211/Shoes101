@@ -1,4 +1,4 @@
-package com.shoes101.controller;
+package com.shoes101.controller.BackStage;
 
 
 import com.shoes101.result.Result;

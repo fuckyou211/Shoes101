@@ -1,4 +1,4 @@
-package com.shoes101.controller;
+package com.shoes101.controller.FrontStage;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shoes101.redis.FGoodsKey;

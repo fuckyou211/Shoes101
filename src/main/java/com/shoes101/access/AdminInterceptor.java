@@ -34,6 +34,12 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 			Admin admin = getAdmin(request, response);
 			AdminContext.setAdmin(admin);
 			HandlerMethod hm = (HandlerMethod)handler;
+			logger.info("拦截类 路径 getPackage ："+hm.getMethod().getDeclaringClass().getPackage().getName());
+			if(!hm.getMethod().getDeclaringClass().getPackage().getName().equals("com.shoes101.controller.BackStage"))
+			{
+				logger.info("AdminLimit 未拦截！");
+				return true;
+			}
 			if(!hm.getMethod().getName().equals("doLogin")&&admin==null)
 			{
 				logger.info("用户未登录，拦截 hm.getMethod():"+hm.getMethod());
@@ -42,7 +48,7 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 			}
 			AccessLimit accessLimit = hm.getMethodAnnotation(AccessLimit.class);
 			if(accessLimit == null) {
-				logger.info("AccessLimit 未拦截！");
+				logger.info("AdminLimit 未拦截！");
 				return true;
 			}
 		}
