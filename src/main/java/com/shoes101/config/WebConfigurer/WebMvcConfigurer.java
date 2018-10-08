@@ -41,7 +41,7 @@ public class WebMvcConfigurer extends WebMvcConfigurerAdapter {
         //registry.addInterceptor(/*new一个拦截器*/).addPathPatterns(/*控制器*/);
         //super.addInterceptors(registry);
         registry.addInterceptor(accessInterceptor);
-        //registry.addInterceptor(adminInterceptor);
+        registry.addInterceptor(adminInterceptor);
 
     }
 }
