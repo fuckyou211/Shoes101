@@ -1,4 +1,4 @@
-package com.shoes101.controller;
+package com.shoes101.controller.BackStage;
 
 import com.alibaba.fastjson.JSON;
 import com.shoes101.pojo.Shoescatalog;

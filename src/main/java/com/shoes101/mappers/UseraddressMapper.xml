@@ -30,4 +30,10 @@
     select userid, address
     from useraddress
   </select>
+  <select id="getUA" resultMap="BaseResultMap">
+    select * from useraddress where userid=#{userid}
+  </select>
+  <delete id="deleteUA">
+    delete from useraddress where userid=#{userid} and address=#{address}
+  </delete>
 </mapper>

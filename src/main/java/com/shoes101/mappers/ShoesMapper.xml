@@ -51,4 +51,41 @@
   <select id="getAllShoes" resultType="Map">
     select shoes.shoesid,shoes.shoesname,shoes.isdropoff,shoes.adddate,shoespic.picaddress,shoessku.quantity from shoes,shoespic,shoessku
   </select>
+
+  <!--10.4作出第一次修改 -->
+  <select id="getAllShoesIdAndNameAndPrice" resultType="com.shoes101.vo.FGoodsVo">
+     select DISTINCT shoes.shoesid,shoes.shoesname,shoessku.price
+     from shoes
+     INNER JOIN shoessku
+      on shoes.shoesid=shoessku.shoesid
+      where shoessku.quantity > 0
+  </select>
+
+  <select id="getDetails" resultType="com.shoes101.vo.FDetailsVo">
+    select DISTINCT shoes.shoesid,shoes.shoesname,shoessku.price,shoessku.quantity,shoes.shoesdetails,shoessku.ticketprice
+    from shoes
+    INNER JOIN shoessku
+    on shoes.shoesid=shoessku.shoesid
+    where shoes.shoesid=#{shoesid}
+  </select>
+
+  <select id="getAllPicById" resultType="java.lang.String">
+    select picaddress from shoespic where shoesid=#{shoesid}
+  </select>
+
+  <select id="getSku" resultType="java.lang.Integer">
+    select skuid from shoessku where shoesid=#{shoesid}
+  </select>
+
+  <select id="getPidById" resultType="com.shoes101.pojo.Splink">
+    select * from splink where shoesid=#{shoesid}
+  </select>
+
+  <select id="getTheSkuid" resultType="Integer">
+    select skuid from shoessku where shoesid=#{shoesid} and skuproperty like ${str} limit 1
+  </select>
+
+  <select id="getColorPicForDetail" resultType="java.lang.String">
+    select colorpicaddredd from colorpic where skuid=#{skuid}
+  </select>
 </mapper>

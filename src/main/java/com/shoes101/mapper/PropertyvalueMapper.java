@@ -23,6 +23,9 @@ public interface PropertyvalueMapper{
 
     Propertyvalue selectByPrimaryKey(@Param("propertyid") Integer propertyid);
 
+    //根据属性值id获取属性值 以便获取商品详情
+    public String getPropertyvalue(@Param("propertyvalueid") Integer propertyvalueid);
+
     //获取当前属性名的属性值
     public List<Propertyvalue> selectAllOfPropertyId(@Param("propertyid") int propertyid);
 
@@ -62,5 +65,7 @@ public interface PropertyvalueMapper{
             "order by (select b.propertyvalue  from propertyvalue b where a.propertyvalueid=b.propertyvalueid ) ")
     List<Propertyvalue> selectByShoesIdProperty(@Param("shoesId") Integer shoesId, @Param("propertyid") Integer propertyid);
 
+    //根据传入属性值查找属性id
+    public int getIdByValue(@Param("str") String str);
 
 }

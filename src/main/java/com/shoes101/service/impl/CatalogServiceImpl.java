@@ -85,7 +85,20 @@ public class CatalogServiceImpl implements CatalogService {
                flag++;
            }
        }
+       System.out.println(flag);
+       System.out.println(maxSize);
        if(flag==maxSize){
+           //老爸节点没有儿子了
+           System.out.println("213");
+           if(shoescatalogMapper.findCatalogByPid(shoescatalog.getParentid()).size()==0){
+
+               Shoescatalog sc = shoescatalogMapper.selectByPrimaryKey(shoescatalog.getParentid());
+               System.out.println(sc);
+               sc.setIsleaf(1);
+               //修改父亲的isLeaf的属性
+               shoescatalogMapper.updateByPrimaryKey(sc);
+
+           }
            return 1;
        }
        else return 0;
@@ -110,13 +123,10 @@ public class CatalogServiceImpl implements CatalogService {
         return shoescatalogMapper.findCatalogByPid(parentId);
     }
 
-    //处理点击上方路径，实际就是递归向上寻找（待定）
 
-    //获得某节点下的所有分类节点
+    //获得某节点下的所有分类节点(包括本节点)
     public List<Shoescatalog> nextCatalogList(List<Shoescatalog> nextList, Shoescatalog shoescatalog){
         if(shoescatalog.getIsleaf() == 1){
-            //Shoescatalog catalog =  shoescatalogMapper.selectByPrimaryKey(catalogId);
-            nextList.add(shoescatalog);
             return nextList;
         }
         else {
@@ -127,6 +137,7 @@ public class CatalogServiceImpl implements CatalogService {
                     Shoescatalog tempCatalog = list1.get(i);
                     nextList.add(tempCatalog);
                     nextList = nextCatalogList(nextList, tempCatalog);
+                    //nextList.add(tempCatalog);
                 }
             }
         }
