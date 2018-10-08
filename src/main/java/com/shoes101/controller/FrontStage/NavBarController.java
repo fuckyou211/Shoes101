@@ -1,4 +1,4 @@
-package com.shoes101.controller;
+package com.shoes101.controller.FrontStage;
 
 import com.shoes101.pojo.Shoescatalog;
 import com.shoes101.result.Result;
