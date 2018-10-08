@@ -40,9 +40,9 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 				logger.info("AdminLimit 未拦截！");
 				return true;
 			}
-			if(!hm.getMethod().getName().equals("doLogin")&&admin==null)
+			if((!hm.getMethod().getName().equals("login")&&!hm.getMethod().getName().equals("doLogin"))&&admin==null)
 			{
-				logger.info("用户未登录，拦截 hm.getMethod():"+hm.getMethod());
+				logger.info("用户未登录，拦截 hm.getMethod():"+hm.getMethod().getName());
 				AccessInterceptor.render(response, CodeMsg.ADMIN_NOT_LOGIN);
 				return false;
 			}

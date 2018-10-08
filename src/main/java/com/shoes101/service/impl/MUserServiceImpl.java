@@ -23,13 +23,13 @@ public class MUserServiceImpl implements MUserService {
         //cold = 1 冻结
         if(cold == 1)
         {
-            int result = userMapper.getCold(userid);
+            int result = userMapper.getCold(userid,cold);
             System.out.println(result);
         }
         //cold = 0 解冻
         else
         {
-            int result = userMapper.getWarm(userid);
+            int result = userMapper.getWarm(userid,cold);
             System.out.println(result);
         }
         return userMapper.selectAll();
