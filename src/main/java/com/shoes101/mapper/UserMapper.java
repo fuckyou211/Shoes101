@@ -19,10 +19,10 @@ public interface UserMapper {
     int updateByPrimaryKey(User record);
 
     //冻结用户
-    public int getCold(@Param("userid") int userid);
+    public int getCold(@Param("userid") int userid,@Param("cold") int cold);
 
     //解冻用户
-    public int getWarm(@Param("userid") int userid);
+    public int getWarm(@Param("userid") int userid,@Param("cold") int cold);
 
 
     @Select("select * from user where phone=#{phone}")
