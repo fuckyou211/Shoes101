@@ -43,21 +43,14 @@ public class ShoesHeaderController {
     }
     @RequestMapping("/getBrandInfo")
     @ResponseBody
-    public Result<List<Propertyvalue>> getBrandInfo(Integer propertyId){
-        System.out.println(propertyId);
+    public Result<List<Propertyvalue>> getBrandInfo(){
+        String propertyName = "品牌";
+        Integer propertyId = propertyService.getPropertyIdByPropertyName(propertyName);
+        System.out.println(propertyService.getProperty(propertyId));
         return Result.success(propertyService.getProperty(propertyId));
     }
     @RequestMapping("/toShoes-header")
     public String toShoesHeader(HashMap<String,Object> hm){
-        //初始化CatalogInfo
-        hm.put("navBarInfo",JSON.toJSONString(Result.success(shoesHeaderService.initCatalogInfo())));
-        System.out.println(shoesHeaderService.initCatalogInfo());
-        //初始化BrandInfo
-        String propertyName = "品牌";
-        Integer propertyId = propertyService.getPropertyIdByPropertyName(propertyName);
-        System.out.println(propertyService.getProperty(propertyId));
-        if(propertyId!=null)
-            hm.put("brandInfo",JSON.toJSONString(Result.success(propertyService.getProperty(propertyId))));
         return "/front/shoes-header";
     }
     @RequestMapping("/handleClickNavBarCatalog")
