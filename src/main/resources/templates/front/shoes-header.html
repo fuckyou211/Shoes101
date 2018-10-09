@@ -126,27 +126,28 @@
                                         <a href="index.html">101Shoes</a>
                                     </li>
                                     <li>
-                                        <a href="shop.html">女鞋</a>
-                                        <div class="mega-menu" id="women_sort">
+                                        <a href="shop.html">男鞋</a>
+                                        <div class="mega-menu" id="men_sort">
                                             <ul v-for="item in lists">
-                                                <li class="col-md-12"><span><a class="subtitle" style="padding-top: 18px;font-size: 15px;" href="#">{{item.name}}</a></span>
-                                                    <div class="row">
-                                                        <div class="col-md-2">
-                                                            <span><a href="#" style="padding-top: 5px;">拖鞋</a></span>
+                                                <li class="col-md-12">
+                                                    <span><a class="subtitle" style="padding-top: 18px;font-size: 15px;" href="javascript:void(0);" @click="secondType(item.shoescatalog.catalogid)">{{item.shoescatalog.catalogname}}</a></span>
+                                                        <div class="row">
+                                                            <div class="col-md-2" v-for="items in item.childMapData.childList">
+                                                                <span><a style="padding-top: 5px;" href="javascript:void(0);" @click="thirdType(items.shoescatalog.catalogid)">{{items.shoescatalog.catalogname}}</a></span>
+                                                            </div>
                                                         </div>
-                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>
                                     </li>
                                     <li>
-                                        <a href="shop.html">男鞋</a>
-                                        <div class="mega-menu">
-                                            <ul>
-                                                <li class="col-md-12"><span><a class="subtitle" style="padding-top: 18px;font-size: 15px;" href="#">便利休闲</a></span>
+                                        <a href="shop.html">女鞋</a>
+                                        <div class="mega-menu" id="women_sort">
+                                            <ul v-for="item in lists">
+                                                <li class="col-md-12"><span><a class="subtitle" style="padding-top: 18px;font-size: 15px;" href="#">{{item.shoescatalog.catalogname}}</a></span>
                                                     <div class="row">
-                                                        <div class="col-md-2">
-                                                            <span><a href="#" style="padding-top: 5px;">好鞋</a></span>
+                                                        <div class="col-md-2" v-for="items in item.childMapData.childList">
+                                                            <span><a href="#" style="padding-top: 5px;">{{items.shoescatalog.catalogname}}</a></span>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -201,21 +202,26 @@
     <script>
 
         $(document).ready(function () {
-            var navdata = "[[$]]"
-        })
-        var sorts_2, sorts_3, brands;
-
+            getNav();
+        });
+        let sorts_1, sorts_2, brands;
+        sorts_1 = new Vue({
+            el: '#men_sort',
+            data: {
+                lists:[],
+            },
+            method:{
+            }
+        });
         sorts_2 = new Vue({
             el: '#women_sort',
             data: {
                 lists:[],
             },
             method:{
-
             }
         });
-
-        brands = new Vue({
+        /*brands = new Vue({
             el: '#theBrand',
             data: {
                 lists:[
@@ -224,22 +230,22 @@
                 ]
             },
             method:{
-
             }
-        });
+        });*/
 
-
-
+        /*区分开男女鞋的数据*/
         function loadNavData(data) {
-            console.log(data);
-            sorts_2.lists=data;
+            sorts_1.lists=data.男鞋;
+            sorts_2.lists=data.女鞋;
+
+            console.log(sorts_2.lists);
         }
 
         function getNav() {
             var catalogName = [];
             catalogName[0] = "男鞋";
             catalogName[1] = "女鞋";
-            console.log( "hji");
+            /*console.log( "hji");*/
             $.ajax({
                 url: "getCatalogInfo/2",
                 type: 'post',

@@ -115,7 +115,9 @@ public class NavBarServiceImpl implements NavBarService {
     //实现NavBarService里的一个方法
     @Override
     public List<CatalogInfoVo> getCatalogInfo(Shoescatalog shoescatalog ,Integer level) {
-
+        //清空neededList
+        neededList.clear();
+        System.out.println("一开始的needList"+neededList);
         //level
         List<CatalogInfoVo> levelList = new ArrayList<CatalogInfoVo>();
         Map<String,List<CatalogInfoVo>> map = new HashMap<String, List<CatalogInfoVo>>();
@@ -125,9 +127,8 @@ public class NavBarServiceImpl implements NavBarService {
         System.out.println("经过HandleLevelList的levelList"+levelList);
         List<CatalogInfoVo> newList = new ArrayList<CatalogInfoVo>();
         newList  = (List<CatalogInfoVo>) ((ArrayList<CatalogInfoVo>) levelList).clone();
+        System.out.println("needList = "+neededList.toString());
         newList  = combineList(neededList,newList);
-        levelList.clear();
-        neededList.clear();
         return newList;
     }
 

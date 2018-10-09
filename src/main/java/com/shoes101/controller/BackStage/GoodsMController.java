@@ -116,7 +116,7 @@ public class GoodsMController {
     {
         // , HashMap<String,Object> map
         //map.put("detail",goodsFService.todetail(shoesid));
-        model.addAttribute(goodsFService.todetail(shoesid));
+        model.addAttribute("detail",goodsFService.todetail(shoesid));
         return "back/show_shoes";
     }
 
