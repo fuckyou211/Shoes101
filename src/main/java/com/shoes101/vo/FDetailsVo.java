@@ -3,6 +3,7 @@ package com.shoes101.vo;
 import com.shoes101.pojo.Property;
 import com.shoes101.pojo.Propertyvalue;
 import com.shoes101.pojo.Shoessku;
+import org.springframework.web.util.HtmlUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -92,6 +93,9 @@ public class FDetailsVo {
     }
 
     public void setShoesdetails(String shoesdetails) {
+
+        shoesdetails = HtmlUtils.htmlUnescape(shoesdetails);
+
         this.shoesdetails = shoesdetails;
     }
 
