@@ -88,4 +88,9 @@
   <select id="getColorPicForDetail" resultType="java.lang.String">
     select colorpicaddredd from colorpic where skuid=#{skuid}
   </select>
+
+  <select id="getQty" resultType="java.lang.Integer">
+    select quantity from shoessku where shoesid=#{shoesid} and skuproperty like ${str}
+  </select>
+
 </mapper>
