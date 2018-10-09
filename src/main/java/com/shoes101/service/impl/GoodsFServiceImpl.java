@@ -54,6 +54,7 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
     }
 
     //根据商品id获取商品详情
+    //10.9更新 前台后台区分1 2 1前台
     public String todetail(int shoesid)
     {
 
@@ -140,6 +141,5 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
         String condition = '"' + str + '"';
         System.out.println(condition);
         return shoesMapper.getQty(shoesid,condition);
-
     }
 }

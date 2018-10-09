@@ -112,11 +112,11 @@ public class GoodsMController {
      * show_shoes.html
      */
     @RequestMapping("/todetail")
-    public String todetail(@RequestParam("shoesid") int shoesid, HashMap<String,Object> map)
+    public String todetail(@RequestParam("shoesid") int shoesid,Model model)
     {
-        //若缓存不存在
-        map.put("detail",goodsFService.todetail(shoesid));
-
+        // , HashMap<String,Object> map
+        //map.put("detail",goodsFService.todetail(shoesid));
+        model.addAttribute(goodsFService.todetail(shoesid));
         return "back/show_shoes";
     }
 
