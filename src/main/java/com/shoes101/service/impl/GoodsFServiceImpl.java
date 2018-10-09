@@ -58,6 +58,8 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
         //获取商品名、库存、价格、描述
         FDetailsVo fDetailsVo = shoesMapper.getDetails(shoesid);
 
+
+
         //10.8 更新 引入 ColAndPicVo
         List<ColAndPicVo> colAndPicVos = new ArrayList<>();
 
@@ -120,7 +122,7 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
         }
 
         //10.9 商品描述由String 转 JSON 解决转义缺少反斜杠问题
-        String jsonDetail = JSONObject.toJSONString(fDetailsVo.getShoesdetails());
+        String jsonDetail = JSONObject.toJSONString(shoesMapper.getShoesDetail(shoesid));
 
 
 //        System.out.println("F");

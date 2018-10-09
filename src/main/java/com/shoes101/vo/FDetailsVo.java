@@ -37,8 +37,8 @@ public class FDetailsVo {
     private double price;
     //SKU 标价
     private double ticketprice;
-    //商品 详情
-    private String shoesdetails;
+    //商品 详情 10.9更新 作为单独变量放入GFServiceImpl处理
+//    private String shoesdetails;
 
     //根据商品id获取商品、库存、价格、详情
     //获取所有的sku 根据skuid获得对应鞋子颜色的图片和尺码
@@ -52,7 +52,6 @@ public class FDetailsVo {
                 ", quantity=" + quantity +
                 ", price=" + price +
                 ", ticketprice=" + ticketprice +
-                ", shoesdetails='" + shoesdetails + '\'' +
                 '}';
     }
 
@@ -86,20 +85,6 @@ public class FDetailsVo {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public String getShoesdetails() {
-        return shoesdetails;
-    }
-
-    public void setShoesdetails(String shoesdetails) {
-
-//        String str = HtmlUtils.htmlEscape(shoesdetails);
-//        System.out.println(str);
-//        shoesdetails = HtmlUtils.htmlUnescape(shoesdetails);
-//        System.out.println(shoesdetails);
-        this.shoesdetails = shoesdetails;
-//        System.out.println(this.shoesdetails);
     }
 
     public double getTicketprice() {
