@@ -57,7 +57,7 @@
 				<form >
 					<h2 style="text-align:center;">欢迎登录</h2>
 					<div class="form-group">
-						<input  type="text" class="form-control d1" id="username1" placeholder="用户名/手机" />
+						<input  type="text" class="form-control d1" id="username1" placeholder="用户名" />
 					</div>
 					<div class="e1">
 					</div>
@@ -98,9 +98,11 @@
 							<p style="text-align:center;">用户名：</p>
 						</div>
 						<div class="col-8">
-							<input type="text" class="form-control" id="username"  />
+							<input type="text" class="form-control" id="username2"  />
 						</div>
-						<span class="e2"></span>
+						<div class="col-1 usernametest">
+
+						</div>
 					</div>
 					<div class="form-group row">
 						<div class="col-3">
@@ -109,8 +111,8 @@
 						<div class="col-8">
 							<input type="password" class="form-control" id="password"  />
 						</div>
-						<div class="col-1">
-							<span  style="color: green">✔</span>
+						<div class="col-1 passwordtest">
+
 						</div>
 					</div>
 					<div class="form-group row">
@@ -120,8 +122,8 @@
 						<div class="col-8">
 							<input type="password" class="form-control" id="repassword" />
 						</div>
-						<div class="col-1" style="color: green">
-							<p>✔</p>
+						<div class="col-1 repasswordtest">
+
 						</div>
 					</div>
 					<div class="form-group row">
@@ -133,7 +135,7 @@
                             <input type="radio" name="gender" id="inlineRadio1" value="1"> 男
 
                               <input type="radio" name="gender" id="inlineRadio2" value="2"> 女
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red">✖</span>
+							<!--&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: red">✖</span>-->
                         </label>
 
                         </div>
@@ -145,8 +147,8 @@
 						<div class="col-8">
 							<input type="text" class="form-control" id="phone"  />
 						</div>
-						<div class="col-1" style="color: green">
-							<p>✔</p>
+						<div class="col-1 phonetest" >
+
 						</div>
 					</div>
 					<div class="form-group  row">
@@ -156,12 +158,10 @@
 						<div class="col-4">
 							<input type="text" class="form-control" id="yzm" placeholder="请输入验证码" />
 						</div>
-						<div class="col-1" style="color: green">
-							<p>✔</p>
+						<div class="col-1 yzmtest" >
 						</div>
 						<div class="col-3">
 							<input type="button" class="btn btn-primary" id="btn" value="获取验证码" onclick="sendemail()" />
-
 						</div>
 					</div>
 
@@ -262,6 +262,49 @@
                     });
                 });
 
+                $("#password").blur(function(){
+                    if ($("#password").val().length>5&&$("#password").val().length<12) {
+                        $(".passwordtest").html("<span  style='color: green'>✔</span>");
+                    }
+                    else{
+                        $(".passwordtest").html("<span style=\"color: red\">✖</span>");
+                    }
+                });
+                $("#repassword").blur(function(){
+                    if ($("#repassword").val()==$("#password").val()) {
+                        $(".repasswordtest").html("<span  style='color: green'>✔</span>");
+                    }
+                    else{
+                        $(".repasswordtest").html("<span style=\"color: red\">✖</span>");
+                    }
+                });
+                $("#phone").blur(function(){
+                    if ($("#phone").val().length==11) {
+                        $(".phonetest").html("");
+                    }
+                    else{
+                        $(".phonetest").html("<span style=\"color: red\">✖</span>");
+                    }
+                });
+                $("#yzm").blur(function(){
+                    if ($("#yzm").val().length==6) {
+                        $(".yzmtest").html("");
+                    }
+                    else{
+                        $(".yzmtest").html("<span style=\"color: red\">✖</span>");
+                    }
+                });
+
+            });
+            $(function () {
+                $("#username2").blur(function(){
+                    if ($("#username2").val().length>2&&$("#username2").val().length<12) {
+                        $(".usernametest").html("<span  style='color: green'>✔</span>");
+                    }
+                    else{
+                        $(".usernametest").html("<span style=\"color: red\">✖</span>");
+                    }
+                });
             });
 
 
