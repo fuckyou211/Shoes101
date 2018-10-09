@@ -93,4 +93,8 @@
     select quantity from shoessku where shoesid=#{shoesid} and skuproperty like ${str}
   </select>
 
+  <select id="getQty2" resultType="com.shoes101.vo.SkuIdAndQtyVo">
+    select skuid,quantity from shoessku where shoesid=#{shoesid} and skuproperty like ${str}
+  </select>
+
 </mapper>

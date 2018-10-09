@@ -8,7 +8,6 @@ public class SizeAndIdVo {
 
     private int sizeid;
     private String size;
-
     public int getSizeid() {
         return sizeid;
     }

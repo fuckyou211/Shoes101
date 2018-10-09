@@ -6,6 +6,7 @@ import com.shoes101.pojo.Shoessku;
 import com.shoes101.pojo.Splink;
 import com.shoes101.vo.FDetailsVo;
 import com.shoes101.vo.FGoodsVo;
+import com.shoes101.vo.SkuIdAndQtyVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
@@ -60,5 +61,8 @@ public interface ShoesMapper {
 
     //根据id 颜色和属性获取库存
     int getQty(@Param("shoesid") Integer shoesid,@Param("str") String str);
+
+    //根据id 颜色和属性获取库存和skuid
+    SkuIdAndQtyVo getQty2(@Param("shoesid") Integer shoesid, @Param("str") String str);
 
 }

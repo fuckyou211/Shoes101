@@ -5,10 +5,7 @@ import com.shoes101.mapper.PropertyMapper;
 import com.shoes101.mapper.PropertyvalueMapper;
 import com.shoes101.mapper.ShoesMapper;
 import com.shoes101.pojo.Splink;
-import com.shoes101.vo.ColAndPicVo;
-import com.shoes101.vo.FDetailsVo;
-import com.shoes101.vo.FGoodsVo;
-import com.shoes101.vo.SizeAndIdVo;
+import com.shoes101.vo.*;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -133,7 +130,7 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
 
     }
 
-    //由id 颜色 尺码 返回库存数量
+    //由id 颜色 尺码 返回库存数量 供后台使用
     public int getQty(int shoesid,String colorid,String sizeid)
     {
         //组成搜索字符串
@@ -142,4 +139,14 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
         System.out.println(condition);
         return shoesMapper.getQty(shoesid,condition);
     }
+
+    //由id 颜色 尺码 返回库存数量 供前台使用 返回skuid和库存数量
+    public SkuIdAndQtyVo getQty2(int shoesid, String colorid, String sizeid)
+    {
+        String str = "{2:"+ colorid + ',' + "3:" + sizeid + '}';
+        String condition = '"' + str + '"';
+        System.out.println(condition);
+        return shoesMapper.getQty2(shoesid,condition);
+    }
+
 }

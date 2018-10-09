@@ -6,5 +6,5 @@ public class FGoodsKey extends BasePrefix {
     }
     public static FGoodsKey getGoodsList = new FGoodsKey(60, "gl");
     public static FGoodsKey getGoodsDetail = new FGoodsKey(60, "gd");
-    public static FGoodsKey getAllQtyAndSkuId = new FGoodsKey(20,"qs");
+    public static FGoodsKey getQtyAndSkuId = new FGoodsKey(20,"qs");
 }
