@@ -118,8 +118,15 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
 //            colorpic.add(shoesMapper.getColorPicForDetail(skuid));
 //            System.out.println("E");
         }
+
+        //10.9 商品描述由String 转 JSON 解决转义缺少反斜杠问题
+        String jsonDetail = JSONObject.toJSONString(fDetailsVo.getShoesdetails());
+
+
 //        System.out.println("F");
         Map<String,Object> map = new HashMap<>();
+        //10.9 不要使用vo内的商品详情
+        map.put("shoesdetails",jsonDetail);
         map.put("details",fDetailsVo);
         map.put("sizelist",sizeAndIdVos);
         //map.put("colorlist",colorlist);

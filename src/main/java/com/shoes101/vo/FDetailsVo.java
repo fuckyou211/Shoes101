@@ -94,9 +94,12 @@ public class FDetailsVo {
 
     public void setShoesdetails(String shoesdetails) {
 
-        shoesdetails = HtmlUtils.htmlUnescape(shoesdetails);
-
+//        String str = HtmlUtils.htmlEscape(shoesdetails);
+//        System.out.println(str);
+//        shoesdetails = HtmlUtils.htmlUnescape(shoesdetails);
+//        System.out.println(shoesdetails);
         this.shoesdetails = shoesdetails;
+//        System.out.println(this.shoesdetails);
     }
 
     public double getTicketprice() {
