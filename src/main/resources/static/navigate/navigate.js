@@ -23,7 +23,7 @@ Vue.component('navigate',{
         '                        <a href="Admin.html"><i class="fa fa-user-circle-o"></i> <span class="nav-label">销售统计</span></a>\n' +
         '                    </li>\n' +
         '                    <li>\n' +
-        '                        <a href="Admin.html"><i class="fa fa-user-circle-o"></i> <span class="nav-label">会员管理</span></a>\n' +
+        '                        <a href="../muser/tomuser"><i class="fa fa-user-circle-o"></i> <span class="nav-label">会员管理</span></a>\n' +
         '                    </li>\n' +
         '                    <li >\n' +
         '                        <a href="../shoes/toshoes"><i class="fa fa-bandcamp"></i> <span class="nav-label">商品管理</span></a>\n' +
