@@ -23,7 +23,7 @@ Vue.component('navigate',{
         '                        <a href="Admin.html"><i class="fa fa-user-circle-o"></i> <span class="nav-label">销售统计</span></a>\n' +
         '                    </li>\n' +
         '                    <li>\n' +
-        '                        <a href="Admin.html"><i class="fa fa-user-circle-o"></i> <span class="nav-label">会员管理</span></a>\n' +
+        '                        <a href="../muser/tomuser"><i class="fa fa-user-circle-o"></i> <span class="nav-label">会员管理</span></a>\n' +
         '                    </li>\n' +
         '                    <li >\n' +
         '                        <a href="../shoes/toshoes"><i class="fa fa-bandcamp"></i> <span class="nav-label">商品管理</span></a>\n' +
@@ -51,7 +51,7 @@ Vue.component('navigate',{
         '                        </ul>\n' +
         '                    </li>\n' +
         '                    <li>\n' +
-        '                        <a href="metrics.html"><i class="fa fa-comments-o"></i> <span class="nav-label">聊天室</span><span class="label label-danger pull-right">16</span></a>\n' +
+        '                        <a href="../../chat/toChatRoom"><i class="fa fa-comments-o"></i> <span class="nav-label">聊天室</span><span class="label label-danger pull-right">16</span></a>\n' +
         '                    </li>\n' +
         '                    <li>\n' +
         '                        <a href="metrics.html"><i class="fa fa-tags"></i> <span class="nav-label">系统说明</span>  </a>\n' +

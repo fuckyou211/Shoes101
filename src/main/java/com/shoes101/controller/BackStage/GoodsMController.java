@@ -3,6 +3,7 @@ package com.shoes101.controller.BackStage;
 import com.alibaba.fastjson.JSONObject;
 import com.shoes101.pojo.Addshoes;
 import com.shoes101.result.Result;
+import com.shoes101.service.GoodsFService;
 import com.shoes101.service.GoodsMService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -29,6 +31,9 @@ public class GoodsMController {
 
     @Autowired
     GoodsMService goodsMService;
+
+    @Autowired
+    GoodsFService goodsFService;
 
     @RequestMapping("/addShoes")
     public String addShoes(){
@@ -100,6 +105,31 @@ public class GoodsMController {
     public Result<String> setisdropoffAjax(@RequestParam(name="shoesid",required=false) Integer shoesid,@RequestParam(name="isdropoff",required=false) String isdropoff) {
         logger.info("shoesid:"+shoesid+"  isdropoff:"+isdropoff);
         return  Result.success(goodsMService.setisdropoffAjax(shoesid,isdropoff));
+    }
+
+    /**
+     * 获取商品详情 传入商品Id
+     * show_shoes.html
+     */
+    @RequestMapping("/todetail")
+    public String todetail(@RequestParam("shoesid") int shoesid,Model model)
+    {
+        // , HashMap<String,Object> map
+        //map.put("detail",goodsFService.todetail(shoesid));
+        model.addAttribute(goodsFService.todetail(shoesid));
+        return "back/show_shoes";
+    }
+
+    /**
+     * 根据id 颜色 尺码 返回相应库存
+     */
+    @RequestMapping("/getQtyAjax")
+    @ResponseBody
+    public int getQuantity(@RequestParam("shoesid") int shoesid,@RequestParam("colorid") String colorid,@RequestParam("sizeid") String sizeid)
+    {
+        logger.info("Qty:" + goodsFService.getQty(shoesid,colorid,sizeid));
+        int qty = goodsFService.getQty(shoesid,colorid,sizeid);
+        return qty;
     }
 
 }

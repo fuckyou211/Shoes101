@@ -91,6 +91,10 @@ public class VerifyUserServiceImpl implements VerifyUserService {
         if(user == null) {
             throw new GlobalException(CodeMsg.MOBILE_NOT_EXIST);
         }
+        else if(user.getCold()==1)
+        {
+            throw new GlobalException(CodeMsg.USER_COLD_ERROR);
+        }
         //验证密码
         String dbPass = user.getPassword();
         String calcPass = MD5Util.formPassToDBPass(formPass, MD5Util.getSalt());

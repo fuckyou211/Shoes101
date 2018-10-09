@@ -58,4 +58,7 @@ public interface ShoesMapper {
     //根据skuid获取图片
     String getColorPicForDetail(@Param("skuid") Integer skuid);
 
+    //根据id 颜色和属性获取库存
+    int getQty(@Param("shoesid") Integer shoesid,@Param("str") String str);
+
 }

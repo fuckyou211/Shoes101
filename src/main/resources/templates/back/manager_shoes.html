@@ -75,14 +75,11 @@
                                     <tr v-for="(item, index) in lists.GoodsList">
                                         <td><label class="mylabel">{{index+1}}</label></td>
                                         <td>
-                                            <div class="col-sm-3">
-                                                <div class="ibox">
-                                                    <div class="product-imitation" style="padding: 0%;">
-                                                        <img class="image" :src="getPicUrl(index)"  style="width: 100px;height: 100px;" />
-                                                    </div>
+                                            <div class="ibox">
+                                                <div class="product-imitation" style="padding: 0%;">
+                                                    <img class="image" :src="getPicUrl(index)"  style="width: 100px;height: 100px;" />
                                                 </div>
                                             </div>
-
                                         </td>
                                         <td><label class="mylabel">{{item.shoesname}}</label></td>
                                         <td><label class="mylabel">{{item.adddate}}</label></td>
@@ -104,7 +101,7 @@
                                         </td>
                                         <td>
                                             <label class="mylabel">
-                                                <a href="show_shoes.html"><i class="fa fa-info-circle" data-toggle = "tooltip" title="查看详情" ></i></a>
+                                                <a :href="../goodsf/todetail?shoesid='+item.shoesid"><i class="fa fa-info-circle" data-toggle = "tooltip" title="查看详情" ></i></a>
                                                 <a href="edit_shoes.html"><i class="fa fa-magic" data-toggle = "tooltip" title="修改"></i></a>
                                             </label>
                                         </td>

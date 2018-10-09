@@ -51,4 +51,7 @@
     update user set cold=#{cold} where userid=#{userid}
   </update>
 
+  <update id="getWarm">
+    update user set cold=#{cold} where userid=#{userid}
+  </update>
 </mapper>

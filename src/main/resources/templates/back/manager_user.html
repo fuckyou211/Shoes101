@@ -35,27 +35,29 @@
                     <div class="ibox float-e-margins">
                         <div class="ibox-content">
                             <div class="table-responsive">
-                                <table class="table table-striped table-bordered table-hover" id="shoesType">
+                                <table  class="table table-striped table-bordered table-hover" id="tb-users">
                                     <thead>
                                     <tr>
                                         <th><label class="col-xl-1">编号</label></th>
                                         <th><label class="col-xl-3">用户头像</label></th>
                                         <th><label class="col-xl-3">用户名称</label></th>
                                         <th><label class="col-xl-3">性别</label></th>
-                                        <<th><label class="col-xl-3">联系电话</label></th>
+                                        <th><label class="col-xl-3">联系电话</label></th>
+                                        <th><label class="col-xl-3">状态</label></th>
                                         <th><label class="col-xl-2">操作</label></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="item in users">
-                                        <td><p class="myp">{{1}}</p></td>
-                                        <td><p class="myp">{{假装这是头像}}</p></td>
-                                        <td><p class="myp">{{item.name}}</p></td>
-                                        <td><p class="myp">{{男}}</p></td>
-                                        <td><p class="myp">{{15767044123}}</p></td>
+                                    <tr v-for="(item,index) in lists">
+                                        <td><p class="myp">{{index+1}}</p></td>
+                                        <td><p class="myp">{{item.headpic}}</p></td>
+                                        <td><p class="myp">{{item.username}}</p></td>
+                                        <td><p class="myp">{{item.gender}}</p></td>
+                                        <td><p class="myp">{{item.phone}}</p></td>
+                                        <td><p class="myp">{{getStatus(item)}}</p></td>
                                         <td>
                                             <p class="myp">
-                                                <a href="">冻结</a>
+                                                <a href="javascript:void(0);" @click="freeze(item,index)">{{updateStatus(item)}}</a>
                                             </p>
                                         </td>
                                     </tr>
@@ -85,6 +87,95 @@
 <script src="../js/vue.js"></script>
 <script src="../navigate/navigate.js"></script>
 <script>new Vue({el:"#navigate"});new Vue({el:"#navigate-assist"})</script>
+
+<script>
+
+    $(document).ready(function(){
+        console.log("begin");
+        var temp = "[[${list}]]";
+        temp= temp.replace(/&quot;/g,"\"");//转换格式
+        temp = JSON.parse(temp);
+        console.log(temp);
+        uservue.lists = temp;
+    });
+
+    var uservue = new Vue({
+        el:'#tb-users',
+        data:{
+            lists:[]
+        },
+        /*created:function() {
+            //获取数据
+            var self= this;
+            $.ajax({
+                url: "getUserList",
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    console.log(data);
+                    self.lists=data;//赋值
+
+                },
+                fail: function (err) {
+                    console.log("失败："+err)
+                }
+            });
+
+        },*/
+        methods:{
+            freeze:function(item,index){
+                var status = 1;//默认是1
+                if (item.cold == 1)//如果已经是1了，则改为0
+                    status = 0;
+                this.lists[index].cold = status;
+                freezeUser(item.userid, status);
+            },
+            updateStatus:function(item){
+                if(item.cold == 0){
+                    return "冻结";
+                }
+                else{
+                    return "解冻";
+                }
+            },
+            getStatus:function(item){
+                if(item.cold == 0){
+                    return "使用中";
+                }
+                else{
+                    return "已解冻";
+                }
+            }
+        }
+    });
+
+    //冻结/解冻用户
+    function freezeUser(userid,status){
+        console.log("修改的用户id"+userid);
+        console.log("修改zhaungt"+status);
+        $.ajax({
+            url: "colduser",
+            type: 'post',
+            dataType: 'json',
+            data:{"userid":userid,"cold":status},
+            success: function (data) {
+                console.log(data);
+                uservue.lists = data;
+                //self.lists=data;//赋值
+                alert("操作成功！")
+
+            },
+            fail: function (err) {
+                console.log("失败："+err)
+            }
+        });
+
+
+    }
+
+    var testdata = [{ userid:"1", headpic:"img/4.png", username:"待发货",cold:0, phone:"110120130"},
+        { userid:"2", headpic:"img/4.png", username:"发电机房",cold:1, phone:"15767044123"}]
+</script>
 
 </body>
 </html>
