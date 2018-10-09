@@ -49,4 +49,6 @@ public interface PropertyService {
     //根据id获取属性名
     public String getPropname(int propertyid);
 
+    //根据属性名找属性id
+    public Integer getPropertyIdByPropertyName(String propertyName);
 }

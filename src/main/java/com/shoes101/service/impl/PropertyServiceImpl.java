@@ -142,4 +142,17 @@ public class PropertyServiceImpl implements PropertyService {
     {
         return propertyMapper.getPropname(propertyid);
     }
+
+
+    //根据属性名找属性id
+    @Override
+    public Integer getPropertyIdByPropertyName(String propertyName) {
+        Property property = propertyMapper.findIfExist(propertyName);
+        if(property!=null){
+            return property.getPropertyid();
+        }
+        else{
+            return null;
+        }
+    }
 }

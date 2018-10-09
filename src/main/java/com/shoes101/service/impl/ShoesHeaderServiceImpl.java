@@ -1,8 +1,11 @@
 package com.shoes101.service.impl;
 
+import com.shoes101.mapper.PropertyMapper;
 import com.shoes101.mapper.ShoescatalogMapper;
+import com.shoes101.pojo.Propertyvalue;
 import com.shoes101.pojo.Shoescatalog;
-import com.shoes101.service.NavBarService;
+import com.shoes101.result.Result;
+import com.shoes101.service.ShoesHeaderService;
 import com.shoes101.vo.CatalogInfoVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,7 +18,7 @@ import java.util.Map;
 
 @Service
 @Transactional
-public class NavBarServiceImpl implements NavBarService {
+public class ShoesHeaderServiceImpl implements ShoesHeaderService {
 
 
     /**
@@ -48,7 +51,8 @@ public class NavBarServiceImpl implements NavBarService {
 
     @Autowired
     private ShoescatalogMapper shoescatalogMapper;
-
+    @Autowired
+    private PropertyMapper propertyMapper;
 
 
 
@@ -136,6 +140,20 @@ public class NavBarServiceImpl implements NavBarService {
     public Shoescatalog selectByNameAndParentId(Integer parentId,String catalogName) {
         return (Shoescatalog) shoescatalogMapper.selectByNameAndParentId(parentId,catalogName);
     }
+
+    @Override
+    public Map<String, List<CatalogInfoVo>> initCatalogInfo() {
+        Map<String,List<CatalogInfoVo>> map = new HashMap<String, List<CatalogInfoVo>>();
+        String catalogName[] ={"男鞋","女鞋"};
+        for(int i = 0;i<catalogName.length;i++){
+            Shoescatalog shoescatalog = this.selectByNameAndParentId(0, catalogName[i]);
+            List<CatalogInfoVo> list = this.getCatalogInfo(shoescatalog,2);
+            map.put((String) catalogName[i],list);
+        }
+        return map;
+    }
+
+
 
     //获得某节点往下level层内的叶子节点或到某节点往下数level层的那一层的节点
     public List<CatalogInfoVo> getLevelList( Shoescatalog shoescatalog,Integer level,List<CatalogInfoVo> levelList) {
