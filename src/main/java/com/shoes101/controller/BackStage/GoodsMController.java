@@ -120,4 +120,16 @@ public class GoodsMController {
         return "back/show_shoes";
     }
 
+    /**
+     * 根据id 颜色 尺码 返回相应库存
+     */
+    @RequestMapping("/getQtyAjax")
+    @ResponseBody
+    public int getQuantity(@RequestParam("shoesid") int shoesid,@RequestParam("colorid") String colorid,@RequestParam("sizeid") String sizeid)
+    {
+        logger.info("Qty:" + goodsFService.getQty(shoesid,colorid,sizeid));
+        int qty = goodsFService.getQty(shoesid,colorid,sizeid);
+        return qty;
+    }
+
 }

@@ -131,4 +131,15 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
         return JSONObject.toJSONString(map);
 
     }
+
+    //由id 颜色 尺码 返回库存数量
+    public int getQty(int shoesid,String colorid,String sizeid)
+    {
+        //组成搜索字符串
+        String str = "{2:"+ colorid + ',' + "3:" + sizeid + '}';
+        String condition = '"' + str + '"';
+        System.out.println(condition);
+        return shoesMapper.getQty(shoesid,condition);
+
+    }
 }
