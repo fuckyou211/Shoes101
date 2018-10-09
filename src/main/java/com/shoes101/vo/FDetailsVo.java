@@ -37,7 +37,7 @@ public class FDetailsVo {
     private double price;
     //SKU 标价
     private double ticketprice;
-    //商品 详情
+    //商品 详情 10.9更新 放回进这里处理
     private String shoesdetails;
 
     //根据商品id获取商品、库存、价格、详情
@@ -54,6 +54,14 @@ public class FDetailsVo {
                 ", ticketprice=" + ticketprice +
                 ", shoesdetails='" + shoesdetails + '\'' +
                 '}';
+    }
+
+    public String getShoesdetails() {
+        return shoesdetails;
+    }
+
+    public void setShoesdetails(String shoesdetails) {
+        this.shoesdetails = shoesdetails;
     }
 
     public int getShoesid() {
@@ -86,20 +94,6 @@ public class FDetailsVo {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public String getShoesdetails() {
-        return shoesdetails;
-    }
-
-    public void setShoesdetails(String shoesdetails) {
-
-//        String str = HtmlUtils.htmlEscape(shoesdetails);
-//        System.out.println(str);
-//        shoesdetails = HtmlUtils.htmlUnescape(shoesdetails);
-//        System.out.println(shoesdetails);
-        this.shoesdetails = shoesdetails;
-//        System.out.println(this.shoesdetails);
     }
 
     public double getTicketprice() {
