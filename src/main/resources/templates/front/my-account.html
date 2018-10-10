@@ -24,8 +24,11 @@
 		<link rel="stylesheet" href="../../static/static-front/css/main.css">
 		<link rel="stylesheet" href="../../static/static-front/css/style.css">
 		<link rel="stylesheet" href="../../static/static-front/css/responsive.css">
-		
-		<script src="../../static/static-front/js/modernizr-2.8.3.min.js"></script>
+
+		<script src="../static-front/js/jquery.min.js"></script>
+		<script src="../static-front/js/modernizr-2.8.3.min.js"></script>
+		<script src="../static-front/js/vue.js"></script>
+		<script src="../static-front/header/header-nav.js"></script>
 		<style>
 			.account-area .container .col-md-9 {
 				padding-top: 15px;
@@ -55,7 +58,10 @@
 	</head>
 	<body>
 	<!--头部信息-->
-	<div id="the_header"></div>
+	<header>
+		<div id="header-user"></div>
+		<div id="header-nav"></div>
+	</header>
 		
 		<div class="account-area">
 			<div class="container">

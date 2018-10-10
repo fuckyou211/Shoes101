@@ -101,7 +101,8 @@
                                         </td>
                                         <td>
                                             <label class="mylabel">
-                                                <a :href="'../goodsM/todetail?shoesid='+item.shoesid"><i class="fa fa-info-circle" data-toggle = "tooltip" title="查看详情" ></i></a>
+                                                <a href="javascript:void(0);" @click="todetail(item.shoesid)"><i class="fa fa-info-circle" data-toggle = "tooltip" title="查看详情" ></i></a>
+                                                <!--<a :href="'../goodsM/todetail?shoesid='+item.shoesid"><i class="fa fa-info-circle" data-toggle = "tooltip" title="查看详情" ></i></a>-->
                                                 <a href="edit_shoes.html"><i class="fa fa-magic" data-toggle = "tooltip" title="修改"></i></a>
                                             </label>
                                         </td>
@@ -178,6 +179,9 @@
                     return true;
                  else
                      return false;
+             },
+             todetail:function (shoesid) {
+                 window.location.href = '../goodsM/todetail?shoesid='+shoesid;
              }
          },
      });

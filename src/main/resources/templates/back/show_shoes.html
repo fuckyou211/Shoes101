@@ -87,7 +87,7 @@
 
         }
         .tb-color img{
-            height: 40px;
+            height: 25px;
         }
         .tb-color.active{
             border-color: #FF0036;
@@ -145,90 +145,47 @@
             <div class="row">
                 <div class="col-lg-12">
 
-                    <div class="ibox product-detail">
+                    <div class="ibox product-detail" id="shoesdetail">
                         <div class="ibox-content">
 
                             <div class="row">
                                 <div class="col-md-5">
-
-
                                     <div class="product-images">
 
-                                        <div>
-                                            <div class="image-imitation">
-                                                <img src="../img/4.png"  class="img-responsive center-block" />
-                                            </div>
+                                        <div class="image-imitation"  v-for="(item, index) in bigpics"  >
+                                            <img :src="'../'+item"  class="img-responsive center-block" />
                                         </div>
-                                        <div>
-                                            <div class="image-imitation">
-                                                <img src="../img/4.png" class="img-responsive center-block"/>
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <div class="image-imitation">
-                                                <img src="../img/4.png" class="img-responsive center-block"/>
-                                            </div>
-                                        </div>
-
 
                                     </div>
 
                                 </div>
                                 <div class="col-md-7">
+                                    <h2 class="font-bold m-b-xs">{{ details.shoesname}}</h2>
+                                    <ol class="breadcrumb">
+                                        <li class="active"> <small>分类: </small></li>
+                                        <li v-for="(item, index) in catalog">
+                                            <small>
+                                                {{item}}
+                                            </small>
+                                        </li>
+                                    </ol>
 
-                                    <h2 class="font-bold m-b-xs">
-                                        Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124
-                                    </h2>
-                                    <small>分类：男鞋/休闲/heieei</small>
                                     <hr>
                                     <div>
                                         <!--<button class="btn btn-primary pull-right">Add to cart</button>-->
-                                        <h1 class="product-main-price">优惠价：¥499<small class="text-muted">原价：¥1499</small> </h1>
+                                        <h1 class="product-main-price">优惠价：¥{{details.ticketprice}}<small class="text-muted">原价：¥{{details.price}}</small> </h1>
                                     </div>
                                     <hr>
                                     <!--<h4>Product description</h4>-->
-
                                     <div class="">
                                         <fieldset class="form-horizontal">
-                                            <!--<div class="form-group">
-                                                <label class="col-sm-2 control-label">尺码:</label>
-                                                <div class="col-sm-10">
-                                                    <div class="radio radio-inline">
-                                                     <input type="radio" id="inlineRadio1" value="option1" name="radioInline" checked="">
-                                                     <label for="inlineRadio1"> 30 </label>
-                                                 </div>
-                                                 <div class="radio radio-inline">
-                                                     <input type="radio" id="inlineRadio2" value="option2" name="radioInline">
-                                                     <label for="inlineRadio2"> 31</label>
-                                                 </div>
-                                                </div>
-                                            </div>-->
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">尺码:</label>
                                                 <div class="col-sm-10">
-                                                    <div class="">
-                                                        <a href="javascript:void(0);" class="tb-size" >
-                                                            <span>30</span>
-                                                            <i class="fa fa-check red hidden"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="tb-size">
-                                                            <span>31</span>
-                                                            <i class="fa fa-check red hidden"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="tb-size">
-                                                            <span>32</span>
-                                                            <i class="fa fa-check red hidden"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="tb-size">
-                                                            <span>33</span>
-                                                            <i class="fa fa-check red hidden"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="tb-size">
-                                                            <span>34</span>
-                                                            <i class="fa fa-check red hidden"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="tb-size">
-                                                            <span>35</span>
+                                                    <div v-for="(item,index) in sizelist">
+                                                        <a href="javascript:void(0);" class="tb-size" :value="item.sizeid"
+                                                            onclick="chooseSize(this)">
+                                                            <span>{{item.size}}</span>
                                                             <i class="fa fa-check red hidden"></i>
                                                         </a>
                                                     </div>
@@ -238,34 +195,11 @@
                                             <div class="form-group">
                                                 <label class="col-sm-2 control-label">颜色:</label>
                                                 <div class="col-sm-10">
-                                                    <div class="">
-                                                        <a href="javascript:void(0);" class="tb-color" >
-			                                            	<span data-toggle = "tooltip" title="菲色" >
-			                                            		<img src="../img/4.png" class="img-responsive center-block "/>
-			                                            	</span>
-                                                            <i class="fa fa-check red"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="tb-color">
-			                                            	<span data-toggle = "tooltip" title="红色" >
-			                                            		<img src="../img/2.png" class="img-responsive center-block "/>
-			                                            	</span>
-                                                            <i class="fa fa-check red hidden"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="tb-color">
-			                                            	<span data-toggle = "tooltip" title="白色" >
-			                                            		<img src="../img/2.png" class="img-responsive center-block "/>
-			                                            	</span>
-                                                            <i class="fa fa-check red hidden"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="tb-color">
-			                                            	<span data-toggle = "tooltip" title="蓝色" >
-			                                            		<img src="../img/2.png" class="img-responsive center-block "/>
-			                                            	</span>
-                                                            <i class="fa fa-check red hidden"></i>
-                                                        </a>
-                                                        <a href="javascript:void(0);" class="tb-color">
-			                                            	<span data-toggle = "tooltip" title="黑色" >
-			                                            		<img src="../img/2.png" class="img-responsive center-block "/>
+                                                    <div v-for="(item, index) in colorpicandcolor">
+                                                        <a href="javascript:void(0);" class="tb-color" :value="item.colorid"
+                                                           onclick="chooseColor(this)" >
+			                                            	<span data-toggle = "tooltip" :title="item.color" >
+			                                            		<img :src="'../'+item.colorpic" class="img-responsive center-block "/>
 			                                            	</span>
                                                             <i class="fa fa-check red hidden"></i>
                                                         </a>
@@ -277,7 +211,7 @@
                                                 <label class="col-sm-2 control-label">库存:</label>
                                                 <div class="col-sm-10">
                                                     <div class="">
-                                                        <label class="control-label">1000</label>
+                                                        <label class="control-label">{{skuquantity}}</label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -285,7 +219,7 @@
                                                 <label class="col-sm-2 control-label"><small class="text-muted">总库存:</small></label>
                                                 <div class="col-sm-10">
                                                     <div class="">
-                                                        <label class="control-label"><small class="text-muted">1499</small></label>
+                                                        <label class="control-label"><small class="text-muted">{{allquantity}}</small></label>
                                                     </div>
                                                 </div>
                                             </div>
@@ -296,10 +230,10 @@
                                     <hr>
                                     <dl class="dl-horizontal m-t-md small">
                                         <h3>属性:</h3>
-                                        <dt>品牌</dt>
-                                        <dd>naki</dd>
-                                        <dt>鞋头款式</dt>
-                                        <dd>无系知</dd>
+                                        <span v-for="(item, index) in propertys">
+                                            <dt>{{item.property}}</dt>
+                                            <dd>{{item.propertyvalue }}</dd>
+                                        </span>
                                     </dl>
                                     <!--<div class="text-right">
                                         <div class="btn-group">
@@ -315,8 +249,7 @@
                         </div>
 
                         <!--鞋子详情介绍-->
-                        <div class="text-center article-title">
-
+                        <div class="text-center article-title" v-html="details.shoesdetails">
                         </div>
 
 
@@ -360,58 +293,143 @@
 <script src="../navigate/navigate.js"></script>
 <script>new Vue({el:"#navigate"});new Vue({el:"#navigate-assist"})</script>
 
-<script>
-    $(".tb-size").on('click',function(){
-        //先去掉已经选中的元素
-        $(".tb-size").removeClass("active");
-        $(".tb-size").children('i').addClass('hidden');
-
-        //在给新选中的加样式
-        $(this).addClass("active");
-        $(this).children('i').removeClass('hidden');
 
 
-        //$('.rdactive').removeClass('rdactive');
-        //$(this).addClass("rdactive").siblings().removeClass("rdactive");
-    })
-    $(".tb-color").on('click',function(){
-        //先去掉已经选中的元素
-        $(".tb-color").removeClass("active");
-        $(".tb-color").children('i').addClass('hidden');
 
-        //在给新选中的加样式
-        $(this).addClass("active");
-        $(this).children('i').removeClass('hidden');
-
-
-        //$('.rdactive').removeClass('rdactive');
-        //$(this).addClass("rdactive").siblings().removeClass("rdactive");
-    })
-</script>
 
 <script>
     $(document).ready(function(){
         //一些初始化
         $('[data-toggle="tooltip"]').tooltip();
         $('.product-images').slick({
-            dots: true
-        });
-
-        console.log("商品详情：");
-        var temp = "[[${list}]]";
-        temp= temp.replace(/&quot;/g,"\"");//转换格式
-        temp = JSON.parse(temp);
-        console.log(temp);
+             dots: true
+         });
     });
-
-    var detail = new Vue({
-        el:".product-detail",
-        data:{
-
-        }
-    })
-
 </script>
 
+<script>
+    function getShoesId(){
+        var result;
+        var url=window.location.search; //获取url中"?"符后的字串
+        if(url.indexOf("?")!=-1){
+            result = url.substr(url.indexOf("=")+1);
+        }
+        return result;
+    }
+
+    function getShoesDetail() {
+        $.post({
+            url:"getDetailAjax",
+            dataType:"json",
+            data:{"shoesid":getShoesId()},
+            success:function (result) {
+                loadDetail(result.data)
+            },
+            fail: function (err) {
+                console.log(err)
+            }
+        })
+    }
+    function loadDetail(data){
+        console.log(JSON.parse(data));
+        var temp = JSON.parse(data);
+        shoesvue.details = temp.details;
+        shoesvue.colorpicandcolor = temp.colorpicandcolor;
+        shoesvue.sizelist = temp.sizelist;
+        shoesvue.propertys = temp.propertys;
+        shoesvue.bigpics = temp.bigpics;
+        shoesvue.allquantity = temp.totalQty;
+        shoesvue.catalog = temp.catalog;
+
+    }
+
+    function chooseSize(obj) {
+        //先判断是否已经被选中
+        if($(obj).hasClass("active")){
+            //如果被选中了，那么就取消选中
+            $(obj).removeClass("active");
+            $(obj).children('i').addClass('hidden');
+        }
+        else{
+            //否则的话，先把所以的取消选中
+            $(".tb-size").removeClass("active");
+            $(".tb-size").children('i').addClass('hidden');
+
+            //再给新选中的加样式
+            $(obj).addClass("active");
+            $(obj).children('i').removeClass('hidden');
+        }
+
+        getskuquantity();
+
+    }
+    function chooseColor(obj) {
+
+        //先判断是否已经被选中
+        if($(obj).hasClass("active")){
+            //如果被选中了，那么就取消选中
+            $(obj).removeClass("active");
+            $(obj).children('i').addClass('hidden');
+        }
+        else{
+            //否则的话，先把所以的取消选中
+            $(".tb-color").removeClass("active");
+            $(".tb-color").children('i').addClass('hidden');
+
+            //再给新选中的加样式
+            $(obj).addClass("active");
+            $(obj).children('i').removeClass('hidden');
+        }
+        getskuquantity();
+    }
+    
+    function getskuquantity() {
+        var sizeid = "", colorid = "";
+        $(".tb-size").each(function(i){
+            if($(this).hasClass('active')){
+                sizeid = $(this).attr("value");
+            }
+        });
+        $(".tb-color").each(function(i){
+            if($(this).hasClass('active')){
+                colorid = $(this).attr("value");
+            }
+        });
+        console.log(sizeid+"&&"+colorid);
+
+        $.post({
+            url:"getQtyAjax",
+            dataType:"json",
+            data:{"shoesid": getShoesId(),"sizeid":sizeid, "colorid":colorid},
+            success:function (result) {
+                console.log(result);
+                shoesvue.skuquantity = result;
+            },
+            fail: function (err) {
+                console.log(err)
+            }
+        })
+    }
+    
+</script>
+
+<script>
+    var shoesvue = new Vue({
+        el:"#shoesdetail",
+        data:{
+            shoes:[],
+            colorpicandcolor:[],
+            details:[],
+            sizelist:[],
+            propertys:[],
+            bigpics:[],
+            catalog:[],
+            allquantity:0,
+            skuquantity:0
+        }
+    });
+    //获取数据
+    getShoesDetail();
+</script>
 </body>
 </html>

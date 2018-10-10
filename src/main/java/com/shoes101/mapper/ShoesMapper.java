@@ -4,9 +4,11 @@ import com.shoes101.pojo.Shoes;
 import com.shoes101.pojo.Shoespic;
 import com.shoes101.pojo.Shoessku;
 import com.shoes101.pojo.Splink;
+import com.shoes101.vo.CatalognameAndParentVo;
 import com.shoes101.vo.FDetailsVo;
 import com.shoes101.vo.FGoodsVo;
 import com.shoes101.vo.SkuIdAndQtyVo;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
@@ -67,5 +69,20 @@ public interface ShoesMapper {
 
     //根据id获取商品描述
     String getShoesDetail(@Param("shoesid") Integer shoesid);
+
+    //根据商品id获取所有大图
+    List<String> getAllPic(@Param("shoesid") Integer shoesid);
+
+    //根据商品id获取分类id
+    int getShoesCatalog(@Param("shoesid") Integer shoesid);
+
+    //根据上面方法获取的catalogid获取分类名和父分类编号
+    CatalognameAndParentVo getCatalognameAndFather(@Param("catalogid") Integer catalogid);
+
+    //根据商品id计算总库存
+    int calTotalQty(@Param("shoesid") Integer shoesid);
+
+    //少一个条件时的库存
+    int calQtyWithoutOne(@Param("shoesid") Integer shoseid,@Param("cdn") String cdn);
 
 }

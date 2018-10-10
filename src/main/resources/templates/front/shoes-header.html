@@ -130,12 +130,12 @@
                                         <div class="mega-menu" id="men_sort">
                                             <ul v-for="item in lists">
                                                 <li class="col-md-12">
-                                                    <span><a class="subtitle" style="padding-top: 18px;font-size: 15px;" href="javascript:void(0);" @click="secondType(item.shoescatalog.catalogid)">{{item.shoescatalog.catalogname}}</a></span>
-                                                        <div class="row">
-                                                            <div class="col-md-2" v-for="items in item.childMapData.childList">
-                                                                <span><a style="padding-top: 5px;" href="javascript:void(0);" @click="thirdType(items.shoescatalog.catalogid)">{{items.shoescatalog.catalogname}}</a></span>
-                                                            </div>
+                                                    <span><a class="subtitle" style="padding-top: 18px;font-size: 15px;" href="javascript:void(0);" @click="toShoesList(item.shoescatalog.catalogid)">{{item.shoescatalog.catalogname}}</a></span>
+                                                    <div class="row">
+                                                        <div class="col-md-2" v-for="items in item.childMapData.childList">
+                                                            <span><a style="padding-top: 5px;" href="javascript:void(0);" @click="toShoesList(items.shoescatalog.catalogid)">{{items.shoescatalog.catalogname}}</a></span>
                                                         </div>
+                                                    </div>
                                                 </li>
                                             </ul>
                                         </div>
@@ -144,10 +144,10 @@
                                         <a href="shop.html">女鞋</a>
                                         <div class="mega-menu" id="women_sort">
                                             <ul v-for="item in lists">
-                                                <li class="col-md-12"><span><a class="subtitle" style="padding-top: 18px;font-size: 15px;" href="#">{{item.shoescatalog.catalogname}}</a></span>
+                                                <li class="col-md-12"><span><a class="subtitle" style="padding-top: 18px;font-size: 15px;" href="javascript:void(0);" @click="toShoesList(item.shoescatalog.catalogid)">{{item.shoescatalog.catalogname}}</a></span>
                                                     <div class="row">
                                                         <div class="col-md-2" v-for="items in item.childMapData.childList">
-                                                            <span><a href="#" style="padding-top: 5px;">{{items.shoescatalog.catalogname}}</a></span>
+                                                            <span><a  style="padding-top: 5px;" href="javascript:void(0);" @click="toShoesList(item.shoescatalog.catalogid)">{{items.shoescatalog.catalogname}}</a></span>
                                                         </div>
                                                     </div>
                                                 </li>
@@ -162,7 +162,7 @@
                                                     <div class="row">
                                                         <div v-for="item in lists">
                                                             <div class="col-md-2">
-                                                                <span><a href="#" style="padding-top: 10px;">{{item.name}}</a></span>
+                                                                <span><a href="#" style="padding-top: 10px;">{{item.propertyvalue}}</a></span>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -203,6 +203,7 @@
 
         $(document).ready(function () {
             getNav();
+            getBrands();
         });
         let sorts_1, sorts_2, brands;
         sorts_1 = new Vue({
@@ -219,30 +220,38 @@
                 lists:[],
             },
             method:{
+                toShoesList: function(catalogid){
+                    showShoesLists(catalogid);
+                }
             }
         });
-        /*brands = new Vue({
+        brands = new Vue({
             el: '#theBrand',
             data: {
-                lists:[
-                    {id:"1", name:"Nike"},{id:"2", name:"Adidas"},{id:"2", name:"安踏"},{id:"2", name:"李宁"},
-                    {id:"1", name:"Nike"},{id:"2", name:"Adidas"},{id:"2", name:"安踏"},{id:"2", name:"李宁"}
-                ]
+                lists:[]
             },
             method:{
             }
-        });*/
+        });
 
-        /*区分开男女鞋的数据*/
-        function loadNavData(data) {
-            sorts_1.lists=data.男鞋;
-            sorts_2.lists=data.女鞋;
-
-            console.log(sorts_2.lists);
+        /*获取品牌数据*/
+        function getBrands() {
+            $.ajax({
+                url: "getBrandInfo",
+                type: 'post',
+                success: function (result) {
+                      brands.lists = result.data;
+                      console.log(result.data);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
         }
 
+        /*获取导航分类数据*/
         function getNav() {
-            var catalogName = [];
+            let catalogName = [];
             catalogName[0] = "男鞋";
             catalogName[1] = "女鞋";
             /*console.log( "hji");*/
@@ -256,6 +265,30 @@
                 dataType: 'json',
                 success: function (result){
                     loadNavData(result.data);
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            })
+        }
+
+        /*区分开男女鞋的数据*/
+        function loadNavData(data) {
+            sorts_1.lists = data.男鞋;
+            sorts_2.lists = data.女鞋;
+            /*console.log(sorts_2.lists);*/
+        }
+
+        /*传类别id跳转至商品页*/
+        function showShoesLists(catalogId) {
+            let theId = catalogId;
+            $.ajax({
+                url: "",
+                type: 'post',
+                data: { catalogId:theId },
+                dataType: 'json',
+                success: function () {
+                    console.log("ok");
                 },
                 error: function (err) {
                     console.log(err);
