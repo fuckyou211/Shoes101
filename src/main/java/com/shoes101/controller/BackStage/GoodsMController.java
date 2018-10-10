@@ -108,16 +108,27 @@ public class GoodsMController {
     }
 
     /**
+     * 跳转商品详情
+     */
+    @RequestMapping("/todetail")
+    public String todetail()
+    {
+        return "back/show_shoes";
+    }
+
+    /**
      * 获取商品详情 传入商品Id
      * show_shoes.html
      */
-    @RequestMapping("/todetail")
-    public String todetail(@RequestParam("shoesid") int shoesid,Model model)
+    @RequestMapping("/getDetailAjax")
+    @ResponseBody
+    public Result<String> todetail(@RequestParam("shoesid") int shoesid,Model model)
     {
         // , HashMap<String,Object> map
         //map.put("detail",goodsFService.todetail(shoesid));
-        model.addAttribute("detail",goodsFService.todetail(shoesid));
-        return "back/show_shoes";
+        //model.addAttribute("detail",goodsFService.todetail(shoesid));
+        logger.info("shoesid:"+shoesid);
+        return Result.success(goodsFService.todetail(shoesid));
     }
 
     /**
