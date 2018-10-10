@@ -67,8 +67,10 @@ public class GoodsFController {
     @ResponseBody
     public Result<String> todetail(@RequestParam("shoesid") int shoesid)
     {
+        System.out.println(""+shoesid);
         //取缓存
         String existDetail = redisService.get(FGoodsKey.getGoodsDetail,""+shoesid,String.class);
+        System.out.println(existDetail);
         if(existDetail != null)
         {
             System.out.println("Using Redis to get detail");
@@ -76,7 +78,7 @@ public class GoodsFController {
         }
         //若缓存不存在
         Result result=Result.success(goodsFService.todetail(shoesid));
-        redisService.set(FGoodsKey.getGoodsDetail,"good_detail",JSONObject.toJSONString(result));
+        redisService.set(FGoodsKey.getGoodsDetail,""+shoesid,JSONObject.toJSONString(result));
         return result;
     }
 

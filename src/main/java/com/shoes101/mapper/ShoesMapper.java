@@ -4,6 +4,7 @@ import com.shoes101.pojo.Shoes;
 import com.shoes101.pojo.Shoespic;
 import com.shoes101.pojo.Shoessku;
 import com.shoes101.pojo.Splink;
+import com.shoes101.vo.CatalognameAndParentVo;
 import com.shoes101.vo.FDetailsVo;
 import com.shoes101.vo.FGoodsVo;
 import com.shoes101.vo.SkuIdAndQtyVo;
@@ -71,5 +72,11 @@ public interface ShoesMapper {
 
     //根据商品id获取所有大图
     List<String> getAllPic(@Param("shoesid") Integer shoesid);
+
+    //根据商品id获取分类id
+    int getShoesCatalog(@Param("shoesid") Integer shoesid);
+
+    //根据上面方法获取的catalogid获取分类名和父分类编号
+    CatalognameAndParentVo getCatalognameAndFather(@Param("catalogid") Integer catalogid);
 
 }

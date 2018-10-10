@@ -128,7 +128,7 @@ public class GoodsMController {
         //map.put("detail",goodsFService.todetail(shoesid));
         //model.addAttribute("detail",goodsFService.todetail(shoesid));
         logger.info("shoesid:"+shoesid);
-        return Result.success(goodsFService.todetail(shoesid));
+        return Result.success(goodsMService.todetail(shoesid));
     }
 
     /**

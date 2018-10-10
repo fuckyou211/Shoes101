@@ -28,4 +28,7 @@ public interface GoodsMService {
     public String setQuantitAjax(List<Integer> quantity,List<Integer> skuid);
 
     public String setisdropoffAjax(Integer shoesid, String status);
+
+    //根据商品id获取商品详情
+    public String todetail(int shoesid);
 }

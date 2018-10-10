@@ -5,6 +5,7 @@ import com.shoes101.mapper.*;
 import com.shoes101.pojo.*;
 import com.shoes101.service.GoodsMService;
 import com.shoes101.util.FileUtils;
+import com.shoes101.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -343,6 +344,132 @@ public class GoodsMServiceImpl implements GoodsMService {
 
         shoesMapper.selectupdateisdropoff(shoesid,status);
         return "";
+    }
+
+    //根据商品id获取商品详情
+    //10.9更新 前台后台区分1 2 1前台
+    public String todetail(int shoesid)
+    {
+
+        //获取商品名、库存、价格、描述
+
+        FDetailsVo fDetailsVo = shoesMapper.getDetails(shoesid);
+
+        //10.10 更新 引入PropAndPropvVo
+        List<PropAndPropvVo> propAndPropvVos = new ArrayList<>();
+
+        //10.10更新 获取鞋子的所有大图
+        List<String> shoespics = shoesMapper.getAllPic(shoesid);
+
+        //10.8 更新 引入 ColAndPicVo
+        List<ColAndPicVo> colAndPicVos = new ArrayList<>();
+
+        //10.10更新 引入 分类
+        List<String> catalognameList = new ArrayList<>();
+
+//        System.out.println("A");
+        //根据商品Id查找属性关系表
+        List<Splink> sp = shoesMapper.getPidById(shoesid);
+
+//        System.out.println("B");
+        //根据尺码属性（3）搜索出所有的鞋码的属性名编号存好属性值
+        List<String> colorlist = new ArrayList<>();
+
+        //10.8 废弃SizeList 并入SizeAndIdVo
+        List<SizeAndIdVo> sizeAndIdVos = new ArrayList<>();
+//        List<String> sizelist = new ArrayList<>();
+//        //存取商品的图片 10.8更新 废除该List 并入ColAndPicVo
+//        List<String> colorpic = new ArrayList<>();
+
+        String colorstr = "2:";//模糊查询 匹配颜色
+
+        //10.10 获取传入鞋的所有分类
+        int catalogid = shoesMapper.getShoesCatalog(shoesid);
+        CatalognameAndParentVo vo = shoesMapper.getCatalognameAndFather(catalogid);
+        catalognameList.add(vo.getCatalogname());
+        int confirm = vo.getParentid();
+        while(confirm != 0)
+        {
+            CatalognameAndParentVo whileVo = shoesMapper.getCatalognameAndFather(confirm);
+            catalognameList.add(whileVo.getCatalogname());
+            System.out.println(whileVo.getCatalogname());
+            confirm = whileVo.getParentid();
+        }
+
+
+
+        for(int i = 0;i < sp.size();i++)
+        {
+//            System.out.println("pid" + sp.get(i).getPropertyid());
+//            System.out.println("pvid" + sp.get(i).getPropertyvalueid());
+            //遍历 如果这是尺码(3)
+            if(sp.get(i).getPropertyid().equals(3))
+            {
+                SizeAndIdVo demo = new SizeAndIdVo();
+                demo.setSizeid(sp.get(i).getPropertyvalueid());
+                demo.setSize(propertyvalueMapper.getPropertyvalue(sp.get(i).getPropertyvalueid()));
+                sizeAndIdVos.add(demo);
+//                sizelist.add(propertyvalueMapper.getPropertyvalue(sp.get(i).getPropertyvalueid()));
+//                System.out.println("C");
+            }
+            //如果是颜色(2)
+            else if(sp.get(i).getPropertyid().equals(2))
+            {
+                colorlist.add(propertyvalueMapper.getPropertyvalue(sp.get(i).getPropertyvalueid()));
+//                System.out.println("C");
+            }
+            //如果是其他属性 获取其名字和属性
+            else{
+                PropAndPropvVo demo = new PropAndPropvVo();
+                demo.setProperty(propertyMapper.getPropname(sp.get(i).getPropertyid()));
+                demo.setPropertyvalue(propertyvalueMapper.getPropertyvalue(sp.get(i).getPropertyvalueid()));
+//                System.out.println("property:" + demo.getProperty());
+//                System.out.println("propertyvalue" + demo.getPropertyvalue());
+                propAndPropvVos.add(demo);
+            }
+        }
+        //根据商品id和颜色属性获取商品的skuid 用于下一步根据skuid获取到第一个商品图片 商品详情页的颜色小图片显示
+        //10.8更新 新增颜色与图片VO 用于放置颜色图片与shoes-detail中指针放置图片显示颜色名
+        //遍历 一个个颜色去找
+        for(int i = 0;i < colorlist.size();i++)
+        {
+            ColAndPicVo demo = new ColAndPicVo();
+            //'%3:#{color}%'
+            //10.4更新 根据搜索到的字符串获取属性值id 再进行查找skuid
+            int pvid = propertyvalueMapper.getIdByValue(colorlist.get(i).toString());
+            String pvidtostr = String.valueOf(pvid);
+            String str = "'%" + colorstr + pvidtostr + "%'";
+            System.out.println(str);
+            System.out.println(shoesid);
+            //获取skuid
+            int skuid = shoesMapper.getTheSkuid(shoesid,str);
+//            System.out.println("D");
+            demo.setColorpic(shoesMapper.getColorPicForDetail(skuid));
+            demo.setColor(colorlist.get(i).toString());
+            demo.setColorid(pvid);
+            colAndPicVos.add(demo);
+//            colorpic.add(shoesMapper.getColorPicForDetail(skuid));
+//            System.out.println("E");
+        }
+
+        //10.9 商品描述由String 转 JSON 解决转义缺少反斜杠问题
+        String jsonDetail = JSONObject.toJSONString(shoesMapper.getShoesDetail(shoesid));
+        fDetailsVo.setShoesdetails(shoesMapper.getShoesDetail(shoesid));
+
+//        System.out.println("F");
+        Map<String,Object> map = new HashMap<>();
+        map.put("catalog",catalognameList);
+        map.put("bigpics",shoespics);
+        map.put("propertys",propAndPropvVos);
+        //map.put("shoesdetails",jsonDetail);
+        map.put("details",fDetailsVo);
+        map.put("sizelist",sizeAndIdVos);
+        //map.put("colorlist",colorlist);
+        map.put("colorpicandcolor",colAndPicVos);
+        logger.info(JSONObject.toJSONString(map));
+//        System.out.println("G");
+        return JSONObject.toJSONString(map);
+
     }
 
 }
