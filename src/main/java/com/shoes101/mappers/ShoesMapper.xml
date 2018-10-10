@@ -100,4 +100,10 @@
   <select id="getShoesDetail" resultType="java.lang.String">
     select shoesdetails from shoes where shoesid=#{shoesid}
   </select>
+
+  <select id="getAllPic" resultType="java.lang.String">
+    select picaddress from shoespic where shoesid=#{shoesid}
+  </select>
+
+
 </mapper>
