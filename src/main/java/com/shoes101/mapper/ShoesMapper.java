@@ -7,6 +7,7 @@ import com.shoes101.pojo.Splink;
 import com.shoes101.vo.FDetailsVo;
 import com.shoes101.vo.FGoodsVo;
 import com.shoes101.vo.SkuIdAndQtyVo;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
 
@@ -67,5 +68,8 @@ public interface ShoesMapper {
 
     //根据id获取商品描述
     String getShoesDetail(@Param("shoesid") Integer shoesid);
+
+    //根据商品id获取所有大图
+    List<String> getAllPic(@Param("shoesid") Integer shoesid);
 
 }

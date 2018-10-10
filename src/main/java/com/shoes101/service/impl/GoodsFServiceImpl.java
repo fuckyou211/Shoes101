@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.shoes101.mapper.PropertyMapper;
 import com.shoes101.mapper.PropertyvalueMapper;
 import com.shoes101.mapper.ShoesMapper;
+import com.shoes101.pojo.Shoespic;
 import com.shoes101.pojo.Splink;
 import com.shoes101.vo.*;
 import org.slf4j.LoggerFactory;
@@ -58,7 +59,11 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
         //获取商品名、库存、价格、描述
         FDetailsVo fDetailsVo = shoesMapper.getDetails(shoesid);
 
+        //10.10 更新 引入PropAndPropvVo
+        List<PropAndPropvVo> propAndPropvVos = new ArrayList<>();
 
+        //10.10更新 获取鞋子的所有大图
+        List<String> shoespics = shoesMapper.getAllPic(shoesid);
 
         //10.8 更新 引入 ColAndPicVo
         List<ColAndPicVo> colAndPicVos = new ArrayList<>();
@@ -71,6 +76,7 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
         List<String> colorlist = new ArrayList<>();
 
 
+
         //10.8 废弃SizeList 并入SizeAndIdVo
         List<SizeAndIdVo> sizeAndIdVos = new ArrayList<>();
 //        List<String> sizelist = new ArrayList<>();
@@ -80,6 +86,8 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
         String colorstr = "2:";//模糊查询 匹配颜色
         for(int i = 0;i < sp.size();i++)
         {
+//            System.out.println("pid" + sp.get(i).getPropertyid());
+//            System.out.println("pvid" + sp.get(i).getPropertyvalueid());
             //遍历 如果这是尺码(3)
             if(sp.get(i).getPropertyid().equals(3))
             {
@@ -95,6 +103,15 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
             {
                colorlist.add(propertyvalueMapper.getPropertyvalue(sp.get(i).getPropertyvalueid()));
 //                System.out.println("C");
+            }
+            //如果是其他属性 获取其名字和属性
+            else{
+                PropAndPropvVo demo = new PropAndPropvVo();
+                demo.setProperty(propertyMapper.getPropname(sp.get(i).getPropertyid()));
+                demo.setPropertyvalue(propertyvalueMapper.getPropertyvalue(sp.get(i).getPropertyvalueid()));
+//                System.out.println("property:" + demo.getProperty());
+//                System.out.println("propertyvalue" + demo.getPropertyvalue());
+                propAndPropvVos.add(demo);
             }
         }
         //根据商品id和颜色属性获取商品的skuid 用于下一步根据skuid获取到第一个商品图片 商品详情页的颜色小图片显示
@@ -123,11 +140,12 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
 
         //10.9 商品描述由String 转 JSON 解决转义缺少反斜杠问题
         String jsonDetail = JSONObject.toJSONString(shoesMapper.getShoesDetail(shoesid));
-        fDetailsVo.setShoesdetails(jsonDetail);
+        fDetailsVo.setShoesdetails(shoesMapper.getShoesDetail(shoesid));
 
 //        System.out.println("F");
         Map<String,Object> map = new HashMap<>();
-        //10.9 不要使用vo内的商品详情 并入FDetailsVo
+        map.put("bigpics",shoespics);
+        map.put("propertys",propAndPropvVos);
         //map.put("shoesdetails",jsonDetail);
         map.put("details",fDetailsVo);
         map.put("sizelist",sizeAndIdVos);

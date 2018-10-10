@@ -62,7 +62,7 @@
   </select>
 
   <select id="getDetails" resultType="com.shoes101.vo.FDetailsVo">
-    select DISTINCT shoes.shoesid,shoes.shoesname,shoessku.price,shoessku.quantity,shoessku.ticketprice
+    select DISTINCT shoes.shoesid,shoes.shoesname,shoessku.price,shoessku.quantity,shoessku.ticketprice,shoes.label
     from shoes
     INNER JOIN shoessku
     on shoes.shoesid=shoessku.shoesid
@@ -100,4 +100,10 @@
   <select id="getShoesDetail" resultType="java.lang.String">
     select shoesdetails from shoes where shoesid=#{shoesid}
   </select>
+
+  <select id="getAllPic" resultType="java.lang.String">
+    select picaddress from shoespic where shoesid=#{shoesid}
+  </select>
+
+
 </mapper>
