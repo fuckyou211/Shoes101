@@ -39,6 +39,8 @@ public class FDetailsVo {
     private double ticketprice;
     //商品 详情 10.9更新 放回进这里处理
     private String shoesdetails;
+    //10.10更新 商品标签
+    private String label;
 
     //根据商品id获取商品、库存、价格、详情
     //获取所有的sku 根据skuid获得对应鞋子颜色的图片和尺码
@@ -53,7 +55,16 @@ public class FDetailsVo {
                 ", price=" + price +
                 ", ticketprice=" + ticketprice +
                 ", shoesdetails='" + shoesdetails + '\'' +
+                ", label='" + label + '\'' +
                 '}';
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public void setLabel(String label) {
+        this.label = label;
     }
 
     public String getShoesdetails() {

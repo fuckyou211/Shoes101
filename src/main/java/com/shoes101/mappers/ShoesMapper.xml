@@ -62,7 +62,7 @@
   </select>
 
   <select id="getDetails" resultType="com.shoes101.vo.FDetailsVo">
-    select DISTINCT shoes.shoesid,shoes.shoesname,shoessku.price,shoessku.quantity,shoessku.ticketprice
+    select DISTINCT shoes.shoesid,shoes.shoesname,shoessku.price,shoessku.quantity,shoessku.ticketprice,shoes.label
     from shoes
     INNER JOIN shoessku
     on shoes.shoesid=shoessku.shoesid
