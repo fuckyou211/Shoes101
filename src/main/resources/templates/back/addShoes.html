@@ -788,6 +788,15 @@
     }
 </script>
 <script>
+
+    $("a[data-toggle='tab']").click(function(obj){
+        var tid = $(this).attr("href");
+        console.log("tid= ");
+        tid=tid.substr(1);
+        console.log(tid);
+        $(".tab-pane").removeClass("active");
+        $("#"+tid).addClass("active");
+    })
     //下一步
     function nextTab(obj){
         var tabindex=$(obj).attr("value");
