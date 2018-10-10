@@ -37,15 +37,32 @@ redis:
  host: 127.0.0.1
  port: 6379
  timeout: 10
- password: 123
  poolMaxTotal: 1000
  poolMaxIdle: 500
+ maxActive: 500
 
 #color为颜色属性名
 color: "颜色"
 
 #size为尺码属性名
 size: "尺码"
+
+#aliyun 短信配置信息
+aliyun:
+  accessKeyId: LTAI87hOXJIydyGF
+  accessKeySecret: EyEgPh6WEYmzCcPi2D9U6t23IyqGVT
+  defaultConnectTimeout: 10000
+  defaultReadTimeout: 10000
+  SignName: Shoes101
+  loginCode: SMS_147196676
+  resetPassword: SMS_147201716
+  payCode: SMS_147196689
+  userRegistration: SMS_147196672
+
+
+
+
+
 
 #mapper:
 #  mappers:

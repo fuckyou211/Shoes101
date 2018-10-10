@@ -1,5 +1,7 @@
 package com.shoes101.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
+import com.shoes101.access.SmsLimit;
 import com.shoes101.exception.GlobalException;
 import com.shoes101.mapper.UserMapper;
 import com.shoes101.pojo.User;
@@ -8,7 +10,9 @@ import com.shoes101.redis.UserKey;
 import com.shoes101.result.CodeMsg;
 import com.shoes101.service.VerifyUserService;
 import com.shoes101.util.MD5Util;
+import com.shoes101.util.SMSMethodUtils;
 import com.shoes101.util.UUIDUtils;
+import com.shoes101.vo.LoginCodeVo;
 import com.shoes101.vo.LoginVo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -18,6 +22,8 @@ import org.springframework.stereotype.Service;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
+import java.security.SecureRandom;
+import java.util.Random;
 
 @Service
 public class VerifyUserServiceImpl implements VerifyUserService {
@@ -30,6 +36,9 @@ public class VerifyUserServiceImpl implements VerifyUserService {
 
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private SMSMethodUtils sMSMethodUtils;
 
     public User getByMobile(String phone) {
         //取缓存
@@ -116,6 +125,36 @@ public class VerifyUserServiceImpl implements VerifyUserService {
         response.addCookie(cookie);
     }
 
+    @Override
+    public String loginCode(HttpServletResponse response, LoginCodeVo loginCodeVo) {
 
+        return null;
+    }
 
+    @Override
+    @SmsLimit(seconds=60,maxCount=5,method = "loginSMSCode")
+    public String loginSMSCode(HttpServletResponse response, String mobile) {
+        String code=getCode();
+        redisService.set(UserKey.loginCode,mobile,code);
+        logger.info(JSONObject.toJSONString(redisService.get(UserKey.loginCode,mobile,String.class)));
+
+//        try {
+//            sMSMethodUtils.loginCode(mobile,code);
+//        } catch (ClientException e) {
+//            e.printStackTrace();
+//            throw new GlobalException(CodeMsg.SMS_VERIFICATION_CODE);
+//        }
+        return code;
+    }
+
+    public static String getCode() {
+        String SYMBOLS = "0123456789";
+        Random RANDOM = new SecureRandom();
+        // 如果需要4位，那 new char[4] 即可，其他位数同理可得
+        char[] nonceChars = new char[6];
+        for (int index = 0; index < nonceChars.length; ++index) {
+            nonceChars[index] = SYMBOLS.charAt(RANDOM.nextInt(SYMBOLS.length()));
+        }
+        return new String(nonceChars);
+    }
 }

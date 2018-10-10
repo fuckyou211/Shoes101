@@ -16,5 +16,6 @@ public class UserKey extends BasePrefix {
     }
     public static UserKey getByPhone = new UserKey(TOKEN_EXPIRE, "phone");
     public static UserKey token = new UserKey(TOKEN_EXPIRE, "tk");
+    public static UserKey loginCode = new UserKey(60, "loginCode");
 
 }
