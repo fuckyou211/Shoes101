@@ -116,4 +116,12 @@
   <select id="calTotalQty" resultType="java.lang.Integer">
     select sum(quantity) from shoessku where shoesid=#{shoesid}
   </select>
+
+  <select id="calQtyWithoutOne" resultType="java.lang.Integer">
+    select sum(quantity) from shoessku where shoesid=#{shoesid} and skuproperty like ${cdn}
+  </select>
+
+  <!--<select id="calQtyWithoutSize" resultType="java.lang.Integer">-->
+    <!--select sum(quantity) from shoessku where shoesid=#{shoesid} and skuproperty like ${cdn}-->
+  <!--</select>-->
 </mapper>

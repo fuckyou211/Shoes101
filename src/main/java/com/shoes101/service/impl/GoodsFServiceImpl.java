@@ -158,13 +158,31 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
     }
 
     //由id 颜色 尺码 返回库存数量 供后台使用
+    //10.10 可能只点颜色或者只点尺码 判断有无空
     public int getQty(int shoesid,String colorid,String sizeid)
     {
+        //10.10 如果两者之一为空 2颜色 3尺码
+        if(colorid.equals("")||sizeid.equals(""))
+        {
+            if(colorid.equals(""))
+            {
+                String cdn = "'%3:" + sizeid + "%'";
+                return shoesMapper.calQtyWithoutOne(shoesid,cdn);
+            }
+            if(sizeid.equals(""))
+            {
+                String cdn = "'%2:" + colorid + "%'";
+                return shoesMapper.calQtyWithoutOne(shoesid,cdn);
+            }
+
+        }
         //组成搜索字符串
         String str = "{2:"+ colorid + ',' + "3:" + sizeid + '}';
         String condition = '"' + str + '"';
         System.out.println(condition);
         return shoesMapper.getQty(shoesid,condition);
+
+
     }
 
     //由id 颜色 尺码 返回库存数量 供前台使用 返回skuid和库存数量

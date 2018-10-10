@@ -81,4 +81,8 @@ public interface ShoesMapper {
 
     //根据商品id计算总库存
     int calTotalQty(@Param("shoesid") Integer shoesid);
+
+    //少一个条件时的库存
+    int calQtyWithoutOne(@Param("shoesid") Integer shoseid,@Param("cdn") String cdn);
+
 }

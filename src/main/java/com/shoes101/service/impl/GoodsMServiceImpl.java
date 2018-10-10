@@ -394,8 +394,8 @@ public class GoodsMServiceImpl implements GoodsMService {
             System.out.println(whileVo.getCatalogname());
             confirm = whileVo.getParentid();
         }
-
-
+        //逆序分类
+        Collections.reverse(catalognameList);
 
         for(int i = 0;i < sp.size();i++)
         {
@@ -457,6 +457,7 @@ public class GoodsMServiceImpl implements GoodsMService {
 
         //10.10 获取所有库存 计算总库存
         int totalQty = shoesMapper.calTotalQty(shoesid);
+
 
 
 //        System.out.println("F");
