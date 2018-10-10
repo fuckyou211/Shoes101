@@ -79,4 +79,6 @@ public interface ShoesMapper {
     //根据上面方法获取的catalogid获取分类名和父分类编号
     CatalognameAndParentVo getCatalognameAndFather(@Param("catalogid") Integer catalogid);
 
+    //根据商品id计算总库存
+    int calTotalQty(@Param("shoesid") Integer shoesid);
 }

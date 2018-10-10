@@ -113,4 +113,7 @@
     select catalogname,parentid from shoescatalog where catalogid=#{catalogid}
   </select>
 
+  <select id="calTotalQty" resultType="java.lang.Integer">
+    select sum(quantity) from shoessku where shoesid=#{shoesid}
+  </select>
 </mapper>

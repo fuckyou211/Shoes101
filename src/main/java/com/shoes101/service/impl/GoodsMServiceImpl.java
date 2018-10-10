@@ -352,7 +352,6 @@ public class GoodsMServiceImpl implements GoodsMService {
     {
 
         //获取商品名、库存、价格、描述
-
         FDetailsVo fDetailsVo = shoesMapper.getDetails(shoesid);
 
         //10.10 更新 引入PropAndPropvVo
@@ -456,8 +455,13 @@ public class GoodsMServiceImpl implements GoodsMService {
         String jsonDetail = JSONObject.toJSONString(shoesMapper.getShoesDetail(shoesid));
         fDetailsVo.setShoesdetails(shoesMapper.getShoesDetail(shoesid));
 
+        //10.10 获取所有库存 计算总库存
+        int totalQty = shoesMapper.calTotalQty(shoesid);
+
+
 //        System.out.println("F");
         Map<String,Object> map = new HashMap<>();
+        map.put("totalQty",totalQty);
         map.put("catalog",catalognameList);
         map.put("bigpics",shoespics);
         map.put("propertys",propAndPropvVos);
