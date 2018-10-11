@@ -25,11 +25,19 @@ public class LoginController {
 	@Autowired
     VerifyUserService verifyUserService;
 
+	//跳转登录页面
     @RequestMapping("/to_login")
     public String toLogin() {
         return "front/login";
     }
-    
+
+
+    /**
+     * 账号密码登录接口
+     * @param response
+     * @param loginVo 封装类 传的数据命名 按bean中变量名字
+     * @return
+     */
     @RequestMapping("/do_login")
     @ResponseBody
     public Result<String> doLogin(HttpServletResponse response, @Valid LoginVo loginVo) {
@@ -39,6 +47,12 @@ public class LoginController {
     	return Result.success(token);
     }
 
+    /**
+     * 用户短信登录接口
+     * @param response
+     * @param loginCodeVo 封装类 传的数据命名 按bean中变量名字命名
+     * @return
+     */
     @RequestMapping("/do_loginCode")
     @ResponseBody
     public Result<String> doLoginCode(HttpServletResponse response, @Valid LoginCodeVo loginCodeVo) {
@@ -48,6 +62,12 @@ public class LoginController {
         return Result.success(token);
     }
 
+    /**
+     * 短信码接口
+     * @param response
+     * @param mobile  手机号码
+     * @return
+     */
     @RequestMapping("/loginSMSCode")
     @ResponseBody
     public Result<String> loginSMSCode(HttpServletResponse response, @RequestParam("mobile") String mobile) {
