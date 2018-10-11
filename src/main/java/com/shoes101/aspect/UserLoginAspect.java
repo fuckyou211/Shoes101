@@ -38,7 +38,7 @@ public class UserLoginAspect {
     @Autowired
     private UserMapper userMapper;
 
-    @Before("execution(public * com.shoes101.controller.FrontStage.*.*(..))")
+    //@Before("execution(public * com.shoes101.controller.FrontStage.*.*(..))")
     public void UserLogin(JoinPoint joinpoint) {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
