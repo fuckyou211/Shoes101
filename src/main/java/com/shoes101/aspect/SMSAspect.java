@@ -72,6 +72,50 @@ public class SMSAspect {
 
     }
 
+    @Before("execution(public * com.shoes101.service.impl.VerifyUserServiceImpl.registerSMSCode(..))&& @annotation(smsLimit)")
+    public void registerCode(JoinPoint joinpoint, SmsLimit smsLimit) {
+        int seconds = smsLimit.seconds();
+        int maxCount = smsLimit.maxCount();
+        String method=smsLimit.method();
+        JSONObject jsonObject =getParams(joinpoint);
+        String mobile=(String) jsonObject.get("mobile");
+        String key =mobile;
+        logger.info("mobile={}", mobile);
+        SmsKey smsKey = SmsKey.smsLimitKey(seconds,method);
+        Integer count = redisService.get(smsKey, key, Integer.class);
+        logger.info(key+":"+count);
+        if(count  == null) {
+            redisService.set(smsKey, key, 1);
+        }else if(count < maxCount) {
+            redisService.incr(smsKey, key);
+        }else {
+            throw new GlobalException(CodeMsg.USER_FREQUENTLY_REGISTERCODE);
+        }
+
+    }
+
+    @Before("execution(public * com.shoes101.service.impl.VerifyUserServiceImpl.register(..))&& @annotation(smsLimit)")
+    public void register(JoinPoint joinpoint, SmsLimit smsLimit) {
+        int seconds = smsLimit.seconds();
+        int maxCount = smsLimit.maxCount();
+        String method=smsLimit.method();
+        JSONObject jsonObject =getParams(joinpoint);
+        String mobile=(String) jsonObject.get("phone");
+        String key =mobile;
+        logger.info("mobile={}", mobile);
+        SmsKey smsKey = SmsKey.smsLimitKey(seconds,method);
+        Integer count = redisService.get(smsKey, key, Integer.class);
+        logger.info(key+":"+count);
+        if(count  == null) {
+            redisService.set(smsKey, key, 1);
+        }else if(count < maxCount) {
+            redisService.incr(smsKey, key);
+        }else {
+            throw new GlobalException(CodeMsg.USER_FREQUENTLY_REGSTER);
+        }
+
+    }
+
 
    /* * 获取方法参数值并组装为JSONObject
      * @param joinPoint

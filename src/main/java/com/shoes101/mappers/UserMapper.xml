@@ -23,7 +23,7 @@
       gender, headpic, paypassword, cold
       )
     values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{gender,jdbcType=VARCHAR}, #{headpic,jdbcType=VARCHAR}, #{paypassword,jdbcType=VARCHAR}, cold = #{cold,jdbcType=INTEGER}
+      #{gender,jdbcType=VARCHAR}, #{headpic,jdbcType=VARCHAR}, #{paypassword,jdbcType=VARCHAR},  #{cold,jdbcType=INTEGER}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.User" >

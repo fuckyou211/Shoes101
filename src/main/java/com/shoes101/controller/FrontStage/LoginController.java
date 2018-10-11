@@ -1,6 +1,7 @@
 package com.shoes101.controller.FrontStage;
 
 
+import com.shoes101.pojo.User;
 import com.shoes101.result.Result;
 import com.shoes101.service.VerifyUserService;
 import com.shoes101.vo.LoginCodeVo;
@@ -63,7 +64,7 @@ public class LoginController {
     }
 
     /**
-     * 短信码接口
+     * 登录短信码接口
      * @param response
      * @param mobile  手机号码
      * @return
@@ -74,6 +75,33 @@ public class LoginController {
         //获取登录验证码
         String code = verifyUserService.loginSMSCode(response,mobile);
         return Result.success("验证码已发送，请查收！");
+    }
+
+    /**
+     * 注册短信码接口
+     * @param response
+     * @param mobile  手机号码
+     * @return
+     */
+    @RequestMapping("/registerSMSCode")
+    @ResponseBody
+    public Result<String> registerSMSCode(HttpServletResponse response, @RequestParam("mobile") String mobile) {
+        //获取登录验证码
+        String code = verifyUserService.registerSMSCode(response,mobile);
+        return Result.success("验证码已发送，请查收！");
+    }
+
+    /**
+     * 用户短信注册接口
+     * @param response
+     * @param User 封装类 传的数据命名 按bean中变量名字命名
+     * @return
+     */
+    @RequestMapping("/do_Regiser")
+    @ResponseBody
+    public Result<String> doRegister(HttpServletResponse response, @Valid User user,@RequestParam("code")String code) {
+        logger.info(user.toString());
+        return Result.success(verifyUserService.register(response, user,code));
     }
 
 

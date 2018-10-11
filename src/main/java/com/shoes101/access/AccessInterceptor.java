@@ -35,14 +35,14 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		if(handler instanceof HandlerMethod) {
-			User user = getUser(request, response);
-			UserContext.setUser(user);
 			HandlerMethod hm = (HandlerMethod)handler;
 			AccessLimit accessLimit = hm.getMethodAnnotation(AccessLimit.class);
 			if(accessLimit == null) {
 				logger.info("AccessLimit 未拦截！");
 				return true;
 			}
+			User user = getUser(request, response);
+			UserContext.setUser(user);
 			logger.info("AccessLimit 拦截成功！");
 			int seconds = accessLimit.seconds();
 			int maxCount = accessLimit.maxCount();

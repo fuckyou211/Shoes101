@@ -1,6 +1,7 @@
 package com.shoes101.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.aliyuncs.exceptions.ClientException;
 import com.shoes101.access.SmsLimit;
 import com.shoes101.exception.GlobalException;
 import com.shoes101.mapper.UserMapper;
@@ -181,6 +182,56 @@ public class VerifyUserServiceImpl implements VerifyUserService {
 //            throw new GlobalException(CodeMsg.SMS_VERIFICATION_CODE);
 //        }
         return code;
+    }
+
+    @Override
+    @SmsLimit(seconds=300,maxCount=5,method = "registerSMSCode")
+    public String registerSMSCode(HttpServletResponse response, String mobile) {
+        User user =getByMobile(mobile);
+        if(user != null) {
+            throw new GlobalException(CodeMsg.MOBILE_EXITS_REGISTER);
+        }
+
+        String code=getCode();
+        redisService.set(UserKey.registerCode,mobile,code);
+        logger.info(JSONObject.toJSONString(redisService.get(UserKey.registerCode,mobile,String.class)));
+
+       /* try {
+            sMSMethodUtils.registerCode(mobile,code);
+        } catch (ClientException e) {
+            e.printStackTrace();
+            throw new GlobalException(CodeMsg.SMS_VERIFICATION_CODE);
+        }*/
+        return code;
+    }
+
+    @Override
+    @SmsLimit(seconds=60,maxCount=5,method = "register")
+    public String register(HttpServletResponse response, User user,String code) {
+        if(user == null) {
+            throw new GlobalException(CodeMsg.REQUEST_ILLEGAL);
+        }
+        String mobile = user.getPhone();
+        //判断手机号是否存在
+        User RDuser =getByMobile(mobile);
+        if(RDuser != null) {
+            throw new GlobalException(CodeMsg.MOBILE_EXITS_REGISTER);
+        }
+
+        //验证code
+        String rdcode = redisService.get(UserKey.registerCode,mobile,String.class);
+        logger.info("rdcode:"+rdcode);
+        if(rdcode==null)
+        {
+            throw new GlobalException(CodeMsg.USER_NOT_GETCODE);
+        }
+        if(!rdcode.equals(code)) {
+            throw new GlobalException(CodeMsg.USER_CODE_ERROR);
+        }
+        user.setCold(0);
+        logger.info("user:"+JSONObject.toJSONString(user));
+        userMapper.insert(user);
+        return "注册成功！";
     }
 
     public static String getCode() {

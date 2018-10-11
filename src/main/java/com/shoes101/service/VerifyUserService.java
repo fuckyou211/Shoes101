@@ -11,6 +11,8 @@ public interface VerifyUserService {
     public String login(HttpServletResponse response, LoginVo loginVo);
     public String loginCode(HttpServletResponse response, LoginCodeVo loginCodeVo);
     public String loginSMSCode(HttpServletResponse response, String mobile);
+    public String registerSMSCode(HttpServletResponse response, String mobile);
+    public String register(HttpServletResponse response, User user,String code);
 
     public User getByToken(HttpServletResponse response, String token);
 }
