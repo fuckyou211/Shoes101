@@ -41,10 +41,10 @@ public class LoginController {
 
     @RequestMapping("/do_loginCode")
     @ResponseBody
-    public Result<String> doLoginCode(HttpServletResponse response, @Valid LoginCodeVo LoginCodeVo) {
-        logger.info(LoginCodeVo.toString());
+    public Result<String> doLoginCode(HttpServletResponse response, @Valid LoginCodeVo loginCodeVo) {
+        logger.info(loginCodeVo.toString());
         //登录
-        String token = verifyUserService.loginCode(response, LoginCodeVo);
+        String token = verifyUserService.loginCode(response, loginCodeVo);
         return Result.success(token);
     }
 
@@ -53,7 +53,7 @@ public class LoginController {
     public Result<String> loginSMSCode(HttpServletResponse response, @RequestParam("mobile") String mobile) {
         //获取登录验证码
         String code = verifyUserService.loginSMSCode(response,mobile);
-        return Result.success(code);
+        return Result.success("验证码已发送，请查收！");
     }
 
 
