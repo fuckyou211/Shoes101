@@ -23,6 +23,12 @@ public class CodeMsg {
     public static CodeMsg ADMIN_NOT_EXIST = new CodeMsg(500216, "用户名不存在");
     public static CodeMsg ADMIN_NOT_LOGIN = new CodeMsg(500217, "请登录再访问");
     public static CodeMsg USER_COLD_ERROR = new CodeMsg(500218, "您的用户已被冻结，请联系客服！");
+    public static CodeMsg SMS_VERIFICATION_CODE= new CodeMsg(500219, "系统异常，请重新获取验证码");
+    public static CodeMsg SMS_FREQUENTLY_CODE= new CodeMsg(500220, "登录过于频繁，请5分钟后再登录");
+    public static CodeMsg USER_FREQUENTLY_LOGIN= new CodeMsg(500221, "登录过于频繁，请1分钟后再登录");
+    public static CodeMsg USER_CODE_ERROR = new CodeMsg(500222, "验证码错误");
+    public static CodeMsg USER_NOT_GETCODE = new CodeMsg(500222, "请获取验证码");
+
 
 
     //商品模块 5003XX
