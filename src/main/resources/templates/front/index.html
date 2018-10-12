@@ -33,8 +33,10 @@
 
 <body>
 <!--头部信息-->
-<div id="the_header"></div>
-
+<header>
+	<div id="header-user"></div>
+	<div id="header-nav"></div>
+</header>
 <!--轮播商品-->
 <div class="slider-area home1" align="center">
 	<div class="bend niceties preview-2">
@@ -241,14 +243,11 @@
 <script src="../static-front/js/jquery.scrollUp.min.js"></script>
 <script src="../static-front/js/main.js"></script>
 <script src="../static-front/js/shoes-detail.js"></script>
+<script src="../static-front/header/header-nav.js"></script>
+<script src="../static-front/header/header-user.js"></script>
+<script src="../static-front/footer/shoes-footer.js"></script>
 
 <!--载入头尾部-->
-<script>
-    $("#the_footer").load("shoes-footer.html");
-    $("#the_header").load("shoes-header.html");
-</script>
-
-
 <script>
     $(function () {
         // 调用鞋子点击的事件

@@ -144,14 +144,16 @@ var tmp_5 = "";
 var tmp_6 = "";
 var tmp_7 = "";
 
+/*加载品牌导航*/
 function loadBrands(data) {
     $.each(data,function (index,item) {
         tmp_7 = "<div class=\"col-md-2\">\n" +
-            "       <span><a href=\"#\" style=\"padding-top: 10px;\">"+item.propertyvalue+"</a></span>\n" +
+            "       <span><a style=\"padding-top: 10px;\" href=\"javascript:;\" value=\""+item.propertyvalueid+"\" onclick=\"brandsToNext(this);\" >"+item.propertyvalue+"</a></span>\n" +
             "    </div>"
         inner_3 += tmp_7;
     })
 }
+/*加载男女鞋分类导航*/
 function loadNavData(data) {
     /*let menShoesData = data.男鞋;
     let womenShoesData = data.女鞋;*/
@@ -182,7 +184,7 @@ function loadNavData(data) {
         tmp_5 = "";
         $.each(item.childMapData.childList,function (index,items) {
             tmp_5 += "<div class=\"col-md-2\">\n"+
-                "       <span><a style=\"padding-top: 5px;\" href=\"javascript:void(0);\" @click=\"\">"+items.shoescatalog.catalogname+"</a></span>\n"+
+                "       <span><a style=\"padding-top: 5px;\" href=\"javascript:void(0);\" onclick=\"test();\">"+items.shoescatalog.catalogname+"</a></span>\n"+
                 "     </div>"
         });
 
@@ -193,4 +195,25 @@ function loadNavData(data) {
     });
     inner_all = sta_1+inner_1+sta_2+inner_2+sta_3+inner_3+sta_4;
     $("#header-nav").html(inner_all);
+
 }
+function toShoesList(obj) {
+    let theBrandsId = $(obj).attr("value");
+    console.log("测试：");
+    console.log(theBrandsId);
+    $.ajax({
+        url: "",
+        type: 'post',
+        data: { propertyvalueid: theBrandsId },
+        dataType: 'json',
+        success: function () {
+            console.log("ok");
+        },
+        error: function () {
+          console.log("fail");
+        }
+    })
+
+}
+
+
