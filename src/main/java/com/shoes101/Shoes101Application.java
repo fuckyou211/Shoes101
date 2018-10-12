@@ -7,7 +7,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
 @MapperScan("com.shoes101.mapper")
-
 public class Shoes101Application {
 
     public static void main(String[] args) {
