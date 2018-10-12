@@ -15,6 +15,7 @@ import com.shoes101.util.SMSMethodUtils;
 import com.shoes101.util.UUIDUtils;
 import com.shoes101.vo.LoginCodeVo;
 import com.shoes101.vo.LoginVo;
+import com.shoes101.vo.ResetPasswordVo;
 import com.shoes101.vo.UserVo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -232,10 +233,10 @@ public class VerifyUserServiceImpl implements VerifyUserService {
         User user=new User();
         user.setCold(0);
         user.setUsername(userVo.getUsername());
-        user.setPassword(user.getPaypassword());
+        String password=MD5Util.formPassToDBPass(userVo.getPassword(), MD5Util.getSalt());
+        user.setPassword(password);
         user.setGender(userVo.getGender());
         user.setPhone(userVo.getPhone());
-
         logger.info("user:"+JSONObject.toJSONString(user));
         userMapper.insert(user);
         return "注册成功！";
@@ -264,6 +265,39 @@ public class VerifyUserServiceImpl implements VerifyUserService {
 //        }
         return code;
 
+    }
+
+    @Override
+    public String restPassword(HttpServletResponse response, ResetPasswordVo resetPasswordVo) {
+        if(resetPasswordVo == null) {
+            throw new GlobalException(CodeMsg.SERVER_ERROR);
+        }
+        String mobile = resetPasswordVo.getMobile();
+        String code = resetPasswordVo.getCode();
+        //判断手机号是否存在
+        User user =getByMobile(mobile);
+        if(user == null) {
+            throw new GlobalException(CodeMsg.MOBILE_NOT_EXIST);
+        }
+        else if(user.getCold()==1)
+        {
+            throw new GlobalException(CodeMsg.USER_COLD_ERROR);
+        }
+        //验证code
+        String rdcode = redisService.get(UserKey.resetPasswordCode,mobile,String.class);
+        logger.info("rdcode:"+rdcode);
+        if(rdcode==null)
+        {
+            throw new GlobalException(CodeMsg.USER_RESETPASSWORDCODE_ERROR);
+        }
+        if(!rdcode.equals(code)) {
+            throw new GlobalException(CodeMsg.USER_RESETPASSWORDCODE_ERROR);
+        }
+        user.setPassword(MD5Util.formPassToDBPass(resetPasswordVo.getPassword(), MD5Util.getSalt()));
+        logger.info("user:"+JSONObject.toJSONString(user));
+        userMapper.updateByPrimaryKey(user);
+        redisService.set(UserKey.getByPhone, ""+user.getPhone(), user);
+        return "密码修改成功!";
     }
 
     public static String getCode() {

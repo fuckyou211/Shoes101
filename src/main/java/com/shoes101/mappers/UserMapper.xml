@@ -33,7 +33,7 @@
       phone = #{phone,jdbcType=VARCHAR},
       gender = #{gender,jdbcType=VARCHAR},
       headpic = #{headpic,jdbcType=VARCHAR},
-      paypassword = #{paypassword,jdbcType=VARCHAR}
+      paypassword = #{paypassword,jdbcType=VARCHAR},
       cold = #{cold,jdbcType=INTEGER}
     where userid = #{userid,jdbcType=INTEGER}
   </update>
