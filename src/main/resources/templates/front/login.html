@@ -16,7 +16,7 @@
             function sendemail(){
                 var obj = $("#btn,#dlbtn");
 
-                $.post({url:"/login/do_sendmobile",
+                $.post({url:"/login/loginSMSCode",
                     dataType:'json',
                     type: 'post',
                     data:{
@@ -28,15 +28,16 @@
                         console.log(result.data);
                         if (result.code==0)
                         {
+                            settime(obj);
                             // self.location=document.referrer;
                         }
                         else {
-                            alert("修改失败！");
+                            $(".dxdlyzmtest").html("<span style='color: red;'>"+result.msg+"</span>");
                         }
                         // console.log(result.toString());
                     },
                     fail: function (err) {
-                        alert("修改失败！");
+                        alert("出错！");
                         console.log(err);
                     }
                 });
@@ -73,9 +74,9 @@
 
 	<body style="background-image: url(../static-front/images/denglu.jpg); background-repeat:no-repeat;">
 	<div id="the_header col-12"></div>
-		<div class="container col-12">
+		<div class="container col-12 ">
 			<div class="col-lg-6 col-md-12 col-sm-12" style="float: right;">
-			<div class="col-sm-10 col-md-8 col-lg-7 a1" style="margin: auto;margin-top: 180px;padding: 30px 15px 20px 15px;background-color: rgba(255,255,255,0.5);">
+			    <div class="col-sm-10 col-md-8 col-lg-7 a1" style="margin: auto;margin-top: 180px;padding: 30px 15px 20px 15px;background-color: rgba(255,255,255,0.5);">
 				<form >
 					<h2 style="text-align:center;">欢迎登录</h2>
 					<div class="form-group">
@@ -122,7 +123,7 @@
 							<div class="col-6">
 								<input type="button" style="margin-right: 0px;float: right;" class="btn btn-primary" id="dlbtn" value="获取验证码" onclick="sendemail()" />
 							</div>
-							<div class="dxdlyzmtest" >
+							<div class="dxdlyzmtest" style="margin-left: 15px;margin-top: 8px;" >
 							</div>
 						</div>
 
@@ -226,7 +227,7 @@
 			</div>
 			<div id="the_footer"></div>
 
-		
+		</div>
 		<script>
 			$(function() {
 				$("a.zhuce").click(function() {
@@ -255,12 +256,12 @@
                                 // self.location=document.referrer;
                             }
                             else {
-                                $(".zhuceyanzheng").html("<span style='color: red'>"+result.msg+"</span>");
+                                $(".zhuceyanzheng").html("<span style='color: red;'>"+result.msg+"</span>");
                             }
                             // console.log(result.toString());
                         },
                         fail: function (err) {
-                            alert("修改失败！");
+                            alert("出错！");
                             console.log(err);
                         }
                     });
@@ -278,7 +279,7 @@
                     $("div.a1").show();
                 });
                 $(".duanxindenglu").click(function () {
-                    $.post({url:"/login/do_messagelogin",
+                    $.post({url:"/login/do_loginCode",
                         dataType:'json',
                         type: 'post',
                         data:{
@@ -294,12 +295,12 @@
                                 self.location=document.referrer;
                             }
                             else {
-                                $(".dxdlyzmtest").html("<span style='color: red'>"+result.msg+"</span>");
+                                $(".dxdlyzmtest").html("<span style='color: red;'>"+result.msg+"</span>");
                             }
                             // console.log(result.toString());
                         },
                         fail: function (err) {
-                            alert("修改失败！");
+                            alert("出错！");
                             console.log(err);
                         }
                     });
@@ -323,20 +324,20 @@
                                 self.location=document.referrer;
 							}
                             if (result.code==500212||result.code==500213||result.code==500214||result.code==500216) {
-								$(".e1").html("<span style='color: red'>"+result.msg+"</span>");
+								$(".e1").html("<span style='color: red;'>"+result.msg+"</span>");
                             }
                             else if  (result.code==500211||result.code==500215)
 							{
-                                $(".e2").html("<span style='color: red'>"+result.msg+"</span>");
+                                $(".e2").html("<span style='color: red;'>"+result.msg+"</span>");
 							}
 							else {
-                                $(".e3").html("<span style='color: red'>"+result.msg+"</span>");
+                                $(".e3").html("<span style='color: red;'>"+result.msg+"</span>");
 							}
 
                             // console.log(result.toString());
                         },
                         fail: function (err) {
-                            alert("修改失败！");
+                            alert("出错！");
                             console.log(err);
                         }
                     });
@@ -344,18 +345,18 @@
 
                 $("#password").blur(function(){
                     if ($("#password").val().length>5&&$("#password").val().length<12) {
-                        $(".passwordtest").html("<span  style='color: green'>✔</span>");
+                        $(".passwordtest").html("<span  style='color: green;'>✔</span>");
                     }
                     else{
-                        $(".passwordtest").html("<span style=\"color: red\">✖</span>");
+                        $(".passwordtest").html("<span style=\"color: red;\">✖</span>");
                     }
                 });
                 $("#repassword").blur(function(){
                     if ($("#repassword").val()==$("#password").val()) {
-                        $(".repasswordtest").html("<span  style='color: green'>✔</span>");
+                        $(".repasswordtest").html("<span  style='color: green;'>✔</span>");
                     }
                     else{
-                        $(".repasswordtest").html("<span style=\"color: red\">✖</span>");
+                        $(".repasswordtest").html("<span style=\"color: red;\">✖</span>");
                     }
                 });
                 $("#phone").blur(function(){
@@ -371,7 +372,7 @@
                         $(".yzmtest").html("");
                     }
                     else{
-                        $(".yzmtest").html("<span style=\"color: red\">✖</span>");
+                        $(".yzmtest").html("<span style=\"color: red ;\">✖</span>");
                     }
                 });
 
@@ -379,10 +380,10 @@
             $(function () {
                 $("#username2").blur(function(){
                     if ($("#username2").val().length>2&&$("#username2").val().length<11) {
-                        $(".usernametest").html("<span  style='color: green'>✔</span>");
+                        $(".usernametest").html("<span  style='color: green;'>✔</span>");
                     }
                     else{
-                        $(".usernametest").html("<span style=\"color: red\">✖</span>");
+                        $(".usernametest").html("<span style=\"color: red;\">✖</span>");
                     }
                 });
 
@@ -393,7 +394,7 @@
 
 
 		</script>
-	</div>
+
 	</body>
 
 </html>

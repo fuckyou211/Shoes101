@@ -24,7 +24,15 @@ public class CodeMsg {
     public static CodeMsg ADMIN_NOT_LOGIN = new CodeMsg(500217, "请登录再访问");
     public static CodeMsg USER_COLD_ERROR = new CodeMsg(500218, "您的用户已被冻结，请联系客服！");
     public static CodeMsg SMS_VERIFICATION_CODE= new CodeMsg(500219, "系统异常，请重新获取验证码");
-    public static CodeMsg SMS_FREQUENTLY_CODE= new CodeMsg(500220, "登录过于频繁，请五分钟再登录");
+    public static CodeMsg SMS_FREQUENTLY_CODE= new CodeMsg(500220, "登录过于频繁，请5分钟后再登录");
+    public static CodeMsg USER_FREQUENTLY_LOGIN= new CodeMsg(500221, "登录过于频繁，请1分钟后再登录");
+    public static CodeMsg USER_CODE_ERROR = new CodeMsg(500222, "验证码错误");
+    public static CodeMsg USER_NOT_GETCODE = new CodeMsg(500222, "请获取验证码");
+    public static CodeMsg MOBILE_EXITS_REGISTER = new CodeMsg(500223, "手机号已注册，请直接登录！");
+    public static CodeMsg USER_FREQUENTLY_REGISTERCODE= new CodeMsg(500224, "获取验证码过于频繁，请5分钟后再获取验证码！");
+    public static CodeMsg USER_FREQUENTLY_REGSTER= new CodeMsg(500225, "注册过于频繁，请1分钟后再注册");
+
+
 
     //商品模块 5003XX
 
@@ -41,7 +49,8 @@ public class CodeMsg {
     private CodeMsg( ) {
     }
 
-    private CodeMsg( int code,String msg ) {
+
+    public CodeMsg( int code,String msg ) {
         this.code = code;
         this.msg = msg;
     }
