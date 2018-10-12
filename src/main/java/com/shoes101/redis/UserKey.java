@@ -20,5 +20,4 @@ public class UserKey extends BasePrefix {
     public static UserKey registerCode = new UserKey(60, "registerCode");
     public static UserKey resetPasswordCode = new UserKey(60, "resetPasswordCode");
 
-
 }

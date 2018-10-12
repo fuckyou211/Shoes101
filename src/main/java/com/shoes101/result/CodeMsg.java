@@ -32,6 +32,7 @@ public class CodeMsg {
     public static CodeMsg USER_FREQUENTLY_REGISTERCODE= new CodeMsg(500224, "获取验证码过于频繁，请5分钟后再获取验证码！");
     public static CodeMsg USER_FREQUENTLY_REGSTER= new CodeMsg(500225, "注册过于频繁，请1分钟后再注册");
     public static CodeMsg USER_FREQUENTLY_PASSWORD= new CodeMsg(500226, "修改密码过于频繁，请1分钟后再修改密码");
+    public static CodeMsg USER_RESETPASSWORDCODE_ERROR = new CodeMsg(500227, "系统异常，请重新修改密码！");
 
 
 
