@@ -5,29 +5,23 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>101 Shoes|商品详情</title>
-    <link rel="shortcut icon" href="../../static/static-front/img/101_favicon.ico" type="image/x-icon"/>
+    <link rel="shortcut icon" href="../static-front/img/101_favicon.ico" type="image/x-icon"/>
     <!--商品名称-->
-    <link rel="stylesheet" type="text/css" href="../../static/static-front/css/normalize.css"/>
-    <link rel="stylesheet" type="text/css" href="../../static/static-front/css/myrest.css"/>
-    <link rel="stylesheet" type="text/css" href="../../static/static-front/css/bootstrap.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../../static/static-front/css/bootstrap-theme.min.css"/>
-    <link rel="stylesheet" type="text/css" href="../../static/static-front/css/shoes-info.css"/>
-    <link rel="stylesheet" type="text/css" href="../../static/static-front/css/shoes-detail.css"/>
-    <link rel="stylesheet" type="text/css" href="../../static/static-front/css/style.css" >
-    <link rel="stylesheet" type="text/css" href="../../static/static-front/font/font-awesome.min.css" >
-
-    <script src="../../static/static-front/js/jquery-1.12.1.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../../static/static-front/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
-    <script src="../../static/static-front/js/common.js"></script>
-    <script src="../../static/static-front/js/js.cookie.js"></script>
-    <script src="../../static/static-front/js/shoes-detail.js"></script>
+    <link rel="stylesheet" type="text/css" href="../static-front/css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="../static-front/css/myrest.css"/>
+    <link rel="stylesheet" type="text/css" href="../static-front/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../static-front/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../static-front/css/shoes-info.css"/>
+    <link rel="stylesheet" type="text/css" href="../static-front/css/shoes-detail.css"/>
+    <link rel="stylesheet" type="text/css" href="../static-front/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../static-front/font/font-awesome.min.css">
 
 </head>
 
 <body>
-        <!--头部信息-->
-        <div id="the_header"></div>
-		
+<!--头部信息-->
+<div id="the_header"></div>
+
 <div class="container">
     <div class="row">
         <ul class="path-link">
@@ -49,29 +43,33 @@
         -->
         <div class="col-md-6">
             <div class="b-shoes-show">
-                <img id="detail-shoes-bimg" src="../../static/static-front/images/big-img/xie1.webp"
+                <img id="detail-shoes-bimg" src="../static-front/images/big-img/xie1.webp"
                      class="img-responsive img-thumbnail detail-big-img"/>
             </div>
             <div class="m-shoes-li center-block">
                 <ul id="detail-shoes-simg" class="center-block">
                     <li>
-                        <img src="../../static/static-front/images/sma-img/xie1.webp" class="img-responsive img-thumbnail img-disabled img-active"
+                        <img src="../static-front/images/sma-img/xie1.webp"
+                             class="img-responsive img-thumbnail img-disabled img-active"
                              onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
                     </li>
                     <li>
-                        <img src="../../static/static-front/images/sma-img/xie2.webp" class="img-responsive img-thumbnail img-disabled"
+                        <img src="../static-front/images/sma-img/xie2.webp"
+                             class="img-responsive img-thumbnail img-disabled"
                              onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
                     </li>
                     <li>
-                        <img src="../../static/static-front/images/sma-img/xie3.webp" class="img-responsive img-thumbnail img-disabled"
+                        <img src="../static-front/images/sma-img/xie3.webp"
+                             class="img-responsive img-thumbnail img-disabled"
                              onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
                     </li>
                     <li>
-                        <img src="../../static/static-front/images/sma-img/xie4.webp" class="img-responsive img-thumbnail img-disabled"
+                        <img src="../static-front/images/sma-img/xie4.webp"
+                             class="img-responsive img-thumbnail img-disabled"
                              onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
                     </li>
                     <li>
-                        <img src="images/sma-img/xie5.webp" class="img-responsive img-thumbnail img-disabled"
+                        <img src="../static-front/images/sma-img/xie5.webp" class="img-responsive img-thumbnail img-disabled"
                              onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
                     </li>
                 </ul>
@@ -93,7 +91,7 @@
                 </li>
                 <li class="detail-li">
                     <span class="h5">价格：</span>
-                    <span style="color: red;" class="h2" > ¥ <span id="shoes-price">489.00</span></span>
+                    <span style="color: red;" class="h2"> ¥ <span id="shoes-price">489.00</span></span>
                     &nbsp;&nbsp;<span style="color: red; text-decoration: line-through;" class="h5"> ¥ 589.00</span>
                 </li>
                 <li class="detail-li">
@@ -111,19 +109,19 @@
                     <dl class="dl-padding">
                         <dd class="fl dd-margin no-choose-border" title="白色"
                             onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
-                            <img class="small-show-img" src="../../static/static-front/images/xiezi.webp"/>
+                            <img class="small-show-img" src="../static-front/images/xiezi.webp"/>
                         </dd>
                         <dd class="fl dd-margin no-choose-border choose-border" title="黑色"
                             onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
-                            <img class="small-show-img" src="../../static/static-front/images/xiezi.webp"/>
+                            <img class="small-show-img" src="../static-front/images/xiezi.webp"/>
                         </dd>
                         <dd class="fl dd-margin no-choose-border" title="蓝色"
                             onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
-                            <img class="small-show-img" src="../../static/static-front/images/xiezi.webp"/>
+                            <img class="small-show-img" src="../static-front/images/xiezi.webp"/>
                         </dd>
                         <dd class="fl dd-margin no-choose-border" title="灰色"
                             onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
-                            <img class="small-show-img" src="../../static/static-front/images/xiezi.webp"/>
+                            <img class="small-show-img" src="../static-front/images/xiezi.webp"/>
                         </dd>
                     </dl>
                     <div class="clearfix"></div>
@@ -246,14 +244,19 @@
     </div>
 </div>
 
-        <!--尾部-->
-        <div id="the_footer"></div>
+<script src="../static-front/js/jquery-1.12.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../static-front/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../static-front/js/common.js"></script>
+<script src="../static-front/js/js.cookie.js"></script>
+<script src="../static-front/js/shoes-detail.js"></script>
+<!--尾部-->
+<div id="the_footer"></div>
 
-        <!--载入头尾部-->
-        <script>
-            $("#the_header").load("shoes-header.html");
-            $("#the_footer").load("shoes-footer.html");
-        </script>
+<!--载入头尾部-->
+<script>
+    $("#the_header").load("shoes-header.html");
+    $("#the_footer").load("shoes-footer.html");
+</script>
 </body>
 
 </html>
