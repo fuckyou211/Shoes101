@@ -296,6 +296,7 @@ public class VerifyUserServiceImpl implements VerifyUserService {
         user.setPassword(MD5Util.formPassToDBPass(resetPasswordVo.getPassword(), MD5Util.getSalt()));
         logger.info("user:"+JSONObject.toJSONString(user));
         userMapper.updateByPrimaryKey(user);
+        redisService.set(UserKey.getByPhone, ""+user.getPhone(), user);
         return "密码修改成功!";
     }
 
