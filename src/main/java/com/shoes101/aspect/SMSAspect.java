@@ -122,7 +122,7 @@ public class SMSAspect {
         int maxCount = smsLimit.maxCount();
         String method=smsLimit.method();
         JSONObject jsonObject =getParams(joinpoint);
-        String mobile=(String) jsonObject.get("phone");
+        String mobile=(String) jsonObject.get("mobile");
         String key =mobile;
         logger.info("restPasswordSMSCode mobile={}", mobile);
         SmsKey smsKey = SmsKey.smsLimitKey(seconds,method);

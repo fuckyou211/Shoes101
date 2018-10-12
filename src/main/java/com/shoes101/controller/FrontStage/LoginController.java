@@ -5,6 +5,7 @@ import com.shoes101.result.Result;
 import com.shoes101.service.VerifyUserService;
 import com.shoes101.vo.LoginCodeVo;
 import com.shoes101.vo.LoginVo;
+import com.shoes101.vo.ResetPasswordVo;
 import com.shoes101.vo.UserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -116,6 +117,19 @@ public class LoginController {
         //获取登录验证码
         String code = verifyUserService.restPasswordSMSCode(response,mobile);
         return Result.success("验证码已发送，请查收！");
+    }
+
+    /**
+     * 修改密码短信码接口
+     * @param response
+     * @param ResetPasswordVo
+     * @return
+     */
+    @RequestMapping("/resetPassword")
+    @ResponseBody
+    public Result<String> resetPassword(HttpServletResponse response, @Valid ResetPasswordVo resetPasswordVo) {
+        //获取登录验证码
+        return Result.success(verifyUserService.restPassword(response,resetPasswordVo));
     }
 
 
