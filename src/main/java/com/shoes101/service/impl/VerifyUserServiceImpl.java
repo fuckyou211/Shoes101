@@ -241,6 +241,31 @@ public class VerifyUserServiceImpl implements VerifyUserService {
         return "注册成功！";
     }
 
+    @Override
+    @SmsLimit(seconds=300,maxCount=5,method = "restPasswordSMSCode")
+    public String restPasswordSMSCode(HttpServletResponse response, String mobile) {
+        User user =getByMobile(mobile);
+        if(user == null) {
+            throw new GlobalException(CodeMsg.MOBILE_NOT_EXIST);
+        }
+        else if(user.getCold()==1)
+        {
+            throw new GlobalException(CodeMsg.USER_COLD_ERROR);
+        }
+        String code=getCode();
+        redisService.set(UserKey.resetPasswordCode,mobile,code);
+        logger.info(JSONObject.toJSONString(redisService.get(UserKey.resetPasswordCode,mobile,String.class)));
+
+//        try {
+//            sMSMethodUtils.resetPasswordCode(mobile,code);
+//        } catch (ClientException e) {
+//            e.printStackTrace();
+//            throw new GlobalException(CodeMsg.SMS_VERIFICATION_CODE);
+//        }
+        return code;
+
+    }
+
     public static String getCode() {
         String SYMBOLS = "0123456789";
         Random RANDOM = new SecureRandom();

@@ -104,6 +104,20 @@ public class LoginController {
         return Result.success(verifyUserService.register(response, user,code));
     }
 
+    /**
+     * 修改密码短信码接口
+     * @param response
+     * @param mobile  手机号码
+     * @return
+             */
+    @RequestMapping("/resetPasswordSMSCode")
+    @ResponseBody
+    public Result<String> resetPasswordSMSCode(HttpServletResponse response, @RequestParam("mobile") String mobile) {
+        //获取登录验证码
+        String code = verifyUserService.restPasswordSMSCode(response,mobile);
+        return Result.success("验证码已发送，请查收！");
+    }
+
 
 
 

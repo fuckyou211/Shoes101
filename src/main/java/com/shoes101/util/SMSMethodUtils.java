@@ -72,4 +72,22 @@ public class SMSMethodUtils {
         }
     }
 
+    public void resetPasswordCode(String mobile,String code) throws ClientException {
+        SendSmsResponse sendSmsResponse=smsUtil.sendVerificationCode(mobile,sMSCodeVo.getSignName(),sMSCodeVo.getResetPassword(),code);
+        if(!sendSmsResponse.getCode().equals("OK"))
+        {
+            String Sendcode=sendSmsResponse.getCode();
+            String mssage=map.get(Sendcode);
+            logger.error(JSONObject.toJSONString(sendSmsResponse));
+            if(mssage!=null)
+            {
+                throw new GlobalException(new CodeMsg(500221,mssage));
+            }
+            else
+            {
+                throw new GlobalException(CodeMsg.SMS_VERIFICATION_CODE);
+            }
+        }
+    }
+
 }

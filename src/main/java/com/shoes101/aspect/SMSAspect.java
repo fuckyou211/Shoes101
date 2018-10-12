@@ -116,6 +116,30 @@ public class SMSAspect {
 
     }
 
+    @Before("execution(public * com.shoes101.service.impl.VerifyUserServiceImpl.restPasswordSMSCode(..))&& @annotation(smsLimit)")
+    public void restPasswordSMSCode(JoinPoint joinpoint, SmsLimit smsLimit) {
+        int seconds = smsLimit.seconds();
+        int maxCount = smsLimit.maxCount();
+        String method=smsLimit.method();
+        JSONObject jsonObject =getParams(joinpoint);
+        String mobile=(String) jsonObject.get("phone");
+        String key =mobile;
+        logger.info("restPasswordSMSCode mobile={}", mobile);
+        SmsKey smsKey = SmsKey.smsLimitKey(seconds,method);
+        Integer count = redisService.get(smsKey, key, Integer.class);
+        logger.info(key+":"+count);
+        if(count  == null) {
+            redisService.set(smsKey, key, 1);
+        }else if(count < maxCount) {
+            redisService.incr(smsKey, key);
+        }else {
+            throw new GlobalException(CodeMsg.USER_FREQUENTLY_PASSWORD);
+        }
+
+    }
+
+
+
 
    /* * 获取方法参数值并组装为JSONObject
      * @param joinPoint

@@ -31,6 +31,7 @@ public class CodeMsg {
     public static CodeMsg MOBILE_EXITS_REGISTER = new CodeMsg(500223, "手机号已注册，请直接登录！");
     public static CodeMsg USER_FREQUENTLY_REGISTERCODE= new CodeMsg(500224, "获取验证码过于频繁，请5分钟后再获取验证码！");
     public static CodeMsg USER_FREQUENTLY_REGSTER= new CodeMsg(500225, "注册过于频繁，请1分钟后再注册");
+    public static CodeMsg USER_FREQUENTLY_PASSWORD= new CodeMsg(500226, "修改密码过于频繁，请1分钟后再修改密码");
 
 
 
