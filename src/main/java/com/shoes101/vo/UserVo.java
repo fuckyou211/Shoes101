@@ -1,22 +1,21 @@
-package com.shoes101.pojo;
+package com.shoes101.vo;
+import javax.validation.constraints.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.io.Serializable;
 
-@Entity(name = "user")
-public class User implements Serializable {
-    @Id
-    @GeneratedValue
+public class UserVo {
+
     private Integer userid;
 
+    @NotNull(message="名字不能为空！")
     private String username;
 
+    @NotNull(message="密码不能为空！")
     private String password;
 
+    @NotNull(message="手机号码不能为空！")
     private String phone;
 
+    @NotNull(message="性别不能为空！")
     private String gender;
 
     private String headpic;
@@ -109,6 +108,6 @@ public class User implements Serializable {
         return sb.toString();
     }
 
-    public User() {
+    public UserVo() {
     }
 }

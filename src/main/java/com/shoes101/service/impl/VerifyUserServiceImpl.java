@@ -15,6 +15,7 @@ import com.shoes101.util.SMSMethodUtils;
 import com.shoes101.util.UUIDUtils;
 import com.shoes101.vo.LoginCodeVo;
 import com.shoes101.vo.LoginVo;
+import com.shoes101.vo.UserVo;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -207,11 +208,11 @@ public class VerifyUserServiceImpl implements VerifyUserService {
 
     @Override
     @SmsLimit(seconds=60,maxCount=5,method = "register")
-    public String register(HttpServletResponse response, User user,String code) {
-        if(user == null) {
+    public String register(HttpServletResponse response, UserVo userVo, String code) {
+        if(userVo == null) {
             throw new GlobalException(CodeMsg.REQUEST_ILLEGAL);
         }
-        String mobile = user.getPhone();
+        String mobile = userVo.getPhone();
         //判断手机号是否存在
         User RDuser =getByMobile(mobile);
         if(RDuser != null) {
@@ -228,7 +229,13 @@ public class VerifyUserServiceImpl implements VerifyUserService {
         if(!rdcode.equals(code)) {
             throw new GlobalException(CodeMsg.USER_CODE_ERROR);
         }
+        User user=new User();
         user.setCold(0);
+        user.setUsername(userVo.getUsername());
+        user.setPassword(user.getPaypassword());
+        user.setGender(userVo.getGender());
+        user.setPhone(userVo.getPhone());
+
         logger.info("user:"+JSONObject.toJSONString(user));
         userMapper.insert(user);
         return "注册成功！";

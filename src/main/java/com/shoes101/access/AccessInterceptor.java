@@ -36,13 +36,13 @@ public class AccessInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		if(handler instanceof HandlerMethod) {
 			HandlerMethod hm = (HandlerMethod)handler;
+			User user = getUser(request, response);
+			UserContext.setUser(user);
 			AccessLimit accessLimit = hm.getMethodAnnotation(AccessLimit.class);
 			if(accessLimit == null) {
 				logger.info("AccessLimit 未拦截！");
 				return true;
 			}
-			User user = getUser(request, response);
-			UserContext.setUser(user);
 			logger.info("AccessLimit 拦截成功！");
 			int seconds = accessLimit.seconds();
 			int maxCount = accessLimit.maxCount();

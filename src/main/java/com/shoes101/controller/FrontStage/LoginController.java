@@ -1,11 +1,11 @@
 package com.shoes101.controller.FrontStage;
 
 
-import com.shoes101.pojo.User;
 import com.shoes101.result.Result;
 import com.shoes101.service.VerifyUserService;
 import com.shoes101.vo.LoginCodeVo;
 import com.shoes101.vo.LoginVo;
+import com.shoes101.vo.UserVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,12 +94,12 @@ public class LoginController {
     /**
      * 用户短信注册接口
      * @param response
-     * @param User 封装类 传的数据命名 按bean中变量名字命名
+     * @param UserVo 封装类 传的数据命名 按bean中变量名字命名
      * @return
      */
     @RequestMapping("/do_Regiser")
     @ResponseBody
-    public Result<String> doRegister(HttpServletResponse response, @Valid User user,@RequestParam("code")String code) {
+    public Result<String> doRegister(HttpServletResponse response, @Valid UserVo user, @RequestParam("code")String code) {
         logger.info(user.toString());
         return Result.success(verifyUserService.register(response, user,code));
     }
