@@ -121,6 +121,27 @@
     select sum(quantity) from shoessku where shoesid=#{shoesid} and skuproperty like ${cdn}
   </select>
 
+  <select id="getShoesForRush" resultType="com.shoes101.vo.RushMVo">
+select shoes.shoesid,shoes.shoesname,(select shoessku.price from shoessku where shoes.shoesid = shoessku.shoesid GROUP BY shoes.shoesid) AS price,
+(select sum(shoessku.quantity) from shoessku where shoes.shoesid = shoessku.shoesid) AS shoessku,
+(SELECT picaddress from shoespic where shoes.shoesid = shoespic.shoesid GROUP BY shoesid) AS shoespic
+from shoes
+,shoessku
+,shoespic
+where shoessku.quantity > 0 GROUP BY shoesid
+  </select>
+<!---->
+  <select id="getShoesskuForRush" resultType="com.shoes101.vo.ShoesskuAndPropvnameVo">
+    select * from shoessku where shoesid=#{shoesid}
+  </select>
+
+  <select id="getCountOfShoes" resultType="java.lang.Integer">
+    select count(shoesid) from shoessku where shoesid=#{shoesid}
+  </select>
+
+  <insert id="sendInRushsku">
+    insert into rushsku(quantity,shoesid,skuid) values (#{quantity},#{shoesid},#{skuid})
+  </insert>
   <!--<select id="calQtyWithoutSize" resultType="java.lang.Integer">-->
     <!--select sum(quantity) from shoessku where shoesid=#{shoesid} and skuproperty like ${cdn}-->
   <!--</select>-->

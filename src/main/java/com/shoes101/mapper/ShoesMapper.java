@@ -4,10 +4,7 @@ import com.shoes101.pojo.Shoes;
 import com.shoes101.pojo.Shoespic;
 import com.shoes101.pojo.Shoessku;
 import com.shoes101.pojo.Splink;
-import com.shoes101.vo.CatalognameAndParentVo;
-import com.shoes101.vo.FDetailsVo;
-import com.shoes101.vo.FGoodsVo;
-import com.shoes101.vo.SkuIdAndQtyVo;
+import com.shoes101.vo.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Update;
@@ -84,5 +81,18 @@ public interface ShoesMapper {
 
     //少一个条件时的库存
     int calQtyWithoutOne(@Param("shoesid") Integer shoseid,@Param("cdn") String cdn);
+
+    //获取抢购用所有鞋类
+    public List<RushMVo> getShoesForRush();
+
+    //获取选取鞋类的所有库存
+    public List<ShoesskuAndPropvnameVo> getShoesskuForRush(@Param("shoesid") int shoesid);
+
+    //根据shoesid获取shoessku里的相关库存数量
+    int getCountOfShoes(@Param("shoesid") int shoesid);
+
+    //将库存quantity shoesid skuid 存入到rushsku表中
+    int sendInRushsku(@Param("quantity") int quantity,@Param("shoesid") int shoesid,@Param("skuid") int skuid);
+
 
 }

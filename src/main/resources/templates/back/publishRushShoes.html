@@ -79,7 +79,7 @@
                                                 </tr>
                                                 </thead>
                                                 <tbody >
-                                                <tr v-for="(item, index) in lists.GoodsList">
+                                                <tr v-for="(item, index) in skulist.rushlist">
                                                     <td><label class="mylabel">{{index+1}}</label></td>
                                                     <td>
                                                         <div class="ibox">
@@ -89,11 +89,11 @@
                                                         </div>
                                                     </td>
                                                     <td><label class="mylabel">{{item.shoesname}}</label></td>
-                                                    <td><label class="mylabel">{{getquantity(index)}}</label></td>
+                                                    <td><label class="mylabel">{{item.shoessku}}</label></td>
                                                     <td>
                                                         <label class="mylabel">
                                                             <div class="radio radio-info">
-                                                                <input :id="'singleRadio'+index" type="radio" name="isyou" value="0" >
+                                                                <input :id="'singleRadio'+index" type="radio" name="isyou" :value="index" >
                                                                 <label :for="'singleRadio'+index">设为抢购商品
                                                                 </label>
                                                             </div>
@@ -112,48 +112,47 @@
                                 </div>
                             </div>
                             <div id="tab-2" class="tab-pane">
-                                <div class="panel-body">
-                                    <fieldset class="form-horizontal" style="margin-top: 15px;">
+                                <div class="panel-body" id="editrush">
+                                    <fieldset class="form-horizontal" style="margin-top: 15px;" >
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">抢购价格:</label>
                                             <div class="col-sm-5">
-                                                <input type="text" class="form-control" style="display:inline-block;" v-model="item.saleprice" />
-                                                <i> *原价：¥{{item.oldprice}}</i>
+                                                <input type="text" class="form-control-price" style="display:inline-block;"  v-model.number="inputprice" placeholder="请输入价格"/>
+                                                <i> *原价：{{price}}</i>  &nbsp&nbsp<label style="color:red"  v-show="overprice">不能超过原价!</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">抢购数量:</label>
                                             <div class="col-sm-5">
-                                                <input type="number" class="form-control" style="display:inline-block;" v-model="item.salecount" />
-                                                <i> *总库存：{{item.count}}件</i>
+                                                <input type="number" class="form-control-quantity" style="display:inline-block;" v-model.number="inputshoessku" placeholder="请输入库存"/>
+                                                <i> *总库存：{{shoessku}}件</i> &nbsp&nbsp<label style="color:red"  v-show="overshoessku">数量大于库存!</label>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">抢购开始时间:</label>
                                             <div class="col-sm-5">
-                                                <input class="form-control" type="datetime-local" />
+                                                <input class="form-control" type="datetime-local" name="starttime"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">抢购结束时间:</label>
                                             <div class="col-sm-5">
-                                                <input class="form-control" type="datetime-local" />
+                                                <input class="form-control" type="datetime-local" name="endtime"/>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">
-                                                <button type="button" class="btn btn-primary">确认添加</button>
+                                                <button type="button" value="3" class="btn btn-primary" href="javascript:void(0);" onclick="sendInRushbuy(this)">确认添加</button>
                                             </label>
-
                                         </div>
                                     </fieldset>
 
                                 </div>
                             </div>
                             <div id="tab-3" class="tab-pane">
-                                <div class="panel-body">
+                                <div class="panel-body" id="editsku">
                                     <div class="form-group col-md-12" style="margin-top: 18px;">
-                                        <label>总库存:<label id="shoesSum"></label></label>
+                                        <label>总库存:{{shoessku}}<label id="shoesSum"></label></label> &nbsp&nbsp<label style="color:red"  v-show="contotalsku">填写的总数已经大于提供的库存，请重新填写！</label>
                                     </div>
                                     <div class="ibox-content">
                                         <form id="quantityForm" name="">
@@ -162,44 +161,43 @@
                                                     <tbody>
                                                     <tr>
                                                         <td>库存</td>
-                                                        <td v-for="item in sizes" >
-                                                            <label class="col-sm-5">
-                                                                {{item.propertyvalue}}
-                                                            </label>
-                                                        </td>
+                                                        <td>数量</td>
+                                                        <td>填写库存</td>
                                                     </tr>
-                                                    <tr v-for="(color, index) in colors">
-                                                        <td>{{color.propertyvalue}}</td>
-                                                        <td v-for="item in quantity">
-
-                                                            <input  type="number" min="0" class="form-control col-sm-2" :value="item[index].quantity"
-                                                                    :skuid="item[index].skuid" oninput="getSum()" name="skuquantity" />
-                                                        </td>
+                                                    <tr v-for="(item,index) in rushskulist">
+                                                        <td>{{item.color}},{{item.size}}码</td> &nbsp&nbsp<label style="color:red"  v-show="consku">填写的数量大于该颜色尺码所对应的库存!</label>
+                                                        <td>{{item.quantity}}</td>
+                                                        <td><input  id="" type="number" min="0" class="form-control col-sm-2"  :name="'sku['+index+']'" v-model="cal[index]" @input="watchinput(index)" /></td>
                                                     </tr>
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal inmodal fade" id="toEditQuantity" tabindex="-1" role="dialog"  aria-hidden="true" data-backdrop="static" data-keyboard="false">
-                                <div class="modal-dialog modal-sm">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <a type="button" class="close" href="../shoes/toshoes"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>
-                                            <h4 class="modal-title">添加成功</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <p><strong>立即填写库存......</strong>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <!--<button type="button" class="btn btn-white" data-dismiss="modal">取消</button>-->
-                                            <button type="button" class="btn btn-primary" onclick="addShoesDone()">确定</button>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">
+                                                <button type="button" value="3" class="btn btn-primary" href="javascript:void(0);" onclick="sendInRush()">确认</button>
+                                            </label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            <!--<div class="modal inmodal fade" id="toEditQuantity" tabindex="-1" role="dialog"  aria-hidden="true" data-backdrop="static" data-keyboard="false">-->
+                                <!--<div class="modal-dialog modal-sm">-->
+                                    <!--<div class="modal-content">-->
+                                        <!--<div class="modal-header">-->
+                                            <!--<a type="button" class="close" href="../shoes/toshoes"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></a>-->
+                                            <!--<h4 class="modal-title">添加成功</h4>-->
+                                        <!--</div>-->
+                                        <!--<div class="modal-body">-->
+                                            <!--<p><strong>立即填写库存......</strong>-->
+                                        <!--</div>-->
+                                        <!--<div class="modal-footer">-->
+                                            <!--&lt;!&ndash;<button type="button" class="btn btn-white" data-dismiss="modal">取消</button>&ndash;&gt;-->
+                                            <!--<button type="button" class="btn btn-primary" onclick="addShoesDone()">确定</button>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</div>-->
                         </div>
                     </div>
 
@@ -234,6 +232,15 @@
 
 <script>
 
+    $(document).ready(function(data){
+        $('[data-toggle="tooltip"]').tooltip();
+        var skulist = "[[${rushlist}]]";
+        skulist = skulist.replace(/&quot;/g,"\"");
+        loadShoes(JSON.parse(skulist));
+        console.log(JSON.parse(skulist));
+
+    });
+
     $("a[data-toggle='tab']").click(function(obj){
         var tid = $(this).attr("href");
         console.log("tid= ");
@@ -242,13 +249,284 @@
         $(".tab-pane").removeClass("active");
         $("#"+tid).addClass("active");
     })
-    //下一步
+
+    //读取抢购列表-第一步
+    function loadShoes(data) {
+        skulist.skulist = data;
+        console.log(skulist.skulist);
+        console.log(skulist.skulist.rushlist[0]);
+    }
+
+    //读取库存列表到vue-第三步
+    function loadRushSku(data,sku){
+
+        rushsku.rushskulist = data.rushskulist;
+        //console.log("第二次数据是:" + JSON.data);
+        rushsku.shoessku = sku;
+       // console.log(data.shoessku);
+       //  rushsku.color = data.rushskulist.color;
+       //  rushsku.size = data.rushskulist.size;
+        console.log(rushsku.rushskulist,sku);
+
+    }
+
+    //跳转到第二步
     function nextTab(obj){
+        var index = $("input:radio[name='isyou']:checked").val();
+        //console.log(pickshoessku);
+        console.log(index);
         var tabindex=$(obj).attr("value");
         $("#aTab_"+tabindex).trigger("click");
+        var price = skulist.skulist.rushlist[index].price;
+        var shoessku = skulist.skulist.rushlist[index].shoessku;
+        var shoesid = skulist.skulist.rushlist[index].shoesid;
+        console.log(skulist.skulist.rushlist[index].price);
+        loadSkuAndPrice(price,shoessku,shoesid);
         //$(this).attr("id");
     }
+
+    //跳转写库存页面-第三步
+    function thirdTab(obj,data)
+    {
+       var tabindex=$(obj).attr("value");
+        $("#aTab_"+tabindex).trigger("click");
+        var rushskulist = JSON.parse(data);
+        //console.log(rushskulist);
+        var sku = skuandprice.inputshoessku;
+        //console.log("数据是:" + rushskulist);
+        loadRushSku(JSON.parse(data),sku);
+        //skulist = skulist.replace(/&quot;/g,"\"");
+       // console.log(JSON.parse(skulist.data));
+        //skulist = skulist.replace(/&quot;/g,"\"");
+        //loadShoes(JSON.parse(skulist));
+
+    }
+
+    //读取到下一步-填写库存 传递shoesid
+    function loadSkuAndPrice(price,shoessku,shoesid)
+    {
+        skuandprice.shoesid = shoesid;
+        skuandprice.price = price;
+        skuandprice.shoessku = shoessku;
+        console.log(skuandprice.price,skuandprice.shoessku,skuandprice.shoesid);
+    }
+
+    //传入到rushbuy数据表中
+    function sendInRushbuy(obj){//.replace(/&quot;/g,"\"")
+        var starttime = $("input[name='starttime']").val().replace("T"," ");
+        var endtime = $("input[name='endtime']").val().replace("T"," ");
+        console.log(starttime);
+        if(starttime==""||endtime==""||skuandprice.inputprice==""||skuandprice.inputshoessku=="")
+        {
+            alert("存在未填写的信息！");
+            return;
+        }
+        $.post({
+            url:"../rush/confirmRushAjax",
+            type:'post',
+            dataType:'json',
+            data:{"shoesid":skuandprice.shoesid,"price":skuandprice.inputprice,"shoessku":skuandprice.inputshoessku,
+            "starttime":starttime,"endtime":endtime},
+            //传入成功后 获取库存并且返回
+            success:function(data) {
+                console.log("传入成功");
+                console.log(data.data);
+                thirdTab(obj,data.data);
+
+            },
+            fail: function(err){
+                console.log(err)
+            }
+        });
+
+    }
+
+    //第三步填写完库存 存入数据rushsku
+    function sendInRush(){
+        var skuidlist = new Array();
+        for(var i = 0;i < rushsku.rushskulist.length;i++)
+        {
+            skuidlist[i] = rushsku.rushskulist[i].skuid;
+            console.log(skuidlist[i]);
+        }
+        console.log(rushsku.rushskulist.length);
+        // var test = rushsku.rushskulist[0].skuid;
+        var shoesid = rushsku.rushskulist[0].shoesid;
+        var quantitylist = rushsku.cal;
+        // console.log(skuidlist);
+        // console.log(shoesid);
+        // console.log(quantitylist);
+        $.post({
+            url:"../rush/sendInRushAjax",
+            type:'post',
+            dataType:'json',
+            //传入list所需条件 traditional
+            traditional:true,
+            data:{"skuidlist":skuidlist,"shoesid":shoesid,"quantitylist":quantitylist},
+            //传入成功后 获取库存并且返回
+            success:function(data) {
+                console.log("传入成功");
+                console.log(data);
+                alert("传入成功");
+                window.location.href="../rush/torush";
+
+            },
+            fail: function(err){
+                console.log(err)
+            }
+        });
+    }
+
+    /**
+     * Vue
+     */
+
+    //第一步
+    var skulist = new Vue({
+            el:"#shoesInfo",
+            data:{
+                skulist:[],
+            },
+            methods:{
+                //获取图片
+                getPicUrl: function(index){
+                    var url = "../" + this.skulist.rushlist[index].shoespic;
+                    console.log(url);
+                    return url;
+                }
+
+            },
+
+    });
+    //第二步
+    var skuandprice = new Vue({
+        el:"#editrush",
+        data:{
+            shoesid:0,
+            price:0,
+            shoessku:0,
+            inputprice:"",
+            inputshoessku:"",
+            overprice:false,
+            overshoessku:false,
+            //不设日期限制了 太麻烦了 可以实现 老子不干了
+            //date:Date()
+        },
+        watch:{
+            //监听填写的抢购价格和抢购数量
+            inputprice:{
+                handler(){
+                    // var textprice = $("input:radio[name='isyou']:checked").val();
+                    if(this.inputprice > this.price)
+                    {
+                        this.overprice = true;
+                       // this.changeprice(this.overprice);
+                        console.log(this.overprice);
+                        //overprice = true;
+                    }
+                    else
+                    {
+                        this.overprice = false;
+                    }
+                }
+            },
+            inputshoessku:{
+                handler(){
+                    // var textprice = $("input:radio[name='isyou']:checked").val();
+                    if(this.inputshoessku > this.shoessku)
+                    {
+                        this.overshoessku = true;
+                        // this.changeprice(this.overprice);
+                        console.log(this.overshoessku);
+                        //overprice = true;
+                    }
+                    else
+                    {
+                        this.overshoessku = false;
+                    }
+                }
+            }
+
+        },
+        methods:{
+
+
+        }
+    });
+    //第三步
+    var rushsku = new Vue({
+        el:"#editsku",
+        data:{
+            rushskulist:[],
+            inputsku:"",
+            shoessku:0,
+            totalinputsku:0,
+            cal:[],
+            consku:false,
+            contotalsku:false,
+            totalsku:0,
+        },
+        methods:{
+            watchinput:function(index){
+                // console.log("index:"+ index);
+                // console.log("number:" + this.cal[index]);
+                // console.log(this.rushskulist[index].quantity);
+                // console.log(this.consku);
+                // console.log(this.contotalsku);
+                //console.log("sku:" + this.totalsku);
+                var sum = 0;
+                // console.log("sum:"+ sum);
+                // console.log("length:"+ this.cal.length);
+                for(var i = 0;i < this.cal.length;i++)
+                {
+                    if(this.cal[index] != "")
+                    {
+
+                        sum = sum + parseInt(this.cal[i]);
+                        // console.log("cal:"+ sum);
+                    }
+
+                }
+                // console.log("cal:"+ sum);
+                // for(var i = 0;i < this.cal.length;i++)
+                // {
+                //     console.log(this.cal[i]);
+                // }
+                // console.log("sku:"+ sum);
+                if(sum > this.shoessku)
+                {
+                    this.contotalsku = true;
+                    return;
+                }
+                else
+                {
+                    this.contotalsku = false;
+                }
+                // console.log(this.totalsku);
+                if(this.cal[index] > this.rushskulist[index].quantity)
+                {
+                    this.consku = true;
+                    return;
+                }
+                else
+                {
+                    this.consku = false;
+                    return;
+                }
+                // if(value > this.rushskulist[index].quantity)
+                //     alert("超出最大库存!");
+                //this.cal[index].value = value;
+            }
+        }
+
+
+    })
+
+
+
 </script>
+
+
 
 </body>
 </html>
