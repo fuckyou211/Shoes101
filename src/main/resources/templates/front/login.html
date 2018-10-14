@@ -293,7 +293,7 @@
                             password:passworda,
                             phone:$("#phone").val(),
                             gender:$("input[name='gender']:checked").val(),
-							duanXinYanZheng:$("#yzm").val()
+							code:$("#yzm").val()
                         },
                         success:function(result){
                             //eval函数解析json数据
@@ -374,8 +374,8 @@
                             console.log(result.data);
                             if (result.code==0)
 							{
-							    alert("成功"+passwordb);
-                                // self.location=document.referrer;
+							    // alert("成功"+passwordb);
+                                self.location=document.referrer;
 							}
                             if (result.code==500212||result.code==500213||result.code==500214||result.code==500216) {
 								$(".e1").html("<span style='color: red;'>"+result.msg+"</span>");
