@@ -15,4 +15,16 @@ public interface RushMService {
     public String sendInRushsku(List<Integer> skuidlist,int shoesid,
                              List<Integer> quantitylist);
 
+    //抢购管理-查看所有抢购
+    public String getAllRush();
+
+    //抢购管理-删除抢购
+    public String deleteRush(int rushbuyid);
+
+    //
+    public String updateShoesskuForRush(int shoesid, int price, int shoessku, Date starttime, Date endtime,int rushbuyid);
+
+    public String sendInUpdateRushsku(List<Integer> skuidlist,int shoesid,
+                                List<Integer> quantitylist,int rushbuyid);
+
 }

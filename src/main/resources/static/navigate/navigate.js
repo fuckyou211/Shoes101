@@ -33,7 +33,7 @@ Vue.component('navigate',{
         '                        <a href="layouts.html"><i class="fa fa-pencil-square-o"></i> <span class="nav-label">订单管理</span><span class="label label-warning pull-right">10</span></a>\n' +
         '                    </li>\n' +
         '                    <li>\n' +
-        '                        <a href="../../rush/torush"><i class="fa fa-rocket"></i> <span class="nav-label">抢购管理 </span></a>\n' +
+        '                        <a href="../../rush/torushManager"><i class="fa fa-rocket"></i> <span class="nav-label">抢购管理 </span></a>\n' +
         '                    </li>\n' +
         '                   \n' +
         '                    <li>\n' +
