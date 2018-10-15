@@ -4,7 +4,12 @@
  *  在这里封装的方法全部以 $_ 开头
  *
  * */
-
+function dumpToPayPage() {
+    window.location.href ="/static-front/html/shoes-pay.htm";
+}
+$(function () {
+    console.log(" commom.js 加载成功！")
+});
 /**
  *  根据类名获取对象
  *
