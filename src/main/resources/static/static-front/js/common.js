@@ -174,3 +174,10 @@ function isLogin() {
     // 如果有<b> 标签就表示已经登录
     return login_tip.children("b:first-child").length === 1 ? true:false;
 }
+// 获取url参数
+function getQueryPathStringByName(name) {
+    var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+    var r = window.location.search.substr(1).match(reg);
+    if(r != null) return unescape(r[2]);
+    return null;
+};

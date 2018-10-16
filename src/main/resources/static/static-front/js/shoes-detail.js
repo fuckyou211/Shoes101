@@ -4,6 +4,68 @@
 
 
 /**
+ *  获取商品详情，根据id
+ */
+function getShoesDetail() {
+    // 获取请求的路径上的 shoesId
+    let shoesId = getQueryPathStringByName("shoesId");
+
+    console.log("鞋子id:"+shoesId);
+
+    // 发送请求请求数据
+    $.ajax({
+        url: "/static/detail/"+shoesId,
+        type: "GET",
+        success: function(data){
+            // 如果请求成功的话，开始渲染页面
+            if(data.code == 0){
+                // 渲染
+                renderDetailPage(data.data);
+
+            }else{
+                alert(data.msg);
+            }
+
+        },
+        error: function () {
+            alert("页面加载失败！");
+        }
+
+    });
+
+}
+
+/**
+ * 根据数据渲染页面
+ * @param data
+ */
+function renderDetailPage(data) {
+
+    console.log(data);
+
+    data = JSON.parse(data);
+
+    let aSizeList = data.sizelist; // 鞋子号码集合
+    let aColorPicAndColor = data.colorpicandcolor; // 鞋子颜色和图片的集合
+    let details = eval(data.details); // 鞋子的详情
+
+
+
+    // 渲染，
+    $("#shoes-id").html(details.shoesid);
+    $("#shoes-price").html(details.price);
+    $("#ticket-price").html(details.ticketprice);
+    $("#shoes-name").html(details.shoesname);
+    $("#detail-shoes-total").html(details.quantity);
+    let str = details.shoesdetails;
+
+    let newStr = str.replace("\\\r\\\n","<br/>");
+    $("#shoes-details").html(newStr.substr(1,newStr.length-2));
+
+
+}
+
+/**
  * 大图转换处理
  * @param imgUrl
  * @constructor
