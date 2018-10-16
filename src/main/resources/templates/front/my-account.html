@@ -1,5 +1,5 @@
 <!doctype html>
-<html class="no-js" lang="">
+<html class="no-js" lang="" xmlns:th="http://www.thymeleaf.org">
 
 <head>
 	<meta charset="utf-8">
@@ -24,6 +24,10 @@
 	<link rel="stylesheet" href="../static-front/css/main.css">
 	<link rel="stylesheet" href="../static-front/css/style.css">
 	<link rel="stylesheet" href="../static-front/css/responsive.css">
+	<link rel="stylesheet" href="../static-front/css/sitelogo.css">
+	<link rel="stylesheet" href="../static-front/css/cropper.min.css">
+
+	<script src="../static-front/js/city.js"></script>
 
 	<script src="../static-front/js/modernizr-2.8.3.min.js"></script>
 	<style>
@@ -38,7 +42,7 @@
 		.nav-pills>li.active>a,
 		.nav-pills>li.active>a:focus,
 		.nav-pills>li.active>a:hover {
-			background-color: #F25862
+			background-color: #F25862 !important;
 		}
 
 		.wodedingdan h3 {
@@ -51,6 +55,27 @@
 		form .list-style .form-name {
 			padding-top: 10px;
 		}
+		.lijifukuan button {
+			float: right !important;
+		}
+		tbody tr td a img{
+			width: 80px;
+			height: 80px;
+		}
+		tbody tr td button{
+			box-sizing: border-box;
+			display: inline-block;
+			height: 28px;
+			line-height: 26px;
+			padding: 0 12px;
+			border-radius: 3px;
+			font-size: 12px;
+			cursor: pointer;
+			text-align: center;
+			background-color: #F35E62;
+			color: #fff;
+			border: 1px solid #F35E62;
+		}
 	</style>
 </head>
 <body>
@@ -62,7 +87,7 @@
 		<div class="row">
 			<div class="col-md-3">
 				<div class="location">
-					<a href="#">这里写登录人的名字</a>
+					<a href="#" th:text="${acaac}">这里写登录人的名字</a>
 				</div>
 			</div>
 			<div class="col-md-9">
@@ -91,12 +116,9 @@
 									<li class="aaaaa">
 										<a href="#tuikuan" aria-controls="profile" role="tab" data-toggle="tab">退款/售后</a>
 									</li>
-
 								</ul>
-
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
@@ -104,9 +126,7 @@
 		<div class="row">
 			<div class="col-sm-3">
 				<div class="product-sidebar">
-
 					<div class="single-sidebar">
-
 						<div class="single-sidebar-title">
 							<h3>全部功能</h3>
 						</div>
@@ -134,11 +154,9 @@
 				</div>
 			</div>
 			<div class="col-sm-9">
-
 				<div class="tab-content">
 					<div role="tabpanel" class="tab-pane fade " id="home">
 						<div class="my-account-accordion">
-
 							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 								<div class="panel panel-default">
 									<div class="panel-heading" role="tab" id="headingOne">
@@ -151,43 +169,49 @@
 									</div>
 									<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
 										<div class="panel-body">
-											<div class="row">
-												<div class="col-sm-12">
-													<div class="account-title">
-														<h4>Here are the orders you've placed since your account was created.</h4>
-													</div>
-													<div class="order-history">
-														<p>You have not placed any orders.</p>
-													</div>
+											<div class="wishlist-content">
+												<div class="table-responsive">
+													<table class="table table-bordered table-hover">
+														<thead>
+														<tr>
+															<th>图片</th>
+															<th>名称</th>
+															<th>类型</th>
+															<th>交易状态</th>
+															<th>价格</th>
+															<th>操作</th>
+														</tr>
+														</thead>
+														<tbody>
+														<tr>
+															<td>
+																<a href="#" class="text-center"><img src="img/1-2.png" /> </a>
+															</td>
+															<td>
+																<a href="single-product.html">More-Or-Less</a>
+															</td>
+															<td>Product 14</td>
+															<td>
+																<p>已收货</p>
+																<br />
+																<!--<a href="#">退款</a>-->
+															</td>
+															<td class="unit-price">$100.00</td>
+															<td>
+																<div class="queRenShouHuo">
+																	<button type="button" data-toggle="tooltip" title="亲，需要付款才能发货哦" style="margin-right: 10px;"> 联系客服</button>
+																</div>
+															</td>
+														</tr>
+
+														</tbody>
+													</table>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default">
-									<div class="panel-heading" role="tab" id="headingTwo">
-										<h4 class="panel-title">
-											<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-												<i class="fa fa-file-o"></i>
-												信用卡丢失
-											</a>
-										</h4>
-									</div>
-									<div id="collapseTwo" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingTwo">
-										<div class="panel-body">
-											<div class="row">
-												<div class="col-sm-12">
-													<div class="account-title">
-														<h4>Credit slips you have received after canceled orders. </h4>
-													</div>
-													<div class="credit-slids">
-														<p>You have not received any credit slips.</p>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+
 								<div class="panel panel-default">
 									<div class="panel-heading" role="tab" id="headingThree">
 										<h4 class="panel-title">
@@ -202,27 +226,23 @@
 											<div class="row">
 												<div class="col-md-12">
 													<div class="my-address">
-														<p>Please configure your default billing and delivery addresses when placing an order. You may also add additional addresses, which can be useful for sending gifts or receiving an order at your office.</p>
+														<p>请在下订单时配置您的默认结算和送货地址。您还可以添加其他地址，这对于在您的办公室发送礼物或接收订单非常有用。</p>
 														<div class="account-title">
-															<h4>Your addresses are listed below. </h4>
+															<h4>您的地址如下所示 </h4>
 														</div>
-														<p>Be sure to update your personal information if it has changed.</p>
+														<p>如果您的个人信息发生了变化，请务必更新。</p>
 														<div class="row">
 															<div class="col-md-6 col-sm-12">
 																<div class="account-address">
 																	<ul>
-																		<li class="address-menu-title">My address</li>
-																		<li>Hridoy roy</li>
-																		<li>Expert</li>
-																		<li>Bristol</li>
-																		<li>Manchester1</li>
-																		<li>Bristol</li>
-																		<li>United Kingdom</li>
-																		<li>2334234</li>
-																		<li>454565768678</li>
+																		<li class="address-menu-title">我的地址</li>
+
+																		<li>地址：<span>广东省广州市海珠区新世界天地f5栋100层</span></li>
+																		<li>手机：<span>13412345678</span></li>
+																		<li>姓名：<span>莉君氢</span></li>
 																		<li>
-																			<button> update </button>
-																			<button> submit </button>
+																			<button> 更新 </button>
+																			<button> 提交 </button>
 																		</li>
 																	</ul>
 																</div>
@@ -254,72 +274,31 @@
 														<div class="list-style">
 															<div class="account-title">
 																<h4>如果您的个人信息发生了变化，请务必更新。</h4>
-																<h5><font color="red">注意：带<em>*</em>&nbsp;可以选择不填</font></h5>
 															</div>
 															<div class="form-name">
 																<label>姓名  </label>
 																<input type="text" placeholder="请填写你的姓名">
 															</div>
-															<!--<div class="form-name">
-                                                        <label>Last Name <em>*</em> </label>
-                                                        <input type="text" placeholder="Last Name">
-                                                    </div>-->
 															<div class="form-name">
-																<label>公司 <em>*</em></label>
+																<label>公司 </label>
 																<input type="text" placeholder="请填写你的公司名称">
 															</div>
-															<div class="form-name">
-																<label>地址 &nbsp;1  </label>
-																<input type="text" placeholder="请填写常住地址">
-															</div>
-															<div class="form-name">
-																<label>地址 &nbsp;2 <em>*</em> </label>
-																<input type="text" placeholder="请填写常住地址">
-															</div>
-															<!--<div class="form-name">
-                                                        <label>城市 <em>*</em> </label>
-                                                        <input type="text" placeholder="请填写你所在城市">
-                                                    </div>-->
+
 															<div class="form-name">
 																<label>邮政编码  </label>
 																<input type="text" placeholder="请填写你的邮政编码">
 															</div>
 															<div class="form-name">
-																<label> 国家 </label>
-																<select>
-																	<option value="1">---请选择---</option>
-																	<option value="1">Afghanistan</option>
-																	<option value="1">Algeria</option>
-																	<option value="1">American Samoa</option>
-																	<option value="1">Australia</option>
-																	<option value="1">Bangladesh</option>
-																	<option value="1">Belgium</option>
-																	<option value="1">Bosnia and Herzegovina</option>
-																	<option value="1">Chile</option>
-																	<option value="1">China</option>
-																	<option value="1">Egypt</option>
-																	<option value="1">Finland</option>
-																	<option value="1">France</option>
-																	<option value="1">United State</option>
-																</select>
+																<label> 省份 </label>
+																<select id="province" value=""></select>
 															</div>
 															<div class="form-name">
-																<label> 省份 </label>
-																<select>
-																	<option value="1">---请选择---</option>
-																	<option value="1">Arizona</option>
-																	<option value="1">Armed Forces Africa</option>
-																	<option value="1">California</option>
-																	<option value="1">Florida</option>
-																	<option value="1">Indiana</option>
-																	<option value="1">Marshall Islands</option>
-																	<option value="1">Minnesota</option>
-																	<option value="1">New Mexico</option>
-																	<option value="1">Utah</option>
-																	<option value="1">Virgin Islands</option>
-																	<option value="1">West Virginia</option>
-																	<option value="1">Wyoming</option>
-																</select>
+																<label> 城市 </label>
+																<select id="city"></select>
+															</div>
+															<div class="form-name">
+																<label>详细地址  </label>
+																<input type="text" placeholder="请填写常住地址">
 															</div>
 															<div class="save-button">
 																<button>保存</button>
@@ -331,32 +310,7 @@
 										</div>
 									</div>
 								</div>
-								<div class="panel panel-default">
-									<div class="panel-heading" role="tab" id="headingFive">
-										<h4 class="panel-title">
-											<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFive" aria-expanded="false" aria-controls="collapseFive">
-												<i class="fa fa-heart"></i>
-												愿望清单
-											</a>
-										</h4>
-									</div>
-									<div id="collapseFive" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingFive">
-										<div class="panel-body">
-											<div class="col-sm-12">
-												<div class="wishlist-container">
-													<h3>New Wishlist</h3>
-													<form action="#">
-														<label>Name</label>
-														<input type="text">
-														<div class="save-button">
-															<button type="submit">save</button>
-														</div>
-													</form>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+
 							</div>
 							<div class="account-button">
 								<div class="back-btn">
@@ -379,64 +333,34 @@
 									<tr>
 										<th>图片</th>
 										<th>名称</th>
-										<th>Model</th>
-										<th>Stock</th>
+										<th>类型</th>
+										<th>交易状态</th>
 										<th>价格</th>
-										<th>Action</th>
+										<th>操作</th>
 									</tr>
 									</thead>
 									<tbody>
 									<tr>
 										<td>
-											<a href="#" class="text-center"><img src="img/1-2.png" alt=""> </a>
+											<a href="#" class="text-center"><img src="img/1-2.png" /> </a>
 										</td>
 										<td>
 											<a href="single-product.html">More-Or-Less</a>
 										</td>
 										<td>Product 14</td>
-										<td>In Stock</td>
+										<td>
+											待付款
+											<a href="#">退款</a>
+										</td>
 										<td class="unit-price">$100.00</td>
 										<td>
-											<div class="wishlist-actions">
-												<button type="button" data-toggle="tooltip" title="Add to Cart"> <i class="fa fa-shopping-cart"></i> </button>
-												<button type="button" data-toggle="tooltip" title="Remove"> <i class="fa fa-times"></i> </button>
+											<div class="lijifukuan">
+												<button type="button" data-toggle="tooltip" title="放弃购买"> <i class="fa fa-times"></i> </button>
+												<button type="button" data-toggle="tooltip" title="亲，需要付款才能发货哦" style="margin-right: 10px;"> 立即付款</button>
 											</div>
 										</td>
 									</tr>
-									<tr>
-										<td>
-											<a href="#" class="text-center"><img src="img/2-2.png" alt=""> </a>
-										</td>
-										<td>
-											<a href="single-product.html">Aliquam Consequat</a>
-										</td>
-										<td>Product 14</td>
-										<td>In Stock</td>
-										<td class="unit-price">$90.00</td>
-										<td>
-											<div class="wishlist-actions">
-												<button type="button" data-toggle="tooltip" title="Add to Cart"> <i class="fa fa-shopping-cart"></i> </button>
-												<button type="button" data-toggle="tooltip" title="Remove"> <i class="fa fa-times"></i> </button>
-											</div>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<a href="#" class="text-center"><img src="img/1-2.png" alt=""> </a>
-										</td>
-										<td>
-											<a href="single-product.html">More-Or-Less</a>
-										</td>
-										<td>Product 14</td>
-										<td>In Stock</td>
-										<td class="unit-price">$100.00</td>
-										<td>
-											<div class="wishlist-actions">
-												<button type="button" data-toggle="tooltip" title="Add to Cart"> <i class="fa fa-shopping-cart"></i> </button>
-												<button type="button" data-toggle="tooltip" title="Remove"> <i class="fa fa-times"></i> </button>
-											</div>
-										</td>
-									</tr>
+
 									</tbody>
 								</table>
 							</div>
@@ -454,25 +378,30 @@
 									<tr>
 										<th>图片</th>
 										<th>名称</th>
-										<th>Model</th>
-										<th>Stock</th>
+										<th>类型</th>
+										<th>交易状态</th>
 										<th>价格</th>
-										<th>状态</th>
+										<th>操作</th>
 									</tr>
 									</thead>
 									<tbody>
 									<tr>
 										<td>
-											<a href="#" class="text-center"><img src="img/1-2.png" alt=""> </a>
+											<a href="#" class="text-center"><img src="img/1-2.png" > </a>
 										</td>
 										<td>
 											<a href="single-product.html">More-Or-Less</a>
 										</td>
 										<td>Product 14</td>
-										<td>In Stock</td>
+										<td>
+											<p>待发货</p>
+											<br />
+											<a href="#">放弃</a>
+										</td>
 										<td class="unit-price">$100.00</td>
 										<td>
-											<p>正准备发货，客官别急</p>
+											<p>商家尚未发货</p>
+											<button type="button" data-toggle="tooltip" title="提醒商家发货" style="margin-right: 10px;"> 提醒发货</button>
 										</td>
 									</tr>
 									<tr>
@@ -483,40 +412,115 @@
 											<a href="single-product.html">Aliquam Consequat</a>
 										</td>
 										<td>Product 14</td>
-										<td>In Stock</td>
+										<td>
+											<p>待发货</p>
+											<br />
+											<a href="#">退款</a>
+										</td>
 										<td class="unit-price">$90.00</td>
 										<td>
-											<p>正准备发货，客官别急</p>
+											<div>
+												<p>商家尚未发货</p>
+												<button type="button" data-toggle="tooltip" title="提醒商家发货" style="margin-right: 10px;"> 提醒发货</button>
+											</div>
 										</td>
 									</tr>
+
+									</tbody>
+								</table>
+							</div>
+							<!--<button type="submit" value="Continue" class="check-button">一键付款</button>-->
+						</div>
+					</div>
+					<div role="tabpanel" class="tab-pane fade" id="daishou">
+						<div class="wishlist-heading">
+							<h2>待收货</h2>
+						</div>
+						<div class="wishlist-content">
+							<div class="table-responsive">
+								<table class="table table-bordered table-hover">
+									<thead>
+									<tr>
+										<th>图片</th>
+										<th>名称</th>
+										<th>类型</th>
+										<th>交易状态</th>
+										<th>价格</th>
+										<th>操作</th>
+									</tr>
+									</thead>
+									<tbody>
 									<tr>
 										<td>
-											<a href="#" class="text-center"><img src="img/1-2.png" alt=""> </a>
+											<a href="#" class="text-center"><img src="img/1-2.png" /> </a>
 										</td>
 										<td>
 											<a href="single-product.html">More-Or-Less</a>
 										</td>
 										<td>Product 14</td>
-										<td>In Stock</td>
+										<td>
+											<p>待收货</p>
+											<br />
+											<a href="#">退款</a>
+										</td>
 										<td class="unit-price">$100.00</td>
 										<td>
-											<p>正准备发货，客官别急</p>
+											<div class="queRenShouHuo">
+												<button type="button" data-toggle="tooltip" title="亲，需要付款才能发货哦" style="margin-right: 10px;"> 确认收货</button>
+											</div>
 										</td>
 									</tr>
+
 									</tbody>
 								</table>
 							</div>
-							<button type="submit" value="Continue" class="check-button">一键付款</button>
 						</div>
 					</div>
-					<div role="tabpanel" class="tab-pane fade" id="daishou">
-						<h1>尚未查到商品</h1></div>
-					<div role="tabpanel" class="tab-pane fade" id="daiping">
-						<h1>尚未查到商品</h1></div>
 					<div role="tabpanel" class="tab-pane fade" id="tuikuan">
-						<h1>尚未查到商品</h1></div>
-					<div role="tabpanel" class="tab-pane fade" id="shouhou">
-						<h1>尚未查到商品</h1></div>
+						<div class="wishlist-heading">
+							<h2>退款/售后</h2>
+						</div>
+						<div class="wishlist-content">
+							<div class="table-responsive">
+								<table class="table table-bordered table-hover">
+									<thead>
+									<tr>
+										<th>图片</th>
+										<th>名称</th>
+										<th>类型</th>
+										<th>交易状态</th>
+										<th>价格</th>
+										<th>操作</th>
+									</tr>
+									</thead>
+									<tbody>
+									<tr>
+										<td>
+											<a href="#" class="text-center"><img src="img/1-2.png" /> </a>
+										</td>
+										<td>
+											<a href="single-product.html">More-Or-Less</a>
+										</td>
+										<td>Product 14</td>
+										<td>
+											<p>已收货/退款中</p>
+											<br />
+											<!--<a href="#">退款</a>-->
+										</td>
+										<td class="unit-price">$100.00</td>
+										<td>
+											<div class="queRenShouHuo">
+												<button type="button" data-toggle="tooltip" title="亲，需要付款才能发货哦" style="margin-right: 10px;"> 联系客服</button>
+											</div>
+										</td>
+									</tr>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
 					<div role="tabpanel" class="tab-pane fade " id="shoucang">
 						<!--<iframe style="width:300px; height:300px;" id="childframe" src="index.html"></iframe>-->
 						<div class="features-product-area">
@@ -531,12 +535,12 @@
 												</div>
 												<div class="product-img">
 													<a href="single-product.html">
-														<img src="../static-front/img/1-1.png" alt="" class="primary-img">
-														<img src="../static-front/img/2-1.png" alt="" class="secondary-img">
+														<img src="img/1-1.png" alt="" class="primary-img">
+														<img src="img/2-1.png" alt="" class="secondary-img">
 													</a>
 												</div>
 												<div class="product-name">
-													<a href="../static-front/single-product.html" title="Fusce aliquam">耐克好鞋</a>
+													<a href="single-product.html" title="Fusce aliquam">耐克好鞋</a>
 												</div>
 												<div class="price-rating">
 													<span class="old-price">$700.00</span>
@@ -545,7 +549,6 @@
 												<div class="actions">
 													<button type="submit" class="btn btn-success btn-group-sm" title="Add to cart">立即购买</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 													<button type="submit" class="btn btn-danger" title="Add to cart">取消收藏</button>
-
 
 												</div>
 											</div>
@@ -561,7 +564,7 @@
 							<div class="list-style">
 								<div class="form-name">
 									<label>原密码  </label>
-									<input class="inputc1" type="password" name="password" placeholder="请输入原密码">
+									<input class="inputc1" type="text" name="password" placeholder="请输入原密码">
 									<br />
 
 								</div>
@@ -570,14 +573,14 @@
 								</div>
 								<div class="form-name">
 									<label>新密码  </label>
-									<input class="inputc2" type="password" name="newpassword" placeholder="请输入你的密码">
+									<input class="inputc2" type="text" name="newpassword" placeholder="请输入你的密码">
 								</div>
 								<div class="form-name">
 									<p id="xinmima" class="xinmima"></p>
 								</div>
 								<div class="form-name">
 									<label>再次输入密码  </label>
-									<input class="inputc3" type="password" name="renewpassword" placeholder="请再次输入你的密码" disabled="disabled">
+									<input class="inputc3" type="text" name="renewpassword" placeholder="请再次输入你的密码" disabled="disabled">
 								</div>
 								<div class="form-name">
 									<p id="xinmimaa" class="xinmimaa"></p>
@@ -587,21 +590,28 @@
 								<a><button type="button">确认修改</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<a><button>忘记密码</button></a>
 							</div>
-						</form>
-					</div>
-					<div role="tabpanel" class="tab-pane fade" id="hongbao">...</div>
-					<div role="tabpanel" class="tab-pane fade" id="gongju">...</div>
-				</div>
 
+					</div>
+					</form>
+				</div>
+				<div role="tabpanel" class="tab-pane fade" id="hongbao">...</div>
+				<div role="tabpanel" class="tab-pane fade" id="gongju">...</div>
 			</div>
+
 		</div>
 	</div>
 </div>
+</div>
+
 
 <!--尾部-->
 <div id="the_footer"></div>
 
 <script src="../static-front/js/jquery-1.12.1.min.js"></script>
+<script>
+    $("#the_footer").load("/a/c");
+    $("#the_header").load("/header/toShoes-header");
+</script>
 <script>
     $(document).ready(function() {
         $("li.aaaaa").click(function() {
@@ -652,6 +662,23 @@
     //                 $('#shoucang').load('index.html');
     //              });
     //         });
+    (function() {
+        var pHtmlStr = '';
+        for(var name in pc) {
+            pHtmlStr = pHtmlStr + '<option value=\"' + name + '\">' + name + '</option>';
+        }
+        $("#province").html(pHtmlStr);
+        $("#province").change(function() {
+            var pname = $("#province option:selected").text();
+            var pHtmlStr = '';
+            var cityList = pc[pname];
+            for(var index in cityList) {
+                pHtmlStr = pHtmlStr + '<option value=\"' + cityList[index] + '\">' + cityList[index] + '</option>';
+            }
+            $("#city").html(pHtmlStr);
+        });
+        $("#province").change();
+    })();
 </script>
 
 <script src="../static-front/js/bootstrap.min.js" ></script>
@@ -665,12 +692,12 @@
 <script src="../static-front/js/jquery.scrollUp.min.js" ></script>
 <script src="../static-front/js/plugins.js" ></script>
 <script src="../static-front/js/main.js" ></script>
+<script src="../static-front/js/sitelogo.js" ></script>
+<script src="../static-front/js/cropper.min.js" ></script>
+
 
 <!--载入头尾部-->
-<script>
-    $("#the_footer").load("shoes-footer.html");
-    $("#the_header").load("shoes-header.html");
-</script>
+
 
 </head>
 </body>
