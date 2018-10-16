@@ -1,8 +1,8 @@
 $(function () {
     //let date = JSON.parse(localStorage.getItem("shoes"));
-    let data = JSON.parse($.cookie("shoes"));
-
-    console.log(data);
+    // let data = JSON.parse($.cookie("shoes"));
+    //
+    // console.log(data);
 
 
     console.log("开始加载订单模块的 js");
@@ -36,19 +36,41 @@ Addr.prototype.addrString = function (){
  */
 function handOrder() {
     // 获取商品数据项
-    
+    let contactPhone = $('#contactPhone');
+    let contactName = $("#contactName");
     
 
     // 获取收货信息项
     let addr = getAddr().addrString();
-    
+
+    // 获取用户id
+    let userId = $.cookie("token");
+
+
+    // $.ajax({
+    //     url: ,
+    //     type: '',
+    //     dataType: '',
+    //     data: {
+    //
+    //     },
+    //     success: function(){
+    //
+    //     },
+    //     error: function(){
+    //
+    //     }
+    // })
 
     // 提交请求 POST 请求
     $.ajax({
-        tyep:"POST",
-        url:"/order/add",
+        url:/order/add,
+        type: "POST",
         data:{
-            
+            "contactPhone":contactPhone,
+            "contactName":contactName,
+            "receiptaddress":addr,
+            "userId": userId
         },
         success: function (data) {
             // 下单成功
@@ -83,7 +105,6 @@ function getAddr() {
     let area = $("#order-area");
     let street = $("#order-street");
     let addr = $("#order-addr");
-
 
     let resAddr = new Addr(province,city,area,street,addr);
 

@@ -16,7 +16,7 @@
 		<link rel="stylesheet" type="text/css" href="../css/style.css">
 		<link rel="stylesheet" type="text/css" href="../font/font-awesome.min.css">
 
-		<script src="../js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+        <script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../js/common.js"></script>
         <script src="../js/js.cookie.js"></script>
@@ -140,14 +140,16 @@
 										<img src="../images/cart-xiezi.jpg" style="width: 80px;height: 80px;">
 										<a class="cart-shoes-name" href="javascript:;">ADDS y3黑武士男鞋新款个性透气运动休闲鞋厚底增高时尚潮牌男鞋</a>
 									</td>
-									<td> 颜色分类：白蓝 尺码：<span>39</span>
+									<td> 颜色分类：
+										<span>白蓝</span>
+										尺码：
+										<span>39</span>
+										<span id="order-item-skuId" class="display:none;">12</span>
 									</td>
 									<td class="price-now">¥ <span>489.00</span></td>
 									<td>
 										<span class="cart-shoes-count">
-											<a href="javascript:;" class="cart-incr">∧</a>
-											<b>23</b>
-											<a href="javascript:;" class="cart-decr">∨</a>
+											<b id="order-item-count">23</b>
 										</span>
 
 									</td>
@@ -180,8 +182,8 @@
 							</span>
 							<span>
 								<b>收货人：</b>
-								<em id="order-rec-name">王先生</em><!--收货人-->
-								<i id="order-rec-phone" style="color: #A39F9D;font-weight: 600;font-style: normal;">15999903322</i><!--收货人电话-->
+								<em id="contactPhone">王先生</em><!--收货人-->
+								<i id="contactPhone" style="color: #A39F9D;font-weight: 600;font-style: normal;">15999903322</i><!--收货人电话-->
 							</span>
 						</div>
 					</div>
