@@ -2,7 +2,6 @@ package com.shoes101.controller.BackStage;
 
 import com.shoes101.result.Result;
 import com.shoes101.service.RushMService;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -30,6 +29,7 @@ public class SecBuyMController {
     @Autowired
     private RushMService rushMService;
 
+    //跳转到新增抢购
     @RequestMapping("/torush")
     public String jumpToRush(Map<String, String> map)
     {
@@ -38,6 +38,16 @@ public class SecBuyMController {
         return "back/publishRushShoes";
     }
 
+    //跳转到抢购管理
+    @RequestMapping("/torushManager")
+    public String turushManager(Map<String, String> map)
+    {
+        String rblist = rushMService.getAllRush();
+        map.put("rblist",rblist);
+        return "back/manager_rushShoes";
+    }
+
+    //存入rushbuy Ajax 确定抢购活动
     @RequestMapping("/confirmRushAjax")
     @ResponseBody
     public Result<String> confirmRushAjax(@RequestParam("shoesid") int shoesid, @RequestParam("price") int price, @RequestParam("shoessku") int shoessku,
@@ -47,6 +57,7 @@ public class SecBuyMController {
     }
 
 //    data:{"skuidlist":skuidlist,"shoesid":shoesid,"quantitylist":quantitylist}
+    //存入rushsku Ajax  确定抢购活动的库存等
     @RequestMapping("sendInRushAjax")
     @ResponseBody
     public Result<String> sendInRushAjax(@RequestParam("skuidlist") List<Integer> skuidlist,@RequestParam("shoesid") int shoesid,
@@ -56,6 +67,41 @@ public class SecBuyMController {
         System.out.println(shoesid);
         System.out.println(quantitylist);
         return Result.success(rushMService.sendInRushsku(skuidlist,shoesid,quantitylist));
+
+    }
+
+    //删除活动 Ajax
+    @RequestMapping("/deleteRushAjax")
+    @ResponseBody
+    public String deleteRushAjax(@RequestParam("rushbuyid") int rushbuyid,Map<String, String> map)
+    {
+
+        return rushMService.deleteRush(rushbuyid);
+    }
+
+
+    //存入rushbuy Ajax 确定抢购活动
+    @RequestMapping("/confirmChangeRushAjax")
+    @ResponseBody
+    public String confirmChangeRushAjax(@RequestParam("shoesid") int shoesid, @RequestParam("price") int price, @RequestParam("shoessku") int shoessku,
+                                          @RequestParam("starttime") Date starttime, @RequestParam("endtime") Date endtime,@RequestParam("rushbuyid") int rushbuyid)
+    {
+        System.out.println("这里的" + shoessku);
+        return rushMService.updateShoesskuForRush(shoesid,price,shoessku,starttime,endtime,rushbuyid);
+    }
+
+    //    data:{"skuidlist":skuidlist,"shoesid":shoesid,"quantitylist":quantitylist}
+    //存入rushsku Ajax  确定抢购活动的库存等
+    @RequestMapping("sendInChangeRushAjax")
+    @ResponseBody
+    public Result<String> sendInChangeRushAjax(@RequestParam("skuidlist") List<Integer> skuidlist,@RequestParam("shoesid") int shoesid,
+                                         @RequestParam("quantitylist") List<Integer> quantitylist,@RequestParam("rushbuyid") int rushbuyid)
+    {
+        System.out.println(skuidlist);
+        System.out.println(skuidlist);
+        System.out.println(shoesid);
+        System.out.println(quantitylist);
+        return Result.success(rushMService.sendInUpdateRushsku(skuidlist,shoesid,quantitylist,rushbuyid));
 
     }
 

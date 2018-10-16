@@ -40,4 +40,28 @@
     select rushbuyid, shoesid, begintime, endtime, rbprice, rbamount
     from rushbuy
   </select>
+  <select id="getAllFromRb" resultType="com.shoes101.vo.RushbuyVo">
+    select rushbuy.rushbuyid, rushbuy.shoesid,
+    rushbuy.begintime,
+    rushbuy.endtime,
+    rushbuy.rbprice,
+     rushbuy.rbamount,
+     shoes.shoesname
+    from rushbuy
+    INNER JOIN shoes
+    on rushbuy.shoesid = shoes.shoesid
+  </select>
+  <select id="getPic" resultType="java.lang.String">
+    select picaddress from shoespic where shoesid=#{shoesid} limit 1
+  </select>
+  <select id="getLateId" resultType="java.lang.Integer">
+    SELECT max(rushbuyid) from rushbuy
+  </select>
+  <delete id="deleteRush">
+    delete from rushbuy where rushbuyid=#{rushbuyid}
+  </delete>
+  <delete id="deleteRushsku">
+    delete from rushsku where rushbuyid=#{rushbuyid}
+  </delete>
+
 </mapper>

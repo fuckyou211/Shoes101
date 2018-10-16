@@ -91,8 +91,10 @@ public interface ShoesMapper {
     //根据shoesid获取shoessku里的相关库存数量
     int getCountOfShoes(@Param("shoesid") int shoesid);
 
+    int getSkuOfShoes(@Param("shoesid") int shoesid);
+
     //将库存quantity shoesid skuid 存入到rushsku表中
-    int sendInRushsku(@Param("quantity") int quantity,@Param("shoesid") int shoesid,@Param("skuid") int skuid);
+    int sendInRushsku(@Param("quantity") int quantity,@Param("shoesid") int shoesid,@Param("skuid") int skuid,@Param("rushbuyid") int rushbuyid);
 
 
 }

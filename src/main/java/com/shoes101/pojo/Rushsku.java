@@ -11,9 +11,18 @@ public class Rushsku {
     private Integer rushskuid;
     private Integer shoesid;
     private Integer skuid;
+    private Integer rushbuyid;
     private Integer quantity;
 
     public Rushsku() {
+    }
+
+    public Integer getRushbuyid() {
+        return rushbuyid;
+    }
+
+    public void setRushbuyid(Integer rushbuyid) {
+        this.rushbuyid = rushbuyid;
     }
 
     public Integer getRushskuid() {
@@ -54,6 +63,7 @@ public class Rushsku {
                 "rushskuid=" + rushskuid +
                 ", shoesid=" + shoesid +
                 ", skuid=" + skuid +
+                ", rushbuyid=" + rushbuyid +
                 ", quantity=" + quantity +
                 '}';
     }

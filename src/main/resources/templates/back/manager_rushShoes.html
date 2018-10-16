@@ -38,7 +38,7 @@
             </div>
             <div class="col-sm-8">
                 <div class="title-action">
-                    <a href="" class="btn btn-primary">发布抢购</a>
+                    <a href="../../rush/torush" class="btn btn-primary">发布抢购</a>
                 </div>
             </div>
         </div>
@@ -64,41 +64,125 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr v-for="item in lists" style="text-align: center;">
-                                        <td><label class="mylabel">{{item.id}}</label></td>
+                                    <tr v-for="(item, index) in rblist.list" style="text-align: center;">
+                                        <td><label class="mylabel">{{index+1}}</label></td>
                                         <td>
                                             <div class="col-sm-3">
                                                 <div class="ibox">
                                                     <div class="product-imitation" style="padding: 0%;">
-                                                        <img class="image" :src="getPicUrl(item.pic)"  style="width: 100px;height: 100px;" />
+                                                        <img class="image" :src="getPicUrl(item.picaddress)"  style="width: 100px;height: 100px;" />
                                                     </div>
                                                 </div>
                                             </div>
 
                                         </td>
-                                        <td ><label class="mylabel" style="font-size: 14px;">{{item.name}}</label></td>
+                                        <td ><label class="mylabel" style="font-size: 14px;">{{item.shoesname}}</label></td>
                                         <td>
                                             <label class="mylabel">
-                                                <em style="text-decoration: line-through; font-size: 14px;">¥{{item.oldprice}}</em>
-                                                <span style="color: #EA394C;">¥{{item.saleprice}}</span>
+                                                <!--<em style="text-decoration: line-through; font-size: 14px;">¥{{item.oldprice}}</em>-->
+                                                <span style="color: #EA394C;">¥{{item.rbprice}}</span>
                                             </label>
                                         </td>
-                                        <td><label class="mylabel">{{item.starttime}}</label></td>
+                                        <td><label class="mylabel">{{item.begintime}}</label></td>
                                         <td><label class="mylabel">{{item.endtime}}</label></td>
-                                        <td><label class="mylabel"><span style="color: #EA394C;">{{item.lastcount}}</span><i>|</i>{{item.salecount}}</label></td>
-                                        <td><label class="mylabel">抢购中...</label> </td>
+                                        <!--<span style="color: #EA394C;">{{item.lastcount}}</span><i>|-->
+                                        <td><label class="mylabel"></i>{{item.rbamount}}</label></td>
+                                        <td><label class="mylabel">{{item.status}}</label> </td>
                                         <td>
                                             <label class="mylabel">
-                                                <a  data-toggle="modal" data-target="#edit_sale" style="margin-right: 5px;">
-                                                    <i class="fa fa-magic" data-toggle = "tooltip" title="修改"></a></i>
-                                                <a href="edit_shoes.html"><i class="fa fa-times-circle" data-toggle = "tooltip" title="删除"></a></i>
+                                                <!--data-toggle="modal" data-target="#edit_sale"-->
+                                                <!--修改以通过vue来进行触发-->
+                                                <a href="javascript:void(0);" @click="toedit(item.status,item.rushbuyid,item.shoesname,item.rbamount,item.rbprice,item.shoesid,item.rushbuyid)"  style="margin-right: 5px;">
+                                                    <i class="fa fa-magic" data-toggle = "tooltip" title="修改"></i></a>
+                                                <a href="javascript:void(0);" @click="todelete(item.status,item.rushbuyid)"><i class="fa fa-times-circle" data-toggle = "tooltip" title="删除"></i></a>
                                             </label>
                                         </td>
                                     </tr>
+
                                     </tbody>
+                                    <div>
+                                        <div class="modal inmodal"  id="edit_sale" tabindex="-1" role="dialog" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content animated flipInY">
+                                                    <div class="modal-header" >
+                                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                                        <h3>{{shoesid}}.{{shoesname}}</h3>
+                                                    </div>
+                                                    <fieldset class="form-horizontal" style="margin-top: 15px;">
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label">抢购价格:</label>
+                                                            <div class="col-sm-5">
+                                                                <input type="text" class="form-control" style="display:inline-block; width: 90px;"  v-model="price"/>
+                                                                <i> *原价：¥{{rbprice}}</i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label">抢购数量:</label>
+                                                            <div class="col-sm-5">
+                                                                <input type="text" class="form-control" style="display:inline-block; width: 90px;"  v-model="aamount"/>
+                                                                <i> *总库存：{{rbamount}}件 填写的{{aamount}}</i>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label">抢购开始时间:</label>
+                                                            <div class="col-sm-5">
+                                                                <input class="form-control" style="width: 200px;" type="datetime-local" v-model="starttime"/>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label class="col-sm-4 control-label">抢购结束时间:</label>
+                                                            <div class="col-sm-5">
+                                                                <input class="form-control" style="width: 200px;" type="datetime-local" v-model="endtime" />
+                                                            </div>
+                                                        </div>
+                                                    </fieldset>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-primary" @click="toeditsku()">确认修改</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div>
+                                            <div class="modal inmodal"  id="edit_sku" tabindex="-1" role="dialog" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content animated flipInY">
+                                                        <div class="modal-header" >
+                                                            <!--<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>-->
+                                                            <h3>填写数量</h3>
+                                                            <h3>提供的库存:{{amount}}</h3>
+                                                            <label style="color:red"  v-show="consku">填写的数量大于该颜色尺码所对应的库存!</label>
+                                                            <label style="color:red"  v-show="contotalsku">填写的总数已经大于提供的库存，请重新填写！</label>
+                                                        </div>
+                                                        <fieldset class="form-horizontal" style="margin-top: 15px;">
+                                                            <div class="form-group" v-for="(item, index) in endlist.rushskulist">
+                                                                <label class="col-sm-4 control-label">颜色：{{item.color}} 尺码：{{item.size}} 库存:{{item.quantity}}</label>
+                                                                <div class="col-sm-5">
+                                                                    <input type="text" class="form-control col-sm-2"  :name="'sku['+index+']'" v-model="cal[index]" @input="watchinput(index)" />
+                                                                </div>
+                                                            </div>
+                                                        </fieldset>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-primary" @click="sendInRushAgain()">提交</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+
+
+                                    </div>
+
+                                    <!--填写库存模块-->
+
                                 </table>
-                            </div>
-                        </div>
+
+                                </table>
+
 
                         <div class="">
                             <p>下一页</p>
@@ -111,49 +195,7 @@
     </div>
 </div>
 
-<div id="edit">
-    <div class="modal inmodal"  id="edit_sale" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content animated flipInY" v-for="item in lists">
-                <div class="modal-header" >
-                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                    <h3>{{item.name}}</h3>
-                </div>
-                <fieldset class="form-horizontal" style="margin-top: 15px;">
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">抢购价格:</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" style="display:inline-block; width: 90px;" v-model="item.saleprice" />
-                            <i> *原价：¥{{item.oldprice}}</i>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">抢购数量:</label>
-                        <div class="col-sm-5">
-                            <input type="text" class="form-control" style="display:inline-block; width: 90px;" v-model="item.salecount" />
-                            <i> *总库存：{{item.count}}件</i>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">抢购开始时间:</label>
-                        <div class="col-sm-5">
-                            <input class="form-control" style="width: 200px;" type="datetime-local" />
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="col-sm-4 control-label">抢购结束时间:</label>
-                        <div class="col-sm-5">
-                            <input class="form-control" style="width: 200px;" type="datetime-local" />
-                        </div>
-                    </div>
-                </fieldset>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary">确认修改</button>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+
 
 <!-- Mainly scripts -->
 <script src="../js/jquery-3.1.1.min.js"></script>
@@ -171,47 +213,289 @@
 <script>
     $(document).ready(function(){
         $('[data-toggle="tooltip"]').tooltip();
+        var rblist = "[[${rblist}]]";
+        rblist = rblist.replace(/&quot;/g,"\"");
+        console.log(JSON.parse(rblist));
+        loadlist(JSON.parse(rblist));
     });
+
+    //读取数据
+    function loadlist(data){
+        rushbuy.rblist = data;
+        console.log("Vue读取了数据:");
+        console.log(rushbuy.rblist)
+        console.log(rushbuy.rblist.list)
+    }
 </script>
 <script>
-    var aa=new Vue({
+
+    function openmodal()
+    {
+        $('#edit_sale').modal('show');
+    }
+
+    function closemodal()
+    {
+        $('#edit_sale').modal('hide');
+    }
+    function openskumodal()
+    {
+        $('#edit_sku').modal('show');
+    }
+
+    function closeskumodal()
+    {
+        $('#edit_sku').modal('hide');
+    }
+
+    function getOther(rushbuyid,amount)
+    {
+        editsku.rushbuyid = rushbuyid;
+        editsku.amount = amount;
+        console.log("现在的数据rushbuyid:" + rushbuyid);
+        console.log("现在的amount:" + amount);
+    }
+
+    function getsku(list)
+    {
+        editsku.endlist = list;
+
+    }
+
+    var rushbuy = new Vue({
         el:"#shoesInfo",
         data:{
-            lists: [
-                { id: "1", pic: "img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                    oldprice: "1680", saleprice: "998", starttime: "2018/08/08 08:00", endtime: "2018/08/10 20:00",
-                    lastcount:"60", salecount:"200", status:"checked"},
-                { id: "1", pic: "img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                    oldprice: "1680", saleprice: "998", starttime: "2018/08/08 08:00", endtime: "2018/08/10 20:00",
-                    lastcount:"60", salecount:"200", status:"checked"},
-                { id: "1", pic: "img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                    oldprice: "1680", saleprice: "998", starttime: "2018/08/08 08:00", endtime: "2018/08/10 20:00",
-                    lastcount:"60", salecount:"200", status:"checked"},
-            ]
+            rblist:[],
+            name:"",
         },
-
         methods:{
-            getPicUrl: function (url){
-                return ""+url;
+            getPicUrl: function(picaddress){
+                var url = "../" + picaddress;
+                console.log(url);
+                return url;
+             },
+            todelete: function(status,rushbuyid){
+                // console.log("111");
+                if(status == "抢购中")
+                {
+                    alert("不能删除正在抢购的活动");
+                    return;
+                }
+                $.post({
+                    url:"../rush/deleteRushAjax",
+                    type:'post',
+                    dataType:'json',
+                    //传入list所需条件 traditional
+                    traditional:true,
+                    data:{"rushbuyid":rushbuyid},
+                    //传入成功后 获取库存并且返回
+                    success:function(data) {
+                        console.log("传入成功");
+                        console.log(data);
+                        alert("删除完成");
+                        loadlist(data);
+
+                    },
+                    fail: function(err){
+                        console.log(err)
+                    }
+                });
             },
-            gernerateId: function (index){
-                return "checkbox_" +index;
-            }
-        },
+            //item.status,item.rushbuyid,item.shoesname,item.rbamount,item.rbprice
+            toedit:function(status,rushbuyid,shoesname,rbamount,rbprice,shoesid,rushbuyid){
+                if(status == "抢购中"||status == "抢购结束")
+                {
+                    alert("不能修改正在抢购或者已经结束的活动");
+                    return;
+                }
+                editrush.rushbuyid = rushbuyid;
+                editrush.shoesid = shoesid;
+                editrush.shoesname = shoesname;
+                editrush.rbprice = rbprice;
+                editrush.rbamount = rbamount;
+                openmodal();
+            },
 
+         },
     });
 
-    var bb=new Vue({
-        el:"#edit",
+
+    var editsku = new Vue({
+        el:"#edit_sku",
         data:{
-            lists: [
-                { id: "1", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
-                    oldprice: "1680", saleprice: "998", starttime: "2018/08/08 08:00", endtime: "2018/08/10 20:00",
-                    lastcount:"60", salecount:"200", count:"600"},
-            ]
+            endlist:"",
+            cal:[],
+            rushbuyid:0,
+            amount:"",
+            consku:false,
+            contotalsku:false,
         },
+        methods:{
+            watchinput:function(index){
+                var sum = 0;
+                //console.log("数量是" + this.endlist.rushskulist[index].quantity);
+                for(var i = 0;i < this.cal.length;i++)
+                {
+                    if(this.cal[index] != "")
+                    {
+                        sum = sum + parseInt(this.cal[i]);
+                    }
+                }
+                console.log("库存是" + this.amount);
+                if(sum > this.amount)
+                {
+                    this.contotalsku = true;
+                    return;
+                }
+                else
+                {
+                    this.contotalsku = false;
+                }
+                // console.log(this.totalsku);
+                if(this.cal[index] > this.endlist.rushskulist[index].quantity)
+                {
+                    this.consku = true;
+                    return;
+                }
+                else
+                {
+                    this.consku = false;
+                    return;
+                }
+            },
+            sendInRushAgain:function(){
+                var skuidlist = new Array();
+                for(var i = 0;i < this.endlist.rushskulist.length;i++)
+                {
+                    skuidlist[i] = this.endlist.rushskulist[i].skuid;
+                    console.log(skuidlist[i]);
+                }
+                console.log(this.endlist.rushskulist.length);
+                // var test = rushsku.rushskulist[0].skuid;
+                var shoesid = this.endlist.rushskulist[0].shoesid;
+                var quantitylist = this.cal;
+                // console.log(skuidlist);
+                // console.log(shoesid);
+                // console.log(quantitylist);
+                $.post({
+                    url:"../rush/sendInChangeRushAjax",
+                    type:'post',
+                    dataType:'json',
+                    //传入list所需条件 traditional
+                    traditional:true,
+                    data:{"skuidlist":skuidlist,"shoesid":shoesid,"quantitylist":quantitylist,"rushbuyid":this.rushbuyid},
+                    //传入成功后 获取库存并且返回
+                    success:function(data) {
+                        console.log("修改成功");
+                        console.log(data);
+                        alert("传入成功");
+                        window.location.href="../rush/torushManager";
 
+                    },
+                    fail: function(err){
+                        console.log(err)
+                    }
+                });
+            }
+        }
+    })
+
+    var editrush = new Vue({
+        el:"#edit_sale",
+        data:{
+            rushbuyid:0,
+            shoesid:0,
+            shoesname:"",
+            rbprice:"",
+            rbamount:"",
+            price:"",
+            aamount:0,
+            starttime:"",
+            endtime:"",
+            endlist:[],
+            nextamount:""
+        },
+        methods:{
+            toeditsku:function(){
+                closemodal();
+                var starttime = this.starttime.replace("T"," ");
+                var endtime = this.endtime.replace("T"," ");
+                console.log("asdfasdfasdf" + this.aamount);
+                if(starttime==""||endtime==""||this.price==""||this.amount=="")
+                {
+                    alert("存在未填写的信息！");
+                    return;
+                }
+                getOther(this.rushbuyid,parseInt(this.aamount));
+                $.post({
+                    url:"../rush/confirmChangeRushAjax",
+                    type:'post',
+                    dataType:'json',
+                    data:{"shoesid":this.shoesid,"price":this.price,"shoessku":this.aamount,"starttime":starttime,"endtime":endtime,"rushbuyid":this.rushbuyid},
+                    //传入成功后 获取库存并且返回
+                    success:function(data) {
+                        var c = false;
+                        console.log(data);
+                        // console.log(data=="false");
+                        // console.log(data==c);
+                        if(data==c)
+                        {alert("库存填写错误");
+                        openmodal();
+                        return;}
+                        this.endlist = data;
+                        //console.log("库存:" + this.nextamount);
+                       //console.log(this.endlist);
+                        console.log(this.rushbuyid);
+                        getsku(this.endlist);
+                        openskumodal();
+                    },
+                    fail: function(err){
+                        console.log(err)
+                    }
+                });
+
+            }
+        }
     });
+
+    // var aa=new Vue({
+    //     el:"#shoesInfo",
+    //     data:{
+    //         lists: [
+    //             { id: "1", pic: "img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
+    //                 oldprice: "1680", saleprice: "998", starttime: "2018/08/08 08:00", endtime: "2018/08/10 20:00",
+    //                 lastcount:"60", salecount:"200", status:"checked"},
+    //             { id: "1", pic: "img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
+    //                 oldprice: "1680", saleprice: "998", starttime: "2018/08/08 08:00", endtime: "2018/08/10 20:00",
+    //                 lastcount:"60", salecount:"200", status:"checked"},
+    //             { id: "1", pic: "img/4.png", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
+    //                 oldprice: "1680", saleprice: "998", starttime: "2018/08/08 08:00", endtime: "2018/08/10 20:00",
+    //                 lastcount:"60", salecount:"200", status:"checked"},
+    //         ]
+    //     },
+    //
+    //     methods:{
+    //         getPicUrl: function (url){
+    //             return ""+url;
+    //         },
+    //         gernerateId: function (index){
+    //             return "checkbox_" +index;
+    //         }
+    //     },
+    //
+    // });
+    //
+    // var bb=new Vue({
+    //     el:"#edit",
+    //     data:{
+    //         lists: [
+    //             { id: "1", name:"Adidas阿迪达斯男鞋女鞋三叶草金标贝壳头板鞋休闲鞋小白鞋C77124",
+    //                 oldprice: "1680", saleprice: "998", starttime: "2018/08/08 08:00", endtime: "2018/08/10 20:00",
+    //                 lastcount:"60", salecount:"200", count:"600"},
+    //         ]
+    //     },
+    //
+    // });
 
 </script>
 </body>

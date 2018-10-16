@@ -139,8 +139,12 @@ where shoessku.quantity > 0 GROUP BY shoesid
     select count(shoesid) from shoessku where shoesid=#{shoesid}
   </select>
 
+  <select id="getSkuOfShoes" resultType="java.lang.Integer">
+    select sum(quantity) from shoessku where shoesid=#{shoesid}
+  </select>
+
   <insert id="sendInRushsku">
-    insert into rushsku(quantity,shoesid,skuid) values (#{quantity},#{shoesid},#{skuid})
+    insert into rushsku(quantity,shoesid,skuid,rushbuyid) values (#{quantity},#{shoesid},#{skuid},#{rushbuyid})
   </insert>
   <!--<select id="calQtyWithoutSize" resultType="java.lang.Integer">-->
     <!--select sum(quantity) from shoessku where shoesid=#{shoesid} and skuproperty like ${cdn}-->
