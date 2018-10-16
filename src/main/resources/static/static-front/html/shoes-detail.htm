@@ -84,11 +84,7 @@
                 <li class="detail-li">
                     <p class="h3" id="shoes-name">Nike Kobe AD NXT 360</p>
                 </li>
-                <li class="detail-li">
-                    <span class="h5">库存：</span>
-                    <!-- 库存的值 -->
-                    <span id="detail-shoes-total">5</span>
-                </li>
+
                 <li class="detail-li">
                     <span class="h5">价格：</span>
                     <span style="color: red;" class="h2"> ¥ <span id="shoes-price">489.00</span></span>
@@ -106,19 +102,19 @@
                 <li id="detail-shoes-color" class="detail-li lg-border-padding">
                     <p class="dashed-bottom-border p-padding ">颜色：</p>
                     <dl class="dl-padding">
-                        <dd class="fl dd-margin no-choose-border" title="白色"
+                        <dd class="fl dd-margin no-choose-border" name="xieziid" title="白色"
                             onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
                             <img class="small-show-img" src="../images/xiezi.webp"/>
                         </dd>
-                        <dd class="fl dd-margin no-choose-border choose-border" title="黑色"
+                        <dd class="fl dd-margin no-choose-border choose-border" name="xieziid" title="黑色"
                             onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
                             <img class="small-show-img" src="../images/xiezi.webp"/>
                         </dd>
-                        <dd class="fl dd-margin no-choose-border" title="蓝色"
+                        <dd class="fl dd-margin no-choose-border" name="xieziid" title="蓝色"
                             onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
                             <img class="small-show-img" src="../images/xiezi.webp"/>
                         </dd>
-                        <dd class="fl dd-margin no-choose-border" title="灰色"
+                        <dd class="fl dd-margin no-choose-border" name="xieziid" title="灰色"
                             onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
                             <img class="small-show-img" src="../images/xiezi.webp"/>
                         </dd>
@@ -129,31 +125,35 @@
                 <!-- 尺码选择 -->
                 <li id="detail-shoes-size" class="detail-li lg-border-padding">
                     <p class="dashed-bottom-border p-padding ">尺码：</p>
-                    <dl class="dl-padding">
-                        <dd class="fl dd-margin number-disabled number-active" title="40"
-                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
+                    <dl id="detail-sizeList" class="dl-padding">
+                        <dd class="fl dd-margin number-disabled number-active" name="xieziid" title="40"
+                            onclick='$_activeChange("detail-shoes-size",this,"number-active")'>
                             <span class="number-of-shoe">40</span>
                         </dd>
-                        <dd class="fl dd-margin number-disabled" title="41"
+                        <dd class="fl dd-margin number-disabled" name="xieziid" title="41"
                             onclick="$_activeChange('detail-shoes-size',this,'number-active')">
                             <span class="number-of-shoe">41</span>
                         </dd>
-                        <dd class="fl dd-margin number-disabled" title="42"
+                        <dd class="fl dd-margin number-disabled" name="xieziid" title="42"
                             onclick="$_activeChange('detail-shoes-size',this,'number-active')">
                             <span class="number-of-shoe">42</span>
                         </dd>
-                        <dd class="fl dd-margin number-disabled" title="43"
+                        <dd class="fl dd-margin number-disabled" name="xieziid" title="43"
                             onclick="$_activeChange('detail-shoes-size',this,'number-active')">
                             <span class="number-of-shoe">43</span>
                         </dd>
-                        <dd class="fl dd-margin number-disabled" title="44"
+                        <dd class="fl dd-margin number-disabled" name="xieziid" title="44"
                             onclick="$_activeChange('detail-shoes-size',this,'number-active')">
                             <span class="number-of-shoe">44</span>
                         </dd>
-
                     </dl>
                     <div class="clearfix"></div>
                     <!-- 清除浮动，不要管-->
+                </li>
+                <li class="detail-li">
+                    <span class="h5">库存：</span>
+                    <!-- 库存的值 -->
+                    <span id="detail-shoes-total">5</span>
                 </li>
                 <!--<li class="detail-li">
                     <div id="" style="width: 30px; height: 30px;">

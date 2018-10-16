@@ -6,6 +6,11 @@
 /**
  *  获取商品详情，根据id
  */
+
+$(function () {
+    console.log("detail js 加载！");
+});
+
 function getShoesDetail() {
     // 获取请求的路径上的 shoesId
     let shoesId = getQueryPathStringByName("shoesId");
@@ -14,7 +19,7 @@ function getShoesDetail() {
 
     // 发送请求请求数据
     $.ajax({
-        url: "/static/detail/"+shoesId,
+        url: "/goodsf/todetail/"+shoesId,
         type: "GET",
         success: function(data){
             // 如果请求成功的话，开始渲染页面
@@ -49,7 +54,11 @@ function renderDetailPage(data) {
     let aColorPicAndColor = data.colorpicandcolor; // 鞋子颜色和图片的集合
     let details = eval(data.details); // 鞋子的详情
 
+    // setList
+    setSizeList(aSizeList, "detail-sizeList");
 
+    // setColor
+    setColorList(aColorPicAndColor,"");
 
     // 渲染，
     $("#shoes-id").html(details.shoesid);
@@ -63,6 +72,37 @@ function renderDetailPage(data) {
     $("#shoes-details").html(newStr.substr(1,newStr.length-2));
 
 
+}
+
+/**
+ *
+ * @param data
+ * @param idString
+ */
+function setColorList(data, idString) {
+    
+}
+
+/**
+ *  遍历还原列表数据
+ * @param data
+ * @param parantClass
+ * @param cls
+ */
+function setSizeList(data, idString) {
+    $id="#"+idString;
+    let pSizeDl = $($id);
+
+    // 拼接字符串
+    let str = "";
+    $.each(data,function (i) {
+         str += '<dd class="fl dd-margin number-disabled" name='+data[i].sizeId+' title='+data[i].size+''
+        +' onclick=\'$_activeChange("detail-shoes-size",this,"number-active")\'>'
+            +'<span class="number-of-shoe">'+data[i].size+'</span>'
+            +'</dd>';
+    });
+
+    pSizeDl.html(str);
 }
 
 /**
