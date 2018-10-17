@@ -27,4 +27,10 @@ public interface ShoesorderMapper {
 
     //根据用户id查询订单
     public List<Shoesorder> getOrderByUserId(@Param("userid") int userid);
+
+    //根据skuid虎丘库存
+    public int getQuantityFromSku(@Param("skuid") int skuid);
+
+    //减库存
+    public int setNewSku(@Param("skuid") int skuid,@Param("sku") int sku);
 }
