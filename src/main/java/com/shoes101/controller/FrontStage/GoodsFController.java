@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -63,9 +64,9 @@ public class GoodsFController {
      * 获取商品详情 传入商品Id
      *
      */
-    @RequestMapping("/todetail")
+    @RequestMapping("/todetail/{shoesid}")
     @ResponseBody
-    public Result<String> todetail(@RequestParam("shoesid") int shoesid)
+    public Result<String> todetail(@PathVariable("shoesid") int shoesid)
     {
         System.out.println(""+shoesid);
         //取缓存

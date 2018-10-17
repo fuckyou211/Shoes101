@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>101 Shoes|商品详情</title>
+    <link rel="shortcut icon" href="../img/101_favicon.ico" type="image/x-icon"/>
+    <!--商品名称-->
+    <link rel="stylesheet" type="text/css" href="../css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/myrest.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/shoes-info.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/shoes-detail.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../font/font-awesome.min.css">
+
+</head>
+
+<body>
+<!--头部信息-->
+<div id="the_header"></div>
+
+<div class="container">
+    <div class="row">
+        <ul class="path-link">
+            <li class="btn-link"><a href="javascript:;"> 101 shoes </a></li>
+            <li><a href="javascript:;"> &gt;</a></li>
+            <li class="btn-link"><a href="javascript:;"> 男鞋 </a></li>
+            <li><a href="javascript:;"> &gt;</a></li>
+            <li class="btn-link"><a href="javascript:;"> 潮流时尚 </a></li>
+            <li><a href="javascript:;"> &gt;</a></li>
+            <li class="btn-link"><a href="javascript:;"> 运动鞋 </a></li>
+            <li><a href="javascript:;"> &gt;</a></li>
+            <li class="btn-link"><a href="javascript:;"> Nike Kobe AD NXT 360 </a></li>
+        </ul>
+    </div>
+    <!-- 商品基本信息显示选择-->
+    <div class="row lg-border-padding">
+        <!-- 商品图片展示栏
+            注意加载该页面是默认是第一张图片
+        -->
+        <div class="col-md-6">
+            <div class="b-shoes-show">
+                <img id="detail-shoes-bimg" src="../images/big-img/xie1.webp"
+                     class="img-responsive img-thumbnail detail-big-img"/>
+            </div>
+            <div class="m-shoes-li center-block">
+                <ul id="detail-shoes-simg" class="center-block">
+                    <li>
+                        <img src="../images/sma-img/xie1.webp"
+                             class="img-responsive img-thumbnail img-disabled img-active"
+                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
+                    </li>
+                    <li>
+                        <img src="../images/sma-img/xie2.webp"
+                             class="img-responsive img-thumbnail img-disabled"
+                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
+                    </li>
+                    <li>
+                        <img src="../images/sma-img/xie3.webp"
+                             class="img-responsive img-thumbnail img-disabled"
+                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
+                    </li>
+                    <li>
+                        <img src="../images/sma-img/xie4.webp"
+                             class="img-responsive img-thumbnail img-disabled"
+                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
+                    </li>
+                    <li>
+                        <img src="../images/sma-img/xie5.webp" class="img-responsive img-thumbnail img-disabled"
+                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 商品基本信息展示栏 -->
+        <div class="col-md-6">
+            <ul>
+                <li class="detail-li" style="display: none">
+                    <span id="shoes-id">4546548971477</span>
+                </li>
+                <li class="detail-li">
+                    <p class="h3" id="shoes-name">Nike Kobe AD NXT 360</p>
+                </li>
+
+                <li class="detail-li">
+                    <span class="h5">价格：</span>
+                    <span style="color: red;" class="h2"> ¥ <span id="shoes-price">489.00</span></span>
+                    &nbsp;&nbsp;<span style="color: red; text-decoration: line-through;" class="h5" id="ticket-price"> ¥ 589.00</span>
+                </li>
+                <li class="detail-li">
+                    <p class="description-padding dashed-top-border" id="shoes-label">
+                        Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique
+                        ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+                        posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl ut dolor
+                        dignissim semper.
+                    </p>
+                </li>
+                <!--颜色选择-->
+                <li id="detail-shoes-color" class="detail-li lg-border-padding">
+                    <p class="dashed-bottom-border p-padding ">颜色：</p>
+                    <dl class="dl-padding">
+                        <dd class="fl dd-margin no-choose-border" name="xieziid" title="白色"
+                            onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
+                            <img class="small-show-img" src="../images/xiezi.webp"/>
+                        </dd>
+                        <dd class="fl dd-margin no-choose-border choose-border" name="xieziid" title="黑色"
+                            onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
+                            <img class="small-show-img" src="../images/xiezi.webp"/>
+                        </dd>
+                        <dd class="fl dd-margin no-choose-border" name="xieziid" title="蓝色"
+                            onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
+                            <img class="small-show-img" src="../images/xiezi.webp"/>
+                        </dd>
+                        <dd class="fl dd-margin no-choose-border" name="xieziid" title="灰色"
+                            onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
+                            <img class="small-show-img" src="../images/xiezi.webp"/>
+                        </dd>
+                    </dl>
+                    <div class="clearfix"></div>
+                    <!-- 清除浮动，不要管-->
+                </li>
+                <!-- 尺码选择 -->
+                <li id="detail-shoes-size" class="detail-li lg-border-padding">
+                    <p class="dashed-bottom-border p-padding ">尺码：</p>
+                    <dl id="detail-sizeList" class="dl-padding">
+                        <dd class="fl dd-margin number-disabled number-active" name="xieziid" title="40"
+                            onclick='$_activeChange("detail-shoes-size",this,"number-active")'>
+                            <span class="number-of-shoe">40</span>
+                        </dd>
+                        <dd class="fl dd-margin number-disabled" name="xieziid" title="41"
+                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
+                            <span class="number-of-shoe">41</span>
+                        </dd>
+                        <dd class="fl dd-margin number-disabled" name="xieziid" title="42"
+                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
+                            <span class="number-of-shoe">42</span>
+                        </dd>
+                        <dd class="fl dd-margin number-disabled" name="xieziid" title="43"
+                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
+                            <span class="number-of-shoe">43</span>
+                        </dd>
+                        <dd class="fl dd-margin number-disabled" name="xieziid" title="44"
+                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
+                            <span class="number-of-shoe">44</span>
+                        </dd>
+                    </dl>
+                    <div class="clearfix"></div>
+                    <!-- 清除浮动，不要管-->
+                </li>
+                <li class="detail-li">
+                    <span class="h5">库存：</span>
+                    <!-- 库存的值 -->
+                    <span id="detail-shoes-total">5</span>
+                </li>
+                <!--<li class="detail-li">
+                    <div id="" style="width: 30px; height: 30px;">
+
+                    </div>
+                </li>-->
+                <li class="detail-li" style="height: 40px; line-height: 40px;margin-top: 30px;">
+                    <!--数量改变-->
+                    <span>
+                                <ul class="fl count-choose" style="width: 50px;height: 40px;">
+                                    <li id="detail-shoes-count" class="fl count-show"
+                                        style="height: 40px; width: 30px;line-height: 40px;">
+                                        1
+                                    </li>
+                                    <li class="change-count" style="width: 20px; height: 20px; line-height: 20px;"
+                                        onclick="doShoesCount(1, 'detail-shoes-count','detail-shoes-total')">
+                                        <a href="javascript:;" class="change-count-a">∧</a>
+                                    </li>
+                                    <li class="change-count" style="width: 20px; height: 20px; line-height: 20px; "
+                                        onclick="doShoesCount(-1, 'detail-shoes-count','detail-shoes-total')">
+                                        <a href="javascript:;" class="change-count-a">∨</a>
+                                    </li>
+                                </ul>
+                            </span>
+                    <!--加入购物车  -->
+                    <span id="  ">
+                        <a href="javascript:;" class="btn-danger btn-cart" onclick="doAddCart()">加入购物车</a>
+                    </span>
+                    <!--立即购买  -->
+                    <span id=" ">
+                        <a href="javascript:;" class="btn-danger btn-buy" onclick="doPayNow()">立即购买</a>
+                    </span>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <!--商品详细信息展示-->
+    <div class="row lg-border-padding">
+        <ul class="row shoes-detail-ul">
+            <li class="active-detail-li">商品详情</li>
+
+            <!--<li>累计评价&nbsp;<span style="color: #2AABD2;">123</span></li>-->
+            <!--<li>买家秀&nbsp;<span style="color: #2AABD2;">123</span></li>-->
+            <!--清除浮动，不要管 -->
+            <div class="clearfix"></div>
+        </ul>
+        <!--商品详情页-->
+        <div class="rown a-padding text-center">
+            <h5>品牌名称：<span>Kobe Hunter</span></h5>
+            <h5 style="padding: 10px 0px; color: #398439;">产品参数</h5>
+            <div class="table-responsive">
+                <table id="arg-shoes" class="table" rules=none cellspacing=0>
+                    <tr>
+                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
+                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
+                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
+                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
+                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
+                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
+                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
+                    </tr>
+                    <tr>
+                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
+                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
+                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
+                    </tr>
+                </table>
+
+            </div>
+
+        </div>
+        <div id="shoes-details" class="center-block" style="padding: 20px;">
+            <p data-spm-anchor-id="a220o.1000855.0.i6.692a10aapT0sdh">
+                <img src="https://img.alicdn.com/imgextra/i4/2986712394/TB2tjhPIqmWBuNjy1XaXXXCbXXa_!!2986712394.jpg"
+                     align="absmiddle" class="img-responsive center-block">
+                <img src="https://img.alicdn.com/imgextra/i4/2986712394/TB2WnTxIh9YBuNjy0FfXXXIsVXa_!!2986712394.jpg"
+                     align="absmiddle" class="img-responsive center-block">
+            </p>
+
+        </div>
+    </div>
+</div>
+
+<script src="../js/jquery-1.12.1.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/common.js"></script>
+<script src="../js/js.cookie.js"></script>
+<script src="../js/shoes-detail.js"></script>
+<!--尾部-->
+<div id="the_footer"></div>
+
+<script>
+    $(function(){
+        getShoesDetail();
+    })
+</script>
+
+<!--载入头尾部-->
+<script>
+    $("#the_header").load("shoes-header.html");
+    $("#the_footer").load("shoes-footer.html");
+</script>
+</body>
+
+</html>

@@ -1,3 +1,8 @@
+/**
+ *  有 single_product 这个类的组件的点击事件
+ */
+
+
 (function ($) {
  "use strict";
 
@@ -21,3 +26,6 @@
 
 
 })(jQuery);
+
+
+
