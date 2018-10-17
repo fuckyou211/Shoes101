@@ -233,4 +233,27 @@ function getQueryPathStringByName(name) {
     var r = window.location.search.substr(1).match(reg);
     if(r != null) return unescape(r[2]);
     return null;
-};
+}
+function $_chooseChange(oParent,oTarget, className) {
+
+    $_initActive(oParent,className);
+
+    let target = $(oTarget);
+
+    target.addClass(className);
+
+}
+function $_initChoose(oParent, className) {
+
+    let aClassObj = $_Class(oParent,className);
+
+    // do init
+    for (let i = 0; i<aClassObj.length; i++){
+
+        // be a jquery obj
+        if($(aClassObj[i]).hasClass(className)){
+            $(aClassObj[i]).removeClass(className);
+        }
+    }
+
+}
