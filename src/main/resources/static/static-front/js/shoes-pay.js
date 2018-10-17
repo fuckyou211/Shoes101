@@ -9,6 +9,14 @@ $(function () {
 
 });
 
+/**
+ *  处理下单
+ * @param OrderItemArr
+ */
+function handlePay(OrderItemArr){
+
+}
+
 // 订单项对象
 function OrderItem(skuId, count) {
     this.skuId = skuId;
@@ -46,21 +54,6 @@ function handOrder() {
     // 获取用户id
     let userId = $.cookie("token");
 
-
-    // $.ajax({
-    //     url: ,
-    //     type: '',
-    //     dataType: '',
-    //     data: {
-    //
-    //     },
-    //     success: function(){
-    //
-    //     },
-    //     error: function(){
-    //
-    //     }
-    // })
 
     // 提交请求 POST 请求
     $.ajax({

@@ -42,36 +42,13 @@
             注意加载该页面是默认是第一张图片
         -->
         <div class="col-md-6">
-            <div class="b-shoes-show">
-                <img id="detail-shoes-bimg" src="../images/big-img/xie1.webp"
-                     class="img-responsive img-thumbnail detail-big-img"/>
+            <div class="b-shoes-show" id="big-img-show">
+                <!--<img id="detail-shoes-bimg" src="../images/big-img/xie1.webp"-->
+                     <!--class="img-responsive img-thumbnail detail-big-img"/>-->
             </div>
             <div class="m-shoes-li center-block">
                 <ul id="detail-shoes-simg" class="center-block">
-                    <li>
-                        <img src="../images/sma-img/xie1.webp"
-                             class="img-responsive img-thumbnail img-disabled img-active"
-                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
-                    </li>
-                    <li>
-                        <img src="../images/sma-img/xie2.webp"
-                             class="img-responsive img-thumbnail img-disabled"
-                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
-                    </li>
-                    <li>
-                        <img src="../images/sma-img/xie3.webp"
-                             class="img-responsive img-thumbnail img-disabled"
-                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
-                    </li>
-                    <li>
-                        <img src="../images/sma-img/xie4.webp"
-                             class="img-responsive img-thumbnail img-disabled"
-                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
-                    </li>
-                    <li>
-                        <img src="../images/sma-img/xie5.webp" class="img-responsive img-thumbnail img-disabled"
-                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -101,23 +78,8 @@
                 <!--颜色选择-->
                 <li id="detail-shoes-color" class="detail-li lg-border-padding">
                     <p class="dashed-bottom-border p-padding ">颜色：</p>
-                    <dl class="dl-padding">
-                        <dd class="fl dd-margin no-choose-border" name="xieziid" title="白色"
-                            onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
-                            <img class="small-show-img" src="../images/xiezi.webp"/>
-                        </dd>
-                        <dd class="fl dd-margin no-choose-border choose-border" name="xieziid" title="黑色"
-                            onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
-                            <img class="small-show-img" src="../images/xiezi.webp"/>
-                        </dd>
-                        <dd class="fl dd-margin no-choose-border" name="xieziid" title="蓝色"
-                            onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
-                            <img class="small-show-img" src="../images/xiezi.webp"/>
-                        </dd>
-                        <dd class="fl dd-margin no-choose-border" name="xieziid" title="灰色"
-                            onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
-                            <img class="small-show-img" src="../images/xiezi.webp"/>
-                        </dd>
+                    <dl class="dl-padding" id="detail-color-dl">
+
                     </dl>
                     <div class="clearfix"></div>
                     <!-- 清除浮动，不要管-->
@@ -126,26 +88,7 @@
                 <li id="detail-shoes-size" class="detail-li lg-border-padding">
                     <p class="dashed-bottom-border p-padding ">尺码：</p>
                     <dl id="detail-sizeList" class="dl-padding">
-                        <dd class="fl dd-margin number-disabled number-active" name="xieziid" title="40"
-                            onclick='$_activeChange("detail-shoes-size",this,"number-active")'>
-                            <span class="number-of-shoe">40</span>
-                        </dd>
-                        <dd class="fl dd-margin number-disabled" name="xieziid" title="41"
-                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
-                            <span class="number-of-shoe">41</span>
-                        </dd>
-                        <dd class="fl dd-margin number-disabled" name="xieziid" title="42"
-                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
-                            <span class="number-of-shoe">42</span>
-                        </dd>
-                        <dd class="fl dd-margin number-disabled" name="xieziid" title="43"
-                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
-                            <span class="number-of-shoe">43</span>
-                        </dd>
-                        <dd class="fl dd-margin number-disabled" name="xieziid" title="44"
-                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
-                            <span class="number-of-shoe">44</span>
-                        </dd>
+
                     </dl>
                     <div class="clearfix"></div>
                     <!-- 清除浮动，不要管-->
@@ -202,36 +145,18 @@
         </ul>
         <!--商品详情页-->
         <div class="rown a-padding text-center">
-            <h5>品牌名称：<span>Kobe Hunter</span></h5>
-            <h5 style="padding: 10px 0px; color: #398439;">产品参数</h5>
-            <div class="table-responsive">
-                <table id="arg-shoes" class="table" rules=none cellspacing=0>
-                    <tr>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                    </tr>
-                </table>
+            <h5> 参数配置 </h5>
+            <!--<h5 style="padding: 10px 0px; color: #398439;">产品参数</h5>-->
+            <div>
+                <dl id="arg-shoes">
+
+                </dl>
 
             </div>
 
         </div>
-        <div id="shoes-details" class="center-block" style="padding: 20px;">
+        <hr/>
+        <div id="shoes-details" style="margin-top: 20px;" class="center-block" style="padding: 20px;">
             <p data-spm-anchor-id="a220o.1000855.0.i6.692a10aapT0sdh">
                 <img src="https://img.alicdn.com/imgextra/i4/2986712394/TB2tjhPIqmWBuNjy1XaXXXCbXXa_!!2986712394.jpg"
                      align="absmiddle" class="img-responsive center-block">

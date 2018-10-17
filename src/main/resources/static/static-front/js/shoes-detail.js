@@ -54,17 +54,29 @@ function renderDetailPage(data) {
     let aColorPicAndColor = data.colorpicandcolor; // 鞋子颜色和图片的集合
     let details = eval(data.details); // 鞋子的详情
 
+    let bigPic = eval(data.bigpics);      // 大图
+    let properties = eval(data.propertys);        // 属性参数渲染
+
+    //console.log("大图："+bigPic);
+    //console.log("shds图："+properties);
+
+    // 品牌
+    ShoesPropertiesHandle(properties,"arg-shoes");
+
+    ShoesImgShowHandle(bigPic,"big-img-show","detail-shoes-simg");   // 图片渲染
+
     // setList
     setSizeList(aSizeList, "detail-sizeList");
 
     // setColor
-    setColorList(aColorPicAndColor,"");
+    setColorList(aColorPicAndColor,"detail-color-dl");
 
     // 渲染，
-    $("#shoes-id").html(details.shoesid);
-    $("#shoes-price").html(details.price);
-    $("#ticket-price").html(details.ticketprice);
-    $("#shoes-name").html(details.shoesname);
+    $("#shoes-id").html(details.shoesid);   //  鞋子id
+    $("#shoes-price").html(details.price);  // 鞋子价格
+    $("#ticket-price").html(details.ticketprice);   // 折扣价
+    $("#shoes-name").html(details.shoesname);   // 名字
+    $("#shoes-label").html(details.label);
     $("#detail-shoes-total").html(details.quantity);
     let str = details.shoesdetails;
 
@@ -75,12 +87,89 @@ function renderDetailPage(data) {
 }
 
 /**
- *
+ *  商品参数配置
+ * @param data
+ * @param idString
+ * @constructor
+ */
+function ShoesPropertiesHandle(data, idString) {
+
+    let idStr="#"+idString;
+    let str = "";
+    let prefix = "<tr>";
+    let suffix = "</tr>";
+    $.each(data,function (i) {
+        // 如果是每行3个
+
+        str += "<dd style='float: left'><span>"+ data[i].property +"</span>:&nbsp;<span>"+ data[i].propertyvalue +"</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</dd>";
+    });
+
+    $(idStr).html(str);
+}
+
+/**
+ *  鞋子图片处理
+ * @param data
+ * @param bigImgId 大图ID
+ * @param miniImgId 缩略图ID
+ * @constructor
+ */
+function ShoesImgShowHandle(data, bigImgId,miniImgId) {
+    let bigId = "#"+bigImgId;
+    let miniId = "#"+miniImgId;
+
+    let bigStr = '<img id="detail-shoes-bimg" src="'+ data[0]+'"'
+                    +' class="img-responsive img-thumbnail detail-big-img"/>';
+
+    console.log(bigStr);
+
+    $(bigId).html(bigStr);
+
+    let miniStr = "";
+
+    $.each(data,function (i) {
+
+        if(i == 0){
+            miniStr += '<li><img style="width: 80px;height: 80px;" src="'+ data[i] +'" class="img-responsive img-thumbnail img-disabled img-active"'
+                +' onclick=\'$_activeChange("detail-shoes-simg",this,"img-active")\'/>'
+                +'</li>';
+        }else{
+            miniStr += '<li><img style="width: 80px;height: 80px;" src="'+ data[i] +'" class="img-responsive img-thumbnail img-disabled"'
+                +' onclick=\'$_activeChange("detail-shoes-simg",this,"img-active")\'/>'
+                +'</li>';
+        }
+
+
+
+
+    });
+    // http://123.207.109.158:9999/images/1539254939277.png
+    console.log("ddd"+miniStr);
+
+    $(miniId).html(miniStr);
+
+}
+
+/**
+ *  详情颜色处理
  * @param data
  * @param idString
  */
 function setColorList(data, idString) {
-    
+    $id="#"+idString;
+    let pColorDl = $($id);
+    let str = "";
+    $.each(data,function (i) {
+
+       str += '<dd class="fl dd-margin no-choose-border" name='+data[i].colorid+' title='+ data[i].color+''
+        +' onclick=\'$_activeChange("detail-shoes-color",this,"choose-border")\'>'
+            +'<img class="small-show-img" src='+ data[i].colorpic +'/>'
+            +'</dd>';
+
+    });
+
+    pColorDl.html(str);
+
 }
 
 /**
@@ -96,7 +185,7 @@ function setSizeList(data, idString) {
     // 拼接字符串
     let str = "";
     $.each(data,function (i) {
-         str += '<dd class="fl dd-margin number-disabled" name='+data[i].sizeId+' title='+data[i].size+''
+         str += '<dd class="fl dd-margin number-disabled" name='+data[i].sizeid+' title='+data[i].size+''
         +' onclick=\'$_activeChange("detail-shoes-size",this,"number-active")\'>'
             +'<span class="number-of-shoe">'+data[i].size+'</span>'
             +'</dd>';
@@ -160,10 +249,21 @@ function packageShoes() {
     // 获取当前的价格
     let now_price= $($_Id("shoes-price")).html();
     // 获取颜色
-    let shoes_color = $($_Class("detail-shoes-color","choose-border")[0]).attr("title");
+    let shoes_color = $($_Class("detail-shoes-color","choose-border")[0]).attr("name");
+
+    if(!shoes_color){
+        alert("请选择鞋子颜色！");
+        return;
+    }
+
 
     // 获取鞋码
-    let shoes_size = $($_Class("detail-shoes-size","number-active")[0]).attr("title");
+    let shoes_size = $($_Class("detail-shoes-size","number-active")[0]).attr("name");
+
+    if(!shoes_size){
+        alert("请选择鞋子尺码！");
+        return;
+    }
 
     // 获取数量
     let shoes_count= $.trim($($_Id("detail-shoes-count")).html());
@@ -172,10 +272,12 @@ function packageShoes() {
 
     let data={
         "id":shoes_id,
-        "price":now_price,
         "color":shoes_color,
         "size":shoes_size,
-        "count":shoes_count
+        "count":shoes_count,
+        toString : function () {
+            return "id:"+this.id +"color:"+this.color+"size:"+this.size+"count:"+this.count;
+        }
     };
 
     return data;
@@ -184,10 +286,18 @@ function packageShoes() {
 
 function doPayNow() {
     //封装数据
-    alert('下单成功！');
+    //alert('下单成功！');
+    let data = packageShoes();
+
+    if(!data){
+        return;
+    }
+
+    console.log("下单的数据："+data);
+
+    dumpToPayPage(data);
 
     //跳转到购物车页面
-    window.location.href="./shoes-pay.html";
-
+    //window.location.href="./shoes-pay.html";
 
 }

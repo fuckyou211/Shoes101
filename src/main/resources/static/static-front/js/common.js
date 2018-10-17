@@ -4,12 +4,65 @@
  *  在这里封装的方法全部以 $_ 开头
  *
  * */
-function dumpToPayPage() {
-    window.location.href ="/static-front/html/shoes-pay.htm";
-}
 $(function () {
     console.log(" commom.js 加载成功！")
 });
+
+function dumpToPayPage(data) {
+
+    if(!data){
+        return;
+    }
+
+    // 将 data 封装成 OrderItem 对象 id:4color:2size:7count:1
+
+    let skuId = $_getSkuId(data.id, data.color,data.size);
+
+    console.log("skuId ===="+skuId);
+
+    handlePay(data);
+
+   // window.location.href ="/static-front/html/shoes-pay.htm";
+}
+
+/**
+ * 获取skuId
+ * @param shoesid
+ * @param colorId
+ * @param sizeId
+ */
+function $_getSkuId(shoesid,colorId, sizeId){
+
+    let result;
+
+    // 请求
+    $.ajax({
+            type:"GET",
+            url: "/goodsf/getQtyAjax",
+            data: {
+                "shoesid":shoesid,
+                "colorid":colorId,
+                "sizeid":sizeId
+            },
+            success:function (data) {
+               console.log("ajax ----"+data.skuid);
+                // 处理 下单
+
+                //result = data.skuid;
+            },
+            error:function () {
+                alert("请求失败！");
+            }
+        });
+    if(!skuId){
+        alert("请求失败！");
+    }
+
+    return result;
+
+}
+
+
 /**
  *  根据类名获取对象
  *

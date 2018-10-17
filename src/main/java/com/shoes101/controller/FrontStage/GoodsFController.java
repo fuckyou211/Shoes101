@@ -88,7 +88,7 @@ public class GoodsFController {
      */
     @RequestMapping("/getQtyAjax")
     @ResponseBody
-    public SkuIdAndQtyVo getQuantity(@RequestParam("shoesid") int shoesid,@RequestParam("colorid") String colorid,@RequestParam("sizeid") String sizeid)
+    public SkuIdAndQtyVo getQuantity(@RequestParam("shoesid") int shoesid,@RequestParam(value="colorid", required = false) String colorid,@RequestParam(value = "sizeid", required = false) String sizeid)
     {
         //取缓存
         SkuIdAndQtyVo existQtyAndId = redisService.get(FGoodsKey.getQtyAndSkuId,"shoesid" + shoesid + "colorid" + colorid + "sizeid" + sizeid,SkuIdAndQtyVo.class);
