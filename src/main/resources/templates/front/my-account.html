@@ -24,8 +24,7 @@
 	<link rel="stylesheet" href="../static-front/css/main.css">
 	<link rel="stylesheet" href="../static-front/css/style.css">
 	<link rel="stylesheet" href="../static-front/css/responsive.css">
-	<link rel="stylesheet" href="../static-front/css/sitelogo.css">
-	<link rel="stylesheet" href="../static-front/css/cropper.min.css">
+
 
 	<script src="../static-front/js/city.js"></script>
 
@@ -34,7 +33,6 @@
 		.account-area .container .col-md-9 {
 			padding-top: 15px;
 		}
-
 		.single-sidebar-content li a::before {
 			content: none;
 		}
@@ -43,6 +41,10 @@
 		.nav-pills>li.active>a:focus,
 		.nav-pills>li.active>a:hover {
 			background-color: #F25862 !important;
+		}
+		.single-sidebar-content li a::before{
+			content: none !important;
+
 		}
 
 		.wodedingdan h3 {
@@ -76,6 +78,11 @@
 			color: #fff;
 			border: 1px solid #F35E62;
 		}
+		.headpica img{
+			margin-top: 10px;
+			height: 50px;
+			width: 50px
+		 }
 	</style>
 </head>
 <body>
@@ -85,9 +92,14 @@
 <div class="account-area">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3">
-				<div class="location">
+			<div class=" col-md-3">
+				<div class="row">
+					<div class="col-md-4 headpica">
+						<img src="http://www.jq22.com/demo/jquery-html5-upload20160106/logo.jpg" >
+					</div>
+				<div class="location col-md-8">
 					<a href="#" th:text="${acaac}">这里写登录人的名字</a>
+				</div>
 				</div>
 			</div>
 			<div class="col-md-9">
@@ -174,7 +186,7 @@
 													<table class="table table-bordered table-hover">
 														<thead>
 														<tr>
-															<th>图片</th>
+															<th>商品</th>
 															<th>名称</th>
 															<th>类型</th>
 															<th>交易状态</th>
@@ -183,20 +195,20 @@
 														</tr>
 														</thead>
 														<tbody>
-														<tr>
+														<tr  th:each="prod : ${shoes}">
 															<td>
-																<a href="#" class="text-center"><img src="img/1-2.png" /> </a>
+																<a href="#" class="text-center"><img src="../static-front/img/1-2.png" th:src="${prod.picaddress}" /> </a>
 															</td>
 															<td>
-																<a href="single-product.html">More-Or-Less</a>
+																<a href="single-product.html" th:text="${prod.shoesname}" >More-Or-Less</a>
 															</td>
-															<td>Product 14</td>
+															<td th:text="">Product 14</td>
 															<td>
 																<p>已收货</p>
 																<br />
 																<!--<a href="#">退款</a>-->
 															</td>
-															<td class="unit-price">$100.00</td>
+															<td class="unit-price">$<span th:text="${prod.}"></span></td>
 															<td>
 																<div class="queRenShouHuo">
 																	<button type="button" data-toggle="tooltip" title="亲，需要付款才能发货哦" style="margin-right: 10px;"> 联系客服</button>
@@ -333,26 +345,28 @@
 									<tr>
 										<th>图片</th>
 										<th>名称</th>
-										<th>类型</th>
+										<th>商品标价</th>
+										<th>商品数量</th>
+										<th>实付金额</th>
 										<th>交易状态</th>
-										<th>价格</th>
 										<th>操作</th>
 									</tr>
 									</thead>
 									<tbody>
-									<tr>
+									<tr th:each="a : ${Orderdetail}">
 										<td>
-											<a href="#" class="text-center"><img src="img/1-2.png" /> </a>
+											<a href="#" class="text-center"><img src="../static-front/img/1-2.png" th:src="${a.picaddress}" /> </a>
 										</td>
 										<td>
-											<a href="single-product.html">More-Or-Less</a>
+											<a href="single-product.html" th:text="${a.shoeName}"></a>
 										</td>
-										<td>Product 14</td>
+										<td class="unit-price">￥<span th:text="${a.ticketPrice}"></span></td>
+										<td class="unit-price" th:text="${a.quantity}"></td>
+										<td class="unit-price">￥<span th:text="${a.Price}"></span></td>
 										<td>
-											待付款
+											<p>待付款</p>
 											<a href="#">退款</a>
 										</td>
-										<td class="unit-price">$100.00</td>
 										<td>
 											<div class="lijifukuan">
 												<button type="button" data-toggle="tooltip" title="放弃购买"> <i class="fa fa-times"></i> </button>
@@ -378,51 +392,30 @@
 									<tr>
 										<th>图片</th>
 										<th>名称</th>
-										<th>类型</th>
+										<th>商品标价</th>
+										<th>商品数量</th>
+										<th>实付金额</th>
 										<th>交易状态</th>
-										<th>价格</th>
 										<th>操作</th>
 									</tr>
 									</thead>
 									<tbody>
 									<tr>
 										<td>
-											<a href="#" class="text-center"><img src="img/1-2.png" > </a>
+											<a href="#" class="text-center"><img src="../static-front/img/1-2.png" > </a>
 										</td>
 										<td>
 											<a href="single-product.html">More-Or-Less</a>
 										</td>
-										<td>Product 14</td>
-										<td>
-											<p>待发货</p>
-											<br />
-											<a href="#">放弃</a>
-										</td>
-										<td class="unit-price">$100.00</td>
+										<td class="unit-price">￥<span>100.00</span></td>
+										<td class="unit-price"><span>1</span></td>
+										<td class="unit-price">￥<span>95.00</span></td>
 										<td>
 											<p>商家尚未发货</p>
+											<p>退货</p>
+										</td>
+									    <td>
 											<button type="button" data-toggle="tooltip" title="提醒商家发货" style="margin-right: 10px;"> 提醒发货</button>
-										</td>
-									</tr>
-									<tr>
-										<td>
-											<a href="#" class="text-center"><img src="img/2-2.png" alt=""> </a>
-										</td>
-										<td>
-											<a href="single-product.html">Aliquam Consequat</a>
-										</td>
-										<td>Product 14</td>
-										<td>
-											<p>待发货</p>
-											<br />
-											<a href="#">退款</a>
-										</td>
-										<td class="unit-price">$90.00</td>
-										<td>
-											<div>
-												<p>商家尚未发货</p>
-												<button type="button" data-toggle="tooltip" title="提醒商家发货" style="margin-right: 10px;"> 提醒发货</button>
-											</div>
 										</td>
 									</tr>
 
@@ -443,27 +436,29 @@
 									<tr>
 										<th>图片</th>
 										<th>名称</th>
-										<th>类型</th>
+										<th>商品标价</th>
+										<th>商品数量</th>
+										<th>实付金额</th>
 										<th>交易状态</th>
-										<th>价格</th>
 										<th>操作</th>
 									</tr>
 									</thead>
 									<tbody>
 									<tr>
 										<td>
-											<a href="#" class="text-center"><img src="img/1-2.png" /> </a>
+											<a href="#" class="text-center"><img src="../static-front/img/1-2.png" /> </a>
 										</td>
 										<td>
 											<a href="single-product.html">More-Or-Less</a>
 										</td>
-										<td>Product 14</td>
+										<td class="unit-price">￥<span >100</span></td>
+										<td class="unit-price"><span>1</span></td>
+										<td class="unit-price">￥<span >98</span></td>
 										<td>
 											<p>待收货</p>
 											<br />
 											<a href="#">退款</a>
 										</td>
-										<td class="unit-price">$100.00</td>
 										<td>
 											<div class="queRenShouHuo">
 												<button type="button" data-toggle="tooltip" title="亲，需要付款才能发货哦" style="margin-right: 10px;"> 确认收货</button>
@@ -487,27 +482,28 @@
 									<tr>
 										<th>图片</th>
 										<th>名称</th>
-										<th>类型</th>
+										<th>商品标价</th>
+										<th>商品数量</th>
+										<th>实付金额</th>
 										<th>交易状态</th>
-										<th>价格</th>
 										<th>操作</th>
 									</tr>
 									</thead>
 									<tbody>
 									<tr>
 										<td>
-											<a href="#" class="text-center"><img src="img/1-2.png" /> </a>
+											<a href="#" class="text-center"><img src="../static-front/img/1-2.png" /> </a>
 										</td>
 										<td>
 											<a href="single-product.html">More-Or-Less</a>
 										</td>
-										<td>Product 14</td>
+										<td class="unit-price">￥<span >100</span></td>
+										<td class="unit-price"><span>1</span></td>
+										<td class="unit-price">￥<span >98</span></td>
 										<td>
 											<p>已收货/退款中</p>
 											<br />
-											<!--<a href="#">退款</a>-->
 										</td>
-										<td class="unit-price">$100.00</td>
 										<td>
 											<div class="queRenShouHuo">
 												<button type="button" data-toggle="tooltip" title="亲，需要付款才能发货哦" style="margin-right: 10px;"> 联系客服</button>
@@ -523,37 +519,46 @@
 
 					<div role="tabpanel" class="tab-pane fade " id="shoucang">
 						<!--<iframe style="width:300px; height:300px;" id="childframe" src="index.html"></iframe>-->
-						<div class="features-product-area">
-							<div class="container">
+						<div class="panel-body">
+							<div class="wishlist-content">
+								<div class="table-responsive">
+									<table class="table table-bordered table-hover">
+										<thead>
+										<tr>
+											<th>图片</th>
+											<th>名称</th>
+											<th>类型</th>
+											<th>卖家</th>
+											<th>价格</th>
+											<th>操作</th>
+										</tr>
+										</thead>
+										<tbody>
+										<tr>
+											<td>
+												<a href="#" class="text-center"><img src="../static-front/img/1-2.png" /> </a>
+											</td>
+											<td>
+												<a href="single-product.html">More-Or-Less</a>
+											</td>
+											<td>Product 14</td>
+											<td>
+												<p>ab</p>
+												<br />
 
-								<div class="row">
-									<div class="feature-product-slider">
-										<div class="col-md-12">
-											<div class="single-product" align="center">
-												<div class="level-pro-new">
-													<span>新品</span>
-												</div>
-												<div class="product-img">
-													<a href="single-product.html">
-														<img src="img/1-1.png" alt="" class="primary-img">
-														<img src="img/2-1.png" alt="" class="secondary-img">
-													</a>
-												</div>
-												<div class="product-name">
-													<a href="single-product.html" title="Fusce aliquam">耐克好鞋</a>
-												</div>
-												<div class="price-rating">
-													<span class="old-price">$700.00</span>
-													<span>$800.00</span>
-												</div>
-												<div class="actions">
-													<button type="submit" class="btn btn-success btn-group-sm" title="Add to cart">立即购买</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-													<button type="submit" class="btn btn-danger" title="Add to cart">取消收藏</button>
+											</td>
+											<td class="unit-price">$100.00</td>
+											<td>
+												<div class="queRenShouHuo">
+													<button type="button" data-toggle="tooltip" class="btn" style="margin-right: 10px;"> 立即购买</button>
+													<button type="button" data-toggle="tooltip" class="btn" style="margin-right: 10px;"> 取消收藏</button>
 
 												</div>
-											</div>
-										</div>
-									</div>
+											</td>
+										</tr>
+
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
@@ -692,8 +697,7 @@
 <script src="../static-front/js/jquery.scrollUp.min.js" ></script>
 <script src="../static-front/js/plugins.js" ></script>
 <script src="../static-front/js/main.js" ></script>
-<script src="../static-front/js/sitelogo.js" ></script>
-<script src="../static-front/js/cropper.min.js" ></script>
+
 
 
 <!--载入头尾部-->
