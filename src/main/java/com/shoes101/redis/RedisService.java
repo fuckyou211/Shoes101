@@ -1,6 +1,8 @@
 package com.shoes101.redis;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.shoes101.pojo.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import redis.clients.jedis.Jedis;
@@ -31,6 +33,22 @@ public class RedisService {
             String  str = jedis.get(realKey);
             T t =  stringToBean(str, clazz);
             return t;
+        }finally {
+            returnToPool(jedis);
+        }
+    }
+    /**
+     * 当存储的是一个List字符串时使用
+     *
+     * */
+    public <T> List<T> get(KeyPrefix prefix, String key, boolean isList, Class<T> clazz) {
+        Jedis jedis = null;
+        try {
+            jedis =  jedisPool.getResource();
+            //生成真正的key
+            String realKey  = prefix.getPrefix() + key;
+            String  str = jedis.get(realKey);
+            return  stringToList(str, isList,clazz);
         }finally {
             returnToPool(jedis);
         }
@@ -223,6 +241,12 @@ public class RedisService {
         }else {
             return JSON.toJavaObject(JSON.parseObject(str), clazz);
         }
+    }
+
+    public static <T> List<T> stringToList(String str,boolean isList,Class<T> clazz1) {
+        if(isList==true)
+            return  JSON.parseArray(str,clazz1);
+        else return null;
     }
 
     private void returnToPool(Jedis jedis) {

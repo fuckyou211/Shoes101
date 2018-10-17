@@ -13,30 +13,27 @@ public class CatalogServiceImpl implements CatalogService {
 
     @Autowired
     private  ShoescatalogMapper shoescatalogMapper;
-
+/*
    //获得某节点的所有叶子节点
     @Override
-    public List<Shoescatalog> getLeafList(List<Shoescatalog> leafList, Integer parentId, Integer catalogId, Integer isLeaf) {
-        if(isLeaf  == 1){
-            Shoescatalog catalog =  shoescatalogMapper.selectByPrimaryKey(catalogId);
-            leafList.add(catalog);
+    public List<Shoescatalog> getLeafList(List<Shoescatalog> leafList, Shoescatalog shoescatalog) {
+        if(shoescatalog.getIsleaf()  == 1){
+            //Shoescatalog catalog =  shoescatalogMapper.selectByPrimaryKey(catalogId);
+            leafList.add(shoescatalog);
             return leafList;
         }
         else {
-            parentId = catalogId;
+            Integer parentId = shoescatalog.getParentid();
             List<Shoescatalog> list1 = (List<Shoescatalog>) shoescatalogMapper.findCatalogByPid(parentId);
             if (list1.size() != 0) {
                 for (int i = 0; i < list1.size(); i++) {
                     Shoescatalog tempCatalog = list1.get(i);
-                    catalogId = tempCatalog.getCatalogid();
-                    parentId = tempCatalog.getParentid();
-                    isLeaf = tempCatalog.getIsleaf();
-                    leafList = getLeafList(leafList, parentId, catalogId, isLeaf);
+                    leafList = getLeafList(leafList, tempCatalog);
                 }
             }
         }
         return leafList;
-    }
+    }*/
 
     //获得某节点的儿子节点
     @Override
@@ -124,7 +121,7 @@ public class CatalogServiceImpl implements CatalogService {
     }
 
 
-    //获得某节点下的所有分类节点(包括本节点)
+    //获得某节点下的所有分类节点
     public List<Shoescatalog> nextCatalogList(List<Shoescatalog> nextList, Shoescatalog shoescatalog){
         if(shoescatalog.getIsleaf() == 1){
             return nextList;

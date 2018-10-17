@@ -5,10 +5,13 @@ import com.shoes101.pojo.Propertyvalue;
 import java.util.List;
 
 import com.shoes101.pojo.Splink;
+import com.shoes101.vo.PropertyValueVo;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.stereotype.Service;
+
 @Mapper
 public interface PropertyvalueMapper{
     int deleteByPrimaryKey(@Param("propertyvalueid") Integer propertyvalueid, @Param("propertyid") Integer propertyid);
@@ -22,6 +25,8 @@ public interface PropertyvalueMapper{
     int updateByPrimaryKey(Propertyvalue record);
 
     Propertyvalue selectByPrimaryKey(@Param("propertyid") Integer propertyid);
+    @Select("select * from propertyvalue where propertyvalueid = #{propertyvalueid}")
+    PropertyValueVo selectById(@Param("propertyvalueid") Integer propertyvalueid);
 
     //根据属性值id获取属性值 以便获取商品详情
     public String getPropertyvalue(@Param("propertyvalueid") Integer propertyvalueid);

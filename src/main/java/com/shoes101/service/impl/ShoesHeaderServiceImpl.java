@@ -1,12 +1,16 @@
 package com.shoes101.service.impl;
 
 import com.shoes101.mapper.PropertyMapper;
+import com.shoes101.mapper.ShoesMapper;
 import com.shoes101.mapper.ShoescatalogMapper;
+import com.shoes101.mapper.ShoespicMapper;
 import com.shoes101.pojo.Propertyvalue;
+import com.shoes101.pojo.Shoes;
 import com.shoes101.pojo.Shoescatalog;
 import com.shoes101.result.Result;
 import com.shoes101.service.ShoesHeaderService;
 import com.shoes101.vo.CatalogInfoVo;
+import com.shoes101.vo.FGoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,8 +57,10 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
     private ShoescatalogMapper shoescatalogMapper;
     @Autowired
     private PropertyMapper propertyMapper;
-
-
+    @Autowired
+    private ShoesMapper shoesMapper;
+    @Autowired
+    private ShoespicMapper shoespicMapper;
 
     /**
      * 将所有的catalog节点全部放在一个map里，map里面包含的集合内容包含catalogInfo，childrenIndex
@@ -153,6 +159,47 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
         return map;
     }
 
+    @Override
+    public List<FGoodsVo> handleClickNavBarCatalog(Integer catalogId) {
+        Shoescatalog shoescatalog = shoescatalogMapper.selectByPrimaryKey(catalogId);
+        //System.out.println("111"+shoescatalog);
+        List<Shoescatalog> leafList = this.getLeafList(new ArrayList<Shoescatalog>(),shoescatalog);
+        List<FGoodsVo> list = new ArrayList<FGoodsVo>();
+        for(Shoescatalog shoescatalog1 : leafList){
+            List<FGoodsVo> tempList = shoesMapper.getShoesIdAndNameAndPriceByCatalogId(shoescatalog1.getCatalogid());
+            System.out.println("tt"+tempList);
+            for(int i = 0;i < tempList.size();i++)
+            {
+                tempList.get(i).setPics(shoesMapper.getAllPicById(tempList.get(i).getShoesid()));
+            }
+            for(FGoodsVo fGoodsVo:tempList){
+                list.add(fGoodsVo);
+            }
+        }
+        return list;
+    }
+
+    @Override
+    public List<Shoescatalog> getLeafList(List<Shoescatalog> leafList, Shoescatalog shoescatalog) {
+        if(shoescatalog.getIsleaf()  == 1){
+            //Shoescatalog catalog =  shoescatalogMapper.selectByPrimaryKey(catalogId);
+            leafList.add(shoescatalog);
+            return leafList;
+        }
+        else {
+            Integer parentId = shoescatalog.getCatalogid();
+            //System.out.println(parentId);
+            List<Shoescatalog> list1 = (List<Shoescatalog>) shoescatalogMapper.findCatalogByPid(parentId);
+            //System.out.println(list1);
+            if (list1.size() != 0) {
+                for (int i = 0; i < list1.size(); i++) {
+                    Shoescatalog tempCatalog = list1.get(i);
+                    leafList = getLeafList(leafList, tempCatalog);
+                }
+            }
+        }
+        return leafList;
+    }
 
 
     //获得某节点往下level层内的叶子节点或到某节点往下数level层的那一层的节点

@@ -5,6 +5,8 @@ import com.shoes101.pojo.Admin;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface AdminMapper extends BaseMapper<Admin> {
 
@@ -12,5 +14,7 @@ public interface AdminMapper extends BaseMapper<Admin> {
     @Select("select * from admin where adminname = #{adminName}")
     public Admin findAdmin(String adminName);
 
-
+    //拿全部管理员
+    @Select("select * from admin")
+    public List<Admin> fingAllAdmin();
 }

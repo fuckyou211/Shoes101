@@ -7,6 +7,7 @@ import com.shoes101.pojo.Splink;
 import com.shoes101.vo.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
@@ -96,5 +97,12 @@ public interface ShoesMapper {
     //将库存quantity shoesid skuid 存入到rushsku表中
     int sendInRushsku(@Param("quantity") int quantity,@Param("shoesid") int shoesid,@Param("skuid") int skuid,@Param("rushbuyid") int rushbuyid);
 
+
+    /**
+     * @auth:Vakoe
+     */
+    //获取商品名、商品价格根据catalogId
+    @Select("select DISTINCT shoes.shoesid,shoes.shoesname,shoessku.price from shoes INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.catalogid = #{catalogId}")
+    List<FGoodsVo> getShoesIdAndNameAndPriceByCatalogId(@Param("catalogId")Integer catalogId);
 
 }

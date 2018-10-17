@@ -199,6 +199,15 @@
             <artifactId>aliyun-java-sdk-dysmsapi</artifactId>
             <version>1.1.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>io.projectreactor.ipc</groupId>
+            <artifactId>reactor-netty</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.netty</groupId>
+            <artifactId>netty-all</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

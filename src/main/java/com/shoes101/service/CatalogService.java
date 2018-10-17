@@ -1,5 +1,6 @@
 package com.shoes101.service;
 
+import com.shoes101.pojo.Shoes;
 import com.shoes101.pojo.Shoescatalog;
 import com.shoes101.result.Result;
 
@@ -8,8 +9,8 @@ import java.util.List;
 public interface CatalogService
 {
 
-    //获得某节点的所有叶子节点
-    List<Shoescatalog> getLeafList(List<Shoescatalog> leafList, Integer parentId , Integer catalogId, Integer isLeaf);
+    /*//获得某节点的所有叶子节点
+    List<Shoescatalog> getLeafList(List<Shoescatalog> leafList, Shoescatalog shoescatalog);*/
     //获得某节点的儿子节点
     List<Shoescatalog> getChildList(Integer catalogId);
     //添加分类

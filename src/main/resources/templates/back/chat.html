@@ -43,74 +43,41 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div class="row" >
                 <div class="col-lg-12">
 
                     <div class="ibox chat-view">
 
-                        <div class="ibox-title">
-                            <small class="pull-right text-muted">Last message:  Mon Jan 26 2015 - 18:39:23</small>
-                            Chat room panel
+                        <div class="ibox-title" id="chatUser">
+                            <small class="pull-right text-muted">最近聊天</small>
+                            {{name}}
                         </div>
 
 
-                        <div class="ibox-content">
+                        <div class="ibox-content" >
 
                             <div class="row">
 
                                 <div class="col-md-9 ">
-                                    <div class="chat-discussion">
-
-                                        <div class="chat-message left">
-                                            <img class="message-avatar" src="img/a1.jpg" alt="" >
-                                            <div class="message">
-                                                <a class="message-author" href="#"> Michael Smith </a>
-                                                <span class="message-date"> Mon Jan 26 2015 - 18:39:23 </span>
-                                                <span class="message-content">
-											Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.
+                                    <div class="chat-discussion" id="chatMessage">
+                                        <div v-for="item in messageList">
+                                            <div class="chat-message right" v-if="item.from==myself.adminname" >
+                                                <img class="message-avatar" src="" alt="" >
+                                                <div class="message">
+                                                    <a class="message-author" href="#"> {{item.from}} </a>
+                                                    <span class="message-date"> {{item.date}} </span>
+                                                    <span class="message-content">{{item.msg}}
                                             </span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div class="chat-message right">
-                                            <img class="message-avatar" src="img/a4.jpg" alt="" >
-                                            <div class="message">
-                                                <a class="message-author" href="#"> Karl Jordan </a>
-                                                <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                                <span class="message-content">
-											Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover.
+                                            <div class="chat-message left"v-else-if="item.to==myself.adminname">
+                                                <img class="message-avatar" src="" alt="" >
+                                                <div class="message">
+                                                    <a class="message-author" href="#"> {{item.from}} </a>
+                                                    <span class="message-date"> {{item.date}}</span>
+                                                    <span class="message-content">{{item.msg}}
                                             </span>
-                                            </div>
-                                        </div>
-                                        <div class="chat-message right">
-                                            <img class="message-avatar" src="img/a2.jpg" alt="" >
-                                            <div class="message">
-                                                <a class="message-author" href="#"> Michael Smith </a>
-                                                <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                                <span class="message-content">
-											There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration.
-                                            </span>
-                                            </div>
-                                        </div>
-                                        <div class="chat-message left">
-                                            <img class="message-avatar" src="img/a5.jpg" alt="" >
-                                            <div class="message">
-                                                <a class="message-author" href="#"> Alice Jordan </a>
-                                                <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                                <span class="message-content">
-											All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
-                                                It uses a dictionary of over 200 Latin words.
-                                            </span>
-                                            </div>
-                                        </div>
-                                        <div class="chat-message right">
-                                            <img class="message-avatar" src="img/a6.jpg" alt="" >
-                                            <div class="message">
-                                                <a class="message-author" href="#"> Mark Smith </a>
-                                                <span class="message-date">  Fri Jan 25 2015 - 11:12:36 </span>
-                                                <span class="message-content">
-											All the Lorem Ipsum generators on the Internet tend to repeat predefined chunks as necessary, making this the first true generator on the Internet.
-                                                It uses a dictionary of over 200 Latin words.
-                                            </span>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -119,61 +86,18 @@
                                 </div>
                                 <div class="col-md-3">
                                     <div class="chat-users">
+                                        <div class="users-list" id="clientList">
+                                            <div class="chat-user" v-for="(item,index) in clientList">
 
+                                                <img class="chat-avatar" src="" alt="" >
+                                                <div class="chat-user-name">
+                                                    <a href="javascript:void(0)" @click="initChatPanel(item,index)" v-if="item.isOnline==1">{{item.name}}({{item.status}})&nbsp;&nbsp; &nbsp; &nbsp;  在线</a>
+                                                    <a href="javascript:void(0)" @click="initChatPanel(item,index)" v-else>{{item.name}}({{item.status}})&nbsp;&nbsp; &nbsp; &nbsp;  离线</a>
+                                                    <span class="label label-danger pull-right" v-if="item.unReadMessageCount==null||item.unReadMessageCount==''">0</span>
+                                                    <span class="label label-danger pull-right" v-else>{{item.unReadMessageCount}}</span>
+                                                </div>
 
-                                        <div class="users-list">
-                                            <div class="chat-user">
-                                                <img class="chat-avatar" src="img/a4.jpg" alt="" >
-                                                <div class="chat-user-name">
-                                                    <a href="#">Karl Jordan</a>
-                                                </div>
                                             </div>
-                                            <div class="chat-user">
-                                                <img class="chat-avatar" src="img/a1.jpg" alt="" >
-                                                <div class="chat-user-name">
-                                                    <a href="#">Monica Smith</a>
-                                                </div>
-                                            </div>
-                                            <div class="chat-user">
-                                                <span class="pull-right label label-primary">Online</span>
-                                                <img class="chat-avatar" src="img/a2.jpg" alt="" >
-                                                <div class="chat-user-name">
-                                                    <a href="#">Michael Smith</a>
-                                                </div>
-                                            </div>
-                                            <div class="chat-user">
-                                                <span class="pull-right label label-primary">Online</span>
-                                                <img class="chat-avatar" src="img/a3.jpg" alt="" >
-                                                <div class="chat-user-name">
-                                                    <a href="#">Janet Smith</a>
-                                                </div>
-                                            </div>
-                                            <div class="chat-user">
-                                                <img class="chat-avatar" src="img/a5.jpg" alt="" >
-                                                <div class="chat-user-name">
-                                                    <a href="#">Alice Smith</a>
-                                                </div>
-                                            </div>
-                                            <div class="chat-user">
-                                                <img class="chat-avatar" src="img/a6.jpg" alt="" >
-                                                <div class="chat-user-name">
-                                                    <a href="#">Monica Cale</a>
-                                                </div>
-                                            </div>
-                                            <div class="chat-user">
-                                                <img class="chat-avatar" src="img/a2.jpg" alt="" >
-                                                <div class="chat-user-name">
-                                                    <a href="#">Mark Jordan</a>
-                                                </div>
-                                            </div>
-                                            <div class="chat-user">
-                                                <span class="pull-right label label-primary">Online</span>
-                                                <img class="chat-avatar" src="img/a3.jpg" alt="" >
-                                                <div class="chat-user-name">
-                                                    <a href="#">Janet Smith</a>
-                                                </div>
-                                            </div>
-
 
                                         </div>
 
@@ -188,10 +112,12 @@
                                         <div class="form-group">
 
                                             <textarea class="form-control message-input" name="message" placeholder="Enter message text"></textarea>
-                                        </div>
 
+                                        </div>
+                                        <button class="btn " style="margin-left:95.9%;" onclick="sendSpittle()">发送</button>
                                     </div>
                                 </div>
+
                             </div>
 
 
@@ -209,7 +135,7 @@
 </div>
 
 <!-- Mainly scripts -->
-<script src="../js/jquery-3.1.1.min.js"></script>
+<script src="../js/jquery-2.1.1.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
 <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
@@ -220,8 +146,204 @@
 
 <script src="../js/vue.js"></script>
 <script src="../navigate/navigate.js"></script>
-
+<script src="../js/sockjs.min.js"></script>
+<script src="../js/stomp.min.js"></script>
 <script>new Vue({el:"#navigate"});new Vue({el:"#navigate-assist"})</script>
 
+
+
+<script>
+
+    //获得本用户信息
+    var adminInfoString = "[[${AdminInfo}]]";
+    console.log(adminInfoString);
+    adminInfoString  = adminInfoString.replace(/&quot;/g,"\"");
+    var adminInfoObject = JSON.parse(adminInfoString);
+    console.log(adminInfoObject);
+    //聊天对象
+    var chatUser = new Vue({
+        el:"#chatUser",
+        data:{
+            id:"",
+            name:"",
+            isOnline:"",
+            status:""
+        },
+
+    });
+    //聊天信息vue
+    var chatMessage = new Vue({
+        el:"#chatMessage",
+        data:{
+            myself:adminInfoObject,
+            messageList:[],
+        }
+    });
+    //聊天客户列表
+    var clientList = new Vue({
+        el:"#clientList",
+        data:{
+            clientList:[],
+        },
+        methods:{
+            initChatPanel:function(item,index) {
+
+                //加载聊天记录
+                //加载消息
+                if(item.id!=chatUser.id){
+                    /**/
+                    chatMessage.messageList = item.messageList;
+                    //改聊天对象
+                    chatUser.id = item.id;
+                    chatUser.name = item.name;
+                    chatUser.isOnline = item.isOnline;
+                    chatUser.status = item.status;
+                    //改聊天对象对应的clientList的unReadMessageCount
+                    console.log(index);
+                    clientList.clientList[index].unReadMessageCount = 0;
+                    //clientList.clientList[index].messageList= [];
+                }
+               /*else{
+                   /!* chatMessage.messageList = [];
+                    for(var i = 0;i<item.messageList.length;i++)
+                    {
+                        console.log(item.messageList[i]);
+                        chatMessage.messageList.push(item.messageList[i]);
+                        console.log(chatMessage.messageList);
+                    }*!/
+
+                }*/
+            },
+        }
+    });
+
+
+
+    function getNearestClientList(){
+        //读取列表
+        $.ajax({
+            url:'./getClientList',
+            type:'post',
+            dataType:'json',
+            success:function (Result) {
+                var tempList = Result.data;
+                for(var i = 0;i<tempList .length;i++){
+                    var item = tempList[i];
+                    console.log(item);
+                    if(item.name!=adminInfoObject.adminname)
+                        clientList.clientList.push(item)
+                }
+            },
+            error:function () {
+                alert("读取客户列表失败");
+            }
+        });
+    }
+    //websocket方面内容
+    var sock = new SockJS("/websocket-rabbitmq");//连接上端点
+    var stomp = Stomp.over(sock);//用stomp进行包装，规范协议
+    function connect() {
+
+        var token = getCookie("token");
+        var queueName = "AdminId"+adminInfoObject.adminid;
+        stomp.connect({tokenInfo:token},function (frame) {
+            stomp.subscribe("/queue/"+queueName, handleNotification);
+        });
+    }
+
+    function handleNotification(message) {
+        console.log(message.body);
+        //聊天信息格式
+        /*{
+            from:"jiba",
+                to:'admin',
+            message:"吃屎啦你！",
+            fromId:"",
+            toId:"",
+            forwardStatus:
+            date:""
+        },*/
+        var chetMessageObject = JSON.parse(message.body);
+        var index;
+        //找到发信息给你的人的索引
+        for(i in clientList.clientList){
+            var item = clientList.clientList[i];
+            console.log(item);
+            console.log(item.id+";"+chetMessageObject.fromId);
+            if(item.id==chetMessageObject.fromId){
+                index = i;
+                break;
+            }
+        }
+        if(chetMessageObject.fromId==chatUser.id&&chetMessageObject.fromStatus==chatUser.status){
+            clientList.clientList[index].messageList.push(chetMessageObject);
+            chatMessage.messageList.push(chetMessageObject);
+        }
+        else{
+            clientList.clientList[index].unReadMessageCount = clientList.clientList[index].unReadMessageCount+1;
+            console.log("234"+clientList.clientList[index].messageList);
+            clientList.clientList[index].messageList.push(chetMessageObject);
+        }
+
+        //$("#output").append("<b>Received： "+message.body+"</b><br/>")
+    }
+    function sendSpittle() {
+        var info = $("textarea[name='message']").val();
+        if(chatUser.name!==null&&chatUser.name!==""){
+            var chatMessageObject = {
+                from:adminInfoObject.adminname,
+                to:chatUser.name,
+                msg:info,
+                fromId:adminInfoObject.adminid,
+                toId:chatUser.id,
+                forwardStatus:chatUser.status,
+                fromStatus:"管理员",
+                date:"",
+            };
+            console.log("123");
+            stomp.send("/chat", {}, JSON.stringify(chatMessageObject));
+            var time=new Date().Format("yyyy-MM-dd HH:mm:ss");
+            chatMessageObject.date = time;
+            chatMessage.messageList.push(chatMessageObject);
+            $("textarea[name='message']").val('');
+        }
+    }
+    function closeSocket(){
+
+        sock.close();
+    }
+    function getCookie(name)
+    {
+        var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+        if(arr=document.cookie.match(reg))
+            return unescape(arr[2]);
+        else
+            return null;
+    }
+
+    Date.prototype.Format=function(fmt){
+        var o={
+            "M+":this.getMonth()+1,//月份
+            "d+":this.getDate(),//日
+            "H+":this.getHours(),//小时
+            "m+":this.getMinutes(),//分
+            "s+":this.getSeconds(),//秒
+            "q+":Math.floor((this.getMonth()+3)/3),//季度
+            "S+":this.getMilliseconds()//毫毛
+        };
+        if(/(y+)/.test(fmt)) fmt=fmt.replace(RegExp.$1,(this.getFullYear()+"").substr(4-RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    };
+</script>
+
+<script>
+    //页面加载执行
+    $(function () {
+        getNearestClientList();
+        connect();
+    })
+</script>
 </body>
 </html>
