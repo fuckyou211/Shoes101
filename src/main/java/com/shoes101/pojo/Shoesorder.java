@@ -13,7 +13,7 @@ public class Shoesorder implements Serializable {
     @GeneratedValue
     private Integer orderid;
 
-    private String userid;
+    private Integer userid;
 
     private Double totalprice;
 
@@ -45,12 +45,12 @@ public class Shoesorder implements Serializable {
         this.orderid = orderid;
     }
 
-    public String getUserid() {
+    public Integer getUserid() {
         return userid;
     }
 
-    public void setUserid(String userid) {
-        this.userid = userid == null ? null : userid.trim();
+    public void setUserid(Integer userid) {
+        this.userid = userid;
     }
 
     public Double getTotalprice() {

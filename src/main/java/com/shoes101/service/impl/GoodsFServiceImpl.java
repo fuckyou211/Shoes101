@@ -188,6 +188,26 @@ public class GoodsFServiceImpl implements com.shoes101.service.GoodsFService {
     //由id 颜色 尺码 返回库存数量 供前台使用 返回skuid和库存数量
     public SkuIdAndQtyVo getQty2(int shoesid, String colorid, String sizeid)
     {
+        if(colorid.equals("")||sizeid.equals(""))
+        {
+            if(colorid.equals(""))
+            {
+                String cdn = "'%3:" + sizeid + "%'";
+                SkuIdAndQtyVo demo = new SkuIdAndQtyVo();
+                demo.setQuantity(shoesMapper.getQty3(shoesid,cdn));
+                demo.setSkuid(-1);
+                return demo;
+            }
+            if(sizeid.equals(""))
+            {
+                String cdn = "'%2:" + colorid + "%'";
+                SkuIdAndQtyVo demo = new SkuIdAndQtyVo();
+                demo.setQuantity(shoesMapper.getQty3(shoesid,cdn));
+                demo.setSkuid(-1);
+                return demo;
+            }
+
+        }
         String str = "{2:"+ colorid + ',' + "3:" + sizeid + '}';
         String condition = '"' + str + '"';
         System.out.println(condition);

@@ -97,6 +97,10 @@
     select skuid,quantity from shoessku where shoesid=#{shoesid} and skuproperty like ${str}
   </select>
 
+  <select id="getQty3" resultType="java.lang.Integer">
+    select sum(quantity) from shoessku where shoesid=#{shoesid} and skuproperty like ${str}
+  </select>
+
   <select id="getShoesDetail" resultType="java.lang.String">
     select shoesdetails from shoes where shoesid=#{shoesid}
   </select>

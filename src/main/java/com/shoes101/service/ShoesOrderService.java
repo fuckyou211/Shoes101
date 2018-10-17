@@ -11,7 +11,7 @@ public interface ShoesOrderService {
     public List<Shoesorder> getAllOrder();
 
     //根据订单id返回详细值
-    public Orderdetail getOrderdetail(int orderid);
+    public List<Orderdetail> getOrderdetail(int orderid);
 
     //修改订单状态
     public List<Shoesorder> changeState(int state,int orderid);

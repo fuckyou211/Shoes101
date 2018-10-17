@@ -46,4 +46,7 @@
   <delete id="deteleDetail">
     delete from orderdetail where orderid = #{orderid}
   </delete>
+  <select id="getLateOrderId" resultType="java.lang.Integer">
+    select max(orderid) from shoesorder
+  </select>
 </mapper>

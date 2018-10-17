@@ -24,7 +24,7 @@ public class ShoesOrderServiceImpl implements ShoesOrderService {
         return shoesorderMapper.selectAll();
     }
 
-    public Orderdetail getOrderdetail(int orderid)
+    public List<Orderdetail> getOrderdetail(int orderid)
     {
         return orderdetailMapper.getOrderdetail(orderid);
     }

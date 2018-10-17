@@ -65,6 +65,9 @@ public interface ShoesMapper {
     //根据id 颜色和属性获取库存和skuid
     SkuIdAndQtyVo getQty2(@Param("shoesid") Integer shoesid, @Param("str") String str);
 
+    //当颜色或者尺码传入为空时 根据Id 非空的属性来获取总库存
+    int getQty3(@Param("shoesid") Integer shoesid, @Param("str") String str);
+
     //根据id获取商品描述
     String getShoesDetail(@Param("shoesid") Integer shoesid);
 

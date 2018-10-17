@@ -21,4 +21,10 @@ public interface ShoesorderMapper {
 
     //申请退货
     public int iscancel(@Param("orderid")int orderid,@Param("cancel") int cancel);
+
+    //根据skuid获取价格
+    public int getPriceFromSku(@Param("skuid") int skuid);
+
+    //根据用户id查询订单
+    public List<Shoesorder> getOrderByUserId(@Param("userid") int userid);
 }

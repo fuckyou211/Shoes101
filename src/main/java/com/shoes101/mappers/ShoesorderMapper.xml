@@ -63,4 +63,13 @@
   <update id="iscancel">
     update shoesorder set cancel =#{cancel} where orderid = #{orderid}
   </update>
+  <select id="getPriceFromSku" resultType="java.lang.Integer">
+    select price from shoessku where skuid=#{skuid}
+  </select>
+  <insert id="addOrderDetail" parameterType="com.shoes101.pojo.Orderdetail">
+    insert into orderdetail()
+  </insert>
+  <select id="getOrderByUserId" resultType="com.shoes101.pojo.Shoesorder">
+    select * from shoesorder where userid=#{userid}
+  </select>
 </mapper>

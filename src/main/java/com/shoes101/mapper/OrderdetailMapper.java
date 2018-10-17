@@ -17,9 +17,14 @@ public interface OrderdetailMapper {
     int updateByPrimaryKey(Orderdetail record);
 
     //根据订单返回订单详细值
-    public Orderdetail getOrderdetail(@Param("orderid") int orderid);
+    public List<Orderdetail> getOrderdetail(@Param("orderid") int orderid);
 
     //根据订单id删除订单详情
     public int deteleDetail(@Param("orderid") int orderid);
+
+    //获取最新插入到shoesorder的id
+    int getLateOrderId();
+
+
 
 }
