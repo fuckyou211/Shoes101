@@ -67,7 +67,11 @@ public class ShoesHeaderController {
         HashMap<String,Set<PropertyValueVo>> map1 = new HashMap<String,Set<PropertyValueVo>>();
         //获得此catalogId下的所有鞋
        List<FGoodsVo> list =  shoesHeaderService.handleClickNavBarCatalog(catalogId);
-        List<FGoodsVo> newList = list.subList(0,15);
+        List<FGoodsVo> newList;
+        if(list.size()>=16)
+           newList = list.subList(0,15);
+       else
+           newList = list;
        pageBean pb = pageSevice.setTopageBean(1,16,newList,list.size());
        map.put("pageOfShoes",JSON.toJSONString(pb));
       // System.out.println(list);
