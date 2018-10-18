@@ -21,6 +21,7 @@
 		<script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
         <script src="../js/common.js"></script>
         <script src="../js/js.cookie.js"></script>
+        <script src="../js/shoes-detail.js"></script>
 		<script src="../js/shoes-pay.js"></script>
 
 
@@ -207,13 +208,25 @@
 
 		<!--载入尾部-->
 		<script>
+
+            $(function () {
+                let str = window.unescape(getCookie("data"));
+                if(!str){
+                    alert("订单数据异常！");
+                }
+                $("#orderListBody").html(str);
+            });
+
             $("#the_header").load("shoes-header.html");
             $("#the_footer").load("shoes-footer.html");
 		</script>
 	</body>
-    <script>
-        $(function(){
-            getShoesDetail();
-        })
-    </script>
+
+	<!--<script>-->
+		<!--$(function(){-->
+            <!--//renderPayPage($.cookie("data"));-->
+            <!--console.log(OrderItem($.cookie("data")[0]).color);-->
+		<!--});-->
+
+	<!--</script>-->
 </html>

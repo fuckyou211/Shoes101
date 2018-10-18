@@ -18,7 +18,7 @@ function dumpToPayPage(data) {
     if(!data){
         return;
     }
-
+    //$.cookie("data",data);
     renderPayPage(data);
     window.location.href ="/static-front/html/shoes-pay.htm";
 }

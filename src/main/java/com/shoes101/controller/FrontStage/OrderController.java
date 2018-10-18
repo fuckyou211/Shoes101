@@ -1,14 +1,14 @@
 package com.shoes101.controller.FrontStage;
 
+import com.shoes101.redis.RedisService;
 import com.shoes101.result.Result;
 import com.shoes101.service.OrderService;
 import com.shoes101.vo.OrderVo;
+import com.shoes101.vo.PageDataVo;
 import com.shoes101.vo.SkuIdAndQuantityVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,10 +19,24 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
 
+    @Autowired
+    private RedisService redisService;
+
+
+    // 页面数据
+    @PostMapping("/pageData")
+    public Result<PageDataVo> setOrderPageData(@RequestParam(value="key") String key, @RequestParam(value="data") String data){
+        return null;
+
+    }
+
+
     //下单
     @RequestMapping("/add")
     public Result<String> setOrder(@RequestParam("orderItem") OrderVo orderItem)
     {
+
+
         return Result.success(orderService.add(orderItem));
     }
 

@@ -18,7 +18,7 @@ function renderPayPage(orderItemArr){
     if(!orderItemArr){
         return;
     }
-    console.log(orderItemArr);
+    //console.log(orderItemArr);
     //
     let str = "";
 
@@ -26,7 +26,11 @@ function renderPayPage(orderItemArr){
         str += doRenderPayPage(orderItemArr[i]);
     });
 
-    $("#orderListBody").html(str);
+
+    $.cookie("data",window.escape(str));
+    //console.log(str);
+    //console.log($("#orderListBody"));
+    //$("#orderListBody").html("hello word");
 }
 
 function doRenderPayPage(data) {
@@ -51,7 +55,7 @@ function doRenderPayPage(data) {
     +'<td class="price-total">¥ <span>'+ totalPrice +'</span> <input class="orderItem-skuid" type="hidden" value="'+ data.skuid +'"/></td>'
     +'</tr>';
 
-    console.log(str);
+    //console.log(str);
 
     return str;
 
@@ -161,7 +165,7 @@ function getAddr() {
 function getUserId() {
     let token = getCookie("token");
     if(token === ""){
-        var r=confirm("您还没登录，请先登录！")
+        var r=confirm("您还没登录，请先登录！");
         if (r==true)
         {
            return "TO_LOGIN_PAGE";
@@ -182,7 +186,7 @@ function getUserId() {
  */
 function getCookie(name){
     let strcookie = document.cookie;//获取cookie字符串
-    let arrcookie = strcookie.split("; ");//分割
+    let arrcookie = strcookie.split(";");//分割
     //遍历匹配
     for ( var i = 0; i < arrcookie.length; i++) {
         var arr = arrcookie[i].split("=");
