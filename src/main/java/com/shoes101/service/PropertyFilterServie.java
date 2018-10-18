@@ -11,9 +11,11 @@ import com.shoes101.vo.FGoodsVo;
 import com.shoes101.vo.PropertyValueVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 @Service
+@Transactional
 public class PropertyFilterServie {
 
     @Autowired

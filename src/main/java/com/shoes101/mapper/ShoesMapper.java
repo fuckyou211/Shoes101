@@ -105,7 +105,11 @@ public interface ShoesMapper {
      * @auth:Vakoe
      */
     //获取商品名、商品价格根据catalogId
-    @Select("select DISTINCT shoes.shoesid,shoes.shoesname,shoessku.price from shoes INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.catalogid = #{catalogId}")
+    @Select("select DISTINCT shoes.shoesid,shoes.shoesname,shoessku.price from shoes INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.isdropoff=1 and shoes.catalogid = #{catalogId}")
     List<FGoodsVo> getShoesIdAndNameAndPriceByCatalogId(@Param("catalogId")Integer catalogId);
+
+    //获得最新的Shoes(FGoodsVo此时里面并没有pic)
+    @Select("select DISTINCT shoes.shoesid,shoes.shoesname,shoessku.price from shoes INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.isdropoff=1 order by shoes.adddate desc limit 0,#{size} ")
+    List<FGoodsVo> getFGoodsVoOrderByDate(@Param("size") Integer size);
 
 }
