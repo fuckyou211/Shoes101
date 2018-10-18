@@ -13,7 +13,7 @@
     delete from rushbuy
     where rushbuyid = #{rushbuyid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.shoes101.pojo.Rushbuy" >
+  <insert id="insert" parameterType="com.shoes101.vo.RushbuyVo" >
     <selectKey resultType="java.lang.Integer" keyProperty="rushbuyid" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -49,7 +49,7 @@
      shoes.shoesname
     from rushbuy
     INNER JOIN shoes
-    on rushbuy.shoesid = shoes.shoesid
+    on rushbuy.shoesid = shoes.shoesid ORDER BY rushbuy.rushbuyid
   </select>
   <select id="getPic" resultType="java.lang.String">
     select picaddress from shoespic where shoesid=#{shoesid} limit 1

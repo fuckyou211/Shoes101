@@ -54,10 +54,9 @@ public class OrderServiceImpl implements OrderService {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Shoesorder shoesorder = new Shoesorder();
         shoesorder.setUserid(orderItem.getUserid());
-
         shoesorder.setBuydate(currentTime);
 
-        shoesorder.setCancel("0");
+        shoesorder.setCancel(0);
         shoesorder.setContactname(orderItem.getContactName());
         shoesorder.setContactphone(orderItem.getContactPhone());
         shoesorder.setReceiptaddress(orderItem.getReceiptaddress());
@@ -74,6 +73,7 @@ public class OrderServiceImpl implements OrderService {
         {
             Orderdetail orderdetail = new Orderdetail();
             orderdetail.setOrderid(orderdetailMapper.getLateOrderId());
+            orderdetail.setShoesname(orderdetailMapper.getNameById(orderdetailMapper.getIdBySkuid(orderItem.getSkuidandqty().get(i).getSkuid())));
             orderdetail.setSkuid(orderItem.getSkuidandqty().get(i).getSkuid());
             orderdetail.setQuantity(orderItem.getSkuidandqty().get(i).getQuantity());
             orderdetail.setPrice(totalprice.doubleValue());

@@ -51,8 +51,12 @@ public class SecBuyMController {
     @RequestMapping("/confirmRushAjax")
     @ResponseBody
     public Result<String> confirmRushAjax(@RequestParam("shoesid") int shoesid, @RequestParam("price") int price, @RequestParam("shoessku") int shoessku,
-                                          @RequestParam("starttime") Date starttime, @RequestParam("endtime") Date endtime)
+                                          @RequestParam("starttime") String starttime, @RequestParam("endtime") String endtime)
     {
+        String strDateFormat = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+        System.out.println("开始的时间:" + starttime);
+        System.out.println("结束的时间:" + endtime);
         return Result.success(rushMService.getShoesskuForRush(shoesid,price,shoessku,starttime,endtime));
     }
 
