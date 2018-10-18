@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
@@ -63,7 +64,7 @@ public class ShoesHeaderController {
     }
 
     @RequestMapping("/handleClickNavBarCatalog")
-    public String handleClickNavBarCatalog(Integer catalogId,HashMap<String,Object> map){
+    public String handleClickNavBarCatalog(@RequestParam("catalogId") Integer catalogId, HashMap<String,Object> map){
         HashMap<String,Set<PropertyValueVo>> map1 = new HashMap<String,Set<PropertyValueVo>>();
         //获得此catalogId下的所有鞋
        List<FGoodsVo> list =  shoesHeaderService.handleClickNavBarCatalog(catalogId);
@@ -80,8 +81,14 @@ public class ShoesHeaderController {
             Set<PropertyValueVo> propertyValueSet = propertyFilterServie.getGeneralPropertyValue(list,property.getPropertyid());
             map1.put(property.getPropertyname(),propertyValueSet);
         }
-        System.out.println(map1);
+        System.out.println("----------"+map1);
         map.put("propertyFilter",JSON.toJSONString(map1));
         return "/front/shoes-list";
     }
+
+    /*@RequestMapping("/handleClickNavBrand")
+    public String handleClickNavBrand(){
+
+    }*/
+
 }
