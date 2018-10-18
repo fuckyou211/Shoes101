@@ -2,6 +2,7 @@ package com.shoes101.controller.FrontStage;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.shoes101.access.UserContext;
 import com.shoes101.pojo.*;
 import com.shoes101.result.Result;
 import com.shoes101.service.*;
@@ -91,7 +92,7 @@ public class ShoesHeaderController {
     //拿用户数据
     @RequestMapping("/getUser")
     @ResponseBody
-    public User getUser(User user){
-        return user;
+    public User getUser(){
+        return UserContext.getUser();
     }
 }
