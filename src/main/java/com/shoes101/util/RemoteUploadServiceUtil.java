@@ -64,6 +64,9 @@ public class RemoteUploadServiceUtil {
 	 */
 	public List<String> remoteUploadGetList(HttpServletRequest request, String paramName, String remoteUrl, String dirName) {
 		String res = this.remoteUpload(request, paramName, remoteUrl,dirName);
+
+		logger.info("上传图片响应结果：{}",res);
+
 		// 解析字符串
 		List<String> rd = JSON.parseArray(res, String.class);
 

@@ -51,10 +51,10 @@
                 <h2>添加商品</h2>
                 <ol class="breadcrumb">
                     <li>
-                        <a href="index.html">Home</a>
+                        <a href="../../admin/toback">Home</a>
                     </li>
                     <li>
-                        <a>商品管理</a>
+                        <a href="../../shoes/toshoes">商品管理</a>
                     </li>
                     <li class="active">
                         <strong>添加商品</strong>
@@ -653,15 +653,15 @@
             dataType: 'json',
             success: function (result) {
                 console.log(result);
-                editshoesid = result.data;
-                $("#toEditQuantity").modal("show");
-                /*if(result.code==0){
+
+                if(result.code==0){
                     console.log("添加成功！");
+                    editshoesid = result.data;
                     $("#toEditQuantity").modal("show");
                     //alert(result.msg);
-                }else if(result.code==1){
-                    alert(result.msg);
-                }*/
+                }else{
+                    console.log(result.msg);
+                }
             },
             fail: function (err) {
                 console.log("失败："+err)

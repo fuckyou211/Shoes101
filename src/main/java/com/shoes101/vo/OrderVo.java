@@ -10,6 +10,9 @@ public class OrderVo {
     private String contactName;
     private String remark;
     private String receiptaddress;
+    private String token;
+
+
 
     public String getContactPhone() {
         return contactPhone;
@@ -57,5 +60,13 @@ public class OrderVo {
 
     public void setSkuidandqty(List<SkuIdAndQuantityVo> skuidandqty) {
         this.skuidandqty = skuidandqty;
+    }
+
+    public String getToken() {
+        return token;
+    }
+
+    public void setToken(String token) {
+        this.token = token;
     }
 }
