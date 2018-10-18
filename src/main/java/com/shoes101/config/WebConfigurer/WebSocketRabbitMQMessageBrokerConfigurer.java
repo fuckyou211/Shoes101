@@ -35,15 +35,15 @@ public class WebSocketRabbitMQMessageBrokerConfigurer implements WebSocketMessag
          * 使用RabbitMQ做为消息代理，替换默认的Simple Broker
          */
        // registry.setApplicationDestinationPrefixes("/app");
-       registry
-                // "STOMP broker relay"处理所有消息将消息发送到外部的消息代理
-                .enableStompBrokerRelay("/exchange","/topic","/queue","/amq/queue")
-                .setRelayHost("192.168.153.128")
-                .setClientLogin("guest")
-                .setClientPasscode("guest")
-                .setSystemLogin("guest")
-                .setSystemPasscode("guest")
-        ;
+//       registry
+//                // "STOMP broker relay"处理所有消息将消息发送到外部的消息代理
+//                .enableStompBrokerRelay("/exchange","/topic","/queue","/amq/queue")
+//                .setRelayHost("192.168.153.128")
+//                .setClientLogin("guest")
+//                .setClientPasscode("guest")
+//                .setSystemLogin("guest")
+//                .setSystemPasscode("guest")
+//        ;
     }
 
     @Override

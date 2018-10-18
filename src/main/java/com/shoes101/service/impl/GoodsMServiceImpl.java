@@ -68,7 +68,9 @@ public class GoodsMServiceImpl implements GoodsMService {
     @Autowired
     RemoteUploadServiceUtil remoteUploadServiceUtil;
 
-    private String remoteUrl ="http://123.207.109.158:9999/uploadfiles";
+    //private String remoteUrl ="http://123.207.109.158:9999/";
+    private final static String URL_LIST = "http://123.207.109.158:9999/uploadGetList";
+    private final static String URL_JSON = "http://123.207.109.158:9999/uploadGetList";
 
 
     @Override
@@ -213,19 +215,15 @@ public class GoodsMServiceImpl implements GoodsMService {
     public String uploadShoespic(HttpServletRequest request,Integer shoesid){
 
         List<String> res = remoteUploadServiceUtil.remoteUploadGetList(request,
-                "shoespic", "http://123.207.109.158:9999/uploadService","shoesGoods/101");
-        for(int i=0;i<res.size();i++)
-        {
-            Shoespic shoespic=new Shoespic();
-            shoespic.setShoesid(shoesid);
-            shoespic.setPicaddress(res.get(i));
-            if(!res.get(i).equals(null))
-            {
-                shoespicMapper.insert(shoespic);
-                logger.info(JSONObject.toJSONString(res)+"上传成功");
-            }
-        }
+                "shoespic", URL_LIST,"/shoesGoods/101");
 
+        logger.info("wozai zheli ---->上传结果：{}",res);
+
+//            Shoespic shoespic=new Shoespic();
+//            shoespic.setShoesid(shoesid);
+//            shoespic.setPicaddress(JDBCPath);
+//            shoespicMapper.insert(shoespic);
+            //logger.info(JSONObject.toJSONString(res)+"上传成功");
 
             return "00";
 //        List<MultipartFile> fileList = ((MultipartHttpServletRequest) request).getFiles("shoespic");
