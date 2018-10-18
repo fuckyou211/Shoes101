@@ -213,7 +213,7 @@ public class GoodsMServiceImpl implements GoodsMService {
     public String uploadShoespic(HttpServletRequest request,Integer shoesid){
 
         List<String> res = remoteUploadServiceUtil.remoteUploadGetList(request,
-                "shoespic", "","shoesGoods/101");
+                "shoespic", "   ","shoesGoods/101");
         for(int i=0;i<res.size();i++)
         {
             Shoespic shoespic=new Shoespic();
