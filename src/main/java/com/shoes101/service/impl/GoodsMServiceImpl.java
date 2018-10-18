@@ -68,7 +68,7 @@ public class GoodsMServiceImpl implements GoodsMService {
     @Autowired
     RemoteUploadServiceUtil remoteUploadServiceUtil;
 
-    private String remoteUrl ="http://123.207.109.158:9999";
+    private String remoteUrl ="http://123.207.109.158:9999/uploadfiles";
 
 
     @Override
@@ -212,13 +212,14 @@ public class GoodsMServiceImpl implements GoodsMService {
     @Override
     public String uploadShoespic(HttpServletRequest request,Integer shoesid){
 
-           List<String> list= remoteUploadServiceUtil.remoteUploadGetList(request,"shoespic",remoteUrl,"uploadfiles/shoesGoods/"+shoesid);
+        List<String> res = remoteUploadServiceUtil.remoteUploadGetList(request,
+                "shoespic", "= http://123.207.109.158:9999/uploadService","/shoesGoods/101");
 
 //            Shoespic shoespic=new Shoespic();
 //            shoespic.setShoesid(shoesid);
 //            shoespic.setPicaddress(JDBCPath);
 //            shoespicMapper.insert(shoespic);
-            logger.info(JSONObject.toJSONString(list)+"上传成功");
+            logger.info(JSONObject.toJSONString(res)+"上传成功");
 
             return "00";
 //        List<MultipartFile> fileList = ((MultipartHttpServletRequest) request).getFiles("shoespic");
