@@ -2,10 +2,7 @@ package com.shoes101.controller.FrontStage;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
-import com.shoes101.pojo.Property;
-import com.shoes101.pojo.Propertyvalue;
-import com.shoes101.pojo.Shoes;
-import com.shoes101.pojo.Shoescatalog;
+import com.shoes101.pojo.*;
 import com.shoes101.result.Result;
 import com.shoes101.service.*;
 import com.shoes101.vo.CatalogInfoVo;
@@ -91,4 +88,10 @@ public class ShoesHeaderController {
 
     }*/
 
+    //拿用户数据
+    @RequestMapping("/getUser")
+    @ResponseBody
+    public User getUser(User user){
+        return user;
+    }
 }
