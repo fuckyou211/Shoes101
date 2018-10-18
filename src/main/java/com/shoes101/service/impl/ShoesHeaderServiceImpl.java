@@ -182,11 +182,17 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
     //处理点击导航栏品牌部分的处理
     @Override
     public List<FGoodsVo> handleClickNavBarBrand(Integer propertyValueId) {
-        List<FGoodsVo> list =  shoesMapper.getFGoodsVoByPvId(propertyValueId,0,10);
+        List<FGoodsVo> list =  shoesMapper.getFGoodsVoByPvId(propertyValueId,0,10);//分页处理
         for(FGoodsVo fGoodsVo:list){
             fGoodsVo.setPics(shoesMapper.getAllPicById(fGoodsVo.getShoesid()));
         }
         return list;
+    }
+
+    //根据品牌获得相应的鞋的数量
+    @Override
+    public Integer getFGoodsVoCountByPvId(Integer propertyValueId) {
+        return shoesMapper.getFGoodsVoCountByPvId(propertyValueId);
     }
 
     @Override

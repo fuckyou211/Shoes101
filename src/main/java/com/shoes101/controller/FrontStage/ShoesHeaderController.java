@@ -70,6 +70,7 @@ public class ShoesHeaderController {
 
         HashMap<String,Set<PropertyValueVo>> map1 = new HashMap<String,Set<PropertyValueVo>>();
         List<FGoodsVo> list = new ArrayList<FGoodsVo>();
+        pageBean pb = new pageBean();
         if(catalogId!=null){
             //获得此catalogId下的所有鞋
             list =  shoesHeaderService.handleClickNavBarCatalog(catalogId);
@@ -78,22 +79,21 @@ public class ShoesHeaderController {
                 newList = list.subList(0,15);
             else
                 newList = list;
-            pageBean pb = pageSevice.setTopageBean(1,16,newList,list.size());
-            map.put("pageOfShoes",JSON.toJSONString(pb));
+            pb = pageSevice.setTopageBean(1,16,newList,list.size());
         }
         else if(propertyValueId!=null){
             list = shoesHeaderService.handleClickNavBarBrand(propertyValueId);
+             pb = pageSevice.setTopageBean(1,10,list,shoesHeaderService.getFGoodsVoCountByPvId(propertyValueId));
         }
-
         List<Property> propertyList = propertyService.getAllProperty();
         for(Property property:propertyList){
             Set<PropertyValueVo> propertyValueSet = propertyFilterServie.getGeneralPropertyValue(list,property.getPropertyid());
             map1.put(property.getPropertyname(),propertyValueSet);
         }
+        map.put("pageOfShoes",JSON.toJSONString(pb));
         map.put("propertyFilter",JSON.toJSONString(map1));
         return "/front/shoes-list";
     }
-
     //拿用户数据
     @RequestMapping("/getUser")
     @ResponseBody

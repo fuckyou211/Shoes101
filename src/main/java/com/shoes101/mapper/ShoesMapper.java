@@ -116,4 +116,10 @@ public interface ShoesMapper {
             "(select shoessku.* from shoessku LEFT JOIN splink on shoessku.shoesid = splink.shoesid " +
             "where splink.propertyvalueid = #{propertyValueId}) as b on a.shoesid = b.shoesid where b.quantity>0 and a.isdropoff=1 limit #{begin},#{size}")
     List<FGoodsVo> getFGoodsVoByPvId(@Param("propertyValueId") Integer propertyValueId,@Param("begin")Integer begin,@Param("size") Integer size);
+    //根据品牌获得相应的鞋的数量
+    @Select("select count(*) from shoes as a INNER JOIN " +
+            "(select shoessku.* from shoessku LEFT JOIN splink on shoessku.shoesid = splink.shoesid " +
+            "where splink.propertyvalueid = #{propertyValueId}) as b on a.shoesid = b.shoesid where b.quantity>0 and a.isdropoff=1")
+    Integer getFGoodsVoCountByPvId(@Param("propertyValueId") Integer propertyValueId);
+
 }

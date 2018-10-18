@@ -6,6 +6,7 @@ import com.shoes101.pojo.Shoes;
 import com.shoes101.pojo.Shoescatalog;
 import com.shoes101.vo.CatalogInfoVo;
 import com.shoes101.vo.FGoodsVo;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -28,4 +29,7 @@ public interface ShoesHeaderService {
 
     //处理点击品牌的处理
     public List<FGoodsVo> handleClickNavBarBrand(Integer propertyValueId);
+
+    //根据品牌获得相应的鞋的数量
+    public Integer getFGoodsVoCountByPvId(Integer propertyValueId);
 }
