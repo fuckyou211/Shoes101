@@ -108,54 +108,58 @@
 					<span class="order-info-title">确认订单信息</span>
 					<div class="order-items">
 						<table class="table">
-							<tbody>
-								<tr class="cart-list-th">
-									<td class="cart-info-w">商品信息</td>
-									<td>商品属性</td>
-									<td>单价</td>
-									<td>数量</td>
-									<td>金额</td>
-								</tr>
-								<tr class="cart-list-line"></tr>
-								<tr class="cart-list-tr not-selected order-item">
-									<td>
-										<img src="../images/cart-xiezi.jpg" style="width: 80px;height: 80px;">
-										<a class="cart-shoes-name" href="javascript:;">ADDS y3黑武士男鞋新款个性透气运动休闲鞋厚底增高时尚潮牌男鞋</a>
-									</td>
-									<td> 颜色分类：白蓝 尺码：<span>39</span>
-									</td>
-									<td class="price-now">¥ <span>489.00</span></td>
-									<td>
-										<span class="cart-shoes-count">
-											<a href="javascript:;" class="cart-incr">∧</a>
-											<b>23</b>
-											<a href="javascript:;" class="cart-decr">∨</a>
-										</span>
-									</td>
-									<td class="price-total">¥ <span>489.00</span></td>
-								</tr>
-								<!--隔行作用-->
-								<tr class="cart-list-line"></tr>
-								<tr class="cart-list-tr is-selected order-item">
-									<td>
-										<img src="../images/cart-xiezi.jpg" style="width: 80px;height: 80px;">
-										<a class="cart-shoes-name" href="javascript:;">ADDS y3黑武士男鞋新款个性透气运动休闲鞋厚底增高时尚潮牌男鞋</a>
-									</td>
-									<td> 颜色分类：
-										<span>白蓝</span>
-										尺码：
-										<span>39</span>
-										<span id="order-item-skuId" class="display:none;">12</span>
-									</td>
-									<td class="price-now">¥ <span>489.00</span></td>
-									<td>
-										<span class="cart-shoes-count">
-											<b id="order-item-count">23</b>
-										</span>
+                            <thead>
+                                <tr class="cart-list-th">
+                                    <td class="cart-info-w">商品信息</td>
+                                    <td>商品属性</td>
+                                    <td>单价</td>
+                                    <td>数量</td>
+                                    <td>金额</td>
+                                </tr>
+                            </thead>
+							<tbody id="orderListBody">
 
-									</td>
-									<td class="price-total">¥ <span>489.00</span></td>
-								</tr>
+								<!--<tr class="cart-list-line"></tr>-->
+								<!--<tr class="cart-list-tr not-selected order-item">-->
+									<!--<td>-->
+										<!--<img src="../images/cart-xiezi.jpg" style="width: 80px;height: 80px;">-->
+										<!--<a class="cart-shoes-name" href="javascript:;">ADDS y3黑武士男鞋新款个性透气运动休闲鞋厚底增高时尚潮牌男鞋</a>-->
+									<!--</td>-->
+									<!--<td> 颜色分类：白蓝 尺码：<span>39</span>-->
+									<!--</td>-->
+									<!--<td class="price-now">¥ <span>489.00</span></td>-->
+									<!--<td>-->
+										<!--<span class="cart-shoes-count">-->
+											<!--<a href="javascript:;" class="cart-incr">∧</a>-->
+											<!--<b>23</b>-->
+											<!--<a href="javascript:;" class="cart-decr">∨</a>-->
+										<!--</span>-->
+									<!--</td>-->
+									<!--<td class="price-total">¥ <span>489.00</span></td>-->
+								<!--</tr>-->
+								<!--&lt;!&ndash;隔行作用&ndash;&gt;-->
+								<!--<tr class="cart-list-line"></tr>-->
+								<!--<tr class="cart-list-tr is-selected order-item">-->
+									<!--<input type="hidden" value="-1"/>-->
+									<!--<td>-->
+										<!--<img src="../images/cart-xiezi.jpg" style="width: 80px;height: 80px;">-->
+										<!--<a class="cart-shoes-name" href="javascript:;">ADDS y3黑武士男鞋新款个性透气运动休闲鞋厚底增高时尚潮牌男鞋</a>-->
+									<!--</td>-->
+									<!--<td> 颜色分类：-->
+										<!--<span>白蓝</span>-->
+										<!--尺码：-->
+										<!--<span>39</span>-->
+										<!--<span id="order-item-skuId" class="display:none;">12</span>-->
+									<!--</td>-->
+									<!--<td class="price-now">¥ <span>489.00</span></td>-->
+									<!--<td>-->
+										<!--<span class="cart-shoes-count">-->
+											<!--<b id="order-item-count">23</b>-->
+										<!--</span>-->
+
+									<!--</td>-->
+									<!--<td class="price-total">¥ <span>489.00</span></td>-->
+								<!--</tr>-->
 							</tbody>
 						</table>
 
@@ -207,5 +211,9 @@
             $("#the_footer").load("shoes-footer.html");
 		</script>
 	</body>
-
+    <script>
+        $(function(){
+            getShoesDetail();
+        })
+    </script>
 </html>
