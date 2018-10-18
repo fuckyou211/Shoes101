@@ -60,7 +60,7 @@ public class ShoesHeaderController {
         return "/front/shoes-header";
     }
 
-    @RequestMapping("/shoes-list/catalogId/{catalogId}")
+    @RequestMapping("/ShoesShop/shoes-list/catalogId/{catalogId}")
     public String handleClickNavBarCatalog(@PathVariable("catalogId") Integer catalogId, HashMap<String,Object> map){
         HashMap<String,Set<PropertyValueVo>> map1 = new HashMap<String,Set<PropertyValueVo>>();
         //获得此catalogId下的所有鞋
