@@ -25,6 +25,16 @@ public class User implements Serializable {
 
     private int cold;
 
+    private String date;
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
     public int getCold() {
         return cold;
     }

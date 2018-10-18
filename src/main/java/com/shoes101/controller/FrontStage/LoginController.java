@@ -46,7 +46,7 @@ public class LoginController {
     	logger.info(loginVo.toString());
     	//登录
     	String token = verifyUserService.login(response, loginVo);
-    	return Result.success(token);
+    	return Result.success("验证码已发送，请查收！");
     }
 
     /**
@@ -61,7 +61,7 @@ public class LoginController {
         logger.info(loginCodeVo.toString());
         //登录
         String token = verifyUserService.loginCode(response, loginCodeVo);
-        return Result.success(token);
+        return Result.success("验证码已发送，请查收！");
     }
 
     /**
@@ -95,7 +95,7 @@ public class LoginController {
     /**
      * 用户短信注册接口
      * @param response
-     * @param UserVo 封装类 传的数据命名 按bean中变量名字命名
+     * @param传的数据命名按bean中变量名字命名
      * @return
      */
     @RequestMapping("/do_Regiser")
@@ -122,7 +122,7 @@ public class LoginController {
     /**
      * 修改密码短信码接口
      * @param response
-     * @param ResetPasswordVo
+     * @param
      * @return
      */
     @RequestMapping("/resetPassword")
