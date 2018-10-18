@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.*;
 
 @Controller
-@RequestMapping("/header")
 public class ShoesHeaderController {
 
     @Autowired
@@ -35,7 +34,7 @@ public class ShoesHeaderController {
     @Autowired
     private PageSevice pageSevice;
     @ResponseBody
-    @RequestMapping("/getCatalogInfo/{level}")
+    @RequestMapping("/header/getCatalogInfo/{level}")
     public Result<Map<String,List<CatalogInfoVo>>> getNavBarInfo(@PathVariable("level") Integer level, String catalogNameInfo, Integer parentId){
 
         JSONArray catalogName = JSON.parseArray(catalogNameInfo);
@@ -48,7 +47,7 @@ public class ShoesHeaderController {
         }
         return  Result.success( map);
     }
-    @RequestMapping("/getBrandInfo")
+    @RequestMapping("/header/getBrandInfo")
     @ResponseBody
     public Result<List<Propertyvalue>> getBrandInfo(){
         String propertyName = "品牌";
@@ -56,13 +55,13 @@ public class ShoesHeaderController {
         System.out.println(propertyService.getProperty(propertyId));
         return Result.success(propertyService.getProperty(propertyId));
     }
-    @RequestMapping("/toShoes-header")
+    @RequestMapping("/header/toShoes-header")
     public String toShoesHeader(HashMap<String,Object> hm){
         return "/front/shoes-header";
     }
 
-    @RequestMapping("/handleClickNavBarCatalog")
-    public String handleClickNavBarCatalog(@RequestParam("catalogId") Integer catalogId, HashMap<String,Object> map){
+    @RequestMapping("/shoes-list/catalogId/{catalogId}")
+    public String handleClickNavBarCatalog(@PathVariable("catalogId") Integer catalogId, HashMap<String,Object> map){
         HashMap<String,Set<PropertyValueVo>> map1 = new HashMap<String,Set<PropertyValueVo>>();
         //获得此catalogId下的所有鞋
        List<FGoodsVo> list =  shoesHeaderService.handleClickNavBarCatalog(catalogId);
@@ -85,7 +84,7 @@ public class ShoesHeaderController {
     }
 
     /*@RequestMapping("/handleClickNavBrand")
-    public String handleClickNavBrand(){
+    public String handleClickNavBrand(@RequestParam){
 
     }*/
 
