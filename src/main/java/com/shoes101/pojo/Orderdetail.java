@@ -21,6 +21,8 @@ public class Orderdetail implements Serializable {
 
     private Double ticketprice;
 
+    private String shoesname;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getDetailid() {
@@ -71,21 +73,25 @@ public class Orderdetail implements Serializable {
         this.ticketprice = ticketprice;
     }
 
+    public String getShoesname() {
+        return shoesname;
+    }
+
+    public void setShoesname(String shoesname) {
+        this.shoesname = shoesname;
+    }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", detailid=").append(detailid);
-        sb.append(", orderid=").append(orderid);
-        sb.append(", skuid=").append(skuid);
-        sb.append(", quantity=").append(quantity);
-        sb.append(", price=").append(price);
-        sb.append(", ticketprice=").append(ticketprice);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+        return "Orderdetail{" +
+                "detailid=" + detailid +
+                ", orderid=" + orderid +
+                ", skuid=" + skuid +
+                ", quantity=" + quantity +
+                ", price=" + price +
+                ", ticketprice=" + ticketprice +
+                ", shoesname='" + shoesname + '\'' +
+                '}';
     }
 
     public Orderdetail() {
