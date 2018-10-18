@@ -46,7 +46,7 @@ function getShoesDetail() {
  */
 function renderDetailPage(data) {
 
-    console.log(data);
+    //console.log(data);
 
     data = JSON.parse(data);
 
@@ -121,7 +121,7 @@ function ShoesImgShowHandle(data, bigImgId,miniImgId) {
     let bigStr = '<img id="detail-shoes-bimg" src="'+ data[0]+'"'
                     +' class="img-responsive img-thumbnail detail-big-img"/>';
 
-    console.log(bigStr);
+    //console.log(bigStr);
 
     $(bigId).html(bigStr);
 
@@ -144,7 +144,7 @@ function ShoesImgShowHandle(data, bigImgId,miniImgId) {
 
     });
     // http://123.207.109.158:9999/images/1539254939277.png
-    console.log("ddd"+miniStr);
+    //console.log("ddd"+miniStr);
 
     $(miniId).html(miniStr);
 
@@ -246,21 +246,27 @@ function packageShoes() {
     //封装数据
     // 获取鞋子的id
     let shoes_id =  $($_Id("shoes-id")).html();
+    let shoesName = $($_Id("shoes-name")).html();
+    let price = $($_Id("ticket-price")).html();
     // 获取当前的价格
-    let now_price= $($_Id("shoes-price")).html();
+    //let now_price= $($_Id("shoes-price")).html();
     // 获取颜色
-    let shoes_color = $($_Class("detail-shoes-color","choose-border")[0]).attr("name");
+    let colorId = $($_Class("detail-shoes-color","choose-border")[0]).attr("name");
+    let colorPic = $($_Class("detail-shoes-color","choose-border")[0]).children(".small-show-img").attr("src");
+    let color = $($_Class("detail-shoes-color","choose-border")[0]).attr("title");
+    let skuId = $("#shoes-skuid").val();        // skuid
 
-    if(!shoes_color){
+    if(!colorId){
         alert("请选择鞋子颜色！");
         return;
     }
 
 
     // 获取鞋码
-    let shoes_size = $($_Class("detail-shoes-size","number-active")[0]).attr("name");
+    let sizeId = $($_Class("detail-shoes-size","number-active")[0]).attr("name");
+    let size = $($_Class("detail-shoes-size","number-active")[0]).attr("title");
 
-    if(!shoes_size){
+    if(!sizeId){
         alert("请选择鞋子尺码！");
         return;
     }
@@ -270,32 +276,36 @@ function packageShoes() {
 
     // console.log(shoes_id+";"+now_price+";"+shoes_color+";"+shoes_size);
 
-    let data={
-        "id":shoes_id,
-        "color":shoes_color,
-        "size":shoes_size,
-        "count":shoes_count,
-        toString : function () {
-            return "id:"+this.id +"color:"+this.color+"size:"+this.size+"count:"+this.count;
-        }
-    };
+    // let data={
+    //     "id":shoes_id,
+    //     "color":shoes_color,
+    //     "size":shoes_size,
+    //     "count":shoes_count,
+    //     toString : function () {
+    //         return "id:"+this.id +"color:"+this.color+"size:"+this.size+"count:"+this.count;
+    //     }
+    // };
 
-    return data;
+    let orderItem = new OrderItem(colorPic,shoesName,color,size,skuId,shoes_count,price);
+
+    return orderItem;
 }
 
 
 function doPayNow() {
     //封装数据
     //alert('下单成功！');
-    let data = packageShoes();
+    let orderItem = packageShoes();
 
-    if(!data){
+    if(!orderItem){
         return;
     }
 
-    console.log("下单的数据："+data);
+    console.log("下单的数据："+orderItem);
 
-    dumpToPayPage(data);
+    let orderItemArr = new Array(orderItem);
+
+    dumpToPayPage(orderItemArr);
 
     //跳转到购物车页面
     //window.location.href="./shoes-pay.html";

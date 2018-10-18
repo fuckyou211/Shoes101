@@ -9,18 +9,74 @@ $(function () {
 
 });
 
+
 /**
- *  处理下单
+ *  订单页面的渲染
  * @param OrderItemArr
  */
-function handlePay(OrderItemArr){
+function renderPayPage(orderItemArr){
+    if(!orderItemArr){
+        return;
+    }
+    console.log(orderItemArr);
+    //
+    let str = "";
+
+    $.each(orderItemArr,function (i) {
+        str += doRenderPayPage(orderItemArr[i]);
+    });
+
+    $("#orderListBody").html(str);
+}
+
+function doRenderPayPage(data) {
+    console.log("jaige:"+data.price);
+    console.log("shuliang:"+data.count);
+    let totalPrice = Number(data.price) * Number(data.count);
+
+    let str = '<tr class="cart-list-line"></tr>'
+        +'<tr class="cart-list-tr not-selected order-item">'
+        +'<td>'
+        +'<img src="'+data.colorPic+'" style="width: 80px;height: 80px;">'
+        +'<a class="cart-shoes-name" href="javascript:;">'+ data.shoesname +'</a>'
+    +'</td>'
+    +'<td> 颜色分类：<span>'+ data.color +'</span> 尺码：<span>'+ data.size +'</span>'
+    +'</td>'
+    +'<td class="price-now">¥ <span>'+ data.price +'</span></td>'
+    +'<td>'
+    +'<span class="cart-shoes-count">'
+    +'<b>'+ data.count +'</b>'
+    +'</span>'
+    +'</td>'
+    +'<td class="price-total">¥ <span>'+ totalPrice +'</span> <input class="orderItem-skuid" type="hidden" value="'+ data.skuid +'"/></td>'
+    +'</tr>';
+
+    console.log(str);
+
+    return str;
 
 }
 
-// 订单项对象
-function OrderItem(skuId, count) {
-    this.skuId = skuId;
+
+/**
+ * 订单项
+ * @param colorPic  对应颜色的图片
+ * @param shoesName 鞋子的名称
+ * @param color     鞋子的颜色
+ * @param size      鞋子的尺码
+ * @param skuid     鞋子的skuid
+ * @param count     下单的数量
+ * @param price     下单时候的价格
+ * @constructor
+ */
+function OrderItem(colorPic,shoesName, color, size, skuid,count,price) {
+    this.colorPic = colorPic;
+    this.shoesName = shoesName;
+    this.color = color;
+    this.size = size;
+    this.skuid = skuid;
     this.count = count;
+    this.price = price;
 }
 
 // 地址对象
@@ -42,42 +98,39 @@ Addr.prototype.addrString = function (){
 /**
  *  提交订单
  */
-function handOrder() {
-    // 获取商品数据项
-    let contactPhone = $('#contactPhone');
-    let contactName = $("#contactName");
-    
 
-    // 获取收货信息项
-    let addr = getAddr().addrString();
+/**
+ * 订单对象，提交过去的就是该对象
+ * @param userId                下单人
+ * @param contactPhone          收货电话
+ * @param contactName           签收人
+ * @param addr                  签收地址
+ * @param orderHandItemArr      提交的订单项数组
+ * @constructor
+ */
+function ShoesOrder(userId,contactPhone,contactName,addr,orderHandItemArr) {
+    this.userId = userId;
+    this.contactPhone = contactPhone;
+    this.contactName = contactName;
+    this.addr = addr;
+    this.orderHandItemArr = orderHandItemArr;
+}
 
-    // 获取用户id
-    let userId = $.cookie("token");
+/**
+ * 提交订单项
+ * @param skuid
+ * @param shoseCount
+ */
+function OrderHandItem(skuid, shoseCount) {
+    this.skuid = skuid;
+    this.shoseCount = shoseCount;
+}
 
-
-    // 提交请求 POST 请求
-    $.ajax({
-        url:/order/add,
-        type: "POST",
-        data:{
-            "contactPhone":contactPhone,
-            "contactName":contactName,
-            "receiptaddress":addr,
-            "userId": userId
-        },
-        success: function (data) {
-            // 下单成功
-            if(data.code == 0){
-
-            }else{
-                // 下单失败
-            }
-        },
-        error: function () {
-            alert("客户端请求异常！");
-        }
-    });
-
+/**
+ *  提交订单
+ * @param ShoesOrder
+ */
+function handOrder(ShoesOrder) {
 
 }
 

@@ -23,19 +23,19 @@
 <div id="the_header"></div>
 
 <div class="container">
-    <div class="row">
-        <ul class="path-link">
-            <li class="btn-link"><a href="javascript:;"> 101 shoes </a></li>
-            <li><a href="javascript:;"> &gt;</a></li>
-            <li class="btn-link"><a href="javascript:;"> 男鞋 </a></li>
-            <li><a href="javascript:;"> &gt;</a></li>
-            <li class="btn-link"><a href="javascript:;"> 潮流时尚 </a></li>
-            <li><a href="javascript:;"> &gt;</a></li>
-            <li class="btn-link"><a href="javascript:;"> 运动鞋 </a></li>
-            <li><a href="javascript:;"> &gt;</a></li>
-            <li class="btn-link"><a href="javascript:;"> Nike Kobe AD NXT 360 </a></li>
-        </ul>
-    </div>
+    <!--<div class="row">-->
+        <!--<ul class="path-link">-->
+            <!--<li class="btn-link"><a href="javascript:;"> 101 shoes </a></li>-->
+            <!--<li><a href="javascript:;"> &gt;</a></li>-->
+            <!--<li class="btn-link"><a href="javascript:;"> 男鞋 </a></li>-->
+            <!--<li><a href="javascript:;"> &gt;</a></li>-->
+            <!--<li class="btn-link"><a href="javascript:;"> 潮流时尚 </a></li>-->
+            <!--<li><a href="javascript:;"> &gt;</a></li>-->
+            <!--<li class="btn-link"><a href="javascript:;"> 运动鞋 </a></li>-->
+            <!--<li><a href="javascript:;"> &gt;</a></li>-->
+            <!--<li class="btn-link"><a href="javascript:;"> Nike Kobe AD NXT 360 </a></li>-->
+        <!--</ul>-->
+    <!--</div>-->
     <!-- 商品基本信息显示选择-->
     <div class="row lg-border-padding">
         <!-- 商品图片展示栏
@@ -64,8 +64,8 @@
 
                 <li class="detail-li">
                     <span class="h5">价格：</span>
-                    <span style="color: red;" class="h2"> ¥ <span id="shoes-price">489.00</span></span>
-                    &nbsp;&nbsp;<span style="color: red; text-decoration: line-through;" class="h5" id="ticket-price"> ¥ 589.00</span>
+                    <span style="color: red;" class="h2"> ¥ <span id="ticket-price">489.00</span></span>
+                    &nbsp;&nbsp;<span style="color: red; text-decoration: line-through;" class="h5" id="shoes-price"> ¥ 589.00</span>
                 </li>
                 <li class="detail-li">
                     <p class="description-padding dashed-top-border" id="shoes-label">
@@ -98,6 +98,7 @@
                     <!-- 库存的值 -->
                     <span id="detail-shoes-total">5</span>
                 </li>
+                <li><input type="hidden" id="shoes-skuid" value="-1"></li>
                 <!--<li class="detail-li">
                     <div id="" style="width: 30px; height: 30px;">
 
@@ -157,12 +158,12 @@
         </div>
         <hr/>
         <div id="shoes-details" style="margin-top: 20px;" class="center-block" style="padding: 20px;">
-            <p data-spm-anchor-id="a220o.1000855.0.i6.692a10aapT0sdh">
-                <img src="https://img.alicdn.com/imgextra/i4/2986712394/TB2tjhPIqmWBuNjy1XaXXXCbXXa_!!2986712394.jpg"
-                     align="absmiddle" class="img-responsive center-block">
-                <img src="https://img.alicdn.com/imgextra/i4/2986712394/TB2WnTxIh9YBuNjy0FfXXXIsVXa_!!2986712394.jpg"
-                     align="absmiddle" class="img-responsive center-block">
-            </p>
+            <!--<p data-spm-anchor-id="a220o.1000855.0.i6.692a10aapT0sdh">-->
+                <!--<img src="https://img.alicdn.com/imgextra/i4/2986712394/TB2tjhPIqmWBuNjy1XaXXXCbXXa_!!2986712394.jpg"-->
+                     <!--align="absmiddle" class="img-responsive center-block">-->
+                <!--<img src="https://img.alicdn.com/imgextra/i4/2986712394/TB2WnTxIh9YBuNjy0FfXXXIsVXa_!!2986712394.jpg"-->
+                     <!--align="absmiddle" class="img-responsive center-block">-->
+            <!--</p>-->
 
         </div>
     </div>
@@ -173,6 +174,7 @@
 <script src="../js/common.js"></script>
 <script src="../js/js.cookie.js"></script>
 <script src="../js/shoes-detail.js"></script>
+<script src="../js/shoes-pay.js"></script>
 <!--尾部-->
 <div id="the_footer"></div>
 
