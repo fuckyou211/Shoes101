@@ -1,6 +1,7 @@
 package com.shoes101.mapper;
 
 import com.shoes101.pojo.Shoesorder;
+import com.shoes101.vo.ShoesorderVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -12,7 +13,7 @@ public interface ShoesorderMapper {
 
     Shoesorder selectByPrimaryKey(Integer orderid);
 
-    List<Shoesorder> selectAll();
+    List<ShoesorderVo> selectAll();
 
     int updateByPrimaryKey(Shoesorder record);
 
@@ -33,4 +34,10 @@ public interface ShoesorderMapper {
 
     //减库存
     public int setNewSku(@Param("skuid") int skuid,@Param("sku") int sku);
+
+    //根据条件返回列表
+    public List<ShoesorderVo> getbyitem(@Param("validity")int validity,@Param("cancel")int cancel, @Param("state")int state);
+
+    //发货或者退款
+    public int sendOrBack(@Param("orderid") int orderid,@Param("validity") int validity,@Param("cancel") int cancel,@Param("state") int state);
 }

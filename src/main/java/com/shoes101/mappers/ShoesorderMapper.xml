@@ -6,13 +6,13 @@
     <result column="userid" property="userid" jdbcType="VARCHAR" />
     <result column="totalprice" property="totalprice" jdbcType="DOUBLE" />
     <result column="totticketprice" property="totticketprice" jdbcType="DOUBLE" />
-    <result column="buydate" property="buydate" jdbcType="DATE" />
+    <result column="buydate" property="buydate" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <result column="contactname" property="contactname" jdbcType="VARCHAR" />
     <result column="contactphone" property="contactphone" jdbcType="VARCHAR" />
     <result column="receiptaddress" property="receiptaddress" jdbcType="VARCHAR" />
     <result column="state" property="state" jdbcType="INTEGER" />
-    <result column="cancel" property="cancel" jdbcType="VARCHAR" />
+    <result column="cancel" property="cancel" jdbcType="INTEGER" />
     <result column="validity" property="validity" jdbcType="INTEGER" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
@@ -28,7 +28,7 @@
     values (#{orderid,jdbcType=INTEGER}, #{userid,jdbcType=VARCHAR}, #{totalprice,jdbcType=DOUBLE}, 
       #{totticketprice,jdbcType=DOUBLE}, #{buydate,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}, 
       #{contactname,jdbcType=VARCHAR}, #{contactphone,jdbcType=VARCHAR}, #{receiptaddress,jdbcType=VARCHAR}, 
-      #{state,jdbcType=INTEGER}, #{cancel,jdbcType=VARCHAR}, #{validity,jdbcType=INTEGER}
+      #{state,jdbcType=INTEGER}, #{cancel,jdbcType=INTEGER}, #{validity,jdbcType=INTEGER}
       )
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Shoesorder" >
@@ -42,7 +42,7 @@
       contactphone = #{contactphone,jdbcType=VARCHAR},
       receiptaddress = #{receiptaddress,jdbcType=VARCHAR},
       `state` = #{state,jdbcType=INTEGER},
-      cancel = #{cancel,jdbcType=VARCHAR},
+      cancel = #{cancel,jdbcType=INTEGER},
       validity = #{validity,jdbcType=INTEGER}
     where orderid = #{orderid,jdbcType=INTEGER}
   </update>
@@ -52,8 +52,8 @@
     from shoesorder
     where orderid = #{orderid,jdbcType=INTEGER}
   </select>
-  <select id="selectAll" resultMap="BaseResultMap" >
-    select orderid, userid, totalprice, totticketprice, buydate, remark, contactname, 
+  <select id="selectAll" resultType="com.shoes101.vo.ShoesorderVo" >
+    select orderid, userid, totalprice, totticketprice, DATE_FORMAT(buydate,'%Y-%m-%d %H:%i:%s') as buydate, remark, contactname,
     contactphone, receiptaddress, `state`, cancel, validity
     from shoesorder
   </select>
@@ -78,5 +78,13 @@
   <update id="setNewSku">
     update set quantity =#{sku} where skuid=#{skuid}
   </update>
-
+  <select id="getbyitem" resultType="com.shoes101.vo.ShoesorderVo">
+    select * from shoesorder where validity=#{validity} and cancel=#{cancel} and state=#{state}
+  </select>
+  <update id="sendOrBack">
+    update shoesorder set validity=#{validity},
+    cancel=#{cancel},
+    state=#{state}
+    where orderid=#{orderid}
+  </update>
 </mapper>

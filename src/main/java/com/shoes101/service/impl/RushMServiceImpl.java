@@ -47,12 +47,16 @@ public class RushMServiceImpl implements RushMService {
         return JSONObject.toJSONString(map);
     }
 
-    public String getShoesskuForRush(int shoesid, int price, int shoessku, Date starttime, Date endtime)
+    public String getShoesskuForRush(int shoesid, int price, int shoessku, String starttime, String endtime)
     {
         List<String> color = new ArrayList<>();
         List<String> size = new ArrayList<>();
 
-        Rushbuy rb = new Rushbuy();
+        String strDateFormat = "yyyy-MM-dd HH:mm:ss";
+        SimpleDateFormat sdf = new SimpleDateFormat(strDateFormat);
+
+
+        RushbuyVo rb = new RushbuyVo();
         rb.setShoesid(shoesid);
         rb.setRbprice(price);
         rb.setRbamount(shoessku);

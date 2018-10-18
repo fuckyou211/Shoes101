@@ -51,4 +51,10 @@
   <select id="getLateOrderId" resultType="java.lang.Integer">
     select max(orderid) from shoesorder
   </select>
+  <select id="getNameById" resultType="java.lang.String">
+    select shoesname from shoes where shoesid=#{shoesid}
+  </select>
+  <select id="getIdBySkuid" resultType="java.lang.Integer">
+    select shoesid from shoessku where skuid=#{skuid}
+  </select>
 </mapper>

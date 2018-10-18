@@ -8,69 +8,60 @@ $(function () {
     console.log(" commom.js 加载成功！")
 });
 
-
-/**
- *  跳转至下单页面
- * @param data
- */
 function dumpToPayPage(data) {
 
     if(!data){
         return;
     }
-    //$.cookie("data",data);
-    renderPayPage(data);
-    window.location.href ="/static-front/html/shoes-pay.htm";
+
+    // 将 data 封装成 OrderItem 对象 id:4color:2size:7count:1
+
+    let skuId = $_getSkuId(data.id, data.color,data.size);
+
+    console.log("skuId ===="+skuId);
+
+    handlePay(data);
+
+   // window.location.href ="/static-front/html/shoes-pay.htm";
 }
 
-
 /**
- * 获取库存
- * @param shoesId
+ * 获取skuId
+ * @param shoesid
  * @param colorId
  * @param sizeId
  */
-function getShoesStock(shoesId, colorId, sizeId) {
+function $_getSkuId(shoesid,colorId, sizeId){
 
-    let flag = true;
-    let stock;
+    let result;
 
-    if(!shoesId){
-        return;
-    }
-    if(!colorId){
-        colorId = "";
-    }
-    if(!sizeId){
-        sizeId ="";
-    }
-
+    // 请求
     $.ajax({
-        type: "GET",
-        url: "/goodsf/getQtyAjax",
-        async: false,
-        data: {
-            "shoesid":shoesId,
-            "colorid":colorId,
-            "sizeid":sizeId
-        },
-        success:function (data) {
-            console.log("ajax ----"+data.skuid);
-            // 处理 下单
-            if(!data.skuid){
-                return;
+            type:"GET",
+            url: "/goodsf/getQtyAjax",
+            data: {
+                "shoesid":shoesid,
+                "colorid":colorId,
+                "sizeid":sizeId
+            },
+            success:function (data) {
+               console.log("ajax ----"+data.skuid);
+                // 处理 下单
+
+                //result = data.skuid;
+            },
+            error:function () {
+                alert("请求失败！");
             }
-            $("#shoes-skuid").val(data.skuid);
-            stock = data.quantity;
-        },
-        error:function () {
-            alert("请求失败！");
-        }
+        });
+    if(!skuId){
+        alert("请求失败！");
+    }
 
-    });
+    return result;
 
-    return stock;
 }
+
 
 /**
  *  根据类名获取对象
@@ -156,26 +147,6 @@ function $_activeChange(oParent,oTarget, className) {
         imgUrl = imgUrl.replace('/sma-img','/big-img');
 
         BigShoesImgChange(imgUrl);
-    }
-
-    // 是颜色或者尺码才获取库存
-    if(className == "number-active" || className == "choose-border"){
-
-        //  alert("点击了尺码或者颜色！");
-        // 获取库存
-        let colorId = $($_Class("detail-shoes-color","choose-border")[0]).attr("name");
-        let sizeId = $($_Class("detail-shoes-size","number-active")[0]).attr("name");
-        let shoesId =  $($_Id("shoes-id")).html();
-
-        let stock = getShoesStock(shoesId,colorId,sizeId);
-        let shoesCount= $.trim($($_Id("detail-shoes-count")).html());
-        // 设置库存
-        $("#detail-shoes-total").html(stock);
-
-        // 如果现在选择数量大于库存，直接为库存数量
-        if(stock < shoesCount){
-            $($_Id("detail-shoes-count")).html(stock);
-        }
     }
 }
 
@@ -263,9 +234,13 @@ function getQueryPathStringByName(name) {
     if(r != null) return unescape(r[2]);
     return null;
 }
-function $_chooseChange(oParent,oTarget, className) {
+function $_chooseChange(oTarget) {
 
-    $_initActive(oParent,className);
+    let oParent = $(oTarget).attr("prop1");
+    let className = $(oTarget).attr("prop2");
+    /*console.log("看ID");
+    console.log(oParent);*/
+    $_initChoose(oParent,className);
 
     let target = $(oTarget);
 

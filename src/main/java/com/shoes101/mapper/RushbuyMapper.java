@@ -9,7 +9,7 @@ import java.util.List;
 public interface RushbuyMapper {
     int deleteByPrimaryKey(Integer rushbuyid);
 
-    int insert(Rushbuy record);
+    int insert(RushbuyVo record);
 
     Rushbuy selectByPrimaryKey(Integer rushbuyid);
 

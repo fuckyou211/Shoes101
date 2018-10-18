@@ -32,9 +32,11 @@
 	</head>
 
 	<body>
-
 	<!--头部信息-->
-	<div id="the_header"></div>
+	<header>
+		<div id="header-user"></div>
+		<div id="header-nav"></div>
+	</header>
 
 		<!--购物选择和商品展示-->
 		<div class="product-main-items">
@@ -63,87 +65,51 @@
 							<h2>购物选择</h2>
 						</div>
 
-						<div id="thebox" class="col-md-12" style="display:none">
-							<!--品牌选择-->
-							<div class="single-sidebar">
-								<div class="single-sidebar-title">
-									<h3>品牌</h3>
-								</div>
-								<div class="single-sidebar-content">
-									<div id="shoes-attr-1" class="row">
-										<dl class="fl col-xs-9 shopping-choose">
-											<dd class="choose-lab choose-lab-active" onclick="$_chooseChange('shoes-attr-1',this,'choose-lab-active')">
-												<a href="#">全部 </a>
-											</dd>
-											<dd class="choose-lab" onclick="$_chooseChange('shoes-attr-1',this,'choose-lab-active')">
-												<a href="javascript:;" >耐克</a>
-											</dd>
-											<dd class="choose-lab" onclick="$_chooseChange('shoes-attr-1',this,'choose-lab-active')">
-												<a href="#">李宁</a>
-											</dd>
-											<dd class="choose-lab" onclick="$_chooseChange('shoes-attr-1',this,'choose-lab-active')">
-												<a href="#">富贵鸟</a>
-											</dd>
-											<dd class="choose-lab" onclick="$_chooseChange('shoes-attr-1',this,'choose-lab-active')">
-												<a href="#">乔丹</a>
-											</dd>
-										</dl>
+						<div id="theChoose">
+							<div class="col-md-12">
+								<!--属性选择-->
+								<div class="single-sidebar" v-for="(value,key,index) in list">
+									<div v-if="value.length>0&&index<3">
+										<div class="single-sidebar-title">
+											<h3>{{key}}</h3>
+										</div>
+										<div class="single-sidebar-content">
+											<div :id="'shoes-attr-'+index" class="row">
+												<dl class="fl col-xs-9 shopping-choose" >
+													<dd class="choose-lab choose-lab-active" :prop1="'shoes-attr-'+index" prop2="choose-lab-active" onclick="$_chooseChange(this)">
+														<a href="#">全部</a>
+													</dd>
+													<div v-for="items in value" style="display: inline-block">
+													<dd class="choose-lab" :prop1="'shoes-attr-'+index" prop2="choose-lab-active" onclick="$_chooseChange(this)">
+														<a href="javascript:;" >{{items.propertyvalue}}</a>
+													</dd>
+													</div>
+												</dl>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
-
-							<!--风格选择-->
-							<div class="single-sidebar">
-								<div class="single-sidebar-title">
-									<h3>颜色</h3>
-								</div>
-								<div class="single-sidebar-content">
-									<div id="shoes-attr-2" class="row">
-										<dl class="fl col-xs-9 shopping-choose">
-											<dd class="choose-lab choose-lab-active" onclick="$_chooseChange('shoes-attr-2',this,'choose-lab-active')">
-												<a href="#">全部 </a>
-											</dd>
-											<dd class="choose-lab" onclick="$_chooseChange('shoes-attr-2',this,'choose-lab-active')">
-												<a href="javascript:;" >红</a>
-											</dd>
-											<dd class="choose-lab" onclick="$_chooseChange('shoes-attr-2',this,'choose-lab-active')">
-												<a href="#">黄</a>
-											</dd>
-											<dd class="choose-lab" onclick="$_chooseChange('shoes-attr-2',this,'choose-lab-active')">
-												<a href="#">黑白</a>
-											</dd>
-											<dd class="choose-lab" onclick="$_chooseChange('shoes-attr-2',this,'choose-lab-active')">
-												<a href="#">白</a>
-											</dd>
-										</dl>
-									</div>
-								</div>
-							</div>
-
-							<!--尺码选择-->
-							<div class="single-sidebar">
-								<div class="single-sidebar-title">
-									<h3>尺码</h3>
-								</div>
-								<div class="single-sidebar-content">
-									<div id="shoes-attr-3" class="row">
-										<dl class="fl col-xs-9 shopping-choose">
-											<dd class="choose-lab choose-lab-active" onclick="$_chooseChange('shoes-attr-3',this,'choose-lab-active')">
-												<a href="#">全部 </a>
-											</dd>
-											<dd class="choose-lab" onclick="$_chooseChange('shoes-attr-3',this,'choose-lab-active')">
-												<a href="javascript:;" >35以下</a>
-											</dd>
-											<dd class="choose-lab" onclick="$_chooseChange('shoes-attr-3',this,'choose-lab-active')">
-												<a href="#">35</a>
-											</dd>
-											<dd class="choose-lab" onclick="$_chooseChange('shoes-attr-3',this,'choose-lab-active')">
-												<a href="#">36</a>
-											</dd>
-											<dd class="choose-lab" onclick="$_chooseChange('shoes-attr-3',this,'choose-lab-active')">
-												<a href="#">37</a>
-											</dd>
-										</dl>
+							<div id="theBox" class="col-md-12" style="display:none">
+								<div class="single-sidebar" v-for="(value,key,index) in list">
+									<div v-if="value.length>0&&index>=3">
+										<div class="single-sidebar-title">
+											<h3>{{key}}</h3>
+										</div>
+										<div class="single-sidebar-content">
+											<div :id="'shoes-attr-'+index" class="row">
+												<dl class="fl col-xs-9 shopping-choose" >
+													<dd class="choose-lab choose-lab-active" :prop1="'shoes-attr-'+index" prop2="choose-lab-active" onclick="$_chooseChange(this)">
+														<a href="#">全部</a>
+													</dd>
+													<div v-for="items in value" style="display: inline-block">
+														<dd class="choose-lab" :prop1="'shoes-attr-'+index" prop2="choose-lab-active" onclick="$_chooseChange(this)">
+															<a href="javascript:;" >{{items.propertyvalue}}</a>
+														</dd>
+													</div>
+												</dl>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -165,39 +131,36 @@
 						</div>
 
 						<div class="col-md-12 expand" align="center">
-							<input type="button" id="thebtn" onclick="btn()" value="更多"></input>
+							<input type="button" id="theBtn" onclick="btn()" value="更多"></input>
 						</div>
 					</div>
+
 				</div>
 
 				<!--商品展示-->
-				<div class="col-sm-12">
+				<div class="col-sm-12" id="theShoes">
 					<div class="product-bar">
-
 						<!--排序方式-->
 						<div class="sort-by">
 							<label>排序方式</label>
 							<a href="#" class="shoes-sort">默认<i></i></a>
 							<a href="#" class="shoes-sort">销量<i></i></a>
 							<a href="#" class="shoes-sort">价格<i></i></a>
-
 							<a href="#" title="Set Descending Direction">
 								<img src="i_asc_arrow.gif" alt="">
 							</a>
 						</div>
-
 						<!--商品数量-->
-						<div class="limit-product">
-
-							<label>共找到<span> 250 </span>件商品</label>
+						<div class="limit-product" v-for="(value,key,index) in list" v-if="key=='totalCount'">
+							<label>共找到<span> {{value}} </span>件商品</label>
 						</div>
 					</div>
 					<div class="row">
-
 						<!--列出商品-->
 						<div class="product-content">
-							<div class="tab-content">
-								<div role="tabpanel" class="tab-pane active in fade home2" id="gird">
+							<div class="tab-content" v-for="(value,key,index) in list" v-if="key=='beanList'">
+								<div class="tab-pane active in fade home2" v-for="items in value">
+
 									<div class="col-lg-3 col-sm-6" align="center">
 										<div class="single-product">
 											<div class="product-img">
@@ -207,26 +170,10 @@
 												</a>
 											</div>
 											<div class="product-name ">
-												<a href="shoes-detail.html "  title="Fusce aliquam ">Fusce aliquam</a>
+												<span  :title="items.shoesid">{{items.shoesname}}</span>>
 											</div>
 											<div class="price-rating ">
-												<span>$170.00</span>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-3 col-sm-6" align="center">
-										<div class="single-product">
-											<div class="product-img">
-												<a href="shoes-detail.html " >
-													<img src="../static-front/img/9.png "  alt=" " class="primary-img ">
-													<img src="../static-front/img/10.png "  alt=" " class="secondary-img ">
-												</a>
-											</div>
-											<div class="product-name ">
-												<a href="shoes-detail.html "  title="Fusce aliquam ">Fusce aliquam</a>
-											</div>
-											<div class="price-rating ">
-												<span>$170.00</span>
+												<span>￥{{items.price}}</span>
 											</div>
 										</div>
 									</div>
@@ -271,10 +218,39 @@
 		<script src="../static-front/js/jquery.elevatezoom.js"></script>
 		<script src="../static-front/js/jquery.scrollUp.min.js"></script>
 		<script src="../static-front/js/main.js"></script>
+		<script src="../static-front/header/header-nav.js"></script>
+		<script src="../static-front/header/header-user.js"></script>
+		<script src="../static-front/footer/shoes-footer.js"></script>
+		<script src="../static-front/js/vue.js"></script>
 
 		<script type="text/javascript">
-            let btn1 = document.getElementById('thebtn');
-            let box1 = document.getElementById('thebox');
+
+			$(function () {
+                let propertyTemp="[[${propertyFilter}]]";
+                let shoesTemp = "[[${pageOfShoes}]]";
+				propertyTemp = propertyTemp.replace(/&quot;/g,"\"");//把数据格式化
+                shoesTemp = shoesTemp.replace(/&quot;/g,"\"");
+                let propertyData = JSON.parse(propertyTemp);
+                let shoesData = JSON.parse(shoesTemp);
+                loadPropertyData(propertyData);
+                loadShoesData(shoesData);
+            });
+
+			let myChoose, theShose;
+			myChoose = new Vue({
+				el: '#theChoose',
+				data: {
+				    list:[]
+				}
+			});
+			theShose = new Vue({
+				el:'#theShoes',
+				data: {
+				    list:[]
+				}
+			});
+            let btn1 = document.getElementById('theBtn');
+            let box1 = document.getElementById('theBox');
 
             function btn() {
 
@@ -286,14 +262,17 @@
                     btn1.value = "收起";
                 }
             }
+            function loadPropertyData(data) {
+                myChoose.list = data;
+                /*console.log("列表页vue数据：");
+                console.log(myChoose.list);*/
+            }
+            function loadShoesData(data) {
+				theShose.list = data;
+                console.log("列表页鞋子数据：");
+                console.log(theShose.list);
+            }
 		</script>
-
-		<!--载入头尾部-->
-		<script>
-            $("#the_header").load("shoes-header.html");
-            $("#the_footer").load("shoes-footer.html");
-		</script>
-
 	</body>
 
 

@@ -1,19 +1,11 @@
-package com.shoes101.pojo;
+package com.shoes101.vo;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import java.io.Serializable;
 import java.util.Date;
 
+public class ShoesorderVo {
 
-@Entity(name = "shoesorder")
-public class Shoesorder implements Serializable {
-    @Id
-    @GeneratedValue
     private Integer orderid;
 
     private Integer userid;
@@ -23,7 +15,7 @@ public class Shoesorder implements Serializable {
     private Double totticketprice;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
-    private Date buydate;
+    private String buydate;
 
     private String remark;
 
@@ -38,8 +30,6 @@ public class Shoesorder implements Serializable {
     private Integer cancel;
 
     private Integer validity;
-
-    private static final long serialVersionUID = 1L;
 
     public Integer getOrderid() {
         return orderid;
@@ -73,12 +63,11 @@ public class Shoesorder implements Serializable {
         this.totticketprice = totticketprice;
     }
 
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    public Date getBuydate() {
+    public String getBuydate() {
         return buydate;
     }
-    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    public void setBuydate(Date buydate) {
+
+    public void setBuydate(String buydate) {
         this.buydate = buydate;
     }
 
@@ -87,7 +76,7 @@ public class Shoesorder implements Serializable {
     }
 
     public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
+        this.remark = remark;
     }
 
     public String getContactname() {
@@ -95,7 +84,7 @@ public class Shoesorder implements Serializable {
     }
 
     public void setContactname(String contactname) {
-        this.contactname = contactname == null ? null : contactname.trim();
+        this.contactname = contactname;
     }
 
     public String getContactphone() {
@@ -103,7 +92,7 @@ public class Shoesorder implements Serializable {
     }
 
     public void setContactphone(String contactphone) {
-        this.contactphone = contactphone == null ? null : contactphone.trim();
+        this.contactphone = contactphone;
     }
 
     public String getReceiptaddress() {
@@ -111,7 +100,7 @@ public class Shoesorder implements Serializable {
     }
 
     public void setReceiptaddress(String receiptaddress) {
-        this.receiptaddress = receiptaddress == null ? null : receiptaddress.trim();
+        this.receiptaddress = receiptaddress;
     }
 
     public Integer getState() {
@@ -136,31 +125,5 @@ public class Shoesorder implements Serializable {
 
     public void setValidity(Integer validity) {
         this.validity = validity;
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", orderid=").append(orderid);
-        sb.append(", userid=").append(userid);
-        sb.append(", totalprice=").append(totalprice);
-        sb.append(", totticketprice=").append(totticketprice);
-        sb.append(", buydate=").append(buydate);
-        sb.append(", remark=").append(remark);
-        sb.append(", contactname=").append(contactname);
-        sb.append(", contactphone=").append(contactphone);
-        sb.append(", receiptaddress=").append(receiptaddress);
-        sb.append(", state=").append(state);
-        sb.append(", cancel=").append(cancel);
-        sb.append(", validity=").append(validity);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
-    }
-
-    public Shoesorder() {
     }
 }

@@ -25,6 +25,12 @@ public interface OrderdetailMapper {
     //获取最新插入到shoesorder的id
     int getLateOrderId();
 
+    //由于商品详情表新增了商品名 增加方法根据id搜索商品名
+    public String getNameById(@Param("shoesid")int shoesid);
+
+    //根据skuid获取商品id
+    public int getIdBySkuid(@Param("skuid") int skuid);
+
 
 
 }
