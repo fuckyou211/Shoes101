@@ -33,6 +33,8 @@ public class ShoesHeaderController {
     private PropertyFilterServie propertyFilterServie;
     @Autowired
     private PageSevice pageSevice;
+
+    //获得分类信息
     @ResponseBody
     @RequestMapping("/header/getCatalogInfo/{level}")
     public Result<Map<String,List<CatalogInfoVo>>> getNavBarInfo(@PathVariable("level") Integer level, String catalogNameInfo, Integer parentId){
@@ -47,6 +49,7 @@ public class ShoesHeaderController {
         }
         return  Result.success( map);
     }
+    //获得品牌信息
     @RequestMapping("/header/getBrandInfo")
     @ResponseBody
     public Result<List<Propertyvalue>> getBrandInfo(){
@@ -60,33 +63,36 @@ public class ShoesHeaderController {
         return "/front/shoes-header";
     }
 
+    //点击导航栏触发
     @RequestMapping("/ShoesShop/shoes-list")
-    public String handleClickNavBarCatalog(@RequestParam("catalogId") Integer catalogId, HashMap<String,Object> map){
+    public String handleClickNavBar(@RequestParam(name="catalogId",required = false) Integer catalogId, HashMap<String,Object> map,
+                                           @RequestParam(name="propertyValueId",required=false) Integer propertyValueId){
+
         HashMap<String,Set<PropertyValueVo>> map1 = new HashMap<String,Set<PropertyValueVo>>();
-        //获得此catalogId下的所有鞋
-       List<FGoodsVo> list =  shoesHeaderService.handleClickNavBarCatalog(catalogId);
-        List<FGoodsVo> newList;
-        if(list.size()>=16)
-           newList = list.subList(0,15);
-       else
-           newList = list;
-       pageBean pb = pageSevice.setTopageBean(1,16,newList,list.size());
-       map.put("pageOfShoes",JSON.toJSONString(pb));
-      // System.out.println(list);
+        List<FGoodsVo> list = new ArrayList<FGoodsVo>();
+        if(catalogId!=null){
+            //获得此catalogId下的所有鞋
+            list =  shoesHeaderService.handleClickNavBarCatalog(catalogId);
+            List<FGoodsVo> newList;
+            if(list.size()>=16)
+                newList = list.subList(0,15);
+            else
+                newList = list;
+            pageBean pb = pageSevice.setTopageBean(1,16,newList,list.size());
+            map.put("pageOfShoes",JSON.toJSONString(pb));
+        }
+        else if(propertyValueId!=null){
+            list = shoesHeaderService.handleClickNavBarBrand(propertyValueId);
+        }
+
         List<Property> propertyList = propertyService.getAllProperty();
         for(Property property:propertyList){
             Set<PropertyValueVo> propertyValueSet = propertyFilterServie.getGeneralPropertyValue(list,property.getPropertyid());
             map1.put(property.getPropertyname(),propertyValueSet);
         }
-        System.out.println("----------"+map1);
         map.put("propertyFilter",JSON.toJSONString(map1));
         return "/front/shoes-list";
     }
-
-    /*@RequestMapping("/handleClickNavBrand")
-    public String handleClickNavBrand(@RequestParam){
-
-    }*/
 
     //拿用户数据
     @RequestMapping("/getUser")

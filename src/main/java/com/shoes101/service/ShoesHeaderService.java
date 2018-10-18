@@ -26,5 +26,6 @@ public interface ShoesHeaderService {
     //获得某节点的所有叶子节点
     List<Shoescatalog> getLeafList(List<Shoescatalog> leafList, Shoescatalog shoescatalog);
 
-
+    //处理点击品牌的处理
+    public List<FGoodsVo> handleClickNavBarBrand(Integer propertyValueId);
 }

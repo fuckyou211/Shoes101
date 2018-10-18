@@ -132,21 +132,21 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
         List<CatalogInfoVo> levelList = new ArrayList<CatalogInfoVo>();
         Map<String,List<CatalogInfoVo>> map = new HashMap<String, List<CatalogInfoVo>>();
         levelList =  getLevelList(shoescatalog,level,levelList);
-        System.out.println("经过getLevelList的levelList:"+levelList.toString());
+        //System.out.println("经过getLevelList的levelList:"+levelList.toString());
         levelList = HandleLevelList(levelList,level,shoescatalog);
-        System.out.println("经过HandleLevelList的levelList"+levelList);
+       // System.out.println("经过HandleLevelList的levelList"+levelList);
         List<CatalogInfoVo> newList = new ArrayList<CatalogInfoVo>();
         newList  = (List<CatalogInfoVo>) ((ArrayList<CatalogInfoVo>) levelList).clone();
-        System.out.println("needList = "+neededList.toString());
+        //System.out.println("needList = "+neededList.toString());
         newList  = combineList(neededList,newList);
         return newList;
     }
 
+    //根据名字和parentId搜Shoescatalog
     @Override
     public Shoescatalog selectByNameAndParentId(Integer parentId,String catalogName) {
         return (Shoescatalog) shoescatalogMapper.selectByNameAndParentId(parentId,catalogName);
     }
-
     @Override
     public Map<String, List<CatalogInfoVo>> initCatalogInfo() {
         Map<String,List<CatalogInfoVo>> map = new HashMap<String, List<CatalogInfoVo>>();
@@ -158,7 +158,7 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
         }
         return map;
     }
-
+    //处理点击导航栏分类部分的处理
     @Override
     public List<FGoodsVo> handleClickNavBarCatalog(Integer catalogId) {
         Shoescatalog shoescatalog = shoescatalogMapper.selectByPrimaryKey(catalogId);
@@ -175,6 +175,16 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
             for(FGoodsVo fGoodsVo:tempList){
                 list.add(fGoodsVo);
             }
+        }
+        return list;
+    }
+
+    //处理点击导航栏品牌部分的处理
+    @Override
+    public List<FGoodsVo> handleClickNavBarBrand(Integer propertyValueId) {
+        List<FGoodsVo> list =  shoesMapper.getFGoodsVoByPvId(propertyValueId,0,10);
+        for(FGoodsVo fGoodsVo:list){
+            fGoodsVo.setPics(shoesMapper.getAllPicById(fGoodsVo.getShoesid()));
         }
         return list;
     }
@@ -200,6 +210,7 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
         }
         return leafList;
     }
+
 
 
     //获得某节点往下level层内的叶子节点或到某节点往下数level层的那一层的节点
