@@ -26,6 +26,8 @@ import org.springframework.stereotype.Service;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import java.security.SecureRandom;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 
 @Service
@@ -237,6 +239,9 @@ public class VerifyUserServiceImpl implements VerifyUserService {
         user.setPassword(password);
         user.setGender(userVo.getGender());
         user.setPhone(userVo.getPhone());
+        SimpleDateFormat format =  new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Long time=new Long(new Date().getTime());
+        user.setDate(format.format(time));
         logger.info("user:"+JSONObject.toJSONString(user));
         userMapper.insert(user);
         return "注册成功！";
