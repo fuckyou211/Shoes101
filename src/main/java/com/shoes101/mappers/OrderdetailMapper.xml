@@ -8,6 +8,7 @@
     <result column="quantity" property="quantity" jdbcType="INTEGER" />
     <result column="price" property="price" jdbcType="DOUBLE" />
     <result column="ticketprice" property="ticketprice" jdbcType="DOUBLE" />
+    <result column="shoesname" property="shoesname" jdbcType="VARCHAR" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from orderdetail
@@ -18,9 +19,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into orderdetail (orderid, skuid, quantity, 
-      price, ticketprice)
+      price, ticketprice,shoesname)
     values (#{orderid,jdbcType=INTEGER}, #{skuid,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, 
-      #{price,jdbcType=DOUBLE}, #{ticketprice,jdbcType=DOUBLE})
+      #{price,jdbcType=DOUBLE}, #{ticketprice,jdbcType=DOUBLE},#{shoesname,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Orderdetail" >
     update orderdetail
@@ -28,16 +29,17 @@
       skuid = #{skuid,jdbcType=INTEGER},
       quantity = #{quantity,jdbcType=INTEGER},
       price = #{price,jdbcType=DOUBLE},
-      ticketprice = #{ticketprice,jdbcType=DOUBLE}
+      ticketprice = #{ticketprice,jdbcType=DOUBLE},
+      shoesname = #{shoesname,jdbcType=VARCHAR}
     where detailid = #{detailid,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select detailid, orderid, skuid, quantity, price, ticketprice
+    select detailid, orderid, skuid, quantity, price, ticketprice,shoesname
     from orderdetail
     where detailid = #{detailid,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select detailid, orderid, skuid, quantity, price, ticketprice
+    select detailid, orderid, skuid, quantity, price, ticketprice,shoesname
     from orderdetail
   </select>
   <select id="getOrderdetail" resultMap="BaseResultMap">
