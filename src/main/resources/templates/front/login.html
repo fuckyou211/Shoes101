@@ -70,6 +70,34 @@
                         console.log(err);
                     }
                 });
+
+            }
+            function sendchangepassword() {
+                var obj = $(".getchangepasswordyzm");
+                $.post({url:"/login/resetPasswordSMSCode",
+                    dataType:'json',
+                    type: 'post',
+                    data:{
+                        mobile:$("#changepasswordphone").val()
+                    },
+                    success:function(result){
+                        console.log(result.data);
+                        if (result.code==0)
+                        {
+                            settime(obj);
+                            $(".dxdlyzmtest").html("<span style='color: green;'>"+result.msg+"</span>");
+                            // self.location=document.referrer;
+                        }
+                        else {
+                            $(".getchangepasswordyzmtest").html("<span style='color: red;'>"+result.msg+"</span>");
+                        }
+                        // console.log(result.toString());
+                    },
+                    fail: function (err) {
+                        alert("出错！");
+                        console.log(err);
+                    }
+                });
             }
             function settime(obj) { //发送验证码倒计时
                 if (countdown == 0) {
@@ -198,7 +226,7 @@
                                 <input type="text" class="form-control changepasswordyzm" placeholder="请输入验证码" />
                             </div>
                             <div class="col-6">
-                                <input type="button" style="margin-right: 0px;float: right;" class="btn btn-primary getchangepasswordyzm" id="dlbtn" value="获取验证码" onclick="sendemail()" />
+                                <input type="button" style="margin-right: 0px;float: right;" class="btn btn-primary getchangepasswordyzm" value="获取验证码" onclick="sendchangepassword()" />
                             </div>
                             <div class="getchangepasswordyzmtest" style="margin-left: 15px;margin-top: 8px;" >
                             </div>
@@ -365,49 +393,22 @@
                     $("div.a1").hide();
                     $("div.a4").show();
                 });
-                $(".getchangepasswordyzm").click(function() {
-                    $.post({url:"/login/resetPassword",
-                        dataType:'json',
-                        type: 'post',
-                        data:{
-                            mobile:$("#phone1").val(),
-							code:$(".changepasswordyzm").val()
-                        },
-                        success:function(result){
-                            //eval函数解析json数据
-                            // alert(result.toString());
-                            console.log(result.data);
-                            if (result.code==0)
-                            {
-                                settime(obj);
-                                // self.location=document.referrer;
-                            }
-                            else {
-                                $(".getchangepasswordyzmtest").html("<span style='color: red;'>"+result.msg+"</span>");
-                            }
-                            // console.log(result.toString());
-                        },
-                        fail: function (err) {
-                            alert("出错！");
-                            console.log(err);
-                        }
-                    });
-                });
-
                 $(".changepasswordbtn").click(function() {
+                    var inputPassc = $("#changepassword1").val();
+                    var passwordc = hex_md5(inputPassc);
                     $.post({url:"/login/resetPassword",
                         dataType:'json',
                         type: 'post',
                         data:{
-                            mobile:$("#phone1").val(),
+                            mobile:$("#changepasswordphone").val(),
+                            code:$(".changepasswordyzm").val(),
+                            password: passwordc
                         },
                         success:function(result){
-                            //eval函数解析json数据
-                            // alert(result.toString());
                             console.log(result.data);
                             if (result.code==0)
                             {
-                                settime(obj);
+                                alert("密码修改成功！");
                                 // self.location=document.referrer;
                             }
                             else {
@@ -422,7 +423,7 @@
                     });
                 });
                 $(".changepassword1").blur(function(){
-                    if ($(".changepassword1").val().length>5&&$(".changepassword1").val().length<12) {
+                    if ($("#changepassword1").val().length>5&&$("#changepassword1").val().length<12) {
                         $(".changepassword1test").html("<span  style='color: green;'>✔</span>");
                     }
                     else{
@@ -430,7 +431,7 @@
                     }
                 });
                 $(".changepassword2").blur(function(){
-                    if ($(".changepassword1").val()==$(".changepassword2").val()) {
+                    if ($("#changepassword1").val()==$("#changepassword2").val()) {
                         $(".changepassword2test").html("<span  style='color: green;'>✔</span>");
                     }
                     else{
@@ -452,7 +453,7 @@
                             console.log(result.data);
                             if (result.code==0)
                             {
-                                self.location=document.referrer;
+                                window.location.href="/UserInformation/UserMyAccount";
                             }
                             else {
                                 $(".dxdlyzmtest").html("<span style='color: red;'>"+result.msg+"</span>");
@@ -479,14 +480,10 @@
 							password: passwordb
 						},
                         success:function(result){
-                            //eval函数解析json数据
-                            // alert(result.toString());
                             console.log(result.data);
                             if (result.code==0)
 							{
-							    // alert("成功"+passwordb);
                                 window.location.href="/UserInformation/UserMyAccount";
-
                                 // self.location=document.referrer;
                                 // console.log(result.data);
                                 // console.log(result.msg);
@@ -501,7 +498,6 @@
 							else {
                                 $(".e3").html("<span style='color: red;'>"+result.msg+"</span>");
 							}
-
                             // console.log(result.toString());
                         },
                         fail: function (err) {
@@ -510,7 +506,6 @@
                         }
                     });
                 });
-
                 $("#password").blur(function(){
                     if ($("#password").val().length>5&&$("#password").val().length<12) {
                         $(".passwordtest").html("<span  style='color: green;'>✔</span>");
@@ -554,7 +549,6 @@
                         $(".usernametest").html("<span style=\"color: red;\">✖</span>");
                     }
                 });
-
             });
 
 
