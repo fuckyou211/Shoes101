@@ -171,14 +171,8 @@ function brandsToNext(obj) {
     $.ajax({
         url: "",
         type: 'post',
-        data: { propertyvalueid: theBrandsId },
+        data: { catalogId: theBrandsId },
         dataType: 'json',
-        success: function () {
-            console.log("ok");
-        },
-        error: function () {
-          console.log("fail");
-        }
     })
 
 }
@@ -187,18 +181,10 @@ function toShoesList(obj) {
     let theClassifyId = $(obj).attr("value");
     console.log("测试男女鞋分类：");
     console.log(theClassifyId);
-    $.ajax({
-        url: "",
-        type: 'post',
-        data: { propertyvalueid: theClassifyId },
-        dataType: 'json',
-        success: function () {
-            console.log("ok");
-        },
-        error: function () {
-            console.log("fail");
-        }
-    })
+
+    if(theClassifyId){
+        window.location.href="../../ShoesShop/shoes-list?catalogId="+theClassifyId;
+    }
 }
 /*搜索*/
 function theSearch() {

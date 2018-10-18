@@ -3352,7 +3352,7 @@ button.check-button:hover,
 }
 .shopping-choose dd {
 	display:inline-block;
-	margin-top: 10px;
+	margin-top: 3px;
 }
 .shopping-choose dd span{
 	border: 1px solid #31B0D5;
