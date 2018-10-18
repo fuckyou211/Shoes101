@@ -5,6 +5,7 @@ import com.shoes101.mapper.*;
 import com.shoes101.pojo.*;
 import com.shoes101.service.GoodsMService;
 import com.shoes101.util.FileUtils;
+import com.shoes101.util.RemoteUploadServiceUtil;
 import com.shoes101.vo.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +64,11 @@ public class GoodsMServiceImpl implements GoodsMService {
 
     @Autowired
     private SplinkMapper splinkMapper;
+
+    @Autowired
+    RemoteUploadServiceUtil remoteUploadServiceUtil;
+
+    private String remoteUrl ="http://123.207.109.158:9999";
 
 
     @Override
@@ -206,49 +212,58 @@ public class GoodsMServiceImpl implements GoodsMService {
     @Override
     public String uploadShoespic(HttpServletRequest request,Integer shoesid){
 
-        List<MultipartFile> fileList = ((MultipartHttpServletRequest) request).getFiles("shoespic");
-        MultipartFile file = null;
+           List<String> list= remoteUploadServiceUtil.remoteUploadGetList(request,"shoespic",remoteUrl,"uploadfiles/shoesGoods/"+shoesid);
 
-        for (int i = 0; i < fileList.size(); ++i) {
-            file = fileList.get(i);
-            logger.error(JSONObject.toJSONString(file));
-            if (file.isEmpty())
-            {
-                continue;
-            }
-            logger.info("i:"+i);
-            // 要上传的目标文件存放路径
-            String savePath = FileUtils.getWebContent() + File.separator + "src" + File.separator + "main" +
-                    File.separator+"resources"+ File.separator+"static"+ File.separator+"uploadfiles"+File.separator+"shoesGoods"+File.separator+shoesid;
-            //存放路径 创建
-            File dir=new File(savePath);
-            if(! dir.exists()){
-                dir.mkdirs();
-            }
-            String msg = "";
-            String name=file.getOriginalFilename();
-            String suffix = name.substring(name.lastIndexOf('.'));
-            String newFileName = new Date().getTime() + suffix;
-            String JDBCPath ="uploadfiles/shoesGoods/"+shoesid+"/"+newFileName;
+//            Shoespic shoespic=new Shoespic();
+//            shoespic.setShoesid(shoesid);
+//            shoespic.setPicaddress(JDBCPath);
+//            shoespicMapper.insert(shoespic);
+            logger.info(JSONObject.toJSONString(list)+"上传成功");
 
-            if (FileUtils.upload(file, savePath, newFileName)) {
-                // 上传成功，给出页面提示
-                msg = "上传成功！";
-                Shoespic shoespic=new Shoespic();
-                shoespic.setShoesid(shoesid);
-                shoespic.setPicaddress(JDBCPath);
-                shoespicMapper.insert(shoespic);
-                logger.info(JSONObject.toJSONString(shoespic)+"上传成功");
-            } else {
-                msg = "上传失败！";
-                logger.info(shoesid+"第"+i+"张图上传失败");
-
-            }
-            // 显示图片
-            logger.info(msg);
-            logger.info(file.getOriginalFilename());
-        }
-        return "000";
+            return "00";
+//        List<MultipartFile> fileList = ((MultipartHttpServletRequest) request).getFiles("shoespic");
+//        MultipartFile file = null;
+//
+//        for (int i = 0; i < fileList.size(); ++i) {
+//            file = fileList.get(i);
+//            logger.error(JSONObject.toJSONString(file));
+//            if (file.isEmpty())
+//            {
+//                continue;
+//            }
+//            logger.info("i:"+i);
+//            // 要上传的目标文件存放路径
+//            String savePath = FileUtils.getWebContent() + File.separator + "src" + File.separator + "main" +
+//                    File.separator+"resources"+ File.separator+"static"+ File.separator+"uploadfiles"+File.separator+"shoesGoods"+File.separator+shoesid;
+//            //存放路径 创建
+//            File dir=new File(savePath);
+//            if(! dir.exists()){
+//                dir.mkdirs();
+//            }
+//            String msg = "";
+//            String name=file.getOriginalFilename();
+//            String suffix = name.substring(name.lastIndexOf('.'));
+//            String newFileName = new Date().getTime() + suffix;
+//            String JDBCPath ="uploadfiles/shoesGoods/"+shoesid+"/"+newFileName;
+//
+//            if (FileUtils.upload(file, savePath, newFileName)) {
+//                // 上传成功，给出页面提示
+//                msg = "上传成功！";
+//                Shoespic shoespic=new Shoespic();
+//                shoespic.setShoesid(shoesid);
+//                shoespic.setPicaddress(JDBCPath);
+//                shoespicMapper.insert(shoespic);
+//                logger.info(JSONObject.toJSONString(shoespic)+"上传成功");
+//            } else {
+//                msg = "上传失败！";
+//                logger.info(shoesid+"第"+i+"张图上传失败");
+//
+//            }
+//            // 显示图片
+//            logger.info(msg);
+//            logger.info(file.getOriginalFilename());
+//        }
+//        return "000";
     }
 
     @Override
