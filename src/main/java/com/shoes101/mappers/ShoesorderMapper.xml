@@ -72,4 +72,11 @@
   <select id="getOrderByUserId" resultType="com.shoes101.pojo.Shoesorder">
     select * from shoesorder where userid=#{userid}
   </select>
+  <select id="getQuantityFromSku" resultType="java.lang.Integer">
+    select quantity from shoessku where skuid=#{skuid}
+  </select>
+  <update id="setNewSku">
+    update set quantity =#{sku} where skuid=#{skuid}
+  </update>
+
 </mapper>

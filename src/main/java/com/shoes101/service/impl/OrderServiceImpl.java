@@ -41,7 +41,13 @@ public class OrderServiceImpl implements OrderService {
             //根据skuid获取价格
             totalprice = totalprice + shoesorderMapper.getPriceFromSku(orderItem.getSkuidandqty().get(i).getSkuid()) *
                                         orderItem.getSkuidandqty().get(i).getQuantity();
+            int sku = shoesorderMapper.getQuantityFromSku(orderItem.getSkuidandqty().get(i).getSkuid());
+            sku = sku - orderItem.getSkuidandqty().get(i).getQuantity();
+            shoesorderMapper.setNewSku(orderItem.getSkuidandqty().get(i).getSkuid(),sku);
         }
+
+
+
 
         System.out.println(totalprice);
         Date currentTime = new Date();
