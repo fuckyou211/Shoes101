@@ -3,6 +3,7 @@ package com.shoes101.mapper;
 import com.shoes101.pojo.Shoesorder;
 import com.shoes101.vo.ShoesorderVo;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -40,4 +41,12 @@ public interface ShoesorderMapper {
 
     //发货或者退款
     public int sendOrBack(@Param("orderid") int orderid,@Param("validity") int validity,@Param("cancel") int cancel,@Param("state") int state);
+
+    @Select("select * from shoesorder as a where a.userid = #{userid} AND a.state=#{state} ")
+    public List<Shoesorder> getshoesorderByorderidState(@Param("userid") Integer userid,@Param("state") Integer state);
+
+    @Select("select * from shoesorder as a where a.userid = #{userid} AND a.state!= 100 AND a.state !=101 AND a.state!=102")
+    public List<Shoesorder> getshoesorderByorderidState1(@Param("userid") Integer userid,@Param("state") Integer state);
+
+
 }

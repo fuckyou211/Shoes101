@@ -2,8 +2,10 @@ package com.shoes101.mapper;
 
 import com.shoes101.pojo.Orderdetail;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
+import java.util.Map;
 
 public interface OrderdetailMapper {
     int deleteByPrimaryKey(Integer detailid);
@@ -24,6 +26,9 @@ public interface OrderdetailMapper {
 
     //获取最新插入到shoesorder的id
     int getLateOrderId();
+
+    @Select("select a.*,b.colorpicaddredd from orderdetail as a ,colorpic as b where a.detailid = #{detailid} AND a.skuid=b.skuid ")
+    public Map<String,Object> getOrderdetailByorderid(@Param("detailid") Integer detailid);
 
     //由于商品详情表新增了商品名 增加方法根据id搜索商品名
     public String getNameById(@Param("shoesid")int shoesid);
