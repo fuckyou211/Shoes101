@@ -95,19 +95,17 @@
 			<div class=" col-md-3">
 				<div class="row">
 					<div class="col-md-4 headpica">
-						<img src="http://www.jq22.com/demo/jquery-html5-upload20160106/logo.jpg" >
+						<!--<img th:src="${}" >-->
+						<img src="../img/a1.jpg">
 					</div>
 				<div class="location col-md-8">
-					<a href="#" th:text="${acaac}">这里写登录人的名字</a>
+					<a href="#" th:text="${user}">这里写登录人的名字</a>
 				</div>
 				</div>
 			</div>
 			<div class="col-md-9">
 				<div class=" product-sidebar">
 					<div class="single-sidebar">
-						<!--<div class="single-sidebar-title">
-                            <h3>我的订单</h3>
-                        </div>-->
 						<div class="side-menu">
 							<div class="single-sidebar-content">
 								<ul class="nav nav-pills aaaaa" role="tablist">
@@ -117,7 +115,7 @@
 										</div>
 									</li>
 									<li role="presentation" class="aaaaa">
-										<a href="#meifu" aria-controls="profile" role="tab" data-toggle="tab">待付款</a>
+										<a href="#meifu" class="denglu" aria-controls="profile" role="tab" data-toggle="tab">待付款</a>
 									</li>
 									<li class="aaaaa">
 										<a href="#daifa" aria-controls="profile" role="tab" data-toggle="tab">待发货</a>
@@ -170,59 +168,6 @@
 					<div role="tabpanel" class="tab-pane fade " id="home">
 						<div class="my-account-accordion">
 							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-								<div class="panel panel-default">
-									<div class="panel-heading" role="tab" id="headingOne">
-										<h4 class="panel-title">
-											<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-												<i class="fa fa-list-ol"></i>
-												历史订单和详细信息
-											</a>
-										</h4>
-									</div>
-									<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-										<div class="panel-body">
-											<div class="wishlist-content">
-												<div class="table-responsive">
-													<table class="table table-bordered table-hover">
-														<thead>
-														<tr>
-															<th>商品</th>
-															<th>名称</th>
-															<th>类型</th>
-															<th>交易状态</th>
-															<th>价格</th>
-															<th>操作</th>
-														</tr>
-														</thead>
-														<tbody>
-														<tr  th:each="prod : ${shoes}">
-															<td>
-																<a href="#" class="text-center"><img src="../static-front/img/1-2.png" th:src="${prod.picaddress}" /> </a>
-															</td>
-															<td>
-																<a href="single-product.html" th:text="${prod.shoesname}" >More-Or-Less</a>
-															</td>
-															<td th:text="">Product 14</td>
-															<td>
-																<p>已收货</p>
-																<br />
-																<!--<a href="#">退款</a>-->
-															</td>
-															<td class="unit-price">$<span th:text="${prod.}"></span></td>
-															<td>
-																<div class="queRenShouHuo">
-																	<button type="button" data-toggle="tooltip" title="亲，需要付款才能发货哦" style="margin-right: 10px;"> 联系客服</button>
-																</div>
-															</td>
-														</tr>
-
-														</tbody>
-													</table>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
 
 								<div class="panel panel-default">
 									<div class="panel-heading" role="tab" id="headingThree">
@@ -248,7 +193,6 @@
 																<div class="account-address">
 																	<ul>
 																		<li class="address-menu-title">我的地址</li>
-
 																		<li>地址：<span>广东省广州市海珠区新世界天地f5栋100层</span></li>
 																		<li>手机：<span>13412345678</span></li>
 																		<li>姓名：<span>莉君氢</span></li>
@@ -261,7 +205,7 @@
 															</div>
 														</div>
 														<div class="add-address">
-															<button>add new address</button>
+															<button>添加新地址</button>
 														</div>
 													</div>
 												</div>
@@ -274,7 +218,7 @@
 										<h4 class="panel-title">
 											<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
 												<i class="fa fa-user"></i>
-												个人信息
+												修改联系方式
 											</a>
 										</h4>
 									</div>
@@ -292,13 +236,8 @@
 																<input type="text" placeholder="请填写你的姓名">
 															</div>
 															<div class="form-name">
-																<label>公司 </label>
-																<input type="text" placeholder="请填写你的公司名称">
-															</div>
-
-															<div class="form-name">
-																<label>邮政编码  </label>
-																<input type="text" placeholder="请填写你的邮政编码">
+																<label>电话 </label>
+																<input type="text" placeholder="请填写你的收货电话号码">
 															</div>
 															<div class="form-name">
 																<label> 省份 </label>
@@ -312,6 +251,10 @@
 																<label>详细地址  </label>
 																<input type="text" placeholder="请填写常住地址">
 															</div>
+															<div class="form-name">
+																<label>邮政编码  </label>
+																<input type="text" placeholder="请填写你的邮政编码">
+															</div>
 															<div class="save-button">
 																<button>保存</button>
 															</div>
@@ -322,6 +265,102 @@
 										</div>
 									</div>
 								</div>
+
+								<div class="panel panel-default">
+									<div class="panel-heading" role="tab" id="headingOne">
+										<h4 class="panel-title">
+											<a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+												<i class="fa fa-list-ol"></i>
+												历史订单和详细信息
+											</a>
+										</h4>
+									</div>
+									<div id="collapseOne" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+										<div class="panel-body">
+											<div class="wishlist-content">
+												<div class="table-responsive">
+													<table class="table table-bordered table-hover">
+														<thead>
+														<tr>
+															<th>商品</th>
+															<th>实付金额</th>
+															<th>订单号</th>
+															<th>交易时间</th>
+														</tr>
+														</thead>
+														<tbody >
+														<tr>
+															<td style="width: 45%;">
+																<div class="container-fluid">
+																	<div class=" row" >
+																		<div class="col-md-3">
+																			<a href="#" class="text-center">
+																				<img src="../static-front/img/1-2.png" >
+																			</a>
+																		</div>
+																		<div class="col-md-5">
+																			<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
+																		</div>
+																		<div class="col-md-4">
+																			<div class="container-fluid">
+																				<div class="row">
+																					<div class="col-md-12 " style="height: 40px;">
+																						￥<span>100.00</span>
+																					</div>
+																					<div class="col-md-12" style="height: 40px;">
+																						数量：<span>1</span>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<hr />
+																	<div class="row" >
+																		<div class="col-md-3">
+																			<a href="#" class="text-center">
+																				<img src="../static-front/img/1-2.png" >
+																			</a>
+																		</div>
+																		<div class="col-md-5">
+																			<a href="single-product.html">商品名称加简介（最多40个字）</a>
+																		</div>
+
+																		<div class="col-md-4">
+																			<div class="container-fluid">
+																				<div class="row">
+																					<div class="col-md-12 " style="height: 40px;">
+																						￥<span>100.00</span>
+																					</div>
+																					<div class="col-md-12" style="height: 40px;">
+																						数量：<span>1</span>
+																					</div>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</td>
+															<td class="unit-price">￥<span>11200.00</span></td>
+															<td style="width: 13%;">
+																<span style="line-height: 93px;">12345678901</span>
+															</td>
+															<td >
+																<span style="line-height: 93px;">2018/08/07</span>
+															</td>
+
+														</tr>
+														<tr style="border: none;height: 30px;"></tr>
+														</tbody>
+
+													</table>
+												</div>
+												<!--<button type="submit" value="Continue" class="check-button">一键付款</button>-->
+											</div>
+
+										</div>
+									</div>
+								</div>
+
 
 							</div>
 							<div class="account-button">
@@ -343,43 +382,90 @@
 								<table class="table table-bordered table-hover">
 									<thead>
 									<tr>
-										<th>图片</th>
-										<th>名称</th>
-										<th>商品标价</th>
-										<th>商品数量</th>
+										<th>商品</th>
 										<th>实付金额</th>
+										<th>订单号</th>
 										<th>交易状态</th>
-										<th>操作</th>
+										<th>交易操作</th>
 									</tr>
 									</thead>
-									<tbody>
-									<tr th:each="a : ${Orderdetail}">
-										<td>
-											<a href="#" class="text-center"><img src="../static-front/img/1-2.png" th:src="${a.picaddress}" /> </a>
-										</td>
-										<td>
-											<a href="single-product.html" th:text="${a.shoeName}"></a>
-										</td>
-										<td class="unit-price">￥<span th:text="${a.ticketPrice}"></span></td>
-										<td class="unit-price" th:text="${a.quantity}"></td>
-										<td class="unit-price">￥<span th:text="${a.Price}"></span></td>
-										<td>
-											<p>待付款</p>
-											<a href="#">退款</a>
-										</td>
-										<td>
-											<div class="lijifukuan">
-												<button type="button" data-toggle="tooltip" title="放弃购买"> <i class="fa fa-times"></i> </button>
-												<button type="button" data-toggle="tooltip" title="亲，需要付款才能发货哦" style="margin-right: 10px;"> 立即付款</button>
+									<tbody >
+									<tr>
+										<td style="width: 45%;">
+											<div class="container-fluid">
+												<div class=" row" >
+													<div class="col-md-3">
+														<a href="#" class="text-center">
+															<img src="../static-front/img/1-2.png" >
+														</a>
+													</div>
+													<div class="col-md-5">
+														<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
+													</div>
+													<div class="col-md-4">
+														<div class="container-fluid">
+															<div class="row">
+																<div class="col-md-12 " style="height: 40px;">
+																	￥<span>100.00</span>
+																</div>
+																<div class="col-md-12" style="height: 40px;">
+																	数量：<span>1</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<hr />
+												<div class="row" >
+													<div class="col-md-3">
+														<a href="#" class="text-center">
+															<img src="../static-front/img/1-2.png" >
+														</a>
+													</div>
+													<div class="col-md-5">
+														<a href="single-product.html">商品名称加简介（最多40个字）</a>
+													</div>
+
+													<div class="col-md-4">
+														<div class="container-fluid">
+															<div class="row">
+																<div class="col-md-12 " style="height: 40px;">
+																	￥<span>100.00</span>
+																</div>
+																<div class="col-md-12" style="height: 40px;">
+																	数量：<span>1</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
 											</div>
 										</td>
-									</tr>
+										<td class="unit-price">￥<span>11200.00</span></td>
+										<td style="width: 13%;">
+											<span style="line-height: 93px;">12345678901</span>
+										</td>
+										<td >
+											<span style="line-height: 93px;">买家未付款</span>
+										</td>
+										<td>
+											<span style="line-height: 45px;">
+											<button type="button" data-toggle="tooltip" title="宝贝马上到手" > 立即付款</button>
+											</span>
+											<br /><br />
+											<button type="button" data-toggle="tooltip" > 联系卖家</button><br />
+											<a  href="#" style="margin-left: 15px">取消购买</a>
 
+										</td>
+									</tr>
+									<tr style="border: none;height: 30px;"></tr>
 									</tbody>
+
 								</table>
 							</div>
-							<button type="submit" value="Continue" class="check-button">一键付款</button>
+							<!--<button type="submit" value="Continue" class="check-button">一键付款</button>-->
 						</div>
+
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="daifa">
 						<div class="wishlist-heading">
@@ -390,35 +476,158 @@
 								<table class="table table-bordered table-hover">
 									<thead>
 									<tr>
-										<th>图片</th>
-										<th>名称</th>
-										<th>商品标价</th>
-										<th>商品数量</th>
+										<th>商品</th>
 										<th>实付金额</th>
+										<th>订单号</th>
 										<th>交易状态</th>
-										<th>操作</th>
+										<th>交易操作</th>
 									</tr>
 									</thead>
-									<tbody>
+									<tbody >
 									<tr>
-										<td>
-											<a href="#" class="text-center"><img src="../static-front/img/1-2.png" > </a>
+										<td style="width: 45%;">
+											<div class="container-fluid">
+											<div class=" row" >
+												<div class="col-md-3">
+													<a href="#" class="text-center">
+														<img src="../static-front/img/1-2.png" >
+													</a>
+												</div>
+												<div class="col-md-5">
+													<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
+												</div>
+												<div class="col-md-4">
+													<div class="container-fluid">
+														<div class="row">
+															<div class="col-md-12 " style="height: 40px;">
+																￥<span>100.00</span>
+															</div>
+															<div class="col-md-12" style="height: 40px;">
+																数量：<span>1</span>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+												<hr />
+											<div class="row" >
+												<div class="col-md-3">
+													<a href="#" class="text-center">
+														<img src="../static-front/img/1-2.png" >
+													</a>
+												</div>
+												<div class="col-md-5">
+													<a href="single-product.html">商品名称加简介（最多40个字）</a>
+												</div>
+
+												<div class="col-md-4">
+													<div class="container-fluid">
+														<div class="row">
+															<div class="col-md-12 " style="height: 40px;">
+																￥<span>100.00</span>
+															</div>
+															<div class="col-md-12" style="height: 40px;">
+																数量：<span>1</span>
+															</div>
+														</div>
+													</div>
+												</div>
+
+											</div>
+											</div>
 										</td>
-										<td>
-											<a href="single-product.html">More-Or-Less</a>
+										<td class="unit-price">￥<span>11200.00</span></td>
+										<td style="width: 13%;">
+											<span style="line-height: 93px;">12345678901</span>
 										</td>
-										<td class="unit-price">￥<span>100.00</span></td>
-										<td class="unit-price"><span>1</span></td>
-										<td class="unit-price">￥<span>95.00</span></td>
-										<td>
-											<p>商家尚未发货</p>
-											<p>退货</p>
+										<td >
+											<span style="line-height: 93px;">卖家尚未发货</span>
 										</td>
 									    <td>
-											<button type="button" data-toggle="tooltip" title="提醒商家发货" style="margin-right: 10px;"> 提醒发货</button>
+											<span style="line-height: 45px;">
+											<button type="button" data-toggle="tooltip"  > 提醒发货</button>
+											</span>
+											<br /><br />
+											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
+											<br />
+											<a  href="#" style="margin-left: 15px">申请退货</a>
+
 										</td>
 									</tr>
+									<tr style="border: none;height: 30px;"></tr>
+									</tbody>
+									<tbody >
+									<tr>
+										<td style="width: 45%;">
+											<div class="container-fluid">
+												<div class=" row" >
+													<div class="col-md-3">
+														<a href="#" class="text-center">
+															<img src="../static-front/img/1-2.png" >
+														</a>
+													</div>
+													<div class="col-md-5">
+														<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
+													</div>
+													<div class="col-md-4">
+														<div class="container-fluid">
+															<div class="row">
+																<div class="col-md-12 " style="height: 40px;">
+																	￥<span>100.00</span>
+																</div>
+																<div class="col-md-12" style="height: 40px;">
+																	数量：<span>1</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<hr />
+												<div class="row" >
+													<div class="col-md-3">
+														<a href="#" class="text-center">
+															<img src="../static-front/img/1-2.png" >
+														</a>
+													</div>
+													<div class="col-md-5">
+														<a href="single-product.html">商品名称加简介（最多40个字）</a>
+													</div>
 
+													<div class="col-md-4">
+														<div class="container-fluid">
+															<div class="row">
+																<div class="col-md-12 " style="height: 40px;">
+																	￥<span>100.00</span>
+																</div>
+																<div class="col-md-12" style="height: 40px;">
+																	数量：<span>1</span>
+																</div>
+															</div>
+														</div>
+													</div>
+
+												</div>
+											</div>
+										</td>
+										<td class="unit-price">￥<span>11200.00</span></td>
+										<td style="width: 13%;">
+											<span style="line-height: 93px;">12345678901</span>
+										</td>
+										<td >
+											<span style="line-height: 93px;">卖家尚未发货</span>
+										</td>
+										<td>
+											<span style="line-height: 45px;">
+											<button type="button" data-toggle="tooltip"  > 提醒发货</button>
+											</span>
+											<br /><br />
+											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
+											<br />
+											<a  href="#" style="margin-left: 15px">申请退货</a>
+
+										</td>
+									</tr>
+									<tr style="border: none;height: 30px;"></tr>
 									</tbody>
 								</table>
 							</div>
@@ -434,41 +643,111 @@
 								<table class="table table-bordered table-hover">
 									<thead>
 									<tr>
-										<th>图片</th>
-										<th>名称</th>
-										<th>商品标价</th>
-										<th>商品数量</th>
+										<th>商品</th>
 										<th>实付金额</th>
+										<th>订单号</th>
 										<th>交易状态</th>
-										<th>操作</th>
+										<th>交易操作</th>
 									</tr>
 									</thead>
-									<tbody>
+									<tbody >
 									<tr>
-										<td>
-											<a href="#" class="text-center"><img src="../static-front/img/1-2.png" /> </a>
-										</td>
-										<td>
-											<a href="single-product.html">More-Or-Less</a>
-										</td>
-										<td class="unit-price">￥<span >100</span></td>
-										<td class="unit-price"><span>1</span></td>
-										<td class="unit-price">￥<span >98</span></td>
-										<td>
-											<p>待收货</p>
-											<br />
-											<a href="#">退款</a>
-										</td>
-										<td>
-											<div class="queRenShouHuo">
-												<button type="button" data-toggle="tooltip" title="亲，需要付款才能发货哦" style="margin-right: 10px;"> 确认收货</button>
+										<td style="width: 45%;">
+											<div class="container-fluid">
+												<div class=" row" >
+													<div class="col-md-3">
+														<a href="#" class="text-center">
+															<img src="../static-front/img/1-2.png" >
+														</a>
+													</div>
+													<div class="col-md-5">
+														<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
+													</div>
+													<div class="col-md-4">
+														<div class="container-fluid">
+															<div class="row">
+																<div class="col-md-12 " style="height: 40px;">
+																	￥<span>100.00</span>
+																</div>
+																<div class="col-md-12" style="height: 40px;">
+																	数量：<span>1</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
 											</div>
 										</td>
+										<td class="unit-price">￥<span>11200.00</span></td>
+										<td style="width: 13%;">
+											<span style="line-height: 93px;">12345678901</span>
+										</td>
+										<td >
+											<span style="line-height: 93px;">宝贝在运输途中</span>
+										</td>
+										<td>
+											<span style="line-height: 45px;">
+											<button type="button" data-toggle="tooltip"  > 确认收货</button>
+											</span>
+											<br /><br />
+											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
+											<br />
+											<a  href="#" style="margin-left: 15px">申请退货</a>
+										</td>
 									</tr>
+									<tr style="border: none;height: 30px;"></tr>
+									</tbody>
+									<tbody >
+									<tr>
+										<td style="width: 45%;">
+											<div class="container-fluid">
+												<div class=" row" >
+													<div class="col-md-3">
+														<a href="#" class="text-center">
+															<img src="../static-front/img/1-2.png" >
+														</a>
+													</div>
+													<div class="col-md-5">
+														<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
+													</div>
+													<div class="col-md-4">
+														<div class="container-fluid">
+															<div class="row">
+																<div class="col-md-12 " style="height: 40px;">
+																	￥<span>100.00</span>
+																</div>
+																<div class="col-md-12" style="height: 40px;">
+																	数量：<span>1</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
 
+											</div>
+										</td>
+										<td class="unit-price">￥<span>11200.00</span></td>
+										<td style="width: 13%;">
+											<span style="line-height: 93px;">12345678901</span>
+										</td>
+										<td >
+											<span style="line-height: 93px;">宝贝在运输途中</span>
+										</td>
+										<td>
+											<span style="line-height: 45px;">
+											<button type="button" data-toggle="tooltip"  > 确认收货</button>
+											</span>
+											<br /><br />
+											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
+											<br />
+											<a  href="#" style="margin-left: 15px">申请退货</a>
+										</td>
+									</tr>
+									<tr style="border: none;height: 30px;"></tr>
 									</tbody>
 								</table>
 							</div>
+							<!--<button type="submit" value="Continue" class="check-button">一键付款</button>-->
 						</div>
 					</div>
 					<div role="tabpanel" class="tab-pane fade" id="tuikuan">
@@ -480,40 +759,68 @@
 								<table class="table table-bordered table-hover">
 									<thead>
 									<tr>
-										<th>图片</th>
-										<th>名称</th>
-										<th>商品标价</th>
-										<th>商品数量</th>
+										<th>商品</th>
 										<th>实付金额</th>
+										<th>订单号</th>
 										<th>交易状态</th>
-										<th>操作</th>
+										<th>交易操作</th>
 									</tr>
 									</thead>
-									<tbody>
+									<tbody >
 									<tr>
-										<td>
-											<a href="#" class="text-center"><img src="../static-front/img/1-2.png" /> </a>
-										</td>
-										<td>
-											<a href="single-product.html">More-Or-Less</a>
-										</td>
-										<td class="unit-price">￥<span >100</span></td>
-										<td class="unit-price"><span>1</span></td>
-										<td class="unit-price">￥<span >98</span></td>
-										<td>
-											<p>已收货/退款中</p>
-											<br />
-										</td>
-										<td>
-											<div class="queRenShouHuo">
-												<button type="button" data-toggle="tooltip" title="亲，需要付款才能发货哦" style="margin-right: 10px;"> 联系客服</button>
+										<td style="width: 45%;">
+											<div class="container-fluid">
+												<div class=" row" >
+													<div class="col-md-3">
+														<a href="#" class="text-center">
+															<img src="../static-front/img/1-2.png" >
+														</a>
+													</div>
+													<div class="col-md-5">
+														<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
+													</div>
+													<div class="col-md-4">
+														<div class="container-fluid">
+															<div class="row">
+																<div class="col-md-12 " style="height: 40px;">
+																	￥<span>100.00</span>
+																</div>
+																<div class="col-md-12" style="height: 40px;">
+																	数量：<span>1</span>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
 											</div>
 										</td>
+										<td class="unit-price">￥<span>11200.00</span></td>
+										<td style="width: 13%;">
+											<span style="line-height: 93px;">12345678901</span>
+										</td>
+										<td >
+											<span style="line-height: 40px;">宝贝已签收</span>
+											<br>
+											<br>
+											<p style="margin:0 auto;">快递客服电话：</p>
+											<a href="#">13724688462</a>
+										</td>
+										<td>
+											<span style="line-height: 45px;">
+											<button type="button" data-toggle="tooltip" title="欢迎多提宝贵意见" > 评价订单</button>
+											</span>
+											<br /><br />
+											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
+											<br />
+											<a  href="#" style="margin-left: 15px">申请退货</a>
+										</td>
 									</tr>
-
+									<tr style="border: none;height: 30px;"></tr>
 									</tbody>
+
 								</table>
 							</div>
+							<!--<button type="submit" value="Continue" class="check-button">一键付款</button>-->
 						</div>
 					</div>
 
@@ -528,7 +835,6 @@
 											<th>图片</th>
 											<th>名称</th>
 											<th>类型</th>
-											<th>卖家</th>
 											<th>价格</th>
 											<th>操作</th>
 										</tr>
@@ -542,15 +848,10 @@
 												<a href="single-product.html">More-Or-Less</a>
 											</td>
 											<td>Product 14</td>
-											<td>
-												<p>ab</p>
-												<br />
-
-											</td>
 											<td class="unit-price">$100.00</td>
 											<td>
 												<div class="queRenShouHuo">
-													<button type="button" data-toggle="tooltip" class="btn" style="margin-right: 10px;"> 立即购买</button>
+													<button type="button" data-toggle="tooltip" class="btn" style="margin-right: 10px;"> 加入购物车</button>
 													<button type="button" data-toggle="tooltip" class="btn" style="margin-right: 10px;"> 取消收藏</button>
 
 												</div>
@@ -684,6 +985,31 @@
         });
         $("#province").change();
     })();
+</script>
+<script>
+	$(function () {
+        $(".denglu").click(function(){
+            $.post({url:"/a/d",
+                dataType:'json',
+                type: 'post',
+                // data:{
+                //     mobile:$(".d1").val(),
+                //     password:$(".d2").val()
+                // },
+                success:function(result){
+                    //eval函数解析json数据
+                    // alert(result.toString());
+                    console.log(result);
+                    $(".d1").html("<span style='color: red;'>"+result+"</span>");
+
+                },
+                fail: function (err) {
+                    alert("出错！");
+                    console.log(err);
+                }
+            });
+        });
+    });
 </script>
 
 <script src="../static-front/js/bootstrap.min.js" ></script>
