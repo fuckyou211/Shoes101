@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+    <title>101Shoes | 后台管理</title>
+
+    <link href="../css/bootstrap.min.css" rel="stylesheet">
+    <link href="../font-awesome/css/font-awesome.css" rel="stylesheet">
+
+    <link href="../css/animate.css" rel="stylesheet">
+    <link href="../css/style.css" rel="stylesheet">
+
+</head>
+<body>
+    <div id="wrapper">
+        <!-- 左侧导航栏 -->
+        <div id="navigate">
+	        <navigate></navigate>
+	    </div>
+
+        <!-- 右边主要部分 -->
+        <div id="page-wrapper" class="gray-bg">
+        	<!-- 正上方一小条 -->
+            <div id="navigate-assist">
+	            <navigate-assist></navigate-assist>
+	        </div>
+            <div class="wrapper wrapper-content">
+        		<div class="row">
+        			<div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-success pull-right">2018/10</span>
+                                <h5>交易</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">40 886,200</h1>
+                                <div class="stat-percent font-bold text-success">60% <i class="fa fa-level-up"></i></div>
+                                <small>总金额</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-info pull-right">2018/10</span>
+                                <h5>订单</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">275,8</h1>
+                                <div class="stat-percent font-bold text-info">20% <i class="fa fa-level-up"></i></div>
+                                <small>成交量</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-primary pull-right">2018/10</span>
+                                <h5>访问</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">106,1200</h1>
+                                <div class="stat-percent font-bold text-navy">44% <i class="fa fa-level-up"></i></div>
+                                <small>浏览次数</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <span class="label label-danger pull-right">2018/10</span>
+                                <h5>用户</h5>
+                            </div>
+                            <div class="ibox-content">
+                                <h1 class="no-margins">600</h1>
+                                <div class="stat-percent font-bold text-danger">38% <i class="fa fa-level-down"></i></div>
+                                <small>新用户</small>
+                            </div>
+                        </div>
+                    </div>
+        		</div>
+        		
+        		<div class="row">
+                    <div class="col-lg-12">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-title">
+                                <h5>销量</h5>
+                                <div class="col-md-2" id="selectChart">
+                                	<select class="form-control m-b small" name="property">
+                                        <option value="" v-for="n in 12">{{anyue[n-1]}}</option>
+                                    </select>
+                                </div>
+                                <div class="pull-right">
+                                    <div class="btn-group">
+                                        <button type="button" class="btn btn-xs btn-white " onclick="changeChart(this)" id="byday">按天</button>
+                                        <button type="button" class="btn btn-xs btn-white active"  id="bymonth">按月</button>
+                                        <button type="button" class="btn btn-xs btn-white">按年</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="ibox-content">
+                                <div class="row">
+                                <div class="col-lg-9">
+                                	
+                                    <div class="flot-chart">
+                                        <div id="dashboard-echart" class="flot-chart-content"></div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <ul class="stat-list">
+                                        <li>
+                                            <h2 class="no-margins">2,346</h2>
+                                            <small>Total orders in period</small>
+                                            <div class="stat-percent">48% <i class="fa fa-level-up text-navy"></i></div>
+                                            <div class="progress progress-mini">
+                                                <div style="width: 48%;" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h2 class="no-margins ">4,422</h2>
+                                            <small>Orders in last month</small>
+                                            <div class="stat-percent">60% <i class="fa fa-level-down text-navy"></i></div>
+                                            <div class="progress progress-mini">
+                                                <div style="width: 60%;" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <h2 class="no-margins ">9,180</h2>
+                                            <small>Monthly income from orders</small>
+                                            <div class="stat-percent">22% <i class="fa fa-bolt text-navy"></i></div>
+                                            <div class="progress progress-mini">
+                                                <div style="width: 22%;" class="progress-bar"></div>
+                                            </div>
+                                        </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+        		
+            </div>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="../js/jquery-3.1.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="../js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+    <!-- Custom and plugin javascript -->
+    <script src="../js/inspinia.js"></script>
+    <script src="../js/plugins/pace/pace.min.js"></script>
+    <script src="../js/echarts.js"></script>
+    
+    <script src="../js/vue.js"></script>
+	<script src="../navigate/navigate.js"></script>
+    
+	
+	<script>new Vue({el:"#navigate"});new Vue({el:"#navigate-assist"})</script>
+
+	<script>
+		/**
+		 * 销售统计
+		 * 目前先进行简单的统计，就按年，按月，按日来统计销量
+		 * 
+		 * 按年: 从2018年上线开始，统计到今年所在的年份为止，为了显示效果，
+		 *       就从2015年开始统计
+		 * 
+		 * 按月: 可以选择某一年，然后统计该年1到12月份每个月的销量，最多可以选择
+		 *       今年所在的年份
+		 * 
+		 * 按日: 选择某一年，某一个月，统计该月每一天的销量，因为每个月分的天数不一样
+		 *       所以要进行平年闰年的判断
+		 * 
+		 * 上述统计都按bar（柱形图）方式进行统计
+		 * 
+		 * 接下来还有各种各样的统计
+		 * 	1.每个月的有效交易额
+		 * 	2.每个月的新用户注册量
+		 *  3.每个月的商城访问量
+		 * 	（注：以上三个只需要一个值）
+		 * 
+		 * 	4.每个月每种属性的销量前十
+		 *     如:  按颜色每个月销量前十的是什么颜色，以及它们的销量是多少
+		 *          按尺码
+		 *   		按品牌
+		 * 			...
+		 *  5.总销量前十
+		 * 
+		 * 目前就想到这些，后面继续补充...
+		 */
+		
+		var Monthly = ["一月","二月","三月","四月","五月","六月","七月","八月","九月","十月","十一月","十二月"];
+		var Dayly = ["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20",
+						"21","22","23","24","25","26","27","28","29","30","31"];
+		var monthsale = [1000,524,655,999,736,865,1230,785,555,741,683,863];
+		var daysale = [12,45,68,78,55,68,63,45,234,56,45,78,12,80,68,75,
+						12,99,78,77,68,103,98,69,12,78,68,48,45,21,]
+        // 基于准备好的dom，初始化echarts实例 dashboard-echart
+        var myChart = echarts.init(document.getElementById('dashboard-echart'));
+
+        // 指定图表的配置项和数据
+        var option = {
+            title: {
+                text: '按月销量'
+            },
+            tooltip: {},
+            legend: {
+                data:['销量']
+            },
+            xAxis: {
+                data: Monthly
+            },
+            yAxis: {},
+            series: [{
+                name: '销量',
+                type: 'bar',
+                data: monthsale,
+                itemStyle: {
+				    // 设置扇形的颜色
+				    color: '#12c9a4',
+				    shadowBlur: 200,
+				    shadowColor: 'rgba(0, 0, 0, 0.5)'
+				}
+			}]
+        };
+
+        // 使用刚指定的配置项和数据显示图表。
+        myChart.setOption(option);
+        
+        function changeChart(obj){
+        	console.log("haha")
+        	$(".btn-xs btn-white").removeClass("active");
+        	$(obj).addClass("active");
+        	myChart.setOption({
+        		xAxis:{
+        			data:Dayly
+        		},
+        		series:{
+        			data:daysale
+        		}
+        	})
+        }
+        
+        
+        var chartvue = new Vue({
+			el:"#selectChart",
+			data:{
+				anyue:Monthly,
+				anday:Dayly,
+				anyear:[],
+			}
+		})
+    </script>
+	
+	<script>
+		
+	</script>
+	
+	
+</body>
+</html>
