@@ -148,7 +148,7 @@
                                         <td><p class="overflow">{{item.remark}}</p></td>
                                         <td><p>{{getStatus(item)}}</p></td>
                                         <td>
-                                            <button type="submit" class="btn btn-xs btn-primary">详情</button>
+                                            <button type="submit" class="btn btn-xs btn-primary" @click="getDetail(item.orderid)">详情</button>
                                             <!--&&item.cancel==0&&item.status==1-->
                                             <button type="submit" class="btn btn-xs btn-primary" v-if="isreadysend(item.validity,item.cancel,item.state)" @click="sendOrBack(item.orderid,1,0,2)">发货</button>
                                             <button type="submit" class="btn btn-xs btn-danger " v-if="isreadyback(item.validity,item.cancel,item.state)" @click="sendOrBack(item.orderid,0,1,2)">退款</button>
@@ -163,6 +163,27 @@
 
                         <div class="">
                             <p>下一页</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="modal inmodal"  id="order_detail" tabindex="-1" role="dialog" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content animated flipInY">
+                            <div class="modal-header" >
+                                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                <h3>订单详情</h3>
+                                <!--<h3>提供的库存:{{amount}}</h3>-->
+                                <!--<label style="color:red"  v-show="consku">填写的数量大于该颜色尺码所对应的库存!</label>-->
+                                <!--<label style="color:red"  v-show="contotalsku">填写的总数已经大于提供的库存，请重新填写！</label>-->
+                            </div>
+                            <fieldset class="form-horizontal" style="margin-top: 15px;">
+                                <div class="form-group" v-for="(item, index) in detail">
+                                    <label class="col-sm-4 control-label">商品名：{{item.shoesname}}</label>
+                                    <label class="col-sm-4 control-label">数量：{{item.quantity}}</label>
+                                </div>
+                            </fieldset>
                         </div>
                     </div>
                 </div>
@@ -195,6 +216,7 @@
             "contactname":"vakoe", "contactphone":"15767044123","receiptaddress":"银河系地球亚洲中国广东省肇庆市端州区某高校",
             "state":2,"validity":1, "cancel":"0"}]
 
+
     $(document).ready(function(){
         var olist = "[[${olist}]]";
         olist = olist.replace(/&quot;/g,"\"");
@@ -203,6 +225,8 @@
         ordervue.orders = JSON.parse(olist);
         console.log(ordervue.orders);
     })
+
+
     //全部订单
     function toall()
     {
@@ -249,36 +273,28 @@
             }
         });
     }
-    /**
-     * 定义几种状态
-     *  有效性     取消   状态
-     * validity  cancel  state
-     *    1         0      0     	未支付
-     *    1         0      1     	待发货
-     *    1         0      2     	待收货
-     *    1         0      3     	订单完成
-     *    1         1     0123   	申请退货中...
-     *    1         1      4     	退货不成功
-     *    0         1     0123   	退货成功
-     * 	  0			0	  01234          交易失败
-     *
-     *   用户               state       			        管理员
-     *   提交               未支付   		 			无操作                     //当状态是未支付时，用户可以进行的操作是   去支付/取消订单（不支付了）
-     * 	 去支付		        待发货		 			    发货                 	//当用户支付后，状态是待发货时，管理员可以进行发货操作，用户可以申请退单
-     *  取消订单		        取消支付，交易失败          	无操作
-     *   无操作 		        待签收		 			    无操作            		//管理员发货后，状态变成待签收，用户可以进行签收操作
-     *   签收		        交易成功          			无操作            		//用户签收完了，状态就是交易成功了
-     *  申请退单		        处理中..     			                //用户申请了退单后，状态只能是处理中..,这时候管理员可以同意或不同意，
-     *  申请退单		        退货成功，交易失败      		同意                         //交易失败
-     *  申请退单		        退货失败，交易继续     		不同意                     //交易失败
-     */
-        //var state = new Array("未支付","待发货","待收货","交易成功","申请退货中...","退货不成功","退货成功","交易失败");
+    //打开模态框
+    function openmodal()
+    {
+        $('#order_detail').modal('show');
+    }
     var state = new Array("未支付","待发货","已发货","已收货","申请退款","已退款，交易关闭");
     var vitaveryState = new Array("申请退货","退货中...","退货不成功","退货成功");
     console.log(state[2]);
 </script>
 
 <script>
+
+    var detailvue = new Vue({
+        el:'#order_detail',
+        data:{
+            detail:[],
+        },
+
+    })
+
+
+
     var ordervue = new Vue({
         el:'#shoesOrder',
         data:{
@@ -333,10 +349,59 @@
                         console.log(err)
                     }
                 });
+            },
+            getDetail:function(orderid)
+            {
+                $.post({
+                    url:"../orderm/getDetailAjax",
+                    type:'post',
+                    dataType:'json',
+                    //传入list所需条件 traditional
+                    traditional:true,
+                    data:{"orderid":orderid},
+                    //传入成功后 获取库存并且返回
+                    success:function(data) {
+                        alert("操作成功");
+                        openmodal();
+                        console.log(data);
+                        detailvue.detail = data;
+                        //console.log(detailvue.detail);
+                        // alert("100");
+                        //ordervue.orders = data;
+
+                    },
+                    fail: function(err){
+                        console.log(err)
+                    }
+                });
             }
+
         }
     });
-
+    /**
+     * 定义几种状态
+     *  有效性     取消   状态
+     * validity  cancel  state
+     *    1         0      0     	未支付
+     *    1         0      1     	待发货
+     *    1         0      2     	待收货
+     *    1         0      3     	订单完成
+     *    1         1     0123   	申请退货中...
+     *    1         1      4     	退货不成功
+     *    0         1     0123   	退货成功
+     * 	  0			0	  01234          交易失败
+     *
+     *   用户               state       			        管理员
+     *   提交               未支付   		 			无操作                     //当状态是未支付时，用户可以进行的操作是   去支付/取消订单（不支付了）
+     * 	 去支付		        待发货		 			    发货                 	//当用户支付后，状态是待发货时，管理员可以进行发货操作，用户可以申请退单
+     *  取消订单		        取消支付，交易失败          	无操作
+     *   无操作 		        待签收		 			    无操作            		//管理员发货后，状态变成待签收，用户可以进行签收操作
+     *   签收		        交易成功          			无操作            		//用户签收完了，状态就是交易成功了
+     *  申请退单		        处理中..     			                //用户申请了退单后，状态只能是处理中..,这时候管理员可以同意或不同意，
+     *  申请退单		        退货成功，交易失败      		同意                         //交易失败
+     *  申请退单		        退货失败，交易继续     		不同意                     //交易失败
+     */
+    //var state = new Array("未支付","待发货","待收货","交易成功","申请退货中...","退货不成功","退货成功","交易失败");
 
 </script>
 

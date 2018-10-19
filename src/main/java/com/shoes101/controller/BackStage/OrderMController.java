@@ -1,6 +1,7 @@
 package com.shoes101.controller.BackStage;
 
 import com.alibaba.fastjson.JSONObject;
+import com.shoes101.pojo.Orderdetail;
 import com.shoes101.result.Result;
 import com.shoes101.service.OrderService;
 import com.shoes101.service.ShoesOrderService;
@@ -69,6 +70,15 @@ public class OrderMController {
         System.out.println(state);
         return shoesOrderService.sendOrBack(orderid,validity,cancel,state);
     }
+
+    //查看商品详情
+    @RequestMapping("/getDetailAjax")
+    @ResponseBody
+    public List<Orderdetail> getDetail(@RequestParam("orderid")int orderid)
+    {
+        return shoesOrderService.getOrderdetail(orderid);
+    }
+
 
     //转换日期
     @InitBinder
