@@ -226,9 +226,7 @@ public class GoodsMServiceImpl implements GoodsMService {
                 logger.info("上传成功 {}",res.get(i));
             }
         }
-
-
-            return "00";
+        return "00";
 //        List<MultipartFile> fileList = ((MultipartHttpServletRequest) request).getFiles("shoespic");
 //        MultipartFile file = null;
 //
@@ -276,49 +274,61 @@ public class GoodsMServiceImpl implements GoodsMService {
 
     @Override
     public String uploadColorpic(HttpServletRequest request,List<List<Shoessku>> shoessku,Integer shoesid){
-
-        List<MultipartFile> fileList = ((MultipartHttpServletRequest) request).getFiles("shoescolorpic");
-        MultipartFile file = null;
-
-        for (int i = 0; i < fileList.size(); ++i) {
-            file = fileList.get(i);
-            logger.info("i:"+i);
-            // 要上传的目标文件存放路径
-            if (file.isEmpty())
-            {
-                continue;
+        List<String> res = remoteUploadServiceUtil.remoteUploadGetList(request,
+                "shoescolorpic", URL_LIST,"shoesGoods/"+shoesid);
+        for(int i=0;i<res.size();i++)
+        {
+            for(int j=0;j<shoessku.get(i).size();j++){
+                Colorpic colorpic=new Colorpic();
+                colorpic.setColorpicaddredd(res.get(i));
+                colorpic.setSkuid(shoessku.get(i).get(j).getSkuid());
+                colorpicMapper.insert(colorpic);
             }
-
-            String savePath = FileUtils.getWebContent() + File.separator + "src" + File.separator + "main" +
-                    File.separator+"resources"+ File.separator+"static"+ File.separator+"uploadfiles"+File.separator+"shoesGoods"+File.separator+shoesid;
-            //存放路径 创建
-            File dir=new File(savePath);
-            if(! dir.exists()){
-                dir.mkdirs();
-            }
-            String msg = "";
-            String name=file.getOriginalFilename();
-            String suffix = name.substring(name.lastIndexOf('.'));
-            String newFileName = new Date().getTime() + suffix;
-            String JDBCPath ="uploadfiles/shoesGoods/"+shoesid+"/"+newFileName;
-            if (FileUtils.upload(file, savePath, newFileName)) {
-                // 上传成功，给出页面提示
-                msg = "上传成功！";
-                for(int j=0;j<shoessku.get(i).size();j++){
-                    Colorpic colorpic=new Colorpic();
-                    colorpic.setColorpicaddredd(JDBCPath);
-                    colorpic.setSkuid(shoessku.get(i).get(j).getSkuid());
-                    colorpicMapper.insert(colorpic);
-                }
-                logger.info("图片颜色图 第"+i+"张图上传成功");
-            } else {
-                msg = "上传失败！";
-                logger.info("图片颜色图 第"+i+"张图上传失败");
-
-            }
-
+            logger.info("图片颜色图 第"+i+"张图上传 地址："+res.get(i));
         }
         return "000";
+//        List<MultipartFile> fileList = ((MultipartHttpServletRequest) request).getFiles("shoescolorpic");
+//        MultipartFile file = null;
+//
+//        for (int i = 0; i < fileList.size(); ++i) {
+//            file = fileList.get(i);
+//            logger.info("i:"+i);
+//            // 要上传的目标文件存放路径
+//            if (file.isEmpty())
+//            {
+//                continue;
+//            }
+//
+//            String savePath = FileUtils.getWebContent() + File.separator + "src" + File.separator + "main" +
+//                    File.separator+"resources"+ File.separator+"static"+ File.separator+"uploadfiles"+File.separator+"shoesGoods"+File.separator+shoesid;
+//            //存放路径 创建
+//            File dir=new File(savePath);
+//            if(! dir.exists()){
+//                dir.mkdirs();
+//            }
+//            String msg = "";
+//            String name=file.getOriginalFilename();
+//            String suffix = name.substring(name.lastIndexOf('.'));
+//            String newFileName = new Date().getTime() + suffix;
+//            String JDBCPath ="uploadfiles/shoesGoods/"+shoesid+"/"+newFileName;
+//            if (FileUtils.upload(file, savePath, newFileName)) {
+//                // 上传成功，给出页面提示
+//                msg = "上传成功！";
+//                for(int j=0;j<shoessku.get(i).size();j++){
+//                    Colorpic colorpic=new Colorpic();
+//                    colorpic.setColorpicaddredd(JDBCPath);
+//                    colorpic.setSkuid(shoessku.get(i).get(j).getSkuid());
+//                    colorpicMapper.insert(colorpic);
+//                }
+//                logger.info("图片颜色图 第"+i+"张图上传成功");
+//            } else {
+//                msg = "上传失败！";
+//                logger.info("图片颜色图 第"+i+"张图上传失败");
+//
+//            }
+//
+//        }
+//        return "000";
     }
 
     @Override
@@ -334,6 +344,7 @@ public class GoodsMServiceImpl implements GoodsMService {
         map.put("listColor",propertyvalueMapper.selectByShoesIdProperty(shoesid,colorId));
         map.put("listSize",propertyvalueMapper.selectByShoesIdProperty(shoesid,sizeId));
         List<List<Shoessku>> listQuantit=new ArrayList<>();
+        logger.info("listSize:"+JSONObject.toJSONString(listSize));
 
         for(int i=0;i<listSize.size();i++)
         {
