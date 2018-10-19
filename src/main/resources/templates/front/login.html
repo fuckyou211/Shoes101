@@ -483,8 +483,14 @@
                             console.log(result.data);
                             if (result.code==0)
 							{
+
                                 // window.location.href="/UserInformation/UserMyAccount";
-                                self.location=document.referrer;
+								if(document.referrer == "http://localhost:8080/login/to_login"){
+                                    window.location.href="/UserInformation/UserMyAccount";
+								}
+								else {
+                                    self.location=document.referrer;
+								}
                                 // console.log(result.data);
                                 // console.log(result.msg);
 							}
