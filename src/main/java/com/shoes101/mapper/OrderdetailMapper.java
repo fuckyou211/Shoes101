@@ -27,15 +27,14 @@ public interface OrderdetailMapper {
     //获取最新插入到shoesorder的id
     int getLateOrderId();
 
-    @Select("select a.*,b.colorpicaddredd from orderdetail as a ,colorpic as b where a.detailid = #{detailid} AND a.skuid=b.skuid ")
-    public Map<String,Object> getOrderdetailByorderid(@Param("detailid") Integer detailid);
-
     //由于商品详情表新增了商品名 增加方法根据id搜索商品名
     public String getNameById(@Param("shoesid")int shoesid);
 
     //根据skuid获取商品id
     public int getIdBySkuid(@Param("skuid") int skuid);
 
+    @Select("select a.*,b.colorpicaddredd from orderdetail as a ,colorpic as b where a.detailid = #{detailid} AND a.skuid=b.skuid ")
+    public Map<String,Object> getOrderdetailByorderid(@Param("detailid") Integer detailid);
 
 
 }
