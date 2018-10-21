@@ -183,9 +183,9 @@ function ShoesOrder(userId,contactPhone,contactName,addr,orderHandItemArr) {
  * @param skuid
  * @param shoseCount
  */
-function OrderHandItem(skuid, shoseCount) {
+function OrderHandItem(skuid, quantity) {
     this.skuid = skuid;
-    this.shoseCount = shoseCount;
+    this.quantity = quantity;
 }
 
 /**
@@ -207,7 +207,7 @@ function handOrder() {
     $.each(orderItemList, function (i) {
         let orderHandItem = new OrderHandItem();
         orderHandItem.skuid = orderItemList[i].skuid;
-        orderHandItem.shoseCount = orderItemList[i].count;
+        orderHandItem.quantity = orderItemList[i].count;
         orderItemArr[i] = orderHandItem;
     });
 
@@ -227,13 +227,22 @@ function handOrder() {
             "receiptaddress":addr,
             "token":token
         },
+        beforeSend: function () {
+            //$("loading").show();
+            $("#order-caculate-do").attr("disabled",true);
+        },
         success:function (data) {
             if(data.code  == 0){
-                alert("下单成功！");
+                alert("下单成功");
+
             }
+            else{
+                $("#order-caculate-do").attr("disabled",false);
+            }
+
         },
         error:function () {
-
+            $("#order-caculate-do").attr("disabled",false);
         }
     });
 
