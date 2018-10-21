@@ -116,6 +116,7 @@ public class GoodsFController {
         return saq;
     }
 
+    //分页（针对的是当前展示的商品为某分类下的，或者某属性值下的）
     @RequestMapping("/getShoesListByPage")
     @ResponseBody
     public Result getShoesListByPage(Integer pageCode,Integer size,Integer catalogId, Integer propertyValueId){
