@@ -38,6 +38,8 @@ public interface ShoesorderMapper {
 
     //根据条件返回列表
     public List<ShoesorderVo> getbyitem(@Param("validity")int validity,@Param("cancel")int cancel, @Param("state")int state);
+    //根据条件返回列表
+//    public List<ShoesorderVo> getbyitem(@Param("validity")int validity,@Param("cancel")int cancel, @Param("state")int state);
 
     //发货或者退款
     public int sendOrBack(@Param("orderid") int orderid,@Param("validity") int validity,@Param("cancel") int cancel,@Param("state") int state);
@@ -47,6 +49,5 @@ public interface ShoesorderMapper {
 
     @Select("select * from shoesorder as a where a.userid = #{userid} AND a.state!= 100 AND a.state !=101 AND a.state!=102")
     public List<Shoesorder> getshoesorderByorderidState1(@Param("userid") Integer userid,@Param("state") Integer state);
-
 
 }
