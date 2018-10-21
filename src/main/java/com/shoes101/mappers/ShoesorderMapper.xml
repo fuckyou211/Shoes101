@@ -19,7 +19,7 @@
     delete from shoesorder
     where orderid = #{orderid,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.shoes101.pojo.Shoesorder" >
+  <insert id="insert" parameterType="com.shoes101.vo.ShoesorderVo" >
     insert into shoesorder (orderid, userid, totalprice, 
       totticketprice, buydate, remark, 
       contactname, contactphone, receiptaddress, 
@@ -76,7 +76,7 @@
     select quantity from shoessku where skuid=#{skuid}
   </select>
   <update id="setNewSku">
-    update set quantity =#{sku} where skuid=#{skuid}
+    update shoessku set quantity =#{sku} where skuid=#{skuid}
   </update>
   <select id="getbyitem" resultType="com.shoes101.vo.ShoesorderVo">
     select * from shoesorder where validity=#{validity} and cancel=#{cancel} and state=#{state}
@@ -87,4 +87,10 @@
     state=#{state}
     where orderid=#{orderid}
   </update>
+  <update id="setNewSales">
+    update shoessku set skusales=skusales + #{quantity} where skuid=#{skuid}
+  </update>
+  <select id="getTop" resultType="com.shoes101.vo.ShoesidAndSalesVo">
+    select shoesid,sum(skusales) as sales from shoessku where skusales > 0 GROUP BY shoesid limit 10
+  </select>
 </mapper>
