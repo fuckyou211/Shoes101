@@ -8,60 +8,93 @@ $(function () {
     console.log(" commom.js 加载成功！")
 });
 
+/**
+ *  跳转至下单页面
+ * @param data
+ */
 function dumpToPayPage(data) {
+
+
 
     if(!data){
         return;
     }
+    //$.cookie("data",data);
+    let token = getCookie("token");
 
-    // 将 data 封装成 OrderItem 对象 id:4color:2size:7count:1
+    if(!token){
+        alert("你还未登录,请先登录！");
+        token = "guoguanzhi-909683502";
+        // 登录成功之后跳转到该页面
+        // TODO 保存数据到时候直接跳转到该页面
+        //return;
+    }
 
-    let skuId = $_getSkuId(data.id, data.color,data.size);
+    $.ajax({
+        url: "/order/pageData",
+        type: "POST",
+        data: {
+            "key":token,
+            "data":JSON.stringify(data),
+        },
+        success: function (data) {
 
-    console.log("skuId ===="+skuId);
+        }
 
-    handlePay(data);
+    });
 
-   // window.location.href ="/static-front/html/shoes-pay.htm";
+    //renderPayPage(data);
+    window.location.href ="/static-front/html/shoes-pay.htm";
 }
 
+
 /**
- * 获取skuId
- * @param shoesid
+ * 获取库存
+ * @param shoesId
  * @param colorId
  * @param sizeId
  */
-function $_getSkuId(shoesid,colorId, sizeId){
+function getShoesStock(shoesId, colorId, sizeId) {
 
-    let result;
+    let flag = true;
+    let stock;
 
-    // 请求
-    $.ajax({
-            type:"GET",
-            url: "/goodsf/getQtyAjax",
-            data: {
-                "shoesid":shoesid,
-                "colorid":colorId,
-                "sizeid":sizeId
-            },
-            success:function (data) {
-               console.log("ajax ----"+data.skuid);
-                // 处理 下单
-
-                //result = data.skuid;
-            },
-            error:function () {
-                alert("请求失败！");
-            }
-        });
-    if(!skuId){
-        alert("请求失败！");
+    if(!shoesId){
+        return;
+    }
+    if(!colorId){
+        colorId = "";
+    }
+    if(!sizeId){
+        sizeId ="";
     }
 
-    return result;
+    $.ajax({
+        type: "GET",
+        url: "/goodsf/getQtyAjax",
+        async: false,
+        data: {
+            "shoesid":shoesId,
+            "colorid":colorId,
+            "sizeid":sizeId
+        },
+        success:function (data) {
+            console.log("ajax ----"+data.skuid);
+            // 处理 下单
+            if(!data.skuid){
+                return;
+            }
+            $("#shoes-skuid").val(data.skuid);
+            stock = data.quantity;
+        },
+        error:function () {
+            alert("请求失败！");
+        }
 
+    });
+
+    return stock;
 }
-
 
 /**
  *  根据类名获取对象
@@ -130,13 +163,13 @@ function $_Id(oId) {
  * @param className 类名
  */
 function $_activeChange(oParent,oTarget, className) {
-
-
-
-    // init status first
-    $_initActive(oParent,className);
-
     let target = $(oTarget);
+
+    if(target.hasClass(className)){
+        return;
+    }
+    // init status first
+    $_initActive(oParent,className,target);
 
     target.addClass(className);
 
@@ -148,6 +181,50 @@ function $_activeChange(oParent,oTarget, className) {
 
         BigShoesImgChange(imgUrl);
     }
+
+    // 地址选中
+    if(className == "addr-seleted"){
+        target.children("span").children(".img-radio").attr("src","../img/radio-checked.png");
+        renderOrderCart();
+    }
+
+
+    // 是颜色或者尺码才获取库存
+    if(className == "number-active" || className == "choose-border"){
+
+        //  alert("点击了尺码或者颜色！");
+        // 获取库存
+        let colorId = $($_Class("detail-shoes-color","choose-border")[0]).attr("name");
+        let sizeId = $($_Class("detail-shoes-size","number-active")[0]).attr("name");
+        let shoesId =  $($_Id("shoes-id")).html();
+
+        let stock = getShoesStock(shoesId,colorId,sizeId);
+        let shoesCount= $.trim($($_Id("detail-shoes-count")).html());
+        // 设置库存
+        $("#detail-shoes-total").html(stock);
+
+        // 如果现在选择数量大于库存，直接为库存数量
+        if(stock < shoesCount){
+            $($_Id("detail-shoes-count")).html(stock);
+        }
+    }
+}
+
+/**
+ *  获取token
+ */
+function getToken() {
+    let token = getCookie("token");
+
+    if(!token){
+        alert("你还未登录,请先登录！");
+        token = "guoguanzhi-909683502";
+        // 登录成功之后跳转到该页面
+        // TODO 保存数据到时候直接跳转到该页面
+        //return;
+    }
+
+    return token;
 }
 
 /**
@@ -156,13 +233,19 @@ function $_activeChange(oParent,oTarget, className) {
  * @param oParent 要初始化的父类元素
  * @param className 要初始化的对象类
  */
-function $_initActive(oParent, className) {
+function $_initActive(oParent, className,target) {
 
     let $parent = $($_Id(oParent));
 
     // The first must get object with the class name is oClass but inner of the oParent
     // is return a array
     let aClassObj = $_Class($parent,className);
+
+    if(oParent == "order-addr-li"){
+        $parent.children(".addr-seleted").children("span").children(".img-radio").attr("src","../img/redio-no-checked.png");
+        console.log("--->"+$parent.children(".addr-seleted").children("span").children(".img-radio").attr("src"));
+
+    }
 
     // do init
     for (let i = 0; i<aClassObj.length; i++){
@@ -172,6 +255,11 @@ function $_initActive(oParent, className) {
             $(aClassObj[i]).removeClass(className);
         }
     }
+
+
+
+
+
 
 }
 
@@ -186,14 +274,14 @@ function doShoesCount(isDecrease, target, stock) {
     let $target = $($_Id(target));
 
     let count = Number($target.html()); //当前选择数量
-    
+
     const MAX_STOCK = getShoesMaxStock(stock);
-    
+
 
     // is 0 can't decrease
     if(count === 1 && isDecrease === -1){
-  
-         return;
+
+        return;
     }
 
     if(count === MAX_STOCK && isDecrease === 1){
@@ -234,19 +322,23 @@ function getQueryPathStringByName(name) {
     if(r != null) return unescape(r[2]);
     return null;
 }
-function $_chooseChange(oTarget) {
+function $_chooseChange(oParent,oTarget, className) {
 
-    let oParent = $(oTarget).attr("prop1");
-    let className = $(oTarget).attr("prop2");
-    /*console.log("看ID");
-    console.log(oParent);*/
-    $_initChoose(oParent,className);
+    $_initActive(oParent,className);
 
     let target = $(oTarget);
 
     target.addClass(className);
 
 }
+
+/**
+ *  处理添加地址
+ */
+function doAddrClick() {
+    
+}
+
 function $_initChoose(oParent, className) {
 
     let aClassObj = $_Class(oParent,className);

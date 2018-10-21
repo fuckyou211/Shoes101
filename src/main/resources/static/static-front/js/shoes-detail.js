@@ -119,7 +119,7 @@ function ShoesImgShowHandle(data, bigImgId,miniImgId) {
     let miniId = "#"+miniImgId;
 
     let bigStr = '<img id="detail-shoes-bimg" src="'+ data[0]+'"'
-                    +' class="img-responsive img-thumbnail detail-big-img"/>';
+        +' class="img-responsive img-thumbnail detail-big-img"/>';
 
     //console.log(bigStr);
 
@@ -161,8 +161,8 @@ function setColorList(data, idString) {
     let str = "";
     $.each(data,function (i) {
 
-       str += '<dd class="fl dd-margin no-choose-border" name='+data[i].colorid+' title='+ data[i].color+''
-        +' onclick=\'$_activeChange("detail-shoes-color",this,"choose-border")\'>'
+        str += '<dd class="fl dd-margin no-choose-border" name='+data[i].colorid+' title='+ data[i].color+''
+            +' onclick=\'$_activeChange("detail-shoes-color",this,"choose-border")\'>'
             +'<img class="small-show-img" src='+ data[i].colorpic +'/>'
             +'</dd>';
 
@@ -185,8 +185,8 @@ function setSizeList(data, idString) {
     // 拼接字符串
     let str = "";
     $.each(data,function (i) {
-         str += '<dd class="fl dd-margin number-disabled" name='+data[i].sizeid+' title='+data[i].size+''
-        +' onclick=\'$_activeChange("detail-shoes-size",this,"number-active")\'>'
+        str += '<dd class="fl dd-margin number-disabled" name='+data[i].sizeid+' title='+data[i].size+''
+            +' onclick=\'$_activeChange("detail-shoes-size",this,"number-active")\'>'
             +'<span class="number-of-shoe">'+data[i].size+'</span>'
             +'</dd>';
     });
@@ -216,7 +216,7 @@ function doAddCart() {
     console.log(data);
 
     // 判断是否已经登录
-   // console.log("是否登录："+isLogin());
+    // console.log("是否登录："+isLogin());
 
     if (isLogin()){
         // 已经登录，跳转到购物车页面
@@ -236,8 +236,8 @@ function doAddCart() {
 
         // 加入cookie
         //localStorage.setItem('shoes',JSON.stringify(data));
-         $.cookie("shoes",JSON.stringify(data));
-       // window.location.href="./shoes-cart.html";
+        $.cookie("shoes",JSON.stringify(data));
+        // window.location.href="./shoes-cart.html";
     }
 }
 
@@ -304,7 +304,7 @@ function doPayNow() {
     console.log("下单的数据："+orderItem);
 
     let orderItemArr = new Array(orderItem);
-
+    //orderItemArr[orderItemArr.length] = orderItem;
     dumpToPayPage(orderItemArr);
 
     //跳转到购物车页面

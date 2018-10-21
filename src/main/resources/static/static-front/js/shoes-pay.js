@@ -4,10 +4,40 @@ $(function () {
     //
     // console.log(data);
 
-
     console.log("开始加载订单模块的 js");
 
 });
+
+let orderTotal = 0;
+
+let orderItemList = null;
+
+function doOrderPageRenderWhenLoad() {
+
+    let token = getToken();
+
+    // 发送ajax获取数据
+    $.ajax({
+        url:"/order/getOrderPageData",
+        type: "GET",
+        data: {
+            "key":token
+        },
+        success: function (data) {
+
+            //alert(data.data);
+
+            // 如果成功的话
+            // 开始渲染页面
+            if(data){
+                renderPayPage(eval(data.data));
+            }
+        }
+
+
+    });
+}
+
 
 
 /**
@@ -15,45 +45,74 @@ $(function () {
  * @param OrderItemArr
  */
 function renderPayPage(orderItemArr){
+
     if(!orderItemArr){
         return;
     }
+    orderItemList = orderItemArr;
     //console.log(orderItemArr);
     //
+    let totalPrice = 0;
     let str = "";
-
     $.each(orderItemArr,function (i) {
         str += doRenderPayPage(orderItemArr[i]);
+        totalPrice += (Number(orderItemArr[i].price) * Number(orderItemArr[i].count));
     });
 
-
-    $.cookie("data",window.escape(str));
+    //$.cookie("data",window.escape(str));
     //console.log(str);
     //console.log($("#orderListBody"));
-    //$("#orderListBody").html("hello word");
+    $("#orderListBody").html(str);
+    // 订单总额的渲染
+    $("#orderTotal").html(totalPrice);
+    renderOrderCart(); //  渲染订单卡片
+}
+
+/**
+ *  订单卡片的数据渲染
+ */
+function renderOrderCart() {
+    // 订单地址的渲染
+    // 选中的地址
+    let selectAddr = $($_Class("order-addr-li","addr-seleted")[0]);
+
+    // 获取省份
+    let province = selectAddr.children(".li-order-province").html();
+    let city = selectAddr.children(".li-order-city").html();
+    let addrDetail = selectAddr.children(".li-order-detail-addr").html();
+    let contactName = selectAddr.children(".li-order-contactName").html();
+    let contactPhone = selectAddr.children(".li-order-contactPhone").html();
+
+    $("#order-province").html(province);
+    $("#order-city").html(city);
+    $("#order-addr").html(addrDetail);
+
+    $("#contactName").html(contactName);
+    $("#contactPhone").html(contactPhone);
 }
 
 function doRenderPayPage(data) {
     console.log("jaige:"+data.price);
     console.log("shuliang:"+data.count);
-    let totalPrice = Number(data.price) * Number(data.count);
 
+    let totalPrice = Number(data.price) * Number(data.count);
+    orderTotal += totalPrice;
     let str = '<tr class="cart-list-line"></tr>'
         +'<tr class="cart-list-tr not-selected order-item">'
         +'<td>'
         +'<img src="'+data.colorPic+'" style="width: 80px;height: 80px;">'
-        +'<a class="cart-shoes-name" href="javascript:;">'+ data.shoesname +'</a>'
-    +'</td>'
-    +'<td> 颜色分类：<span>'+ data.color +'</span> 尺码：<span>'+ data.size +'</span>'
-    +'</td>'
-    +'<td class="price-now">¥ <span>'+ data.price +'</span></td>'
-    +'<td>'
-    +'<span class="cart-shoes-count">'
-    +'<b>'+ data.count +'</b>'
-    +'</span>'
-    +'</td>'
-    +'<td class="price-total">¥ <span>'+ totalPrice +'</span> <input class="orderItem-skuid" type="hidden" value="'+ data.skuid +'"/></td>'
-    +'</tr>';
+        +'<a class="cart-shoes-name" href="javascript:;">'+ data.shoesName +'</a>'
+        +'</td>'
+        +'<td> 颜色分类：<span>'+ data.color +'</span> 尺码：<span>'+ data.size +'</span>'
+        +'</td>'
+        +'<td class="price-now">¥ <span>'+ data.price +'</span></td>'
+        +'<td>'
+        +'<span class="cart-shoes-count">'
+        +'<b>'+ data.count +'</b>'
+        +'</span>'
+        +'</td>'
+        +'<td class="price-total">¥ <span>'+ totalPrice +'</span> <input class="orderItem-skuid" type="hidden" value="'+ data.skuid +'"/></td>'
+        +'</tr>';
 
     //console.log(str);
 
@@ -74,6 +133,7 @@ function doRenderPayPage(data) {
  * @constructor
  */
 function OrderItem(colorPic,shoesName, color, size, skuid,count,price) {
+
     this.colorPic = colorPic;
     this.shoesName = shoesName;
     this.color = color;
@@ -84,11 +144,9 @@ function OrderItem(colorPic,shoesName, color, size, skuid,count,price) {
 }
 
 // 地址对象
-function Addr(province, city, area,street,deatailAddr) {
+function Addr(province, city,deatailAddr) {
     this.province = province;
     this.city = city;
-    this.area = area;
-    this.street = street;
     this.deatailAddr = deatailAddr;
 }
 
@@ -96,7 +154,7 @@ function Addr(province, city, area,street,deatailAddr) {
  *  返回地址的字符串
  */
 Addr.prototype.addrString = function (){
-    return this.province + this.city + this.area + this.street + this.deatailAddr;
+    return this.province + this.city  + this.deatailAddr;
 }
 
 /**
@@ -134,33 +192,52 @@ function OrderHandItem(skuid, shoseCount) {
  *  提交订单
  * @param ShoesOrder
  */
-function handOrder(ShoesOrder) {
+function handOrder() {
+
+    // 组装数据  地址数据
+    let addr = $("#order-province").html() + $("#order-city").html()+$("#order-addr").html();
+    let contactName =  $("#contactName").html();
+    let contactPhone = $("#contactPhone").html();
+
+    let remark = $("#remarkTextArea").val();
+
+    //orderListBody,cart-list-tr
+
+    let orderItemArr = new Array();
+    $.each(orderItemList, function (i) {
+        let orderHandItem = new OrderHandItem();
+        orderHandItem.skuid = orderItemList[i].skuid;
+        orderHandItem.shoseCount = orderItemList[i].count;
+        orderItemArr[i] = orderHandItem;
+    });
+
+    let token = getToken();
+
+    console.log(orderItemArr);
+    console.log("---------------");
+    // 开始提交订单
+    $.ajax({
+        url: "/order/add-test",
+        type:"POST",
+        data: {
+            "skuidandqty": JSON.stringify(orderItemArr),
+            "contactPhone":contactPhone,
+            "contactName":contactName,
+            "remark":remark,
+            "receiptaddress":addr,
+            "token":token
+        },
+        success:function (data) {
+            if(data.code  == 0){
+                alert("下单成功！");
+            }
+        },
+        error:function () {
+
+        }
+    });
 
 }
-
-/**
- *  根据 order item 的 class 来获取 orderItem 对象的 集合
- * @param orderCls
- */
-function getOrderItems(orderCls) {
-    
-}
-
-/**
- *  封装收货地址信息
- */
-function getAddr() {
-    let province = $("#order-province");
-    let city = $("#order-city");
-    let area = $("#order-area");
-    let street = $("#order-street");
-    let addr = $("#order-addr");
-
-    let resAddr = new Addr(province,city,area,street,addr);
-
-    return resAddr;
-}
-
 
 function getUserId() {
     let token = getCookie("token");
@@ -168,11 +245,11 @@ function getUserId() {
         var r=confirm("您还没登录，请先登录！");
         if (r==true)
         {
-           return "TO_LOGIN_PAGE";
+            return "TO_LOGIN_PAGE";
         }
         else
         {
-           return "NOT_DO_ANYTHING";
+            return "NOT_DO_ANYTHING";
         }
     }
 
