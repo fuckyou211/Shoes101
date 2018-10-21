@@ -21,6 +21,12 @@ public class CellsController {
     @Autowired
     private CellsService cellsService;
 
+    @RequestMapping("/jumptocells")
+    public String jumptocells()
+    {
+        return "back/shoesStatistical";
+    }
+
     @RequestMapping("/tocells")
     @ResponseBody
     public String tocells()
