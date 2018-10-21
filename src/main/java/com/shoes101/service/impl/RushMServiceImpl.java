@@ -47,7 +47,8 @@ public class RushMServiceImpl implements RushMService {
         return JSONObject.toJSONString(map);
     }
 
-    public String getShoesskuForRush(int shoesid, int price, int shoessku, String starttime, String endtime)
+    //10.21 增加limitN 限购额
+    public String getShoesskuForRush(int shoesid, int price, int shoessku, String starttime, String endtime,int limitN)
     {
         List<String> color = new ArrayList<>();
         List<String> size = new ArrayList<>();
@@ -62,6 +63,7 @@ public class RushMServiceImpl implements RushMService {
         rb.setRbamount(shoessku);
         rb.setBegintime(starttime);
         rb.setEndtime(endtime);
+        rb.setLimitN(limitN);
         rushbuyMapper.insert(rb);
 
 

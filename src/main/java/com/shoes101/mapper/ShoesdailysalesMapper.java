@@ -2,6 +2,8 @@ package com.shoes101.mapper;
 
 import com.shoes101.pojo.Shoesdailysales;
 import com.shoes101.vo.DaySellVo;
+import com.shoes101.vo.MonthSellVo;
+import com.shoes101.vo.YearSellVo;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -28,4 +30,10 @@ public interface ShoesdailysalesMapper {
 
     //获取当年当月的销量
     public List<DaySellVo> getDaySell(@Param("ym1") String ym1);
+
+    //获取每年的销量
+    public List<YearSellVo> getYearSell();
+
+    //获取一年每月的销量
+    public List<MonthSellVo> getMonthSell();
 }

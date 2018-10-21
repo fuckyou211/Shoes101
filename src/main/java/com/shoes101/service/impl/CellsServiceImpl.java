@@ -4,9 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.shoes101.mapper.ShoesdailysalesMapper;
 import com.shoes101.mapper.ShoesorderMapper;
 import com.shoes101.service.CellsService;
-import com.shoes101.vo.DaySellVo;
-import com.shoes101.vo.SellsAVo;
-import com.shoes101.vo.ShoesidAndSalesVo;
+import com.shoes101.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -122,7 +120,8 @@ public class CellsServiceImpl implements CellsService {
             up3 = 0;
         }
         else{
-            up3 = thismonthmoney/lastmonthmoney * 100;
+            //10.21 修正增长率
+            up3 = thismonthmoney - lastmonthmoney/lastmonthmoney * 100;
         }
         sellsAVo.setUserup(up3);
         System.out.println("上升了" + up3);
@@ -139,23 +138,31 @@ public class CellsServiceImpl implements CellsService {
             System.out.println(daySelllist.get(z).getDayy());
 
         }
+        //10.21 根据需求修改返回形式
+        List<Integer> sell = new ArrayList<>();
+        List<String> date = new ArrayList<>();
+        for(int k = 0;k < daySelllist.size();k++)
+        {
+            sell.add(daySelllist.get(k).getSell());
+            date.add(daySelllist.get(k).getDayy());
+        }
 
 
         //10.21更新 获取Top10
         List<ShoesidAndSalesVo> sas = shoesorderMapper.getTop();
 
-
         Map<String,Object> map = new HashMap<>();
         map.put("slist",sellsAVo);
-        map.put("daysell",daySelllist);
-        map.put("saleslist",sas);
+//        map.put("daysell",daySelllist);
+        map.put("sell",sell);
+        map.put("date",date);
         System.out.println(JSONObject.toJSONString(map));
         return JSONObject.toJSONString(map);
         //return "back/shoesStatistical";
     }
 
 
-    public List<DaySellVo> getYmsells(String year,String month)
+    public String getYmsells(String year,String month)
     {
         //当年当月销量
         //拼接字符串
@@ -168,9 +175,63 @@ public class CellsServiceImpl implements CellsService {
             String newday = daySelllist.get(z).getDayy().substring(8);
             daySelllist.get(z).setDayy(newday);
             System.out.println(daySelllist.get(z).getDayy());
-
         }
 
-        return daySelllist;
+        //10.21 根据需求修改返回形式
+        List<Integer> sell = new ArrayList<>();
+        List<String> date = new ArrayList<>();
+        for(int k = 0;k < daySelllist.size();k++)
+        {
+            sell.add(daySelllist.get(k).getSell());
+            date.add(daySelllist.get(k).getDayy());
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("sell",sell);
+        map.put("date",date);
+        return JSONObject.toJSONString(map);
+    }
+
+    public String getYsells(String year)
+    {
+        //一年每月销量
+        List<MonthSellVo> rmonSelllist = shoesdailysalesMapper.getMonthSell();
+        List<MonthSellVo> monSelllist = new ArrayList<>();
+        for(int i = 0;i < rmonSelllist.size();i++)
+        {
+            if(rmonSelllist.get(i).getYear().equals(year))
+            {
+                monSelllist.add(rmonSelllist.get(i));
+            }
+        }
+        //10.21 根据需求修改格式
+        List<Integer> sell = new ArrayList<>();
+        List<String> date = new ArrayList<>();
+        for(int j = 0;j < monSelllist.size();j++)
+        {
+            sell.add(monSelllist.get(j).getSell());
+            date.add(monSelllist.get(j).getMonth());
+        }
+        Map<String,Object> map = new HashMap<>();
+        map.put("sell",sell);
+        map.put("date",date);
+        return JSONObject.toJSONString(map);
+    }
+
+    public String getEveryYsells()
+    {
+        //10.21 根据需求修改格式
+        List<YearSellVo> list = shoesdailysalesMapper.getYearSell();
+        List<Integer> sell = new ArrayList<>();
+        List<String> date = new ArrayList<>();
+        for(int i = 0;i < list.size();i++)
+        {
+            sell.add(list.get(i).getSells());
+            date.add(list.get(i).getYear());
+        }
+        //每年销量
+        Map<String,Object> map = new HashMap<>();
+        map.put("sell",sell);
+        map.put("date",date);
+        return JSONObject.toJSONString(map);
     }
 }

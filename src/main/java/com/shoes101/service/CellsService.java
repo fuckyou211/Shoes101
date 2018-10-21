@@ -1,9 +1,5 @@
 package com.shoes101.service;
 
-import com.shoes101.vo.DaySellVo;
-import com.shoes101.vo.SellsAVo;
-
-import java.util.List;
 
 public interface CellsService {
 
@@ -11,6 +7,11 @@ public interface CellsService {
     public String tocells();
 
     //根据年月查询月销量
-    public List<DaySellVo> getYmsells(String year,String month);
+    public String getYmsells(String year,String month);
 
+    //根据年查询年销量 传年份
+    public String getYsells(String year);
+
+    //查询每年销量
+    public String getEveryYsells();
 }

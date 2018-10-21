@@ -48,6 +48,7 @@
     rushbuy.endtime,
     rushbuy.rbprice,
      rushbuy.rbamount,
+     rushbuy.limitN,
      shoes.shoesname
     from rushbuy
     INNER JOIN shoes

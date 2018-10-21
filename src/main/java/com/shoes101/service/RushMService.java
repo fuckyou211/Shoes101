@@ -9,7 +9,7 @@ public interface RushMService {
     public String getShoesForRush();
 
     //将第二步信息存入抢购活动表 并获取所有库存返回
-    public String getShoesskuForRush(int shoesid, int price, int shoessku, String starttime, String endtime);
+    public String getShoesskuForRush(int shoesid, int price, int shoessku, String starttime, String endtime,int limitN);
 
     //第三步填写完库存 存入rushsku表中
     public String sendInRushsku(List<Integer> skuidlist,int shoesid,

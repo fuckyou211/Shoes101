@@ -16,6 +16,8 @@ public class RushbuyVo {
     private String begintime;
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
     private String endtime;
+    //10.21更新 增加限购
+    private Integer limitN;
     private int rbprice;
     private int rbamount;
     private String status;
@@ -92,4 +94,13 @@ public class RushbuyVo {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public Integer getLimitN() {
+        return limitN;
+    }
+
+    public void setLimitN(Integer limitN) {
+        this.limitN = limitN;
+    }
+
 }
