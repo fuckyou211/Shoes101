@@ -8,6 +8,7 @@
     <result column="endtime" property="endtime" jdbcType="TIMESTAMP" />
     <result column="rbprice" property="rbprice" jdbcType="INTEGER" />
     <result column="rbamount" property="rbamount" jdbcType="INTEGER" />
+    <result column="limitN" property="limitN" jdbcType="INTEGER" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from rushbuy
@@ -18,9 +19,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into rushbuy (shoesid, begintime, endtime, 
-      rbprice, rbamount)
+      rbprice, rbamount,limitN)
     values (#{shoesid,jdbcType=INTEGER}, #{begintime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
-      #{rbprice,jdbcType=INTEGER}, #{rbamount,jdbcType=INTEGER})
+      #{rbprice,jdbcType=INTEGER}, #{rbamount,jdbcType=INTEGER}, #{limitN,jdbcType=INTEGER})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Rushbuy" >
     update rushbuy
@@ -28,16 +29,17 @@
       begintime = #{begintime,jdbcType=TIMESTAMP},
       endtime = #{endtime,jdbcType=TIMESTAMP},
       rbprice = #{rbprice,jdbcType=INTEGER},
-      rbamount = #{rbamount,jdbcType=INTEGER}
+      rbamount = #{rbamount,jdbcType=INTEGER},
+       limitN = #{limitN,jdbcType=INTEGER}
     where rushbuyid = #{rushbuyid,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select rushbuyid, shoesid, begintime, endtime, rbprice, rbamount
+    select rushbuyid, shoesid, begintime, endtime, rbprice, rbamount,limitN
     from rushbuy
     where rushbuyid = #{rushbuyid,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select rushbuyid, shoesid, begintime, endtime, rbprice, rbamount
+    select rushbuyid, shoesid, begintime, endtime, rbprice, rbamount,limitN
     from rushbuy
   </select>
   <select id="getAllFromRb" resultType="com.shoes101.vo.RushbuyVo">

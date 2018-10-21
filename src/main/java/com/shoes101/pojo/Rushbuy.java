@@ -22,6 +22,8 @@ public class Rushbuy implements Serializable {
 
     private Integer rbamount;
 
+    private Integer limitN;
+
     private static final long serialVersionUID = 1L;
 
     public Integer getRushbuyid() {
@@ -72,21 +74,12 @@ public class Rushbuy implements Serializable {
         this.rbamount = rbamount;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(getClass().getSimpleName());
-        sb.append(" [");
-        sb.append("Hash = ").append(hashCode());
-        sb.append(", rushbuyid=").append(rushbuyid);
-        sb.append(", shoesid=").append(shoesid);
-        sb.append(", begintime=").append(begintime);
-        sb.append(", endtime=").append(endtime);
-        sb.append(", rbprice=").append(rbprice);
-        sb.append(", rbamount=").append(rbamount);
-        sb.append(", serialVersionUID=").append(serialVersionUID);
-        sb.append("]");
-        return sb.toString();
+    public Integer getLimitN() {
+        return limitN;
+    }
+
+    public void setLimitN(Integer limitN) {
+        this.limitN = limitN;
     }
 
     public Rushbuy() {
