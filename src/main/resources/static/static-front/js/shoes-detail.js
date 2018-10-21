@@ -301,6 +301,11 @@ function doPayNow() {
         return;
     }
 
+    if($("#detail-shoes-count").html() == 0){
+        alert("请选择数量购买的数量");
+        return;
+    }
+
     console.log("下单的数据："+orderItem);
 
     let orderItemArr = new Array(orderItem);

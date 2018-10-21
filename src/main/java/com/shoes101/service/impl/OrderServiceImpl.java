@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     UseraddressMapper useraddressMapper;
 
-    public String add(OrderVo orderItem)
+    public Integer add(OrderVo orderItem)
     {
         Integer totalprice = 0;
 
@@ -66,7 +66,8 @@ public class OrderServiceImpl implements OrderService {
         shoesorder.setContactphone(orderItem.getContactPhone());
         shoesorder.setReceiptaddress(orderItem.getReceiptaddress());
         shoesorder.setRemark(orderItem.getRemark());
-        shoesorder.setState(1);
+        // 默认是未支付， 为 0
+        shoesorder.setState(0);
         shoesorder.setValidity(1);
         shoesorder.setTotalprice(totalprice.doubleValue());
         shoesorder.setTotticketprice(totalprice.doubleValue());
@@ -87,7 +88,9 @@ public class OrderServiceImpl implements OrderService {
             orderdetail.setTicketprice(totalprice.doubleValue());
             orderdetailMapper.insert(orderdetail);
         }
-        return "success";
+
+        // 返回最后的插入的订单id
+        return shoesorder.getOrderid();
     }
 
     public String check(int userid)

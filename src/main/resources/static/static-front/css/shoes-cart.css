@@ -198,6 +198,12 @@ a:active {
 .cart-has-shoe-seleted{
 	background-color: red;
 }
+
+#order-caculate-do .reapClick{
+	cursor:not-allowed !important;
+	pointer-events: none !important;
+}
+
 /*
 .cart-search{
 	width: 490px;

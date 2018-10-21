@@ -24,17 +24,13 @@ function doOrderPageRenderWhenLoad() {
             "key":token
         },
         success: function (data) {
-
             //alert(data.data);
-
             // 如果成功的话
             // 开始渲染页面
             if(data){
                 renderPayPage(eval(data.data));
             }
         }
-
-
     });
 }
 
@@ -142,14 +138,12 @@ function OrderItem(colorPic,shoesName, color, size, skuid,count,price) {
     this.count = count;
     this.price = price;
 }
-
 // 地址对象
 function Addr(province, city,deatailAddr) {
     this.province = province;
     this.city = city;
     this.deatailAddr = deatailAddr;
 }
-
 /**
  *  返回地址的字符串
  */
@@ -229,20 +223,20 @@ function handOrder() {
         },
         beforeSend: function () {
             //$("loading").show();
-            $("#order-caculate-do").attr("disabled",true);
+            $("#order-caculate-do").addClass("reapClick");
         },
         success:function (data) {
             if(data.code  == 0){
                 alert("下单成功");
 
             }
-            else{
-                $("#order-caculate-do").attr("disabled",false);
+            else {
+                $("#order-caculate-do").removeClass("reapClick");
             }
 
         },
-        error:function () {
-            $("#order-caculate-do").attr("disabled",false);
+        error: function () {
+            $("#order-caculate-do").removeClass("reapClick");
         }
     });
 

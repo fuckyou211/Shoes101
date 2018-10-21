@@ -6,7 +6,7 @@ public interface OrderService {
 
     //下订单 此时已经登录
     //10.17 修改库存
-    public String add(OrderVo orderItem);
+    public Integer add(OrderVo orderItem);
 
     //查询订单
     public String check(int userid);

@@ -58,7 +58,8 @@ public class OrderController {
 
     //下单
     @RequestMapping("/add")
-    public Result<String> setOrder(@RequestParam("orderItem") OrderVo orderItem)
+	@Deprecated
+    public Result<Integer> setOrder(@RequestParam("orderItem") OrderVo orderItem)
     {
 
 
@@ -67,7 +68,7 @@ public class OrderController {
 
 	@RequestMapping("/add-test")
 	@ResponseBody
-	public Result<String> setOrderTest(String skuidandqty,String contactPhone,
+	public Result<Integer> setOrderTest(String skuidandqty,String contactPhone,
 									   String contactName, String remark, String receiptaddress,String token){
 
     	logger.info("接收参数：{}，{}， {}， {}，{}",skuidandqty,contactPhone,contactName,remark,receiptaddress,token);
@@ -101,6 +102,12 @@ public class OrderController {
 		}
 		orderItem.setRemark(remark);
 		orderItem.setUserid(user.getUserid());
+
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		return Result.success(orderService.add(orderItem));
 	}
