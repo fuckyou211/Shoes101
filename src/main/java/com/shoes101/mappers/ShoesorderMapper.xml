@@ -20,6 +20,9 @@
     where orderid = #{orderid,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.shoes101.vo.ShoesorderVo" >
+    <selectKey resultType="java.lang.Integer"  keyProperty="orderid" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
     insert into shoesorder (orderid, userid, totalprice, 
       totticketprice, buydate, remark, 
       contactname, contactphone, receiptaddress, 

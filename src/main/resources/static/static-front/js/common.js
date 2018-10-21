@@ -23,7 +23,7 @@ function dumpToPayPage(data) {
     let token = getCookie("token");
 
     if(!token){
-        alert("你还未登录,请先登录！");
+        //TODO alert("你还未登录,请先登录！");
         token = "guoguanzhi-909683502";
         // 登录成功之后跳转到该页面
         // TODO 保存数据到时候直接跳转到该页面
@@ -200,12 +200,23 @@ function $_activeChange(oParent,oTarget, className) {
 
         let stock = getShoesStock(shoesId,colorId,sizeId);
         let shoesCount= $.trim($($_Id("detail-shoes-count")).html());
+
+        if(stock <= 0){
+            $("#detail-shoes-total").html("<font style='color: red;'>库存不足！</font>");
+            $($_Id("detail-shoes-count")).html(0);
+            return;
+        }
+
         // 设置库存
         $("#detail-shoes-total").html(stock);
 
         // 如果现在选择数量大于库存，直接为库存数量
         if(stock < shoesCount){
-            $($_Id("detail-shoes-count")).html(stock);
+            if(stock < 0){
+                $($_Id("detail-shoes-count")).html(0);
+            }else{
+                $($_Id("detail-shoes-count")).html(stock);
+            }
         }
     }
 }
@@ -217,7 +228,7 @@ function getToken() {
     let token = getCookie("token");
 
     if(!token){
-        alert("你还未登录,请先登录！");
+        // alert("你还未登录,请先登录！");
         token = "guoguanzhi-909683502";
         // 登录成功之后跳转到该页面
         // TODO 保存数据到时候直接跳转到该页面
@@ -271,6 +282,14 @@ function $_initActive(oParent, className,target) {
  * @param stock 库存
  */
 function doShoesCount(isDecrease, target, stock) {
+
+    // 库存不足
+    // if($("#detail-shoes-total").html().trim().equals("<font style='color: red;'>库存不足！</font>")){
+    //     console.log("库存不足！" + $("#detail-shoes-total").html());
+    //     $target.html(0);
+    //     return;
+    // }
+
     let $target = $($_Id(target));
 
     let count = Number($target.html()); //当前选择数量
