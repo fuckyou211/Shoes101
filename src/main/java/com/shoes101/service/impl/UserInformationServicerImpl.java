@@ -1,17 +1,27 @@
 package com.shoes101.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.shoes101.exception.GlobalException;
 import com.shoes101.mapper.OrderdetailMapper;
 import com.shoes101.mapper.ShoesorderMapper;
+import com.shoes101.mapper.UserMapper;
 import com.shoes101.mapper.UseraddressMapper;
 import com.shoes101.pojo.Shoesorder;
 import com.shoes101.pojo.User;
+import com.shoes101.pojo.Useraddress;
+import com.shoes101.redis.RedisService;
+import com.shoes101.redis.UserKey;
+import com.shoes101.result.CodeMsg;
+import com.shoes101.result.Result;
 import com.shoes101.service.UserInformationServicer;
+import com.shoes101.util.MD5Util;
+import com.shoes101.vo.UserImformationVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
@@ -34,6 +44,13 @@ public class UserInformationServicerImpl implements UserInformationServicer {
 
     @Autowired
     private UseraddressMapper useraddressMapper;
+
+    @Autowired
+    private UserMapper userMapper;
+
+    @Autowired
+    RedisService redisService;
+
     @Override
     public Map<String,Object> UserMyAccount(HttpServletRequest request, User user) {
         Map<String,Object> information=new HashMap<>();
@@ -84,6 +101,34 @@ public class UserInformationServicerImpl implements UserInformationServicer {
             mapList.add(shoesMap);
         }
         return mapList;
+    }
+    @Override
+    public String UpdateInformation(HttpServletRequest request,User user,UserImformationVo userImformationVo){
+        user.setUsername(userImformationVo.getUsername());
+        user.setPhone(userImformationVo.getPhone());
+        userMapper.updateByPrimaryKey(user);
+        Useraddress useraddress=new Useraddress();
+        useraddress.setUserid(user.getUserid());
+        useraddress.setAddress(userImformationVo.getAddress());
+        useraddressMapper.updateByPrimaryKey(useraddress);
+        return " 000";
+
+    }
+    @Override
+    public Result<String> UpdatePassword(HttpServletRequest request, User user,String password,String setpassword)
+    {
+        if(user==null)
+            throw new GlobalException(CodeMsg.ADMIN_NOT_LOGIN);
+        String calcPass = MD5Util.formPassToDBPass(password, MD5Util.getSalt());
+        if(!user.getPassword().equals(calcPass))
+        {
+            throw new GlobalException(CodeMsg.PASSWORD_ERROR);
+        }
+        setpassword = MD5Util.formPassToDBPass(setpassword, MD5Util.getSalt());
+        user.setPassword(setpassword);
+        userMapper.updateByPrimaryKey(user);
+        redisService.set(UserKey.getByPhone, ""+user.getPhone(), user);
+        return Result.success("信息修改成功！");
     }
 
 }
