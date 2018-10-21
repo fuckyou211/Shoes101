@@ -71,29 +71,29 @@ public class SocketChannelIntercepter implements ChannelInterceptor {
         List<String> onLineUserTokenList = new ArrayList<String>();
         if(admin!=null){
             //System.out.println(redisService);
-            if(redisService.exists(OnlineClientKey.onlineAdmin,"")==false){
-                onLineAdminTokenList.add(token);
-                System.out.println(onLineAdminTokenList.toString());
-                redisService.set(OnlineClientKey.onlineAdmin,"",onLineAdminTokenList);
+            if(redisService.exists(OnlineClientKey.getByAdminName,admin.getAdminname())==false){
+                /*onLineAdminTokenList.add(token);
+                System.out.println(onLineAdminTokenList.toString());*/
+                redisService.set(OnlineClientKey.getByAdminName,admin.getAdminname(),admin);
             }
-            else{
+            /*else{
                 onLineAdminTokenList =  redisService.get(OnlineClientKey.onlineAdmin,"", true,String.class);
                 System.out.println(onLineAdminTokenList.toString());
                 if(onLineAdminTokenList.contains(token)==false)
                     onLineAdminTokenList.add(token);
                 redisService.set(OnlineClientKey.onlineAdmin,"",onLineAdminTokenList);
-            }
+            }*/
         }else if(user!=null){
-            if(redisService.exists(OnlineClientKey.onlineUser,"")==false){
-                onLineUserTokenList.add(token);
-                redisService.set(OnlineClientKey.onlineUser,"",onLineUserTokenList);
+            if(redisService.exists(OnlineClientKey.getByUserName,user.getUsername())==false){
+                //onLineUserTokenList.add(token);
+                redisService.set(OnlineClientKey.getByUserName,user.getUsername(),user);
             }
-            else{
-                onLineUserTokenList = redisService.get(OnlineClientKey.onlineUser,"", ArrayList.class);
+            /*else{
+                onLineUserTokenList = redisService.get(OnlineClientKey.getByUserName,"", ArrayList.class);
                 if(onLineUserTokenList.contains(user))
                     onLineUserTokenList.add(token);
                 redisService.set(OnlineClientKey.onlineUser,"",onLineUserTokenList);
-            }
+            }*/
         }
     }
 

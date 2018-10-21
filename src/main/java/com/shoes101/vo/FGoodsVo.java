@@ -12,6 +12,7 @@ public class FGoodsVo {
     private int shoesid;
     private String shoesname;
     private double price;
+    private String adddate;
     private List<String> pics;
 
     public double getPrice() {
@@ -46,12 +47,21 @@ public class FGoodsVo {
         this.pics = pics;
     }
 
+    public String getAdddate() {
+        return adddate;
+    }
+
+    public void setAdddate(String adddate) {
+        this.adddate = adddate;
+    }
+
     @Override
     public String toString() {
         return "FGoodsVo{" +
                 "shoesid=" + shoesid +
                 ", shoesname='" + shoesname + '\'' +
                 ", price=" + price +
+                ", adddate='" + adddate + '\'' +
                 ", pics=" + pics +
                 '}';
     }

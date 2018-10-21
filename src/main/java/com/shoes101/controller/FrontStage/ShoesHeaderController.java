@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.shoes101.access.UserContext;
 import com.shoes101.pojo.*;
+import com.shoes101.redis.RedisService;
 import com.shoes101.result.Result;
 import com.shoes101.service.*;
 import com.shoes101.vo.CatalogInfoVo;
@@ -33,6 +34,8 @@ public class ShoesHeaderController {
     private PropertyFilterServie propertyFilterServie;
     @Autowired
     private PageSevice pageSevice;
+    @Autowired
+    private RedisService redisService;
 
     //获得分类信息
     @ResponseBody
@@ -73,23 +76,23 @@ public class ShoesHeaderController {
         pageBean pb = new pageBean();
         if(catalogId!=null){
             //获得此catalogId下的所有鞋
-            list =  shoesHeaderService.handleClickNavBarCatalog(catalogId);
+            list =  shoesHeaderService.listUnderCatalog(catalogId);
             List<FGoodsVo> newList;
             if(list.size()>=16)
-                newList = list.subList(0,15);
+                newList = list.subList(0,16);
             else
                 newList = list;
-            pb = pageSevice.setTopageBean(1,16,newList,list.size());
         }
         else if(propertyValueId!=null){
-            list = shoesHeaderService.handleClickNavBarBrand(propertyValueId);
-             pb = pageSevice.setTopageBean(1,10,list,shoesHeaderService.getFGoodsVoCountByPvId(propertyValueId));
+            list = shoesHeaderService.listUnderProVal(propertyValueId);
         }
+        pb = pageSevice.setTopageBean(1,16,list,shoesHeaderService.getFGoodsVoCountByPvId(propertyValueId));
         List<Property> propertyList = propertyService.getAllProperty();
         for(Property property:propertyList){
             Set<PropertyValueVo> propertyValueSet = propertyFilterServie.getGeneralPropertyValue(list,property.getPropertyid());
             map1.put(property.getPropertyname(),propertyValueSet);
         }
+        System.out.println(pb);
         map.put("pageOfShoes",JSON.toJSONString(pb));
         map.put("propertyFilter",JSON.toJSONString(map1));
         return "/front/shoes-list";

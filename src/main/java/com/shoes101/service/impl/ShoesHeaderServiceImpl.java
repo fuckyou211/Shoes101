@@ -7,6 +7,8 @@ import com.shoes101.mapper.ShoespicMapper;
 import com.shoes101.pojo.Propertyvalue;
 import com.shoes101.pojo.Shoes;
 import com.shoes101.pojo.Shoescatalog;
+import com.shoes101.redis.FGoodsKey;
+import com.shoes101.redis.RedisService;
 import com.shoes101.result.Result;
 import com.shoes101.service.ShoesHeaderService;
 import com.shoes101.vo.CatalogInfoVo;
@@ -61,6 +63,8 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
     private ShoesMapper shoesMapper;
     @Autowired
     private ShoespicMapper shoespicMapper;
+    @Autowired
+    private RedisService redisService;
 
     /**
      * 将所有的catalog节点全部放在一个map里，map里面包含的集合内容包含catalogInfo，childrenIndex
@@ -160,31 +164,45 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
     }
     //处理点击导航栏分类部分的处理
     @Override
-    public List<FGoodsVo> handleClickNavBarCatalog(Integer catalogId) {
-        Shoescatalog shoescatalog = shoescatalogMapper.selectByPrimaryKey(catalogId);
-        //System.out.println("111"+shoescatalog);
-        List<Shoescatalog> leafList = this.getLeafList(new ArrayList<Shoescatalog>(),shoescatalog);
-        List<FGoodsVo> list = new ArrayList<FGoodsVo>();
-        for(Shoescatalog shoescatalog1 : leafList){
-            List<FGoodsVo> tempList = shoesMapper.getShoesIdAndNameAndPriceByCatalogId(shoescatalog1.getCatalogid());
-            System.out.println("tt"+tempList);
-            for(int i = 0;i < tempList.size();i++)
-            {
-                tempList.get(i).setPics(shoesMapper.getAllPicById(tempList.get(i).getShoesid()));
+    public List<FGoodsVo> listUnderCatalog(Integer catalogId) {
+        //取缓存
+        List<FGoodsVo> fGoodsVoList = redisService.get(FGoodsKey.getGoodsListCatalog,""+catalogId,true,FGoodsVo.class);
+        if(fGoodsVoList==null){
+            //取数据库
+            Shoescatalog shoescatalog = shoescatalogMapper.selectByPrimaryKey(catalogId);
+            //System.out.println("111"+shoescatalog);
+            List<Shoescatalog> leafList = this.getLeafList(new ArrayList<Shoescatalog>(),shoescatalog);
+            List<FGoodsVo> list = new ArrayList<FGoodsVo>();
+            for(Shoescatalog shoescatalog1 : leafList){
+                List<FGoodsVo> tempList = shoesMapper.getShoesIdAndNameAndPriceByCatalogId(shoescatalog1.getCatalogid());
+                System.out.println("tt"+tempList);
+                for(int i = 0;i < tempList.size();i++)
+                {
+                    tempList.get(i).setPics(shoesMapper.getAllPicById(tempList.get(i).getShoesid()));
+                }
+                for(FGoodsVo fGoodsVo:tempList){
+                    list.add(fGoodsVo);
+                }
             }
-            for(FGoodsVo fGoodsVo:tempList){
-                list.add(fGoodsVo);
-            }
+            redisService.set(FGoodsKey.getGoodsListCatalog,""+catalogId,list);
+            return list;
         }
-        return list;
+        else{
+            return fGoodsVoList;
+        }
     }
 
-    //处理点击导航栏品牌部分的处理
+    //对应处理点击导航栏品牌部分的处理
     @Override
-    public List<FGoodsVo> handleClickNavBarBrand(Integer propertyValueId) {
-        List<FGoodsVo> list =  shoesMapper.getFGoodsVoByPvId(propertyValueId,0,10);//分页处理
-        for(FGoodsVo fGoodsVo:list){
-            fGoodsVo.setPics(shoesMapper.getAllPicById(fGoodsVo.getShoesid()));
+    public List<FGoodsVo> listUnderProVal(Integer propertyValueId) {
+        //取缓存
+        List<FGoodsVo> list = redisService.get(FGoodsKey.getGoodsListProVal,""+propertyValueId,true,FGoodsVo.class);
+        if(list==null || list.size()==0){
+            //取数据库
+            list =  shoesMapper.getFGoodsVoByPvId(propertyValueId,0,10);//分页处理
+            for(FGoodsVo fGoodsVo:list){
+                fGoodsVo.setPics(shoesMapper.getAllPicById(fGoodsVo.getShoesid()));
+            }
         }
         return list;
     }

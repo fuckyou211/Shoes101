@@ -105,14 +105,11 @@ public interface ShoesMapper {
      * @auth:Vakoe
      */
     //获取商品名、商品价格根据catalogId
-    @Select("select DISTINCT shoes.shoesid,shoes.shoesname,shoessku.price from shoes INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.isdropoff=1 and shoes.catalogid = #{catalogId}")
+    @Select("select DISTINCT shoes.shoesid,shoes.shoesname,shoes.adddate,shoessku.price from shoes INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.isdropoff=1 and shoes.catalogid = #{catalogId}")
     List<FGoodsVo> getShoesIdAndNameAndPriceByCatalogId(@Param("catalogId")Integer catalogId);
 
-    //获得最新的Shoes(FGoodsVo此时里面并没有pic)
-    @Select("select DISTINCT shoes.shoesid,shoes.shoesname,shoessku.price from shoes INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.isdropoff=1 order by shoes.adddate desc limit 0,#{size} ")
-    List<FGoodsVo> getFGoodsVoOrderByDate(@Param("size") Integer size);
     //根据品牌获得相应的鞋
-    @Select("select DISTINCT a.shoesid,a.shoesname,b.price from shoes as a INNER JOIN " +
+    @Select("select DISTINCT a.shoesid,a.shoesname,a.adddate,b.price from shoes as a INNER JOIN " +
             "(select shoessku.* from shoessku LEFT JOIN splink on shoessku.shoesid = splink.shoesid " +
             "where splink.propertyvalueid = #{propertyValueId}) as b on a.shoesid = b.shoesid where b.quantity>0 and a.isdropoff=1 limit #{begin},#{size}")
     List<FGoodsVo> getFGoodsVoByPvId(@Param("propertyValueId") Integer propertyValueId,@Param("begin")Integer begin,@Param("size") Integer size);

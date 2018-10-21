@@ -203,16 +203,6 @@
                     clientList.clientList[index].unReadMessageCount = 0;
                     //clientList.clientList[index].messageList= [];
                 }
-               /*else{
-                   /!* chatMessage.messageList = [];
-                    for(var i = 0;i<item.messageList.length;i++)
-                    {
-                        console.log(item.messageList[i]);
-                        chatMessage.messageList.push(item.messageList[i]);
-                        console.log(chatMessage.messageList);
-                    }*!/
-
-                }*/
             },
         }
     });
@@ -276,15 +266,16 @@
             }
         }
         if(chetMessageObject.fromId==chatUser.id&&chetMessageObject.fromStatus==chatUser.status){
-            clientList.clientList[index].messageList.push(chetMessageObject);
+            console.log(clientList.clientList[index].messageList);
             chatMessage.messageList.push(chetMessageObject);
+            console.log(clientList.clientList[index].messageList);
         }
         else{
             clientList.clientList[index].unReadMessageCount = clientList.clientList[index].unReadMessageCount+1;
-            console.log("234"+clientList.clientList[index].messageList);
             clientList.clientList[index].messageList.push(chetMessageObject);
+            //clientList.clientList[index].messageList.push(chetMessageObject);
         }
-
+        console.log(clientList.clientList[index].messageList);
         //$("#output").append("<b>Received： "+message.body+"</b><br/>")
     }
     function sendSpittle() {
@@ -308,9 +299,22 @@
             $("textarea[name='message']").val('');
         }
     }
-    function closeSocket(){
-
-        sock.close();
+    function loginOut(){
+        $.ajax({
+            url:"./adminloginOut",
+            type:"post",
+            data:{
+                token:getCookie("token"),
+            },
+            dataType: "json",
+            success:function (result) {
+               alert("123");
+                console.log(result.data);
+            },
+            error:function () {
+                alert("jiba");
+            }
+        })
     }
     function getCookie(name)
     {
@@ -343,7 +347,20 @@
     $(function () {
         getNearestClientList();
         connect();
-    })
+    });
+    //window.onbeforeunload = loginOut();
+
+    $(window).unload(function(){
+        //这里面写在关闭页面时，要调用的事件
+        /*alert("页面要关闭了");
+        console.log("sadsad");*/
+        loginOut();
+
+    });
 </script>
+
+
 </body>
+
+
 </html>

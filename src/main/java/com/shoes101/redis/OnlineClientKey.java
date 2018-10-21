@@ -17,4 +17,6 @@ public class OnlineClientKey extends BasePrefix{
     }
     public static OnlineClientKey onlineAdmin = new OnlineClientKey( "oa");
     public static OnlineClientKey onlineUser = new OnlineClientKey( "oc");
+    public static OnlineClientKey getByAdminName = new OnlineClientKey( "adminName");
+    public static OnlineClientKey getByUserName = new OnlineClientKey( "userName");
 }

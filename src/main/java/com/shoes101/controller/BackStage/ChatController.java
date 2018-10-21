@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSON;
 import com.shoes101.access.AccessInterceptor;
 import com.shoes101.access.AdminContext;
 import com.shoes101.pojo.Admin;
+import com.shoes101.redis.AdminKey;
 import com.shoes101.vo.ChatMessage;
 import com.shoes101.redis.OnlineClientKey;
 import com.shoes101.redis.RedisService;
@@ -19,7 +20,6 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
@@ -65,10 +65,11 @@ public class ChatController {
     @RequestMapping("/chat/adminloginOut")
     @ResponseBody
     public Result loginOut(String token){
-        if(redisService.delete(OnlineClientKey.onlineAdmin,""))
+        Admin admin = redisService.get(AdminKey.token,token,Admin.class);
+        System.out.println("---------------"+admin);
+        if(redisService.delete(OnlineClientKey.getByAdminName,admin.getAdminname()))
             return Result.success(1);
         else return Result.error(new CodeMsg(225522,"下线失败"));
     }
-
     //保存消息记录
 }

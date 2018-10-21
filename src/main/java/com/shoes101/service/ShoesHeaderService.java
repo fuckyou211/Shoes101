@@ -22,13 +22,13 @@ public interface ShoesHeaderService {
     //初始化catalogInfo
     public Map<String,List<CatalogInfoVo>> initCatalogInfo();
 
-    public List<FGoodsVo> handleClickNavBarCatalog(Integer catalogId);
+    public List<FGoodsVo> listUnderCatalog(Integer catalogId);
 
     //获得某节点的所有叶子节点
     List<Shoescatalog> getLeafList(List<Shoescatalog> leafList, Shoescatalog shoescatalog);
 
     //处理点击品牌的处理
-    public List<FGoodsVo> handleClickNavBarBrand(Integer propertyValueId);
+    public List<FGoodsVo> listUnderProVal(Integer propertyValueId);
 
     //根据品牌获得相应的鞋的数量
     public Integer getFGoodsVoCountByPvId(Integer propertyValueId);
