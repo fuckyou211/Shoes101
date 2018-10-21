@@ -107,10 +107,20 @@ public class UserInformationServicerImpl implements UserInformationServicer {
         user.setUsername(userImformationVo.getUsername());
         user.setPhone(userImformationVo.getPhone());
         userMapper.updateByPrimaryKey(user);
-        Useraddress useraddress=new Useraddress();
-        useraddress.setUserid(user.getUserid());
-        useraddress.setAddress(userImformationVo.getAddress());
-        useraddressMapper.updateByPrimaryKey(useraddress);
+        Useraddress useraddress=useraddressMapper.selectByPrimaryKey(user.getUserid());
+        if(useraddress==null)
+        {
+            useraddress=new Useraddress();
+            useraddress.setUserid(user.getUserid());
+            useraddress.setAddress(userImformationVo.getAddress());
+            useraddressMapper.insert(useraddress);
+        }
+        else
+        {
+            useraddress.setAddress(userImformationVo.getAddress());
+            useraddressMapper.updateByPrimaryKey(useraddress);
+        }
+        logger.info(JSONObject.toJSONString(useraddress));
         return " 000";
 
     }

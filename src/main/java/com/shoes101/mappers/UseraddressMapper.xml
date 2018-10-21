@@ -13,8 +13,8 @@
     <selectKey resultType="java.lang.Integer" keyProperty="userid" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into useraddress (address)
-    values (#{address,jdbcType=VARCHAR})
+    insert into useraddress (userid,address)
+    values (#{userid,jdbcType=INTEGER},#{address,jdbcType=VARCHAR})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Useraddress" >
     update useraddress
