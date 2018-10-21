@@ -1,6 +1,7 @@
 package com.shoes101.mapper;
 
 import com.shoes101.pojo.Shoesorder;
+import com.shoes101.vo.ShoesidAndSalesVo;
 import com.shoes101.vo.ShoesorderVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -10,7 +11,7 @@ import java.util.List;
 public interface ShoesorderMapper {
     int deleteByPrimaryKey(Integer orderid);
 
-    int insert(Shoesorder record);
+    int insert(ShoesorderVo record);
 
     Shoesorder selectByPrimaryKey(Integer orderid);
 
@@ -49,5 +50,11 @@ public interface ShoesorderMapper {
 
     @Select("select * from shoesorder as a where a.userid = #{userid} AND a.state!= 100 AND a.state !=101 AND a.state!=102")
     public List<Shoesorder> getshoesorderByorderidState1(@Param("userid") Integer userid,@Param("state") Integer state);
+
+    //获取销量Top10
+    public List<ShoesidAndSalesVo> getTop();
+
+    //存销量
+    public int setNewSales(@Param("quantity") int quantity,@Param("skuid") int skuid);
 
 }

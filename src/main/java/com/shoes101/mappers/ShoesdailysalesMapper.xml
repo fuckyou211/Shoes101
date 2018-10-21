@@ -36,4 +36,21 @@
     select sdid, `date`, sales, shoesid
     from shoesdailysales
   </select>
+  <!--在 XML 中，一些字符拥有特殊的意义。
+如果您把字符 "<" 放在 XML 元素中，会发生错误，这是因为解析器会把它当作新元素的开始。
+这样会产生 XML 错误：
+为了避免这个错误，用实体引用来代替 "<" 字符，如下：
+  <message>if salary <1000 then</message> 需要改为<message>if salary &lt; 1000 then</message>-->
+  <select id="getmonthsell" resultType="java.lang.Integer">
+    select IFNULL(sum(totalprice),0) from shoesorder where buydate >= ${ym1} and buydate &lt; ${ym2}
+  </select>
+  <select id="getmonthorder" resultType="java.lang.Integer">
+    select IFNULL(count(orderid),0) from shoesorder where buydate >= ${ym1} and buydate &lt; ${ym2} and validity = 1 and cancel = 0 and state = 3
+  </select>
+  <select id="getmonthregistuser" resultType="java.lang.Integer">
+    select IFNULL(count(userid),0) from user where user.date >= ${ym1} and user.date &lt; ${ym2}
+  </select>
+  <select id="getDaySell" resultType="com.shoes101.vo.DaySellVo">
+    select count(orderdetail.quantity) as sell,substr(shoesorder.buydate,1,10) as dayy from shoesorder,orderdetail where shoesorder.buydate like '2018-10%' group by substr(shoesorder.buydate,1,10)
+  </select>
 </mapper>

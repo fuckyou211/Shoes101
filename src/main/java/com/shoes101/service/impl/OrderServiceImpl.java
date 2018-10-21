@@ -6,10 +6,12 @@ import com.shoes101.mapper.OrderdetailMapper;
 import com.shoes101.mapper.ShoesorderMapper;
 import com.shoes101.mapper.UseraddressMapper;
 import com.shoes101.pojo.Orderdetail;
+import com.shoes101.pojo.Shoesdailysales;
 import com.shoes101.pojo.Shoesorder;
 import com.shoes101.pojo.Useraddress;
 import com.shoes101.service.OrderService;
 import com.shoes101.vo.OrderVo;
+import com.shoes101.vo.ShoesorderVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,18 +45,21 @@ public class OrderServiceImpl implements OrderService {
                                         orderItem.getSkuidandqty().get(i).getQuantity();
             int sku = shoesorderMapper.getQuantityFromSku(orderItem.getSkuidandqty().get(i).getSkuid());
             sku = sku - orderItem.getSkuidandqty().get(i).getQuantity();
+            //减库存 获取到库存直接更换 不减了
+            //10.21 Sku有销量统计 可用作查询Top10
+            shoesorderMapper.setNewSales(sku,orderItem.getSkuidandqty().get(i).getSkuid());
             shoesorderMapper.setNewSku(orderItem.getSkuidandqty().get(i).getSkuid(),sku);
         }
-
-
-
 
         System.out.println(totalprice);
         Date currentTime = new Date();
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Shoesorder shoesorder = new Shoesorder();
+
+        //10.21 将Shoesorder改为 ShoesorderVo 避免隐藏的日期格式冲突
+        ShoesorderVo shoesorder = new ShoesorderVo();
         shoesorder.setUserid(orderItem.getUserid());
-        shoesorder.setBuydate(currentTime);
+        //隐藏日期格式冲突
+        shoesorder.setBuydate(df.format(currentTime));
 
         shoesorder.setCancel(0);
         shoesorder.setContactname(orderItem.getContactName());
@@ -69,6 +74,8 @@ public class OrderServiceImpl implements OrderService {
         //存进去
         shoesorderMapper.insert(shoesorder);
         //根据list的长度来一条条存入数据库
+        //10.21更新 下单时直接有销量
+        //Sku表有销量统计
         for(int i = 0;i < orderItem.getSkuidandqty().size();i++)
         {
             Orderdetail orderdetail = new Orderdetail();
@@ -79,7 +86,6 @@ public class OrderServiceImpl implements OrderService {
             orderdetail.setPrice(totalprice.doubleValue());
             orderdetail.setTicketprice(totalprice.doubleValue());
             orderdetailMapper.insert(orderdetail);
-
         }
         return "success";
     }
