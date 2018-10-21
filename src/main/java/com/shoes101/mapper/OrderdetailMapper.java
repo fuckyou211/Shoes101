@@ -1,6 +1,7 @@
 package com.shoes101.mapper;
 
 import com.shoes101.pojo.Orderdetail;
+import com.shoes101.vo.ShoesorderVo;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
@@ -35,6 +36,5 @@ public interface OrderdetailMapper {
 
     @Select("select a.*,b.colorpicaddredd from orderdetail as a ,colorpic as b where a.detailid = #{detailid} AND a.skuid=b.skuid ")
     public Map<String,Object> getOrderdetailByorderid(@Param("detailid") Integer detailid);
-
 
 }

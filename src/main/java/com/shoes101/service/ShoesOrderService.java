@@ -29,5 +29,11 @@ public interface ShoesOrderService {
     //发货或者退款
     public List<ShoesorderVo> sendOrBack(int orderid,int validity, int cancel,int state);
 
+	/**
+	 * 	根据 订单id获取订单
+	 * @param orderId
+	 * @return
+	 */
+	public Shoesorder getOrderById(Integer orderId);
 
 }

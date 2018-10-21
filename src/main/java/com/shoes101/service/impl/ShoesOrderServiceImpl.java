@@ -68,4 +68,9 @@ public class ShoesOrderServiceImpl implements ShoesOrderService {
         shoesorderMapper.sendOrBack(orderid,validity,cancel,state);
         return shoesorderMapper.selectAll();
     }
+
+    @Override
+    public Shoesorder getOrderById(Integer orderId) {
+        return shoesorderMapper.selectByPrimaryKey(orderId);
+    }
 }

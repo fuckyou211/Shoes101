@@ -1,6 +1,7 @@
 package com.shoes101.service;
 
 import com.shoes101.vo.OrderVo;
+import com.shoes101.vo.ShoesorderVo;
 
 public interface OrderService {
 

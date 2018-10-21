@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>101shoes|支付</title>
+    <link rel="shortcut icon" href="../img/101_favicon.ico" type="image/x-icon"/>
+    <!--商品名称-->
+    <link rel="stylesheet" type="text/css" href="../css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/myrest.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/shoes-cart.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/order-list.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
+    <link rel="stylesheet" type="text/css" href="../font/font-awesome.min.css">
+
+    <script src="../js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/layer.js"></script>
+    <script src="../js/common.js"></script>
+    <script src="../js/js.cookie.js"></script>
+    <script src="../js/shoes-detail.js"></script>
+    <script src="../js/shoes-pay.js"></script>
+
+
+</head>
+
+<body>
+<!--头部信息-->
+<div id="the_header"></div>
+
+<div class="container">
+
+</div>
+
+<!--尾部-->
+<div id="the_footer"></div>
+
+<!--载入尾部-->
+<script>
+
+    $(function () {
+        let orderId = getQueryPathStringByName("orderId");
+        alert("交易成功！orderId="+orderId);
+    });
+
+    $("#the_header").load("shoes-header.html");
+    $("#the_footer").load("shoes-footer.html");
+</script>
+</body>
+
+<!--<script>-->
+<!--$(function(){-->
+<!--//renderPayPage($.cookie("data"));-->
+<!--console.log(OrderItem($.cookie("data")[0]).color);-->
+<!--});-->
+
+<!--</script>-->
+</html>

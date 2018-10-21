@@ -62,7 +62,6 @@ public class OrderController {
     public Result<Integer> setOrder(@RequestParam("orderItem") OrderVo orderItem)
     {
 
-
         return Result.success(orderService.add(orderItem));
     }
 
@@ -108,7 +107,6 @@ public class OrderController {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-
 		return Result.success(orderService.add(orderItem));
 	}
 

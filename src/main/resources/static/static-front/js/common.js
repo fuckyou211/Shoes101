@@ -202,7 +202,7 @@ function $_activeChange(oParent,oTarget, className) {
         let shoesCount= $.trim($($_Id("detail-shoes-count")).html());
 
         if(stock <= 0){
-            $("#detail-shoes-total").html("<font style='color: red;'>库存不足！</font>");
+            $("#detail-shoes-total").html("<font style='color: red;'>已售罄！</font>");
             $($_Id("detail-shoes-count")).html(0);
             return;
         }
@@ -283,14 +283,16 @@ function $_initActive(oParent, className,target) {
  */
 function doShoesCount(isDecrease, target, stock) {
 
-    // 库存不足
-    // if($("#detail-shoes-total").html().trim().equals("<font style='color: red;'>库存不足！</font>")){
-    //     console.log("库存不足！" + $("#detail-shoes-total").html());
-    //     $target.html(0);
-    //     return;
-    // }
-
     let $target = $($_Id(target));
+    let str = $("#detail-shoes-total").html();
+    //库存不足
+    if((str.indexOf("<font")) != -1){
+        console.log("库存不足！" + str);
+        $target.html(0);
+        return;
+    }
+
+
 
     let count = Number($target.html()); //当前选择数量
 
@@ -307,8 +309,6 @@ function doShoesCount(isDecrease, target, stock) {
 
         return;
     }
-
-
     count += isDecrease;
 
     $target.html(count);

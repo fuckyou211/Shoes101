@@ -14,6 +14,8 @@ let orderItemList = null;
 
 function doOrderPageRenderWhenLoad() {
 
+
+
     let token = getToken();
 
     // 发送ajax获取数据
@@ -27,8 +29,10 @@ function doOrderPageRenderWhenLoad() {
             //alert(data.data);
             // 如果成功的话
             // 开始渲染页面
-            if(data){
+            if(data.data != null){
                 renderPayPage(eval(data.data));
+            }else {
+                window.location.href="/";
             }
         }
     });
@@ -183,10 +187,32 @@ function OrderHandItem(skuid, quantity) {
 }
 
 /**
+ *  显示加载中的
+ */
+function showLoading(){
+    layer.msg('订单创建中。。。', {
+        icon: 16
+        ,shade: 0.01
+    });
+}
+function closeAll() {
+    layer.closeAll('loading');
+}
+
+
+/**
  *  提交订单
  * @param ShoesOrder
  */
 function handOrder() {
+
+    if($("#order-caculate-do").hasClass("reapClick")){
+        alert("请勿重复提交订单！");
+        closeAll();
+        return;
+    }
+
+    showLoading();
 
     // 组装数据  地址数据
     let addr = $("#order-province").html() + $("#order-city").html()+$("#order-addr").html();
@@ -227,7 +253,21 @@ function handOrder() {
         },
         success:function (data) {
             if(data.code  == 0){
-                alert("下单成功");
+                //alert("下单成功");
+                closeAll();
+                layer.msg('订单创建成功！立即支付？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '稍后支付']
+                    ,yes: function(index){
+                        layer.close(index);
+                        //alert("跳转成功！");
+                        window.location.href="/static-front/html/shoes-trace.htm?orderId="+data.data;
+                    }
+                    ,btn2: function(index){
+                        alert("跳转至我的订单！");
+                        //return false 开启该代码可禁止点击该按钮关闭
+                    }
+                });
 
             }
             else {
