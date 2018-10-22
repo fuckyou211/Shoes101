@@ -137,6 +137,6 @@ public interface ShoesMapper {
     @Select("select DISTINCT shoes.shoesid,shoes.shoesname,shoes.adddate,shoessku.price from shoes INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.isdropoff=1 order by shoes.adddate limit #{count}")
     List<FGoodsVo> getOldestGoods(@Param("count") Integer count);
 
-    List<FGoodsVo> getHotSale(@Param("count")Integer count);
+    List<FGoodsVo> getHotSale(@Param("count")Integer count,@Param("dateString")String dateString);
 
 }

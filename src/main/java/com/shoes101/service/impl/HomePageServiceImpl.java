@@ -5,6 +5,7 @@ import com.shoes101.redis.FGoodsKey;
 import com.shoes101.redis.RedisService;
 import com.shoes101.service.HomePageService;
 import com.shoes101.service.ShoesHeaderService;
+import com.shoes101.util.DateUtils;
 import com.shoes101.vo.FGoodsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,10 @@ public class HomePageServiceImpl implements HomePageService {
 
     @Override
     public List<FGoodsVo> getHotSale(Integer count) {
-        List<FGoodsVo> list = shoesMapper.getHotSale(count);
+        Date date = new Date();
+        String dateString = DateUtils.transferDateToString_YM(date);
+        dateString = "'%"+dateString+"%'";
+        List<FGoodsVo> list = shoesMapper.getHotSale(count,dateString);
         for(FGoodsVo fGoodsVo:list){
             fGoodsVo.setPics(shoesMapper.getAllPicById(fGoodsVo.getShoesid()));
         }
