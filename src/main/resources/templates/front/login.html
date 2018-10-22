@@ -484,8 +484,8 @@
                             if (result.code==0)
 							{
                                 // window.location.href="/UserInformation/UserMyAccount";
-                                var a = document.referrer+" ";
-								if(a.match("to_login")=="to_login"||document.referrer==null){
+                                var a = document.referrer+"";
+								if(a.match("to_login")=="to_login"||a==null|| a == ""){
                                     window.location.href="/UserInformation/UserMyAccount";
 								}
 								else {
