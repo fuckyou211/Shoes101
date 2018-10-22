@@ -8,7 +8,7 @@ Vue.component('user-header',{
         '                            <span v-if="online"><b>{{user.username}}</b></span>\n' +
         '                            <span v-else> \n' +
         '                                <s style="text-decoration: none">请先\n' +
-        '                                   <a id="login-link" href="login/to_login">登陆</a>\n' +
+        '                                   <a id="login-link" href="http://127.0.0.1:8080/login/to_login">登陆</a>\n' +
         '                                </s>\n' +
         '                             </span>\n'+
         '                        </p>\n' +
@@ -35,10 +35,10 @@ Vue.component('user-header',{
         '                                    </ul>\n' +
         '                                    <ul v-else>\n' +
         '                                        <li>\n' +
-        '                                            <a href="login/to_login">登录</a>\n' +
+        '                                            <a href="http://127.0.0.1:8080/login/to_login">登录</a>\n' +
         '                                        </li>\n' +
         '                                        <li>\n' +
-        '                                            <a href="login/to_login">注册</a>\n' +
+        '                                            <a href="http://127.0.0.1:8080/login/to_login">注册</a>\n' +
         '                                        </li>\n' +
         '                                    </ul>\n' +
         '                                </li>\n' +
@@ -93,7 +93,7 @@ Vue.component('user-header',{
         var self= this;
         //通过ajax获取用户，如返回空，则是未登录
         $.ajax({
-            url: "getUser",
+            url: "http://127.0.0.1:8080/getUser",
             type: 'post',
             dataType: 'json',
             success: function (data) {
