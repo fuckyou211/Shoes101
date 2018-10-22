@@ -44,4 +44,6 @@ public class HomePageController {
         Integer catalogId = shoesHeaderService.selectByNameAndParentId(parentId,name).getCatalogid();
         return Result.success(homePageService.getNewestGoods( count,catalogId));
     }
+
+
 }

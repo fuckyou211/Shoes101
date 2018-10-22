@@ -18,6 +18,22 @@ public class SearchServiceImpl implements SearchService {
     private RedisService redisService;
     @Override
     public List<FGoodsVo> search(String value,Integer start,Integer size) {
+        //List<FGoodsVo> list = redisService.get(FGoodsKey.getGoodsListSearch,"value",true,FGoodsVo.class);
+        /*if(list==null){
+            String value1 = "'%"+value+"%'";
+            List<FGoodsVo> list1 = shoesMapper.searchByName(value1);
+            redisService.set(FGoodsKey.getGoodsListSearch,value,list1);
+            return list1;
+        }
+        else{
+            return list;
+        }
+    */
+        value = "'%"+value+"%'";
+        return shoesMapper.searchByNamePage(value,start,size);
+    }
+    @Override
+    public List<FGoodsVo> search(String value) {
         List<FGoodsVo> list = redisService.get(FGoodsKey.getGoodsListSearch,"value",true,FGoodsVo.class);
         if(list==null){
             String value1 = "'%"+value+"%'";

@@ -10,4 +10,6 @@ public interface SearchService {
 
     public Integer searchByNameCount(String value);
 
+    public List<FGoodsVo> search(String value);
+
 }

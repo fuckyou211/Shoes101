@@ -211,7 +211,7 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
     @Override
     public List<FGoodsVo> listUnderProVal(Integer propertyValueId, Integer pageCode, Integer size) {
         Integer start = (pageCode-1)*size;
-        return shoesMapper.getFGoodsVoByPvId(propertyValueId,start,size);
+        return shoesMapper.getFGoodsVoByPvIdPage(propertyValueId,start,size);
     }
 
     //根据品牌获得相应的鞋的数量
