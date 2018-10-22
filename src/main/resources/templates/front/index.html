@@ -107,8 +107,8 @@
 											</div>
 											<div class="product-img">
 												<a target="_blank" :href="'/static-front/html/shoes-detail.htm?shoesId='+item.shoesid">
-													<img :src="item.pics[0]" alt="" class="primary-img">
-													<img :src="item.pics[1]" alt="" class="secondary-img">
+													<img :src="item.pics[0]" :alt="item.shoesname" class="primary-img">
+													<img :src="item.pics[1]" :alt="item.shoesname" class="secondary-img">
 													<div style="font-size: 18px;"><strong>{{item.shoesname}}</strong></div>
 												</a>
 											</div>
@@ -131,8 +131,8 @@
 											</div>
 											<div class="product-img">
 												<a target="_blank" :href="'/static-front/html/shoes-detail.htm?shoesId='+item.shoesid">
-													<img :src="item.pics[0]" alt="" class="primary-img">
-													<img :src="item.pics[1]" alt="" class="secondary-img">
+													<img :src="item.pics[0]" :alt="item.shoesname" class="primary-img">
+													<img :src="item.pics[1]" :alt="item.shoesname" class="secondary-img">
 													<div style="font-size: 18px;"><strong>{{item.shoesname}}</strong></div>
 												</a>
 											</div>
@@ -152,7 +152,7 @@
 </div>
 
 <!--热销鞋类-->
-<div class="features-product-area">
+<div class="new-products-area">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
@@ -162,24 +162,28 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="feature-product-slider">
-				<!--循环-->
-				<div class="col-md-12">
-					<!-- 使用title标注鞋子的id-->
-					<div class="single-product" align="center" title="3">
-						<div class="level-pro-new">
-							<span>热销</span>
-						</div>
-						<div class="product-img">
-							<a href="javascript:;">
-								<img src="../static-front/img/1-1.png" alt="" class="primary-img">
-								<img src="../static-front/img/2-1.png" alt="" class="secondary-img">
-								<div style="font-size: 18px;"><strong>耐克鞋</strong></div>
-							</a>
-						</div>
-						<div class="price-rating">
-							<span class="old-price">$700.00</span>
-							<span>$800.00</span>
+			<!--列出商品-->
+			<div class="product-content" id="theHots">
+				<div class="tab-content">
+					<div v-for="item in list">
+						<div class="col-lg-3 col-sm-6" align="center">
+							<div class="single-product">
+								<div class="level-pro-new">
+									<span>热销</span>
+								</div>
+								<div class="product-img">
+									<a target="_blank" :href="'/static-front/html/shoes-detail.htm?shoesId='+item.shoesid">
+										<img :src="item.pics[0]"  alt=" " class="primary-img ">
+										<img :src="item.pics[1]"  alt=" " class="secondary-img ">
+									</a>
+								</div>
+								<div class="product-name ">
+									<span  :title="item.shoesid">{{item.shoesname}}</span>>
+								</div>
+								<div class="price-rating ">
+									<span>￥{{item.price}}</span>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -199,36 +203,38 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="new-product-slider">
-				<div class="col-md-12">
-					<!-- 使用title标注鞋子的id-->
-					<div class="single-product" align="center" title="4">
-						<div class="level-pro-new">
-							<span>经典</span>
-						</div>
-						<div class="product-img">
-							<a href="javascript:;">
-								<img src="../static-front/img/25.png" alt="" class="primary-img">
-								<img src="../static-front/img/26.png" alt="" class="secondary-img">
-								<div style="font-size: 18px;"><strong>耐克鞋</strong></div>
-							</a>
-						</div>
-						<div class="price-rating">
-							<span class="old-price">$700.00</span>
-							<span>$800.00</span>
+				<!--列出商品-->
+				<div class="product-content" id="theClassic">
+					<div class="tab-content">
+						<div v-for="item in list">
+							<div class="col-lg-3 col-sm-6" align="center">
+								<div class="single-product">
+									<div class="level-pro-new">
+										<span>经典</span>
+									</div>
+									<div class="product-img">
+										<a target="_blank" :href="'/static-front/html/shoes-detail.htm?shoesId='+item.shoesid">
+											<img :src="item.pics[0]"  alt=" " class="primary-img ">
+											<img :src="item.pics[1]"  alt=" " class="secondary-img ">
+										</a>
+									</div>
+									<div class="product-name ">
+										<span  :title="item.shoesid">{{item.shoesname}}</span>
+									</div>
+									<div class="price-rating ">
+										<span>￥{{item.price}}</span>
+									</div>
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
-			</div>
 		</div>
 	</div>
 </div>
 
 <!--尾部-->
 <div id="the_footer"></div>
-<div class="row">
-	<a href="javascript:;" onclick="dumpToPayPage()"> 我是跳转到订单页面的按钮</a>
-</div>
 
 <script src="../static-front/js/jquery.min.js"></script>
 <script src="../static-front/js/bootstrap.min.js"></script>
@@ -254,9 +260,13 @@
         /*获取新品*/
 		getNewShoes("男鞋");
         getNewShoes("女鞋");
+        /*获取热销*/
+		getHotsShoes();
+		/*获取经典*/
+		getClassicShoes();
 
     });
-    var newShoes_1,newShoes_2;
+    var newShoes_1,newShoes_2,hotShoes,classicShoes;
     newShoes_1 = new Vue({
 		el: '#newShoes-1',
 		data:{
@@ -273,6 +283,22 @@
         methods:{
         }
 	});
+    hotShoes = new Vue({
+        el: '#theHots',
+        data:{
+            list:[]
+        },
+        methods:{
+        }
+    });
+    classicShoes = new Vue({
+        el: '#theClassic',
+        data:{
+            list:[]
+        },
+        methods:{
+        }
+    });
 
     function single_product_class_click() {
 
@@ -319,8 +345,42 @@
 			}
 		})
     }
-
-
+    function getHotsShoes() {
+        let count=8;
+        $.ajax({
+            url: "/getHotSale",
+            type: 'post',
+            data: {
+                count:count,
+            },
+            dataType: 'json',
+            success: function (result) {
+                hotShoes.list = result.data;
+                console.log("热门：");
+				console.log(result.data);
+            },
+            error: function (err){
+            }
+        })
+    }
+    function getClassicShoes() {
+        let count=8;
+        $.ajax({
+            url: "/getOldestGoods",
+            type: 'post',
+            data: {
+                count:count,
+            },
+            dataType: 'json',
+            success: function (result) {
+                classicShoes.list = result.data;
+                console.log("经典：");
+                console.log(result.data);
+            },
+            error: function (err){
+            }
+        })
+    }
 
 </script>
 
