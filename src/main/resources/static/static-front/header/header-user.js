@@ -5,12 +5,12 @@ Vue.component('user-header',{
         '                <div class="col-md-7 col-md-offset-3">\n' +
         '                    <div class="call-support">\n' +
         '                        <p id="login-tip" style="font-size: 15px;">101Shoes 欢迎您，\n' +
-        '                            <sapn v-if="online"><b>{{user.username}}</b></sapn>\n' +
-        '                            <sapn v-else> \n' +
+        '                            <span v-if="online"><b>{{user.username}}</b></span>\n' +
+        '                            <span v-else> \n' +
         '                                <s style="text-decoration: none">请先\n' +
         '                                   <a id="login-link" href="login/to_login">登陆</a>\n' +
         '                                </s>\n' +
-        '                             </sapn>\n'+
+        '                             </span>\n'+
         '                        </p>\n' +
         '                    </div>\n' +
         '                </div>\n' +

@@ -79,7 +79,7 @@
 				<div class="col-md-12">
 					<div class="product-menu">
 						<div class="menu-title">
-							<h2 style="padding-top: 15px;"><strong>101 Shoes 热销鞋类</strong></h2>
+							<h2 style="padding-top: 15px; font-family: 幼圆"><strong>101 Shoes 新品上市</strong></h2>
 						</div>
 						<div class="side-menu">
 							<ul class="tab-navigation" role="tablist">
@@ -97,41 +97,49 @@
 					<div class="row">
 						<div class="tab-content">
 							<div role="tabpanel" class="tab-pane fade in active" id="tab1">
-								<!-- 使用title标注鞋子的id-->
-								<div class="single-product col-md-3" align="center" title="1">
-									<input type="hidden" name="shoesId" value="1"/>
-									<div class="level-pro-new">
-										<span>热销</span>
-									</div>
-									<div class="product-img">
-										<a href="javascript:;">
-											<img src="../static-front/img/9.png" alt="" class="primary-img">
-											<img src="../static-front/img/10.png" alt="" class="secondary-img">
-											<div style="font-size: 18px;"><strong>Fusce aliquam</strong></div>
-										</a>
-									</div>
-									<div class="price-rating">
-										<span>$170.00</span>
+								<div id="newShoes-1">
+									<div v-for="item in list">
+										<!-- 使用title标注鞋子的id-->
+										<div class="single-product col-md-3" align="center" :title="item.shoesid">
+											<input type="hidden" name="shoesId" value="1"/>
+											<div class="level-pro-new">
+												<span>新品</span>
+											</div>
+											<div class="product-img">
+												<a target="_blank" :href="'/static-front/html/shoes-detail.htm?shoesId='+item.shoesid">
+													<img :src="item.pics[0]" alt="" class="primary-img">
+													<img :src="item.pics[1]" alt="" class="secondary-img">
+													<div style="font-size: 18px;"><strong>{{item.shoesname}}</strong></div>
+												</a>
+											</div>
+											<div class="price-rating">
+												<span>￥{{item.price}}</span>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
 
 							<div role="tabpanel" class="tab-pane fade" id="tab2">
-								<!-- 使用title标注鞋子的id-->
-								<div class="single-product col-md-3" align="center" title="2">
-									<input type="hidden" name="shoesId" value="2"/>
-									<div class="level-pro-new">
-										<span>热销</span>
-									</div>
-									<div class="product-img">
-										<a href="javascript:;">
-											<img src="../static-front/img/10.png" alt="" class="primary-img">
-											<img src="../static-front/img/9.png" alt="" class="secondary-img">
-											<div style="font-size: 18px;"><strong>Fusce aliquam</strong></div>
-										</a>
-									</div>
-									<div class="price-rating">
-										<span>$170.00</span>
+								<div id="newShoes-2">
+									<div v-for="item in list">
+										<!-- 使用title标注鞋子的id-->
+										<div class="single-product col-md-3" align="center" :title="item.shoesid">
+											<input type="hidden" name="shoesId" value="2"/>
+											<div class="level-pro-new">
+												<span>新品</span>
+											</div>
+											<div class="product-img">
+												<a target="_blank" :href="'/static-front/html/shoes-detail.htm?shoesId='+item.shoesid">
+													<img :src="item.pics[0]" alt="" class="primary-img">
+													<img :src="item.pics[1]" alt="" class="secondary-img">
+													<div style="font-size: 18px;"><strong>{{item.shoesname}}</strong></div>
+												</a>
+											</div>
+											<div class="price-rating">
+												<span>￥{{item.price}}</span>
+											</div>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -143,13 +151,13 @@
 	</div>
 </div>
 
-<!--新品推荐-->
+<!--热销鞋类-->
 <div class="features-product-area">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="section-heading">
-					<h2>新品上市</h2>
+					<h2>热销鞋类</h2>
 				</div>
 			</div>
 		</div>
@@ -160,7 +168,7 @@
 					<!-- 使用title标注鞋子的id-->
 					<div class="single-product" align="center" title="3">
 						<div class="level-pro-new">
-							<span>新品</span>
+							<span>热销</span>
 						</div>
 						<div class="product-img">
 							<a href="javascript:;">
@@ -243,7 +251,28 @@
     $(function () {
         // 调用鞋子点击的事件
         single_product_class_click();
+        /*获取新品*/
+		getNewShoes("男鞋");
+        getNewShoes("女鞋");
+
     });
+    var newShoes_1,newShoes_2;
+    newShoes_1 = new Vue({
+		el: '#newShoes-1',
+		data:{
+			list:[]
+		},
+		methods:{
+		}
+	});
+    newShoes_2 = new Vue({
+        el: '#newShoes-2',
+        data:{
+			list:[]
+        },
+        methods:{
+        }
+	});
 
     function single_product_class_click() {
 
@@ -260,6 +289,35 @@
                 alert("请求错误！");
             }
         });
+    }
+    function getNewShoes(shoesClassify) {
+		let count=8;
+		let parentId=0;
+		let name=shoesClassify;
+		$.ajax({
+			url: "/getNewestGoods",
+			type: 'post',
+			data: {
+			    count:count,
+				parentId:parentId,
+				name:name,
+			},
+			dataType: 'json',
+			success: function (result) {
+			    if(name=="男鞋"){
+                    newShoes_1.list = result.data;
+                    console.log("新品男鞋：");
+                    console.log(newShoes_1.list);
+				}else{
+                    newShoes_2.list = result.data;
+                    console.log("新品女鞋：");
+                    console.log(newShoes_2.list);
+				}
+            },
+			error: function (err){
+
+			}
+		})
     }
 
 
