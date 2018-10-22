@@ -66,5 +66,28 @@
   <delete id="deleteRushsku">
     delete from rushsku where rushbuyid=#{rushbuyid}
   </delete>
-
+  <select id="getAllRush" resultType="com.shoes101.vo.RushbuyVo">
+    select * from rushbuy
+  </select>
+  <select id="getOneRush" resultType="com.shoes101.vo.RushbuyVo">
+    select * from rushbuy where rushbuyid=#{rushbuyid}
+  </select>
+  <select id="getSkuAndQty" resultType="com.shoes101.vo.RushSkuAndQtyVo">
+    select skuid,quantity from rushsku where rushbuyid=#{rushbuyid} order by skuid
+  </select>
+  <select id="getSoOn" resultType="com.shoes101.vo.RushShoesskuAndPropvnameVo">
+    select shoesid,skuproperty from shoessku where skuid=#{skuid}
+  </select>
+  <select id="getProperty" resultType="java.lang.String">
+    select skuproperty from shoessku where skuid=#{skuid}
+  </select>
+  <select id="getShoesname" resultType="java.lang.String">
+    select shoesname from shoes where shoesid=#{shoesid}
+  </select>
+  <select id="getSkuPic" resultType="java.lang.String">
+    select colorpicaddredd from colorpic where skuid=#{skuid} limit 1
+  </select>
+  <select id="getBigPic" resultType="java.lang.String">
+    select picaddress from shoespic where shoesid=#{shoesid} limit 1
+  </select>
 </mapper>

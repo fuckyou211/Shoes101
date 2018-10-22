@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>101 Shoes|商品详情</title>
+    <title>101 Shoes|商品秒杀</title>
     <link rel="shortcut icon" href="../static-front/img/101_favicon.ico" type="image/x-icon"/>
     <!--商品名称-->
     <link rel="stylesheet" type="text/css" href="../static-front/css/normalize.css"/>
@@ -22,20 +22,7 @@
 <!--头部信息-->
 <div id="the_header"></div>
 
-<div class="container">
-    <div class="row">
-        <ul class="path-link">
-            <li class="btn-link"><a href="javascript:;"> 101 shoes</a></li>
-            <li><a href="javascript:;"> &gt;</a></li>
-            <li class="btn-link"><a href="javascript:;"> 男鞋</a></li>
-            <li><a href="javascript:;"> &gt;</a></li>
-            <li class="btn-link"><a href="javascript:;"> 潮流时尚</a></li>
-            <li><a href="javascript:;"> &gt;</a></li>
-            <li class="btn-link"><a href="javascript:;"> 运动鞋</a></li>
-            <li><a href="javascript:;"> &gt;</a></li>
-            <li class="btn-link"><a href="javascript:;"> Nike Kobe AD NXT 360</a></li>
-        </ul>
-    </div>
+<div class="container" id="detail">
     <!-- 商品基本信息显示选择-->
     <div class="row lg-border-padding">
         <!-- 商品图片展示栏
@@ -43,35 +30,36 @@
         -->
         <div class="col-md-6">
             <div class="b-shoes-show">
-                <img id="detail-shoes-bimg" src="../static-front/images/big-img/xie1.webp"
-                     class="img-responsive img-thumbnail detail-big-img"/>
+                <img id="detail-shoes-bimg" :src="bigpic" class="img-responsive img-thumbnail detail-big-img"/>
+                <!--"../static-front/images/big-img/xie1.webp"-->
             </div>
             <div class="m-shoes-li center-block">
                 <ul id="detail-shoes-simg" class="center-block">
-                    <li>
-                        <img src="../static-front/images/sma-img/xie1.webp"
+                    <li v-for="item in rushpic">
+                        <!--"../static-front/images/sma-img/xie1.webp"-->
+                        <img :src="item"
                              class="img-responsive img-thumbnail img-disabled img-active"
                              onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
                     </li>
-                    <li>
-                        <img src="../static-front/images/sma-img/xie2.webp"
-                             class="img-responsive img-thumbnail img-disabled"
-                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
-                    </li>
-                    <li>
-                        <img src="../static-front/images/sma-img/xie3.webp"
-                             class="img-responsive img-thumbnail img-disabled"
-                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
-                    </li>
-                    <li>
-                        <img src="../static-front/images/sma-img/xie4.webp"
-                             class="img-responsive img-thumbnail img-disabled"
-                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
-                    </li>
-                    <li>
-                        <img src="../static-front/images/sma-img/xie5.webp" class="img-responsive img-thumbnail img-disabled"
-                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
-                    </li>
+                    <!--<li>-->
+                        <!--<img src="../static-front/images/sma-img/xie2.webp"-->
+                             <!--class="img-responsive img-thumbnail img-disabled"-->
+                             <!--onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<img src="../static-front/images/sma-img/xie3.webp"-->
+                             <!--class="img-responsive img-thumbnail img-disabled"-->
+                             <!--onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<img src="../static-front/images/sma-img/xie4.webp"-->
+                             <!--class="img-responsive img-thumbnail img-disabled"-->
+                             <!--onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<img src="../static-front/images/sma-img/xie5.webp" class="img-responsive img-thumbnail img-disabled"-->
+                             <!--onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>-->
+                    <!--</li>-->
                 </ul>
             </div>
         </div>
@@ -79,79 +67,50 @@
         <div class="col-md-6">
             <ul>
                 <li class="detail-li" style="display: none">
-                    <span id="shoes-id">4546548971477</span>
+                    <!--<span id="shoes-id">4546548971477</span>-->
                 </li>
                 <li class="detail-li">
-                    <p class="h3">Nike Kobe AD NXT 360</p>
+                    <p class="h3">{{rushinfo.shoesname}}</p>
                 </li>
                 <li class="detail-li">
-                    <span class="h5">库存：</span>
-                    <!-- 库存的值 -->
-                    <span id="detail-shoes-total">5</span>
+                    <span class="h5">秒价：</span>
+                    <span style="color: red;" class="h2"> ¥ <span id="shoes-prbrice">{{rushinfo.rbprice}}</span></span>
+                    <!--&nbsp;&nbsp;<span style="color: red; text-decoration: line-through;" class="h5"> ¥ 589.00</span>-->
                 </li>
                 <li class="detail-li">
-                    <span class="h5">价格：</span>
-                    <span style="color: red;" class="h2"> ¥ <span id="shoes-price">489.00</span></span>
-                    &nbsp;&nbsp;<span style="color: red; text-decoration: line-through;" class="h5"> ¥ 589.00</span>
+                    <span class="h5">总共放出：</span>
+                    <span style="color: red;" class="h2"> <span id="shoes-rbamount">{{rushinfo.rbamount}}</span></span>
+                    <!--&nbsp;&nbsp;<span style="color: red; text-decoration: line-through;" class="h5"> ¥ 589.00</span>-->
                 </li>
+                <li class="detail-li">
+                    <span class="h5">你选的配色与尺寸还剩下：</span>
+                    <span style="color: red;" class="h2"> <span id="shoes-activeqty">{{activeqty}}</span></span>
+                    <!--&nbsp;&nbsp;<span style="color: red; text-decoration: line-through;" class="h5"> ¥ 589.00</span>-->
+                </li>
+                <li class="detail-li">
+                    <span class="h5">你他妈还剩下</span>
+                    <span style="color: red;" class="h2"> <span id="time">{{day}}天{{hr}}时{{min}}分{{sec}}秒</span></span>
+                    <!--detail.day = day;-->
+                    <!--detail.hr = hr;-->
+                    <!--detail.min = min;-->
+                    <!--detail.sec = sec;-->
+                    <!--&nbsp;&nbsp;<span style="color: red; text-decoration: line-through;" class="h5"> ¥ 589.00</span>-->
+                </li>
+                <!--{{ `${day}天 ${hr}小时 ${min}分钟 ${sec}分钟` }}-->
                 <li class="detail-li">
                     <p class="description-padding dashed-top-border">
-                        Nunc facilisis sagittis ullamcorper. Proin lectus ipsum, gravida et mattis vulputate, tristique
-                        ut lectus. Sed et lorem nunc. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
-                        posuere cubilia Curae; Aenean eleifend laoreet congue. Vivamus adipiscing nisl ut dolor
-                        dignissim semper.
-
+<!--放个倒计时-->
                     </p>
-                </li>
-                <!--颜色选择-->
-                <li id="detail-shoes-color" class="detail-li lg-border-padding">
-                    <p class="dashed-bottom-border p-padding ">颜色：</p>
-                    <dl class="dl-padding">
-                        <dd class="fl dd-margin no-choose-border" title="白色"
-                            onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
-                            <img class="small-show-img" src="../static-front/images/xiezi.webp"/>
-                        </dd>
-                        <dd class="fl dd-margin no-choose-border choose-border" title="黑色"
-                            onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
-                            <img class="small-show-img" src="../static-front/images/xiezi.webp"/>
-                        </dd>
-                        <dd class="fl dd-margin no-choose-border" title="蓝色"
-                            onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
-                            <img class="small-show-img" src="../static-front/images/xiezi.webp"/>
-                        </dd>
-                        <dd class="fl dd-margin no-choose-border" title="灰色"
-                            onclick="$_activeChange('detail-shoes-color',this,'choose-border')">
-                            <img class="small-show-img" src="../static-front/images/xiezi.webp"/>
-                        </dd>
-                    </dl>
-                    <div class="clearfix"></div>
-                    <!-- 清除浮动，不要管-->
                 </li>
                 <!-- 尺码选择 -->
                 <li id="detail-shoes-size" class="detail-li lg-border-padding">
-                    <p class="dashed-bottom-border p-padding ">尺码：</p>
+                    <p class="dashed-bottom-border p-padding ">配色及尺寸：</p>
                     <dl class="dl-padding">
-                        <dd class="fl dd-margin number-disabled number-active" title="40"
-                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
-                            <span class="number-of-shoe">40</span>
+                        <dd class="fl dd-margin number-disabled"  v-for="item in rushlist"
+                            onclick="$_activeChangeCopy('detail-shoes-size',this,'number-active')" @click="pick(item.rushquantity)">
+                            <span class="number-of-shoe">{{item.color}}</span>
+                            <span class="number-of-shoe">{{item.size}}</span>
                         </dd>
-                        <dd class="fl dd-margin number-disabled" title="41"
-                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
-                            <span class="number-of-shoe">41</span>
-                        </dd>
-                        <dd class="fl dd-margin number-disabled" title="42"
-                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
-                            <span class="number-of-shoe">42</span>
-                        </dd>
-                        <dd class="fl dd-margin number-disabled" title="43"
-                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
-                            <span class="number-of-shoe">43</span>
-                        </dd>
-                        <dd class="fl dd-margin number-disabled" title="44"
-                            onclick="$_activeChange('detail-shoes-size',this,'number-active')">
-                            <span class="number-of-shoe">44</span>
-                        </dd>
-
                     </dl>
                     <div class="clearfix"></div>
                     <!-- 清除浮动，不要管-->
@@ -170,19 +129,15 @@
                                         1
                                     </li>
                                     <li class="change-count" style="width: 20px; height: 20px; line-height: 20px;"
-                                        onclick="doShoesCount(1, 'detail-shoes-count','detail-shoes-total')">
+                                        @click="doShoesCount(1, 'detail-shoes-count','detail-shoes-total')">
                                         <a href="javascript:;" class="change-count-a">∧</a>
                                     </li>
                                     <li class="change-count" style="width: 20px; height: 20px; line-height: 20px; "
-                                        onclick="doShoesCount(-1, 'detail-shoes-count','detail-shoes-total')">
+                                    @click="doShoesCount(-1, 'detail-shoes-count','detail-shoes-total')">
                                         <a href="javascript:;" class="change-count-a">∨</a>
                                     </li>
                                 </ul>
                             </span>
-                    <!--加入购物车  -->
-                    <span id="  ">
-                        <a href="javascript:;" class="btn-danger btn-cart" onclick="doAddCart()">加入购物车</a>
-                    </span>
                     <!--立即购买  -->
                     <span id=" ">
                         <a href="javascript:;" class="btn-danger btn-buy" onclick="doPayNow()">立即购买</a>
@@ -195,43 +150,9 @@
     <div class="row lg-border-padding">
         <ul class="row shoes-detail-ul">
             <li class="active-detail-li">商品详情</li>
-
-            <!--<li>累计评价&nbsp;<span style="color: #2AABD2;">123</span></li>-->
-            <!--<li>买家秀&nbsp;<span style="color: #2AABD2;">123</span></li>-->
             <!--清除浮动，不要管 -->
             <div class="clearfix"></div>
         </ul>
-        <!--商品详情页-->
-        <div class="rown a-padding text-center">
-            <h5>品牌名称：<span>Kobe Hunter</span></h5>
-            <h5 style="padding: 10px 0px; color: #398439;">产品参数</h5>
-            <div class="table-responsive">
-                <table id="arg-shoes" class="table" rules=none cellspacing=0>
-                    <tr>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                    </tr>
-                    <tr>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                        <td><span>上市年份季节</span>:&nbsp;<span>2018年春季</span></td>
-                    </tr>
-                </table>
-
-            </div>
-
-        </div>
         <div class="center-block" style="padding: 20px;">
             <p data-spm-anchor-id="a220o.1000855.0.i6.692a10aapT0sdh">
                 <img src="https://img.alicdn.com/imgextra/i4/2986712394/TB2tjhPIqmWBuNjy1XaXXXCbXXa_!!2986712394.jpg"
@@ -249,6 +170,7 @@
 <script src="../static-front/js/common.js"></script>
 <script src="../static-front/js/js.cookie.js"></script>
 <script src="../static-front/js/shoes-detail.js"></script>
+<script src="../js/vue.js"></script>
 <!--尾部-->
 <div id="the_footer"></div>
 
@@ -256,7 +178,217 @@
 <script>
     $("#the_header").load("shoes-header.html");
     $("#the_footer").load("shoes-footer.html");
+
+
+
+
+    $(document).ready(function(){
+        var rlist = "[[${detail}]]";
+        rlist = rlist.replace(/&quot;/g,"\"");
+        console.log(rlist);
+        console.log(rlist);
+        console.log(JSON.parse(rlist).rushinfo);
+        console.log(JSON.parse(rlist).rushlist);
+        detail.rushinfo = JSON.parse(rlist).rushinfo;
+        detail.rushlist = JSON.parse(rlist).rushlist;
+        detail.rushpic = JSON.parse(rlist).rushpic;
+        detail.bigpic = JSON.parse(rlist).bigpic;
+        countdown();
+        // nowvue.doing = JSON.parse(rlist).doing;
+        // nowvue.before = JSON.parse(rlist).before;
+        // console.log(nowvue.doing);
+    })
+
+    function countdown (){
+        // 目标日期时间戳
+        const end = Date.parse(new Date(detail.rushinfo.endtime));
+        // 当前时间戳
+        const now = Date.parse(new Date())
+        // 相差的毫秒数
+        const msec = end - now
+        // 计算时分秒数
+        let day = parseInt(msec / 1000 / 60 / 60 / 24)
+        let hr = parseInt(msec / 1000 / 60 / 60 % 24)
+        let min = parseInt(msec / 1000 / 60 % 60)
+        let sec = parseInt(msec / 1000 % 60)
+        detail.day = day;
+        detail.hr = hr;
+        detail.min = min;
+        detail.sec = sec;
+        // 个位数前补零
+        hr = hr > 9 ? hr : '0' + hr
+        min = min > 9 ? min : '0' + min
+        sec = sec > 9 ? sec : '0' + sec
+        // 控制台打印
+        // console.log(`${day}天 ${hr}小时 ${min}分钟 ${sec}秒`)
+        // 一秒后递归
+        setTimeout(function () {
+            countdown()
+        }, 1000)
+    }
 </script>
+
+<!--Vue-->
+<script>
+    // var time = new Vue({
+    //     el:'#time',
+    //     data: function(){
+    //         return {
+    //             day: 0, hr: 0, min: 0, sec: 0
+    //         }
+    //     },
+    //     mounted: function () {
+    //         this.countdown()
+    //     },
+    //     methods: {
+    //         countdown: function () {
+    //             let date = new Date();
+    //             const end = Date.parse('2017-12-01');
+    //             const now = Date.parse(date.toString());
+    //             const msec = end - now
+    //             let day = parseInt(msec / 1000 / 60 / 60 / 24)
+    //             let hr = parseInt(msec / 1000 / 60 / 60 % 24)
+    //             let min = parseInt(msec / 1000 / 60 % 60)
+    //             let sec = parseInt(msec / 1000 % 60)
+    //             this.day = day
+    //             this.hr = hr > 9 ? hr : '0' + hr
+    //             this.min = min > 9 ? min : '0' + min
+    //             this.sec = sec > 9 ? sec : '0' + sec
+    //             const that = this
+    //             setTimeout(function () {
+    //                 that.countdown()
+    //             }, 1000)
+    //         }
+    //     }
+    // })
+
+
+    var detail = new Vue({
+        el:'#detail',
+        data:{
+            rushinfo:[],
+            rushlist:[],
+            rushpic:[],
+            activeqty:0,
+            bigpic:"",
+            day:"",
+            hr:"",
+            min:"",
+            sec:"",
+        },
+
+        methods:{
+            pick:function(rushquantity){
+                this.activeqty = rushquantity;
+            },
+            doShoesCount:function(isDecrease, target, stock){
+                let $target = $($_Id(target));
+                let count = Number($target.html()); //当前选择数量
+                // is 0 can't decrease
+                if(count === 1 && isDecrease === -1){
+                    return;
+                }
+                if(count >= this.activeqty)
+                {
+                    count = this.activeqty;
+                    return;
+                }
+                count += isDecrease;
+                $target.html(count);
+            },
+        }
+    })
+</script>
+
+<!--原页面样式所需-->
+<script>
+    function $_initActiveCopy(oParent, className,target) {
+
+        let $parent = $($_Id(oParent));
+
+        // The first must get object with the class name is oClass but inner of the oParent
+        // is return a array
+        let aClassObj = $_Class($parent,className);
+
+        if(oParent == "order-addr-li"){
+            $parent.children(".addr-seleted").children("span").children(".img-radio").attr("src","../img/redio-no-checked.png");
+            console.log("--->"+$parent.children(".addr-seleted").children("span").children(".img-radio").attr("src"));
+
+        }
+
+        // do init
+        for (let i = 0; i<aClassObj.length; i++){
+
+            // be a jquery obj
+            if($(aClassObj[i]).hasClass(className)){
+                $(aClassObj[i]).removeClass(className);
+            }
+        }
+
+
+    }
+
+    function $_activeChangeCopy(oParent,oTarget, className) {
+        let target = $(oTarget);
+
+        if(target.hasClass(className)){
+            return;
+        }
+        // init status first
+        $_initActiveCopy(oParent,className,target);
+
+        target.addClass(className);
+
+
+        // 大图的处理表示要处理大图
+        if(oParent === 'detail-shoes-simg'){
+            let imgUrl = target.attr('src');
+            imgUrl = imgUrl.replace('/sma-img','/big-img');
+
+            BigShoesImgChange(imgUrl);
+        }
+
+        // 地址选中
+        if(className == "addr-seleted"){
+            target.children("span").children(".img-radio").attr("src","../img/radio-checked.png");
+            renderOrderCart();
+        }
+
+        // 是颜色或者尺码才获取库存
+        if(className == "number-active" || className == "choose-border"){
+
+            //  alert("点击了尺码或者颜色！");
+            // 获取库存
+            let colorId = $($_Class("detail-shoes-color","choose-border")[0]).attr("name");
+            let sizeId = $($_Class("detail-shoes-size","number-active")[0]).attr("name");
+            let shoesId =  $($_Id("shoes-id")).html();
+
+            // let stock = getShoesStock(shoesId,colorId,sizeId);
+            let shoesCount= $.trim($($_Id("detail-shoes-count")).html());
+
+            // if(stock <= 0){
+            //     $("#detail-shoes-total").html("<font style='color: red;'>已售罄！</font>");
+            //     $($_Id("detail-shoes-count")).html(0);
+            //     return;
+            // }
+
+            // 设置库存
+            // $("#detail-shoes-total").html(stock);
+
+            // 如果现在选择数量大于库存，直接为库存数量
+            // if(stock < shoesCount){
+            //     if(stock < 0){
+            //         $($_Id("detail-shoes-count")).html(0);
+            //     }else{
+            //         $($_Id("detail-shoes-count")).html(stock);
+            //     }
+            // }
+        }
+    }
+
+
+</script>
+
 </body>
 
 </html>

@@ -1,6 +1,8 @@
 package com.shoes101.mapper;
 
 import com.shoes101.pojo.Rushbuy;
+import com.shoes101.vo.RushShoesskuAndPropvnameVo;
+import com.shoes101.vo.RushSkuAndQtyVo;
 import com.shoes101.vo.RushbuyVo;
 import org.apache.ibatis.annotations.Param;
 
@@ -32,6 +34,28 @@ public interface RushbuyMapper {
     //删除对应的库存
     int deleteRushsku(@Param("rushbuyid") int rushbuyid);
 
+    //前台 获取全部抢购活动
+    List<RushbuyVo> getAllRush();
 
+    //前台 根据id获取抢购活动
+    RushbuyVo getOneRush(@Param("rushbuyid") int rushbuyid);
+
+    //前台 获取与rushbuyid有关的rushsku中的库存
+    List<RushSkuAndQtyVo> getSkuAndQty(@Param("rushbuyid") int rushbuyid);
+
+    //前台 根据商品id获取名字
+    String getShoesname(@Param("shoesid")int shoesid);
+
+    //根据skuid返回RushShoesskuAndPropvnameVo
+    RushShoesskuAndPropvnameVo getSoOn(@Param("skuid") int skuid);
+
+    //根据skuid获取属性
+    String getProperty(@Param("skuid") int skuid);
+
+    //根据skuid获取图片 保险起见 limit 1
+    String getSkuPic(@Param("skuid") int skuid);
+
+    //获取大图
+    String getBigPic(@Param("shoesid") int shoesid);
 
 }

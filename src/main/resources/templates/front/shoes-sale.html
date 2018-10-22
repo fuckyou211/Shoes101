@@ -57,64 +57,98 @@
 			<!--正在抢购-->
 			<div id="myTabContent" class="tab-content">
 				<div class="row tab-pane fade in active" id="now">
-					<div class="col-xs-6">
+					<div class="col-xs-6" v-for="item in doing">
 						<div class="sale-product" align="center">
-							<a href="shoes-sale.html">
+							<a href="javascript:void(0);" @click="selectOne(item.rushbuyid)">
 								<div class="col-md-6 sale-product-img">
-									<img src="../static-front/img/nike_01.png" />
+									<!--<img src="../static-front/img/nike_01.png" />-->
+									<img :src="item.picaddress" />
 								</div>
 								<div class="col-md-6 sale-product-inf">
-									<div class="sale-product-logo">
-										<img src="../static-front/img/nike_logo.png" />
-									</div>
+									<!--<div class="sale-product-logo">-->
+										<!--<img src="../static-front/img/nike_logo.png" />-->
+									<!--</div>-->
 									<div class="sale-product-name" align="center">
-										<h5 align="center">Nike耐克<br>男式 Air Pegasus '89气垫</h5>
+										<!--<h5 align="center">Nike耐克<br>男式 Air Pegasus '89气垫</h5>-->
+										<h5 align="center">{{item.shoesname}}</h5>
 									</div>
 									<div class="sale-product-price">
-										<span class="old-price">¥1200.00</span>
-										<span><i>¥998.00</i></span>
-									</div>
-									<div class="sale-product-time" id="a9">
-										<span>仅剩</span>
-										<span><i>1</i>天</span>
-										<span><i>12</i>时</span>
-										<span><i>12</i>分</span>
-										<span><i>12</i>秒</span>
-									</div>
-								</div>
-							</a>
-						</div>
-					</div>
 
-					<div class="col-xs-6">
-						<div class="sale-product" align="center">
-							<a href="shoes-sale.html">
-								<div class="col-md-6 sale-product-img">
-									<img src="../static-front/img/nike_01.png" />
-								</div>
-								<div class="col-md-6 sale-product-inf">
-									<div class="sale-product-logo">
-										<img src="../static-front/img/nike_logo.png" />
-									</div>
-									<div class="sale-product-name" align="center">
-										<h5 align="center">Nike耐克<br>男式 Air Pegasus '89气垫</h5>
+										<span><i>{{item.rbprice}}</i></span>
 									</div>
 									<div class="sale-product-price">
-										<span class="old-price">¥1200.00</span>
-										<span><i>¥998.00</i></span>
+
+										<span><i>结束时间<br>{{item.endtime}}</i></span>
 									</div>
-									<div class="sale-product-time" id="a10">
-										<span>仅剩</span>
-										<span><i>1</i>天</span>
-										<span><i>12</i>时</span>
-										<span><i>12</i>分</span>
-										<span><i>12</i>秒</span>
-									</div>
+									<!--<div class="sale-product-time" id="a10">-->
+									<!--<span>仅剩</span>-->
+									<!--<span><i>1</i>天</span>-->
+									<!--<span><i>12</i>时</span>-->
+									<!--<span><i>12</i>分</span>-->
+									<!--<span><i>12</i>秒</span>-->
+									<!--</div>-->
 								</div>
 							</a>
 						</div>
 					</div>
 				</div>
+					<!--<div class="col-xs-6">-->
+						<!--<div class="sale-product" align="center">-->
+							<!--<a href="shoes-sale.html">-->
+								<!--<div class="col-md-6 sale-product-img">-->
+									<!--<img src="../static-front/img/nike_01.png" />-->
+								<!--</div>-->
+								<!--<div class="col-md-6 sale-product-inf">-->
+									<!--<div class="sale-product-logo">-->
+										<!--<img src="../static-front/img/nike_logo.png" />-->
+									<!--</div>-->
+									<!--<div class="sale-product-name" align="center">-->
+										<!--<h5 align="center">Nike耐克<br>男式 Air Pegasus '89气垫</h5>-->
+									<!--</div>-->
+									<!--<div class="sale-product-price">-->
+										<!--<span class="old-price">¥1200.00</span>-->
+										<!--<span><i>¥998.00</i></span>-->
+									<!--</div>-->
+									<!--<div class="sale-product-time" id="a9">-->
+										<!--<span>仅剩</span>-->
+										<!--<span><i>1</i>天</span>-->
+										<!--<span><i>12</i>时</span>-->
+										<!--<span><i>12</i>分</span>-->
+										<!--<span><i>12</i>秒</span>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</a>-->
+						<!--</div>-->
+					<!--</div>-->
+					<!--<div class="col-xs-6">-->
+						<!--<div class="sale-product" align="center">-->
+							<!--<a href="shoes-sale.html">-->
+								<!--<div class="col-md-6 sale-product-img">-->
+									<!--<img src="../static-front/img/nike_01.png" />-->
+								<!--</div>-->
+								<!--<div class="col-md-6 sale-product-inf">-->
+									<!--<div class="sale-product-logo">-->
+										<!--<img src="../static-front/img/nike_logo.png" />-->
+									<!--</div>-->
+									<!--<div class="sale-product-name" align="center">-->
+										<!--<h5 align="center">Nike耐克<br>男式 Air Pegasus '89气垫</h5>-->
+									<!--</div>-->
+									<!--<div class="sale-product-price">-->
+										<!--<span class="old-price">¥1200.00</span>-->
+										<!--<span><i>¥998.00</i></span>-->
+									<!--</div>-->
+									<!--<div class="sale-product-time" id="a9">-->
+										<!--<span>仅剩</span>-->
+										<!--<span><i>1</i>天</span>-->
+										<!--<span><i>12</i>时</span>-->
+										<!--<span><i>12</i>分</span>-->
+										<!--<span><i>12</i>秒</span>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</a>-->
+						<!--</div>-->
+					<!--</div>-->
+
 
 				<!--尚未开始-->
 				<div class="row tab-pane fade" id="future">
@@ -148,35 +182,35 @@
 						</div>
 					</div>
 
-					<div class="col-xs-6">
-						<div class="sale-product" align="center">
-							<a href="shoes-sale.html">
-								<div class="col-md-6 sale-product-img">
-									<img src="../static-front/img/nike_01.png" />
-								</div>
-								<div class="col-md-6 sale-product-inf">
-									<div class="sale-product-logo">
-										<img src="../static-front/img/nike_logo.png" />
-									</div>
-									<div class="sale-product-name" align="center">
-										<h5 align="center">Nike耐克</h5>
-										<h5 align="center">男式 Air Pegasus '89气垫</h5>
-									</div>
-									<div class="sale-product-price">
-										<span class="old-price">¥1200.00</span>
-										<span><i>¥998.00</i></span>
-									</div>
-									<div class="sale-product-time" id="a12">
-										<span>仅剩</span>
-										<span><i>1</i>天</span>
-										<span><i>12</i>时</span>
-										<span><i>12</i>分</span>
-										<span><i>12</i>秒</span>
-									</div>
-								</div>
-							</a>
-						</div>
-					</div>
+					<!--<div class="col-xs-6">-->
+						<!--<div class="sale-product" align="center">-->
+							<!--<a href="shoes-sale.html">-->
+								<!--<div class="col-md-6 sale-product-img">-->
+									<!--<img src="../static-front/img/nike_01.png" />-->
+								<!--</div>-->
+								<!--<div class="col-md-6 sale-product-inf">-->
+									<!--<div class="sale-product-logo">-->
+										<!--<img src="../static-front/img/nike_logo.png" />-->
+									<!--</div>-->
+									<!--<div class="sale-product-name" align="center">-->
+										<!--<h5 align="center">Nike耐克</h5>-->
+										<!--<h5 align="center">男式 Air Pegasus '89气垫</h5>-->
+									<!--</div>-->
+									<!--<div class="sale-product-price">-->
+										<!--<span class="old-price">¥1200.00</span>-->
+										<!--<span><i>¥998.00</i></span>-->
+									<!--</div>-->
+									<!--<div class="sale-product-time" id="a12">-->
+										<!--<span>仅剩</span>-->
+										<!--<span><i>1</i>天</span>-->
+										<!--<span><i>12</i>时</span>-->
+										<!--<span><i>12</i>分</span>-->
+										<!--<span><i>12</i>秒</span>-->
+									<!--</div>-->
+								<!--</div>-->
+							<!--</a>-->
+						<!--</div>-->
+					<!--</div>-->
 				</div>
 			</div>
 		</div>
@@ -191,13 +225,68 @@
 			<script src="../static-front/js/jquery.elevatezoom.js"></script>
 			<script src="../static-front/js/jquery.scrollUp.min.js"></script>
 			<script src="../static-front/js/main.js"></script>
-
+	<!--Vue-->
+			<script src="../js/vue.js"></script>
 		<!--载入尾部-->
 		<script>
             $("#the_header").load("shoes-header.html");
             $("#the_footer").load("shoes-footer.html");
 		</script>
 
+
+		<script>
+            $(document).ready(function(){
+                var rlist = "[[${rushbuy}]]";
+                rlist = rlist.replace(/&quot;/g,"\"");
+                console.log(rlist);
+                console.log(rlist);
+                console.log(JSON.parse(rlist).doing);
+                nowvue.doing = JSON.parse(rlist).doing;
+                nowvue.before = JSON.parse(rlist).before;
+                console.log(nowvue.doing);
+            })
+		</script>
+
+
+	<!--Vue-->
+		<script>
+			var nowvue = new Vue({
+				el:'#now',
+				data:{
+				    doing:[],
+				},
+				methods:{
+				    selectOne:function(rushbuyid){
+                        $.ajax({
+                            url:"../rush/selectOneRush",
+                            type:'get',
+                            dataType:'json',
+                            //传入list所需条件 traditional
+                            traditional:true,
+                            data:{"rushbuyid":rushbuyid},
+                            //传入成功后 获取库存并且返回
+                            success:function(data) {
+                                alert("操作成功");
+                                console.log(data);
+                                // alert("100");
+                                // ordervue.orders = data;
+
+                            },
+                            fail: function(err){
+                                console.log(err)
+                            }
+                        });
+					}
+				}
+			})
+
+			var future = new Vue({
+				el:'#future',
+				data:{
+				    before:[],
+				},
+			})
+		</script>
 	</body>
 
 </html>
