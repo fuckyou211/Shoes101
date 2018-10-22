@@ -38,13 +38,14 @@ public class HomePageController {
         Integer catalogId = shoesHeaderService.selectByNameAndParentId(parentId,name).getCatalogid();
         return Result.success(homePageService.getNewestGoods( count,catalogId));
     }
-
+    //当月热销
     @RequestMapping("/getHotSale")
     @ResponseBody
     public Result getHotSale(Integer count){
         return Result.success(homePageService.getHotSale(count));
     }
 
+    //最旧商品
     @RequestMapping("/getOldestGoods")
     @ResponseBody
     public Result getOldestGoods(Integer count){
