@@ -483,9 +483,9 @@
                             console.log(result.data);
                             if (result.code==0)
 							{
-
                                 // window.location.href="/UserInformation/UserMyAccount";
-								if(document.referrer == "http://localhost:8080/login/to_login"){
+                                var a = document.referrer+" ";
+								if(a.match("to_login")=="to_login"||document.referrer==null){
                                     window.location.href="/UserInformation/UserMyAccount";
 								}
 								else {
