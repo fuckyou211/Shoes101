@@ -54,7 +54,7 @@
     select count(orderdetail.quantity) as sell,substr(shoesorder.buydate,1,10) as dayy from shoesorder,orderdetail where shoesorder.buydate like ${ym1} group by substr(shoesorder.buydate,1,10)
   </select>
   <select id="getMonthSell" resultType="com.shoes101.vo.MonthSellVo">
-   select sum(orderdetail.quantity) as sell,month(buydate),year(buydate) as month from shoesorder INNER JOIN orderdetail on shoesorder.orderid = orderdetail.orderid GROUP BY month(buydate)
+   select sum(orderdetail.quantity) as sell,month(buydate) as month,year(buydate) from shoesorder INNER JOIN orderdetail on shoesorder.orderid = orderdetail.orderid GROUP BY month(buydate)
   </select>
   <select id="getYearSell" resultType="com.shoes101.vo.YearSellVo">
     select year(shoesorder.buydate),sum(orderdetail.quantity) from shoesorder INNER JOIN orderdetail on shoesorder.orderid = orderdetail.orderid GROUP BY year(buydate)
