@@ -48,6 +48,7 @@ public class SearchController {
         }
         map.put("pageOfShoes", JSON.toJSONString(pb));
         map.put("propertyFilter",JSON.toJSONString(map1));
+        map.put("value",value);
         return "/front/shoes-list";
     }
 
@@ -55,8 +56,22 @@ public class SearchController {
     @ResponseBody
     public Result search(String value)
     {
-        List<FGoodsVo> list = searchService.search(value,1,16);
-        pageBean pb = pageSevice.setTopageBean(1,16,list,searchService.searchByNameCount(value));
-        return Result.success(pb);
+        HashMap<String,Set<PropertyValueVo>> map1 = new HashMap<String,Set<PropertyValueVo>>();
+        HashMap<String,Object> map = new HashMap<>();
+        List<FGoodsVo> list = new ArrayList<>();
+        List<FGoodsVo> newList = new ArrayList<>();
+        list = searchService.search(value);
+        newList = ListHandleUtils.getPartOfList(list,1,16);
+        pageBean pb;
+        pb = pageSevice.setTopageBean(1,16,newList,list.size());
+        List<Property> propertyList = propertyService.getAllProperty();
+        for(Property property:propertyList){
+            Set<PropertyValueVo> propertyValueSet = propertyFilterServie.getGeneralPropertyValue(list,property.getPropertyid());
+            map1.put(property.getPropertyname(),propertyValueSet);
+        }
+        pb = pageSevice.setTopageBean(1,16,list,searchService.searchByNameCount(value));
+        map.put("pageOfShoes", pb);
+        map.put("propertyFilter",map1);
+        return Result.success(map);
     }
 }

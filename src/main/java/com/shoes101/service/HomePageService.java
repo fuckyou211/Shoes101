@@ -8,4 +8,7 @@ public interface HomePageService {
 
     public List<FGoodsVo> getNewestGoods(Integer count,Integer CatalogId);
 
+    public List<FGoodsVo> getOldestGoods(Integer count);
+
+    public List<FGoodsVo> getHotSale(Integer count);
 }

@@ -150,6 +150,15 @@ where shoessku.quantity > 0 GROUP BY shoesid
   <insert id="sendInRushsku">
     insert into rushsku(quantity,shoesid,skuid,rushbuyid) values (#{quantity},#{shoesid},#{skuid},#{rushbuyid})
   </insert>
+
+ <!-- getHotSales-->
+  <select id="getHotSale" resultType="com.shoes101.vo.FGoodsVo">
+     select e.ticketprice,e.shoesid,e.shoesname,sum(e.skusales),shoes.isdropoff,shoes.adddate from shoes inner join
+     (select d.ticketprice,d.shoesid,c.shoesname,d.skusales,c.state,c.validity from shoessku d inner join
+     (select b.skuid,b.shoesname,a.buydate,a.state,a.validity from shoesorder a inner join orderdetail b on a.orderid = b.orderid) c
+     on d.skuid = c.skuid) as e on shoes.shoesid = e.shoesid where e.state = 3 and e.validity = 1 and shoes.isdropoff=1 GROUP BY (e.shoesid)
+     order by sum(e.skusales) desc limit #{count}
+  </select>
   <!--<select id="calQtyWithoutSize" resultType="java.lang.Integer">-->
     <!--select sum(quantity) from shoessku where shoesid=#{shoesid} and skuproperty like ${cdn}-->
   <!--</select>-->

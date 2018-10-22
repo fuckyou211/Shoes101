@@ -7,9 +7,7 @@ import com.shoes101.pojo.Property;
 import com.shoes101.redis.FGoodsKey;
 import com.shoes101.redis.RedisService;
 import com.shoes101.result.Result;
-import com.shoes101.service.GoodsFService;
-import com.shoes101.service.PageSevice;
-import com.shoes101.service.ShoesHeaderService;
+import com.shoes101.service.*;
 import com.shoes101.util.ListHandleUtils;
 import com.shoes101.vo.FGoodsVo;
 import com.shoes101.vo.PropertyValueVo;
@@ -46,6 +44,12 @@ public class GoodsFController {
     private ShoesHeaderService shoesHeaderService;
     @Autowired
     private PageSevice pageSevice;
+    @Autowired
+    private SearchService searchService;
+    @Autowired
+    private PropertyFilterServie propertyFilterServie;
+    @Autowired
+    private PropertyService propertyService;
 
     /**
      * 获取商品列表
@@ -138,5 +142,14 @@ public class GoodsFController {
         //map.put("pageOfShoes", pb);
         return Result.success(pb);
     }
-
+    //分页（针对的是商品页搜索）
+    @RequestMapping("/getSearchListByPage")
+    @ResponseBody
+    public Result getSearchListByPage(Integer pageCode,Integer size,String value){
+        HashMap<String,Object> map = new HashMap<>();
+        List<FGoodsVo> list = new ArrayList<>();
+        list = searchService.search(value,pageCode,size);
+        pageBean pb = pageSevice.setTopageBean(pageCode,size,list,searchService.searchByNameCount(value));
+        return Result.success(pb);
+    }
 }

@@ -31,6 +31,9 @@ public class HomePageServiceImpl implements HomePageService {
       List<FGoodsVo> list  = redisService.get(FGoodsKey.getGoodsListCatalog,""+catalogId,true,FGoodsVo.class);
       if(list==null ){
          list = shoesHeaderService.listUnderCatalog(catalogId);
+          for(FGoodsVo fGoodsVo:list){
+              fGoodsVo.setPics(shoesMapper.getAllPicById(fGoodsVo.getShoesid()));
+          }
       }
       ListSort(list);
       //System.out.println(list);
@@ -39,6 +42,23 @@ public class HomePageServiceImpl implements HomePageService {
       else return list;
     }
 
+    @Override
+    public List<FGoodsVo> getOldestGoods(Integer count) {
+        List<FGoodsVo> list = shoesMapper.getOldestGoods(count);
+        for(FGoodsVo fGoodsVo:list){
+            fGoodsVo.setPics(shoesMapper.getAllPicById(fGoodsVo.getShoesid()));
+        }
+        return list;
+    }
+
+    @Override
+    public List<FGoodsVo> getHotSale(Integer count) {
+        List<FGoodsVo> list = shoesMapper.getHotSale(count);
+        for(FGoodsVo fGoodsVo:list){
+            fGoodsVo.setPics(shoesMapper.getAllPicById(fGoodsVo.getShoesid()));
+        }
+        return list;
+    }
 
     //排序List<FGoodsVo> list ,按日期
     private static void ListSort(List<FGoodsVo> list) {

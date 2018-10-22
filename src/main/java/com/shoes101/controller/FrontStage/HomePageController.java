@@ -21,12 +21,6 @@ public class HomePageController {
     private HomePageService homePageService;
     @Autowired
     private ShoesHeaderService shoesHeaderService;
-    @RequestMapping("/ShoesShop/index")
-    public String toHomePage(){
-        /*String
-        List<FGoodsVo> newestGoodsMan = homePageService.getNewestGoods(10,);*/
-        return"/front/index";
-    }
 
     // 域名跳转至首页
     @RequestMapping("/")
@@ -40,10 +34,22 @@ public class HomePageController {
     @RequestMapping("/getNewestGoods")
     @ResponseBody
     public Result getDefaultNewestGoods(Integer count, String name, Integer parentId){
-        //得到男鞋对应的catalogId
+        //得到对应的catalogId
         Integer catalogId = shoesHeaderService.selectByNameAndParentId(parentId,name).getCatalogid();
         return Result.success(homePageService.getNewestGoods( count,catalogId));
     }
 
+    @RequestMapping("/getHotSale")
+    @ResponseBody
+    public Result getHotSale(Integer count){
+        return Result.success(homePageService.getHotSale(count));
+    }
+
+    @RequestMapping("/getOldestGoods")
+    @ResponseBody
+    public Result getOldestGoods(Integer count){
+
+        return Result.success(homePageService.getOldestGoods(count));
+    }
 
 }

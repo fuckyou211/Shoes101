@@ -17,7 +17,7 @@ public class SearchServiceImpl implements SearchService {
     @Autowired
     private RedisService redisService;
     @Override
-    public List<FGoodsVo> search(String value,Integer start,Integer size) {
+    public List<FGoodsVo> search(String value,Integer pageCode,Integer size) {
         //List<FGoodsVo> list = redisService.get(FGoodsKey.getGoodsListSearch,"value",true,FGoodsVo.class);
         /*if(list==null){
             String value1 = "'%"+value+"%'";
@@ -30,6 +30,7 @@ public class SearchServiceImpl implements SearchService {
         }
     */
         value = "'%"+value+"%'";
+        Integer start = pageCode*size;
         return shoesMapper.searchByNamePage(value,start,size);
     }
     @Override
