@@ -7,6 +7,7 @@ import com.shoes101.pojo.*;
 import com.shoes101.redis.RedisService;
 import com.shoes101.result.Result;
 import com.shoes101.service.*;
+import com.shoes101.util.ListHandleUtils;
 import com.shoes101.vo.CatalogInfoVo;
 import com.shoes101.vo.FGoodsVo;
 import com.shoes101.vo.PropertyValueVo;
@@ -74,19 +75,17 @@ public class ShoesHeaderController {
         HashMap<String,Set<PropertyValueVo>> map1 = new HashMap<String,Set<PropertyValueVo>>();
         List<FGoodsVo> list = new ArrayList<FGoodsVo>();
         pageBean pb = new pageBean();
+        List<FGoodsVo> newList = new ArrayList<>();
         if(catalogId!=null){
             //获得此catalogId下的所有鞋
             list =  shoesHeaderService.listUnderCatalog(catalogId);
-            List<FGoodsVo> newList;
-            if(list.size()>=16)
-                newList = list.subList(0,16);
-            else
-                newList = list;
+            newList = ListHandleUtils.getPartOfList(list,1,16);
         }
         else if(propertyValueId!=null){
             list = shoesHeaderService.listUnderProVal(propertyValueId);
+            newList = ListHandleUtils.getPartOfList(list,1,16);
         }
-        pb = pageSevice.setTopageBean(1,16,list,shoesHeaderService.getFGoodsVoCountByPvId(propertyValueId));
+        pb = pageSevice.setTopageBean(1,16,newList,list.size());
         List<Property> propertyList = propertyService.getAllProperty();
         for(Property property:propertyList){
             Set<PropertyValueVo> propertyValueSet = propertyFilterServie.getGeneralPropertyValue(list,property.getPropertyid());

@@ -111,12 +111,27 @@ public interface ShoesMapper {
     //根据品牌获得相应的鞋
     @Select("select DISTINCT a.shoesid,a.shoesname,a.adddate,b.price from shoes as a INNER JOIN " +
             "(select shoessku.* from shoessku LEFT JOIN splink on shoessku.shoesid = splink.shoesid " +
-            "where splink.propertyvalueid = #{propertyValueId}) as b on a.shoesid = b.shoesid where b.quantity>0 and a.isdropoff=1 limit #{begin},#{size}")
-    List<FGoodsVo> getFGoodsVoByPvId(@Param("propertyValueId") Integer propertyValueId,@Param("begin")Integer begin,@Param("size") Integer size);
+            "where splink.propertyvalueid = #{propertyValueId}) as b on a.shoesid = b.shoesid where b.quantity>0 and a.isdropoff=1")
+    List<FGoodsVo> getFGoodsVoByPvId(@Param("propertyValueId") Integer propertyValueId);
+    //根据品牌获得相应的鞋（分页）
+    @Select("select DISTINCT a.shoesid,a.shoesname,a.adddate,b.price from shoes as a INNER JOIN " +
+            "(select shoessku.* from shoessku LEFT JOIN splink on shoessku.shoesid = splink.shoesid " +
+            "where splink.propertyvalueid = #{propertyValueId}) as b on a.shoesid = b.shoesid where b.quantity>0 and a.isdropoff=1 limit #{start},#{size}")
+    List<FGoodsVo> getFGoodsVoByPvId(@Param("propertyValueId") Integer propertyValueId,@Param("start")Integer start,@Param("size")Integer size);
     //根据品牌获得相应的鞋的数量
     @Select("select count(DISTINCT a.shoesid) from shoes as a INNER JOIN " +
             "(select shoessku.* from shoessku LEFT JOIN splink on shoessku.shoesid = splink.shoesid " +
             "where splink.propertyvalueid = #{propertyValueId}) as b on a.shoesid = b.shoesid where b.quantity>0 and a.isdropoff=1")
     Integer getFGoodsVoCountByPvId(@Param("propertyValueId") Integer propertyValueId);
+
+    //按名字搜索得到鞋
+    @Select("select DISTINCT shoes.shoesid,shoes.shoesname,shoes.adddate,shoessku.price from shoes INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.isdropoff=1 and shoes.shoesname like ${name}")
+    List<FGoodsVo> searchByName(@Param("name")String name);
+    //按名字搜索得到鞋(分页)
+    @Select("select DISTINCT shoes.shoesid,shoes.shoesname,shoes.adddate,shoessku.price from shoes INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.isdropoff=1 and shoes.shoesname like ${name} limit #{start},#{size}")
+    List<FGoodsVo> searchByName(@Param("name")String name,@Param("start")Integer start,@Param("size")Integer size);
+    //按名字搜索得到的鞋的数量
+    @Select("select count(DISTINCT shoes.shoesid) from shoes INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.isdropoff=1 and shoes.shoesname like ${name}")
+    Integer getSearchByNameCount(@Param("name")String name);
 
 }

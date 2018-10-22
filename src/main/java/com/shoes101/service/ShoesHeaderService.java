@@ -22,14 +22,17 @@ public interface ShoesHeaderService {
     //初始化catalogInfo
     public Map<String,List<CatalogInfoVo>> initCatalogInfo();
 
+    //获得某分类下所有的鞋（FGoodsVo）
     public List<FGoodsVo> listUnderCatalog(Integer catalogId);
 
-    //获得某节点的所有叶子节点
+    //获得某节点的所有叶子节点的
     List<Shoescatalog> getLeafList(List<Shoescatalog> leafList, Shoescatalog shoescatalog);
 
-    //处理点击品牌的处理
+    //获得某propertyValueId下所有的list
     public List<FGoodsVo> listUnderProVal(Integer propertyValueId);
 
+    //获得某propertyValueId下的list（分页）
+    public List<FGoodsVo> listUnderProVal(Integer propertyValueId,Integer pageCode,Integer size);
     //根据品牌获得相应的鞋的数量
     public Integer getFGoodsVoCountByPvId(Integer propertyValueId);
 }

@@ -131,7 +131,7 @@ public class GoodsFController {
             pb = pageSevice.setTopageBean(pageCode,size,newList,list.size());
         }
         else if(propertyValueId!=null){
-            list = shoesHeaderService.listUnderProVal(propertyValueId);
+            list = shoesHeaderService.listUnderProVal(propertyValueId,pageCode,size);
             pb = pageSevice.setTopageBean(pageCode,size,list,shoesHeaderService.getFGoodsVoCountByPvId(propertyValueId));
         }
         System.out.println(pb);

@@ -9,4 +9,5 @@ public class FGoodsKey extends BasePrefix {
     public static FGoodsKey getQtyAndSkuId = new FGoodsKey(20,"qs");
     public static FGoodsKey getGoodsListCatalog = new FGoodsKey(60,"glCatalog");
     public static FGoodsKey getGoodsListProVal = new FGoodsKey(60,"glProVal");
+    public static FGoodsKey getGoodsListSearch = new FGoodsKey(60,"value");
 }

@@ -197,14 +197,21 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
     public List<FGoodsVo> listUnderProVal(Integer propertyValueId) {
         //取缓存
         List<FGoodsVo> list = redisService.get(FGoodsKey.getGoodsListProVal,""+propertyValueId,true,FGoodsVo.class);
-        if(list==null || list.size()==0){
+        if(list==null){
             //取数据库
-            list =  shoesMapper.getFGoodsVoByPvId(propertyValueId,0,10);//分页处理
+            list =  shoesMapper.getFGoodsVoByPvId(propertyValueId);//分页处理
             for(FGoodsVo fGoodsVo:list){
                 fGoodsVo.setPics(shoesMapper.getAllPicById(fGoodsVo.getShoesid()));
             }
+            redisService.set(FGoodsKey.getGoodsListProVal,""+propertyValueId,list);
         }
         return list;
+    }
+
+    @Override
+    public List<FGoodsVo> listUnderProVal(Integer propertyValueId, Integer pageCode, Integer size) {
+        Integer start = (pageCode-1)*size;
+        return shoesMapper.getFGoodsVoByPvId(propertyValueId,start,size);
     }
 
     //根据品牌获得相应的鞋的数量
