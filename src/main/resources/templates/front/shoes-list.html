@@ -165,8 +165,8 @@
 										<div class="single-product">
 											<div class="product-img">
 												<a href="shoes-detail.html " >
-													<img src="../static-front/img/9.png "  alt=" " class="primary-img ">
-													<img src="../static-front/img/10.png "  alt=" " class="secondary-img ">
+													<img :src="items.pics[0]"  alt=" " class="primary-img ">
+													<img :src="items.pics[1]"  alt=" " class="secondary-img ">
 												</a>
 											</div>
 											<div class="product-name ">
@@ -182,19 +182,16 @@
 
 							<!--页码-->
 							<div class="col-md-12">
-								<div class="toolbar-bottom">
+								<div class="toolbar-bottom" v-for="(value,key,index) in list" v-if="key=='pageCode'">
 									<ul>
+										<li>
+											<a href="javascript:void(0);" @click="leftButton(value)" :value="value"> < </a>
+										</li>
 										<li class="current">
-											<a href="#">1</a>
+											<a href="#">{{value}}</a>
 										</li>
 										<li>
-											<a href="#">2</a>
-										</li>
-										<li>
-											<a href="#">3</a>
-										</li>
-										<li>
-											<a href="#"> <img src="../static-front/img/pager_arrow_right.gif" alt=""> </a>
+											<a href="javascript:void(0);" @click="rightButton(value,list.totalCount)" :value="value"> > </a>
 										</li>
 									</ul>
 								</div>
@@ -236,18 +233,42 @@
                 loadShoesData(shoesData);
             });
 
-			let myChoose, theShose;
+			let myChoose, shoesList;
+			/*购物选择*/
 			myChoose = new Vue({
 				el: '#theChoose',
 				data: {
 				    list:[]
 				}
 			});
-			theShose = new Vue({
+			/*鞋子展示*/
+            shoesList = new Vue({
 				el:'#theShoes',
 				data: {
 				    list:[]
-				}
+				},
+				methods: {
+				    leftButton: function(pageCode){
+				      if( pageCode>1 ){
+				          pageCode--;
+				          requestPage(pageCode);
+
+					  }else{
+				          return;
+					  }
+					},
+                    rightButton: function (pageCode,count){
+				        if( pageCode<count){
+                            /*console.log(pageCode);
+                            console.log(count);*/
+                            pageCode++;
+                            requestPage(pageCode);
+						}else{
+                            return;
+                        }
+
+                },
+				},
 			});
             let btn1 = document.getElementById('theBtn');
             let box1 = document.getElementById('theBox');
@@ -268,9 +289,40 @@
                 console.log(myChoose.list);*/
             }
             function loadShoesData(data) {
-				theShose.list = data;
+				shoesList.list = data;
                 console.log("列表页鞋子数据：");
-                console.log(theShose.list);
+                console.log(shoesList.list);
+            }
+			/*获取地址栏参数*/
+            function getQueryString(name)
+            {
+                let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+                let r = window.location.search.substr(1).match(reg);
+                if(r!=null)return  unescape(r[2]); return null;
+            }
+            function requestPage(pageCode) {
+				let size=16;
+				let catalogId;
+                catalogId=getQueryString("catalogId");
+               /* console.log("获取id");
+                console.log(catalogId);*/
+               $.ajax({
+				   url: "/goodsf/getShoesListByPage",
+				   type: 'post',
+				   data: {
+				       size:size,
+					   catalogId:catalogId,
+					   pageCode:pageCode,
+				   },
+				   dataType: 'json',
+				   success: function (result) {
+                       loadShoesData(result);
+                   },
+				   error: function (err) {
+				       console.log(err);
+                   },
+
+			   })
             }
 		</script>
 	</body>
