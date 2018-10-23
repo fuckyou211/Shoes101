@@ -7,7 +7,6 @@
 	<title>101 Shoes | 我的信息</title>
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-
 	<link rel="shortcut icon" type="image/x-icon" href="../static-front/img/101_favicon.ico" >
 	<link rel="stylesheet" href="../static-front/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../static-front/font/font-awesome.min.css">
@@ -83,11 +82,21 @@
 			height: 50px;
 			width: 50px
 		 }
+        #message{
+            background-color: #e5e5e5;
+        }
+        #message span{
+            margin-right: 3em;
+            width: 100%;
+        }
 	</style>
 </head>
 <body>
 <!--头部信息-->
-<div id="the_header"></div>
+<header>
+    <div id="header-user"></div>
+    <div id="header-nav"></div>
+</header>
 
 <div class="account-area">
 	<div class="container">
@@ -96,10 +105,10 @@
 				<div class="row">
 					<div class="col-md-4 headpica">
 						<!--<img th:src="${}" >-->
-						<img src="../img/a1.jpg">
+						<img src="../img/a1.jpg" class="img-circle">
 					</div>
 				<div class="location col-md-8">
-					<a href="#" th:text="${user}">这里写登录人的名字</a>
+					<a href="#" >[[${imformation.myInformation.user.username}]]</a>
 				</div>
 				</div>
 			</div>
@@ -152,9 +161,6 @@
 									<li role="presentation" class="bbbbb">
 										<a href="#gaimima" aria-controls="profile" role="tab" data-toggle="tab">修改密码</a>
 									</li>
-									<li role="presentation" class="bbbbb">
-										<a href="#shoucang" aria-controls="profile" role="tab" data-toggle="tab">收藏</a>
-									</li>
 
 								</ul>
 							</div>
@@ -168,11 +174,10 @@
 					<div role="tabpanel" class="tab-pane fade " id="home">
 						<div class="my-account-accordion">
 							<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-
 								<div class="panel panel-default">
 									<div class="panel-heading" role="tab" id="headingThree">
 										<h4 class="panel-title">
-											<a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+											<a class="collapsed chaxunxinxi" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThree" aria-expanded="false" aria-controls="collapseThree"  >
 												<i class="fa fa-building-o"></i>
 												我的收货地址
 											</a>
@@ -181,7 +186,7 @@
 									<div id="collapseThree" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingThree">
 										<div class="panel-body">
 											<div class="row">
-												<div class="col-md-12">
+												<div class="col-sm-12">
 													<div class="my-address">
 														<p>请在下订单时配置您的默认结算和送货地址。您还可以添加其他地址，这对于在您的办公室发送礼物或接收订单非常有用。</p>
 														<div class="account-title">
@@ -193,20 +198,20 @@
 																<div class="account-address">
 																	<ul>
 																		<li class="address-menu-title">我的地址</li>
-																		<li>地址：<span>广东省广州市海珠区新世界天地f5栋100层</span></li>
-																		<li>手机：<span>13412345678</span></li>
-																		<li>姓名：<span>莉君氢</span></li>
+																		<li>地址：<span class="showaddress">广东省广州市海珠区新世界天地f5栋100层</span></li>
+																		<li>手机：<span class="showphone">13412345678</span></li>
+																		<li>姓名：<span class="showusername">莉君氢</span></li>
 																		<li>
-																			<button> 更新 </button>
-																			<button> 提交 </button>
+																			<button > 更改 </button>
+																			<!--<button> 提交 </button>-->
 																		</li>
 																	</ul>
 																</div>
 															</div>
 														</div>
-														<div class="add-address">
-															<button>添加新地址</button>
-														</div>
+														<!--<div class="add-address">-->
+															<!--<button>添加新地址</button>-->
+														<!--</div>-->
 													</div>
 												</div>
 											</div>
@@ -233,30 +238,26 @@
 															</div>
 															<div class="form-name">
 																<label>姓名  </label>
-																<input type="text" placeholder="请填写你的姓名">
+																<input class="changename" type="text" placeholder="请填写你的姓名">
 															</div>
 															<div class="form-name">
 																<label>电话 </label>
-																<input type="text" placeholder="请填写你的收货电话号码">
+																<input class="changephone" type="text" placeholder="请填写你的收货电话号码">
 															</div>
 															<div class="form-name">
 																<label> 省份 </label>
-																<select id="province" value=""></select>
+																<select class="province" id="province" value=""></select>
 															</div>
 															<div class="form-name">
 																<label> 城市 </label>
-																<select id="city"></select>
+																<select class="city" id="city"></select>
 															</div>
 															<div class="form-name">
 																<label>详细地址  </label>
-																<input type="text" placeholder="请填写常住地址">
+																<input class="longaddress" placeholder="请填写常住地址">
 															</div>
-															<div class="form-name">
-																<label>邮政编码  </label>
-																<input type="text" placeholder="请填写你的邮政编码">
-															</div>
-															<div class="save-button">
-																<button>保存</button>
+															<div class="changemessage save-button">
+																<button>确认修改</button>
 															</div>
 														</div>
 													</form>
@@ -382,75 +383,54 @@
 								<table class="table table-bordered table-hover">
 									<thead>
 									<tr>
-										<th>商品</th>
+										<th style="width: 45%;">商品</th>
 										<th>实付金额</th>
 										<th>订单号</th>
 										<th>交易状态</th>
 										<th>交易操作</th>
 									</tr>
 									</thead>
-									<tbody >
-									<tr>
+									<tbody th:each="test : ${imformation.order.nopayoder}">
+									<tr >
 										<td style="width: 45%;">
 											<div class="container-fluid">
+                                                <div th:each="testdetail : ${test.orderDetail}">
 												<div class=" row" >
 													<div class="col-md-3">
 														<a href="#" class="text-center">
-															<img src="../static-front/img/1-2.png" >
+															<img th:src="${testdetail.colorpicaddredd}" >
 														</a>
 													</div>
 													<div class="col-md-5">
-														<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
+														<a href="single-product.html">[[${testdetail.shoesname}]]</a>
 													</div>
 													<div class="col-md-4">
 														<div class="container-fluid">
 															<div class="row">
 																<div class="col-md-12 " style="height: 40px;">
-																	￥<span>100.00</span>
+																	￥<span>[[${testdetail.price}]]</span>
 																</div>
 																<div class="col-md-12" style="height: 40px;">
-																	数量：<span>1</span>
+																	数量：<span>[[${testdetail.quantity}]]</span>
 																</div>
 															</div>
 														</div>
 													</div>
 												</div>
-												<hr />
-												<div class="row" >
-													<div class="col-md-3">
-														<a href="#" class="text-center">
-															<img src="../static-front/img/1-2.png" >
-														</a>
-													</div>
-													<div class="col-md-5">
-														<a href="single-product.html">商品名称加简介（最多40个字）</a>
-													</div>
-
-													<div class="col-md-4">
-														<div class="container-fluid">
-															<div class="row">
-																<div class="col-md-12 " style="height: 40px;">
-																	￥<span>100.00</span>
-																</div>
-																<div class="col-md-12" style="height: 40px;">
-																	数量：<span>1</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
+                                                <hr />
+                                                </div>
 											</div>
 										</td>
-										<td class="unit-price">￥<span>11200.00</span></td>
+										<td class="unit-price">￥<span>[[${test.shoesorder.totalprice}]]</span></td>
 										<td style="width: 13%;">
-											<span style="line-height: 93px;">12345678901</span>
+											<span style="line-height: 93px;">[[${test.shoesorder.orderid}]]</span>
 										</td>
 										<td >
 											<span style="line-height: 93px;">买家未付款</span>
 										</td>
 										<td>
 											<span style="line-height: 45px;">
-											<button type="button" data-toggle="tooltip" title="宝贝马上到手" > 立即付款</button>
+											<button type="button" data-toggle="tooltip" title="宝贝马上到手" th:onclick="'javascript:lijifukuan('+${test.shoesorder.orderid}+')' " > 立即付款</button>
 											</span>
 											<br /><br />
 											<button type="button" data-toggle="tooltip" > 联系卖家</button><br />
@@ -458,6 +438,14 @@
 
 										</td>
 									</tr>
+                                    <tr>
+                                        <td id="message" colspan="5">
+                                            <span>收货人：[[${test.shoesorder.contactname}]]</span>
+                                            <span>电话：[[${test.shoesorder.contactphone}]]</span>
+                                            <span>收货地址：[[${test.shoesorder.receiptaddress}]]</span>
+                                            <span>备注：[[${test.shoesorder.remark}]]</span>
+                                        </td>
+                                    </tr>
 									<tr style="border: none;height: 30px;"></tr>
 									</tbody>
 
@@ -483,150 +471,62 @@
 										<th>交易操作</th>
 									</tr>
 									</thead>
-									<tbody >
+									<tbody th:each="test : ${imformation.order.readysend}">
 									<tr>
 										<td style="width: 45%;">
-											<div class="container-fluid">
-											<div class=" row" >
-												<div class="col-md-3">
-													<a href="#" class="text-center">
-														<img src="../static-front/img/1-2.png" >
-													</a>
-												</div>
-												<div class="col-md-5">
-													<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
-												</div>
-												<div class="col-md-4">
-													<div class="container-fluid">
-														<div class="row">
-															<div class="col-md-12 " style="height: 40px;">
-																￥<span>100.00</span>
-															</div>
-															<div class="col-md-12" style="height: 40px;">
-																数量：<span>1</span>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-												<hr />
-											<div class="row" >
-												<div class="col-md-3">
-													<a href="#" class="text-center">
-														<img src="../static-front/img/1-2.png" >
-													</a>
-												</div>
-												<div class="col-md-5">
-													<a href="single-product.html">商品名称加简介（最多40个字）</a>
-												</div>
-
-												<div class="col-md-4">
-													<div class="container-fluid">
-														<div class="row">
-															<div class="col-md-12 " style="height: 40px;">
-																￥<span>100.00</span>
-															</div>
-															<div class="col-md-12" style="height: 40px;">
-																数量：<span>1</span>
-															</div>
-														</div>
-													</div>
-												</div>
-
-											</div>
-											</div>
+                                            <div class="container-fluid">
+                                                <div th:each="testdetail : ${test.orderDetail}">
+                                                    <div class=" row" >
+                                                        <div class="col-md-3">
+                                                            <a href="#" class="text-center">
+                                                                <img th:src="${testdetail.colorpicaddredd}" >
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <a href="single-product.html">[[${testdetail.shoesname}]]</a>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 " style="height: 40px;">
+                                                                        ￥<span>[[${testdetail.price}]]</span>
+                                                                    </div>
+                                                                    <div class="col-md-12" style="height: 40px;">
+                                                                        数量：<span>[[${testdetail.quantity}]]</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                </div>
+                                            </div>
 										</td>
-										<td class="unit-price">￥<span>11200.00</span></td>
+										<td class="unit-price">￥<span>[[${test.shoesorder.totalprice}]]</span></td>
 										<td style="width: 13%;">
-											<span style="line-height: 93px;">12345678901</span>
+											<span style="line-height: 93px;">[[${test.shoesorder.totalprice}]]</span>
 										</td>
 										<td >
 											<span style="line-height: 93px;">卖家尚未发货</span>
 										</td>
 									    <td>
 											<span style="line-height: 45px;">
-											<button type="button" data-toggle="tooltip"  > 提醒发货</button>
+											<button type="button" data-toggle="tooltip" th:onclick="'javascript:tixingfahuo('+${test.shoesorder.orderid}+')' " > 提醒发货</button>
 											</span>
 											<br /><br />
 											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
 											<br />
 											<a  href="#" style="margin-left: 15px">申请退货</a>
-
 										</td>
 									</tr>
-									<tr style="border: none;height: 30px;"></tr>
-									</tbody>
-									<tbody >
-									<tr>
-										<td style="width: 45%;">
-											<div class="container-fluid">
-												<div class=" row" >
-													<div class="col-md-3">
-														<a href="#" class="text-center">
-															<img src="../static-front/img/1-2.png" >
-														</a>
-													</div>
-													<div class="col-md-5">
-														<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
-													</div>
-													<div class="col-md-4">
-														<div class="container-fluid">
-															<div class="row">
-																<div class="col-md-12 " style="height: 40px;">
-																	￥<span>100.00</span>
-																</div>
-																<div class="col-md-12" style="height: 40px;">
-																	数量：<span>1</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<hr />
-												<div class="row" >
-													<div class="col-md-3">
-														<a href="#" class="text-center">
-															<img src="../static-front/img/1-2.png" >
-														</a>
-													</div>
-													<div class="col-md-5">
-														<a href="single-product.html">商品名称加简介（最多40个字）</a>
-													</div>
-
-													<div class="col-md-4">
-														<div class="container-fluid">
-															<div class="row">
-																<div class="col-md-12 " style="height: 40px;">
-																	￥<span>100.00</span>
-																</div>
-																<div class="col-md-12" style="height: 40px;">
-																	数量：<span>1</span>
-																</div>
-															</div>
-														</div>
-													</div>
-
-												</div>
-											</div>
-										</td>
-										<td class="unit-price">￥<span>11200.00</span></td>
-										<td style="width: 13%;">
-											<span style="line-height: 93px;">12345678901</span>
-										</td>
-										<td >
-											<span style="line-height: 93px;">卖家尚未发货</span>
-										</td>
-										<td>
-											<span style="line-height: 45px;">
-											<button type="button" data-toggle="tooltip"  > 提醒发货</button>
-											</span>
-											<br /><br />
-											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
-											<br />
-											<a  href="#" style="margin-left: 15px">申请退货</a>
-
-										</td>
-									</tr>
+                                    <tr>
+                                        <td id="message" colspan="5">
+                                            <span>收货人：[[${test.shoesorder.contactname}]]</span>
+                                            <span>电话：[[${test.shoesorder.contactphone}]]</span>
+                                            <span>收货地址：[[${test.shoesorder.receiptaddress}]]</span>
+                                            <span>备注：[[${test.shoesorder.remark}]]</span>
+                                        </td>
+                                    </tr>
 									<tr style="border: none;height: 30px;"></tr>
 									</tbody>
 								</table>
@@ -650,44 +550,47 @@
 										<th>交易操作</th>
 									</tr>
 									</thead>
-									<tbody >
+									<tbody th:each="test : ${imformation.order.alreadysend}">
 									<tr>
 										<td style="width: 45%;">
-											<div class="container-fluid">
-												<div class=" row" >
-													<div class="col-md-3">
-														<a href="#" class="text-center">
-															<img src="../static-front/img/1-2.png" >
-														</a>
-													</div>
-													<div class="col-md-5">
-														<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
-													</div>
-													<div class="col-md-4">
-														<div class="container-fluid">
-															<div class="row">
-																<div class="col-md-12 " style="height: 40px;">
-																	￥<span>100.00</span>
-																</div>
-																<div class="col-md-12" style="height: 40px;">
-																	数量：<span>1</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
+                                            <div class="container-fluid">
+                                                <div th:each="testdetail : ${test.orderDetail}">
+                                                    <div class=" row" >
+                                                        <div class="col-md-3">
+                                                            <a href="#" class="text-center">
+                                                                <img th:src="${testdetail.colorpicaddredd}" >
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <a href="single-product.html">[[${testdetail.shoesname}]]</a>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 " style="height: 40px;">
+                                                                        ￥<span>[[${testdetail.price}]]</span>
+                                                                    </div>
+                                                                    <div class="col-md-12" style="height: 40px;">
+                                                                        数量：<span>[[${testdetail.quantity}]]</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                </div>
+                                            </div>
 										</td>
-										<td class="unit-price">￥<span>11200.00</span></td>
+										<td class="unit-price">￥<span>[[${test.shoesorder.totalprice}]]</span></td>
 										<td style="width: 13%;">
-											<span style="line-height: 93px;">12345678901</span>
+											<span style="line-height: 93px;">[[${test.shoesorder.orderid}]]</span>
 										</td>
 										<td >
 											<span style="line-height: 93px;">宝贝在运输途中</span>
 										</td>
 										<td>
 											<span style="line-height: 45px;">
-											<button type="button" data-toggle="tooltip"  > 确认收货</button>
+											<button type="button" data-toggle="tooltip" th:onclick="'javascript:querenshouhuo('+${test.shoesorder.orderid}+')' " > 确认收货</button>
 											</span>
 											<br /><br />
 											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
@@ -695,54 +598,14 @@
 											<a  href="#" style="margin-left: 15px">申请退货</a>
 										</td>
 									</tr>
-									<tr style="border: none;height: 30px;"></tr>
-									</tbody>
-									<tbody >
-									<tr>
-										<td style="width: 45%;">
-											<div class="container-fluid">
-												<div class=" row" >
-													<div class="col-md-3">
-														<a href="#" class="text-center">
-															<img src="../static-front/img/1-2.png" >
-														</a>
-													</div>
-													<div class="col-md-5">
-														<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
-													</div>
-													<div class="col-md-4">
-														<div class="container-fluid">
-															<div class="row">
-																<div class="col-md-12 " style="height: 40px;">
-																	￥<span>100.00</span>
-																</div>
-																<div class="col-md-12" style="height: 40px;">
-																	数量：<span>1</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-
-											</div>
-										</td>
-										<td class="unit-price">￥<span>11200.00</span></td>
-										<td style="width: 13%;">
-											<span style="line-height: 93px;">12345678901</span>
-										</td>
-										<td >
-											<span style="line-height: 93px;">宝贝在运输途中</span>
-										</td>
-										<td>
-											<span style="line-height: 45px;">
-											<button type="button" data-toggle="tooltip"  > 确认收货</button>
-											</span>
-											<br /><br />
-											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
-											<br />
-											<a  href="#" style="margin-left: 15px">申请退货</a>
-										</td>
-									</tr>
+                                    <tr>
+                                        <td id="message" colspan="5">
+                                            <span>收货人：[[${test.shoesorder.contactname}]]</span>
+                                            <span>电话：[[${test.shoesorder.contactphone}]]</span>
+                                            <span>收货地址：[[${test.shoesorder.receiptaddress}]]</span>
+                                            <span>备注：[[${test.shoesorder.remark}]]</span>
+                                        </td>
+                                    </tr>
 									<tr style="border: none;height: 30px;"></tr>
 									</tbody>
 								</table>
@@ -766,37 +629,40 @@
 										<th>交易操作</th>
 									</tr>
 									</thead>
-									<tbody >
+									<tbody th:each="test : ${imformation.order.alreadyget}">
 									<tr>
 										<td style="width: 45%;">
-											<div class="container-fluid">
-												<div class=" row" >
-													<div class="col-md-3">
-														<a href="#" class="text-center">
-															<img src="../static-front/img/1-2.png" >
-														</a>
-													</div>
-													<div class="col-md-5">
-														<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
-													</div>
-													<div class="col-md-4">
-														<div class="container-fluid">
-															<div class="row">
-																<div class="col-md-12 " style="height: 40px;">
-																	￥<span>100.00</span>
-																</div>
-																<div class="col-md-12" style="height: 40px;">
-																	数量：<span>1</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
+                                            <div class="container-fluid">
+                                                <div th:each="testdetail : ${test.orderDetail}">
+                                                    <div class=" row" >
+                                                        <div class="col-md-3">
+                                                            <a href="#" class="text-center">
+                                                                <img th:src="${testdetail.colorpicaddredd}" >
+                                                            </a>
+                                                        </div>
+                                                        <div class="col-md-5">
+                                                            <a href="single-product.html">[[${testdetail.shoesname}]]</a>
+                                                        </div>
+                                                        <div class="col-md-4">
+                                                            <div class="container-fluid">
+                                                                <div class="row">
+                                                                    <div class="col-md-12 " style="height: 40px;">
+                                                                        ￥<span>[[${testdetail.price}]]</span>
+                                                                    </div>
+                                                                    <div class="col-md-12" style="height: 40px;">
+                                                                        数量：<span>[[${testdetail.quantity}]]</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <hr />
+                                                </div>
+                                            </div>
 										</td>
-										<td class="unit-price">￥<span>11200.00</span></td>
+										<td class="unit-price">￥<span>[[${test.shoesorder.totalprice}]]</span></td>
 										<td style="width: 13%;">
-											<span style="line-height: 93px;">12345678901</span>
+											<span style="line-height: 93px;">[[${test.shoesorder.totalprice}]]</span>
 										</td>
 										<td >
 											<span style="line-height: 40px;">宝贝已签收</span>
@@ -807,14 +673,21 @@
 										</td>
 										<td>
 											<span style="line-height: 45px;">
-											<button type="button" data-toggle="tooltip" title="欢迎多提宝贵意见" > 评价订单</button>
+											<button type="button" data-toggle="tooltip"  th:onclick="'javascript:申请退货('+${test.shoesorder.orderid}+')' "> 申请退货</button>
 											</span>
 											<br /><br />
 											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
-											<br />
-											<a  href="#" style="margin-left: 15px">申请退货</a>
+
 										</td>
 									</tr>
+                                    <tr>
+                                        <td id="message" colspan="5">
+                                            <span>收货人：[[${test.shoesorder.contactname}]]</span>
+                                            <span>电话：[[${test.shoesorder.contactphone}]]</span>
+                                            <span>收货地址：[[${test.shoesorder.receiptaddress}]]</span>
+                                            <span>备注：[[${test.shoesorder.remark}]]</span>
+                                        </td>
+                                    </tr>
 									<tr style="border: none;height: 30px;"></tr>
 									</tbody>
 
@@ -824,84 +697,40 @@
 						</div>
 					</div>
 
-					<div role="tabpanel" class="tab-pane fade " id="shoucang">
-						<!--<iframe style="width:300px; height:300px;" id="childframe" src="index.html"></iframe>-->
-						<div class="panel-body">
-							<div class="wishlist-content">
-								<div class="table-responsive">
-									<table class="table table-bordered table-hover">
-										<thead>
-										<tr>
-											<th>图片</th>
-											<th>名称</th>
-											<th>类型</th>
-											<th>价格</th>
-											<th>操作</th>
-										</tr>
-										</thead>
-										<tbody>
-										<tr>
-											<td>
-												<a href="#" class="text-center"><img src="../static-front/img/1-2.png" /> </a>
-											</td>
-											<td>
-												<a href="single-product.html">More-Or-Less</a>
-											</td>
-											<td>Product 14</td>
-											<td class="unit-price">$100.00</td>
-											<td>
-												<div class="queRenShouHuo">
-													<button type="button" data-toggle="tooltip" class="btn" style="margin-right: 10px;"> 加入购物车</button>
-													<button type="button" data-toggle="tooltip" class="btn" style="margin-right: 10px;"> 取消收藏</button>
-
-												</div>
-											</td>
-										</tr>
-
-										</tbody>
-									</table>
-								</div>
-							</div>
-						</div>
-
-					</div>
 					<div role="tabpanel" class="tab-pane fade" id="gaimima">
 						<form action="#">
 							<div class="list-style">
 								<div class="form-name">
 									<label>原密码  </label>
-									<input class="inputc1" type="text" name="password" placeholder="请输入原密码">
+									<input class="inputc1 password1" type="text" name="password" placeholder="请输入原密码">
 									<br />
-
 								</div>
 								<div class="form-name" style="padding-left: 100px;padding-top: 15px;color: red;">
 									<p id="mima" class="mima"></p>
 								</div>
 								<div class="form-name">
 									<label>新密码  </label>
-									<input class="inputc2" type="text" name="newpassword" placeholder="请输入你的密码">
+									<input class="inputc2 password2" type="text" name="newpassword" placeholder="请输入你的密码">
 								</div>
 								<div class="form-name">
 									<p id="xinmima" class="xinmima"></p>
 								</div>
 								<div class="form-name">
 									<label>再次输入密码  </label>
-									<input class="inputc3" type="text" name="renewpassword" placeholder="请再次输入你的密码" disabled="disabled">
+									<input class="inputc3 password3" type="text" name="renewpassword" placeholder="请再次输入你的密码" disabled="disabled">
 								</div>
-								<div class="form-name">
+								<div class="form-name" style="color: red;margin-left: 10em;">
 									<p id="xinmimaa" class="xinmimaa"></p>
 								</div>
 							</div>
 							<div class="save-button">
-								<a><button type="button">确认修改</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+								<a><button type="button" class="xiugaimima">确认修改</button></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 								<a><button>忘记密码</button></a>
 							</div>
-
+                        </form>
 					</div>
-					</form>
+
 				</div>
-				<div role="tabpanel" class="tab-pane fade" id="hongbao">...</div>
-				<div role="tabpanel" class="tab-pane fade" id="gongju">...</div>
 			</div>
 
 		</div>
@@ -914,10 +743,22 @@
 <div id="the_footer"></div>
 
 <script src="../static-front/js/jquery-1.12.1.min.js"></script>
-<script>
-    $("#the_footer").load("/a/c");
-    $("#the_header").load("/header/toShoes-header");
-</script>
+<script src="../static-front/js/bootstrap.min.js" ></script>
+<script src="../static-front/js/wow.min.js" ></script>
+<script src="../static-front/js/jquery-price-slider.js" ></script>
+<script src="../static-front/js/jquery.nivo.slider.js" ></script>
+<script src="../static-front/js/home.js" ></script>
+<script src="../static-front/js/jquery.meanmenu.js" ></script>
+<script src="../static-front/js/owl.carousel.min.js" ></script>
+<script src="../static-front/js/jquery.elevatezoom.js" ></script>
+<script src="../static-front/js/jquery.scrollUp.min.js" ></script>
+<script src="../static-front/js/plugins.js" ></script>
+<script src="../static-front/js/main.js" ></script>
+<script src="../static-front/js/vue.js"></script>
+<script src="../static-front/header/header-nav.js"></script>
+<script src="../static-front/header/header-user.js"></script>
+<script src="../static-front/footer/shoes-footer.js"></script>
+<script type="text/javascript" src="../js/md5.js"></script>
 <script>
     $(document).ready(function() {
         $("li.aaaaa").click(function() {
@@ -948,18 +789,35 @@
             $("input").removeAttr("disabled");
         });
     });
-    //				$(function() {
-    //					$("li.bbbb2").click(function() {
-    //						$(".shoucangtou").show();
-    //					});
-    //				});
     $(function() {
-        $("input.inputc1").blur(function() {
-            var a = $("input[class='inputc1']").val();
-            if(a == '123456') {
-                $("#mima").html("密码正确");
-            } else {
-                $("#mima").html("密码错误");
+        $(".xiugaimima").click(function() {
+            if ($(".password2").val()==$(".password3").val())
+            {
+                $("#xinmimaa").html(" ");
+                var inputPass = $(".password1").val();
+                var passworda = hex_md5(inputPass);
+                var inputPassb = $(".password2").val();
+                var passwordb = hex_md5(inputPassb);
+                $.ajax({
+                    url:"/UserInformation/UpdatePassword",
+                    dataType:"json",
+                    type:"post",
+                    data:{
+                        password:passworda,
+                        setpassword:passwordb
+                    },
+                    success:function(result){
+                        if (result.code==0){
+                            alert(result.msg);
+                        }
+                        else {
+                            $("#xinmimaa").html(result.msg);
+                        }
+                    }
+                });
+            }
+            else {
+                $("#xinmimaa").html("两次密码不一致！");
             }
         });
     });
@@ -987,8 +845,88 @@
     })();
 </script>
 <script>
-	$(function () {
-        $(".denglu").click(function(){
+    $(function () {
+        $(".chaxunxinxi").click(function () {
+            $.post({url:"/UserInformation/UpdateInformation",
+                dataType:'json',
+                type: 'post',
+                success:function(result){
+                    $(".showaddress").html("<span style='color: skyblue;'>"+result.data+"</span>");
+                    $(".showphone").html("<span style='color: skyblue;'>13450438238</span>");
+                    $(".showusername").html("<span style='color: skyblue;'>顺天</span>");
+                },
+                fail: function (err) {
+                    alert("出错！");
+                    console.log(err);
+                }
+            });
+        });
+        $(".changemessage").click(function(){
+            var changeaddress= $(".province").val() +$(".city").val()+$(".longaddress").val();
+            var userida=[[${imformation.myInformation.user.userid}]];
+            alert(userida);
+            $.post({url:"/UserInformation/UpdateInformation",
+                dataType:'json',
+                type: 'post',
+                data:{
+                    userid:userida,
+                    username:$(".changename").val(),
+                    phone:$(".changephone").val(),
+                    address:changeaddress
+                },
+                success:function(result){
+                    alert(result.data);
+                },
+                fail: function (err) {
+                    alert("出错！");
+                    console.log(err);
+                }
+            });
+        });
+
+        $(".lijifukuan").click(function(){
+            $.post({url:"/a/d",
+                dataType:'json',
+                type: 'post',
+                // data:{
+                //     mobile:$(".d1").val(),
+                //     password:$(".d2").val()
+                // },
+                success:function(result){
+                    //eval函数解析json数据
+                    // alert(result.toString());
+                    console.log(result);
+                    $(".d1").html("<span style='color: red;'>"+result+"</span>");
+
+                },
+                fail: function (err) {
+                    alert("出错！");
+                    console.log(err);
+                }
+            });
+        });
+        $(".tixingfahuo").click(function(){
+            $.post({url:"/a/d",
+                dataType:'json',
+                type: 'post',
+                // data:{
+                //     mobile:$(".d1").val(),
+                //     password:$(".d2").val()
+                // },
+                success:function(result){
+                    //eval函数解析json数据
+                    // alert(result.toString());
+                    console.log(result);
+                    $(".d1").html("<span style='color: red;'>"+result+"</span>");
+
+                },
+                fail: function (err) {
+                    alert("出错！");
+                    console.log(err);
+                }
+            });
+        });
+        $(".querenshouhuo").click(function(){
             $.post({url:"/a/d",
                 dataType:'json',
                 type: 'post',
@@ -1010,23 +948,32 @@
             });
         });
     });
+    function lijifukuan(str) {
+        alert(str);
+        // $.ajax({
+        //     type:"post",
+        //     url:"/zhifu",
+        //     dataType:'json',
+        //     data:{
+        //
+        //     },
+        //     success:function(data){
+        //         if(isStrEmpty(data.error)){
+        //             $("#sendResult").text(sendResult);
+        //             gotoStep3();
+        //         }else{
+        //             $.alert(data.error);
+        //             gotoLoginForm();
+        //         }
+        //     },
+        //     error:function(){
+        //         $.alert("<s:text name="err.system"/>");
+        //         gotoLoginForm();
+        //     }
+        // });
+    }
 </script>
 
-<script src="../static-front/js/bootstrap.min.js" ></script>
-<script src="../static-front/js/wow.min.js" ></script>
-<script src="../static-front/js/jquery-price-slider.js" ></script>
-<script src="../static-front/js/jquery.nivo.slider.js" ></script>
-<script src="../static-front/js/home.js" ></script>
-<script src="../static-front/js/jquery.meanmenu.js" ></script>
-<script src="../static-front/js/owl.carousel.min.js" ></script>
-<script src="../static-front/js/jquery.elevatezoom.js" ></script>
-<script src="../static-front/js/jquery.scrollUp.min.js" ></script>
-<script src="../static-front/js/plugins.js" ></script>
-<script src="../static-front/js/main.js" ></script>
-
-
-
-<!--载入头尾部-->
 
 
 </head>
