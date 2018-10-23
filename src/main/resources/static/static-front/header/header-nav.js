@@ -48,7 +48,7 @@ var sta_4 = "</div>\n" +
     "                                        </div>\n" +
     "                                    </li>\n" +
     "                                    <li class=\"mega-jewellery\">\n" +
-    "                                        <a href=\"shoes-sale.html\">疯狂抢购</a>\n" +
+    "                                        <a href=\"javascript:;\" onclick=\"carryRush()\">疯狂抢购</a>\n" +
     "                                    </li>\n" +
     "                                    <li class=\"search\">\n" +
     "                                        <input name=\"searchContent\" type=\"text\" class=\"myinput\" placeholder=\"搜索  运动鞋/休闲鞋\">\n" +
