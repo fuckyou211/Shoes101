@@ -8,6 +8,7 @@ import com.shoes101.redis.RedisService;
 import com.shoes101.redis.UserKey;
 import com.shoes101.result.CodeMsg;
 import com.shoes101.result.Result;
+import com.shoes101.service.impl.RushOrderServiceImpl;
 import com.shoes101.vo.OrderVo;
 import com.shoes101.vo.RushOrderVo;
 import com.shoes101.vo.UserImformationVo;
@@ -29,6 +30,9 @@ public class RushMController {
     @Autowired
     RedisService redisService;
 
+    @Autowired
+    RushOrderServiceImpl rushOrderServiceImpl;
+
     @RequestMapping("/CreateRushOrder")
     @ResponseBody
     public Result<String> CreateRushOrder(HttpServletRequest request, User user,RushOrderVo rushOrderVo)
@@ -37,15 +41,15 @@ public class RushMController {
         MiaoshaMessage miaoshaMessage=new MiaoshaMessage();
         miaoshaMessage.setUser(user);
         miaoshaMessage.setRushOrderVo(rushOrderVo);
-
+        rushOrderServiceImpl.CreatRushOrder(request,user,rushOrderVo);
         return Result.success("信息修改成功！");
     }
 
     /**
      *  修改一下，方便传值
      * @param request
-     * @param user
-     * @param rushOrderVo
+     * @paramuser
+     * @paramrushOrderVo
      * @return
      */
     @RequestMapping("/CreateRushOrder2")
@@ -92,6 +96,7 @@ public class RushMController {
         rushOrderVo.setUserid(user.getUserid());
 
         miaoshaMessage.setRushOrderVo(rushOrderVo);
+        rushOrderServiceImpl.CreatRushOrder(request,user,rushOrderVo);
 
         return Result.success("信息修改成功！");
     }

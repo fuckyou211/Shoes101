@@ -68,10 +68,10 @@ public interface RushbuyMapper {
     @Select("select * from rushsku where rushbuyid = #{rushbuyid} ")
     public List<Rushsku> getRushbuyByGoodrushbuyid(@Param("rushbuyid") Integer rushbuyid);
 
-    @Select("select * from rushsku where rushskuid = #{rushskuid} AND skuid = #{skuid}")
+    @Select("select * from rushsku where rushbuyid = #{rushbuyid} AND skuid = #{skuid}")
     public Rushsku getRushbuyByrushskuid(@Param("rushbuyid") Integer rushbuyid,@Param("skuid") Integer skuid);
 
-    @Update("Update set quantity=quantity- #{quantity} where rushskuid = #{rushskuid} AND skuid = #{skuid}")
+    @Update("Update rushsku set quantity=quantity- #{quantity} where rushbuyid = #{rushbuyid} AND skuid = #{skuid}")
     public Integer updateRushbuyByrushskuid(@Param("rushbuyid") Integer rushbuyid,@Param("skuid") Integer skuid,@Param("quantity") Integer quantity);
 
 
