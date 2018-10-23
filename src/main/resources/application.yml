@@ -6,9 +6,9 @@ spring:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.jdbc.Driver
     platform: mysql
-    url: jdbc:mysql://localhost:3306/shoes?useUnicode=true&characterEncoding=utf-8&useSSL=false&&serverTimezone=UTC
+    url: jdbc:mysql://39.108.217.97:3306/shoes?useUnicode=true&characterEncoding=utf-8&useSSL=false&&serverTimezone=UTC
     username: root
-    password: root
+    password: 123456
     initialSize: 5
     minIdle: 5
     maxActive: 20
@@ -27,6 +27,29 @@ spring:
       ddl-auto: update
     show-sql: true
 
+  #rabbitmq
+  rabbitmq:
+    template:
+      retry:
+        enabled: true
+        initial-interval: 1000
+        max-attempts: 3
+        max-interval: 10000
+        multiplier: 1.0
+
+    host: 39.108.217.97
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
+    listener:
+      simple:
+        concurrency: 10
+        max-concurrency: 10
+        prefetch: 1
+        auto-startup: true
+        default-requeue-rejected: true
+
 mybatis:
     mapper-locations: classpath:com/shoes101/mappers/*.xml  #注意：一定要对应mapper映射xml文件的所在路径
     type-aliases-package: com.shoes101.pojo  # 注意：对应实体类的路径
@@ -34,7 +57,8 @@ mybatis:
 
 
 redis:
- host: 123.207.109.158
+ host: 39.108.217.97
+ password: 123456
  port: 6379
  timeout: 10
  poolMaxTotal: 1000
