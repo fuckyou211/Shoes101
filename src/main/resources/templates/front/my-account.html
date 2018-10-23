@@ -198,11 +198,11 @@
 																<div class="account-address">
 																	<ul>
 																		<li class="address-menu-title">我的地址</li>
-																		<li>地址：<span class="showaddress">广东省广州市海珠区新世界天地f5栋100层</span></li>
-																		<li>手机：<span class="showphone">13412345678</span></li>
-																		<li>姓名：<span class="showusername">莉君氢</span></li>
+																		<li>地址：<span class="showaddress" th:text="((${imformation.myInformation.userAdress}!='')? ${imformation.myInformation.userAdress.address} : '还没填写')"></span></li>
+																		<li>手机：<span class="showphone">[[${imformation.myInformation.user.phone}]]</span></li>
+																		<li>姓名：<span class="showusername">[[${imformation.myInformation.user.username}]]</span></li>
 																		<li>
-																			<button > 更改 </button>
+																			<!--<button > 更新 </button>-->
 																			<!--<button> 提交 </button>-->
 																		</li>
 																	</ul>
@@ -285,71 +285,66 @@
 														<tr>
 															<th>商品</th>
 															<th>实付金额</th>
-															<th>订单号</th>
+															<th>订单状态</th>
 															<th>交易时间</th>
 														</tr>
 														</thead>
-														<tbody >
+														<tbody th:each="test : ${imformation.myInformation.myorder}">
 														<tr>
 															<td style="width: 45%;">
-																<div class="container-fluid">
-																	<div class=" row" >
-																		<div class="col-md-3">
-																			<a href="#" class="text-center">
-																				<img src="../static-front/img/1-2.png" >
-																			</a>
-																		</div>
-																		<div class="col-md-5">
-																			<a href="single-product.html">中国篮球协会里面的姚明官方推荐使用的球鞋啊啊啊啊啊啊啊啊啊啊啊</a>
-																		</div>
-																		<div class="col-md-4">
-																			<div class="container-fluid">
-																				<div class="row">
-																					<div class="col-md-12 " style="height: 40px;">
-																						￥<span>100.00</span>
-																					</div>
-																					<div class="col-md-12" style="height: 40px;">
-																						数量：<span>1</span>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<hr />
-																	<div class="row" >
-																		<div class="col-md-3">
-																			<a href="#" class="text-center">
-																				<img src="../static-front/img/1-2.png" >
-																			</a>
-																		</div>
-																		<div class="col-md-5">
-																			<a href="single-product.html">商品名称加简介（最多40个字）</a>
-																		</div>
-
-																		<div class="col-md-4">
-																			<div class="container-fluid">
-																				<div class="row">
-																					<div class="col-md-12 " style="height: 40px;">
-																						￥<span>100.00</span>
-																					</div>
-																					<div class="col-md-12" style="height: 40px;">
-																						数量：<span>1</span>
-																					</div>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																</div>
+                                                                <div class="container-fluid">
+                                                                    <div th:each="testdetail : ${test.orderDetail}">
+                                                                        <div class=" row" >
+                                                                            <div class="col-md-3">
+                                                                                <a href="#" class="text-center">
+                                                                                    <img th:src="${testdetail.colorpicaddredd}" >
+                                                                                </a>
+                                                                            </div>
+                                                                            <div class="col-md-5">
+                                                                                <a href="single-product.html">[[${testdetail.shoesname}]]</a>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="container-fluid">
+                                                                                    <div class="row">
+                                                                                        <div class="col-md-12 " style="height: 40px;">
+                                                                                            ￥<span>[[${testdetail.price}]]</span>
+                                                                                        </div>
+                                                                                        <div class="col-md-12" style="height: 40px;">
+                                                                                            数量：<span>[[${testdetail.quantity}]]</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr />
+                                                                    </div>
+                                                                </div>
 															</td>
-															<td class="unit-price">￥<span>11200.00</span></td>
-															<td style="width: 13%;">
-																<span style="line-height: 93px;">12345678901</span>
+                                                            <td class="unit-price">￥<span>[[${test.shoesorder.totalprice}]]</span></td>
+                                                            <td style="width: 13%;">
+                                                                <div th:switch="${test.shoesorder.state}">
+                                                                    <span style="line-height: 93px;" th:case="100">未付款</span>
+                                                                    <span style="line-height: 93px;" th:case="101">未发货</span>
+                                                                    <span style="line-height: 93px;" th:case="102">未收货</span>
+                                                                    <span style="line-height: 93px;" th:case="103">已收货</span>
+                                                                </div>
+                                                                <span th:if="${test.shoesorder.cancel}==1" style="color: red">（已申请退货）</span>
+                                                                <!--<span style="line-height: 93px;" th:if="">[[${test.shoesorder.orderid}]]</span>-->
+                                                            </td>
+															<td>
+																<span style="line-height: 93px;">[[${#dates.format(test.shoesorder.buydate, 'yyyy-MM-dd HH:mm:ss')}]]</span>
 															</td>
-															<td >
-																<span style="line-height: 93px;">2018/08/07</span>
-															</td>
-
 														</tr>
+                                                        <tr>
+                                                            <td id="message" colspan="5">
+                                                                <span>订单号：[[${test.shoesorder.orderid}]]</span>
+                                                                <span>收货人：[[${test.shoesorder.contactname}]]</span>
+                                                                <span>电话：[[${test.shoesorder.contactphone}]]</span>
+                                                                <span>收货地址：[[${test.shoesorder.receiptaddress}]]</span>
+                                                                <br>
+                                                                <span>备注：[[${test.shoesorder.remark}]]</span>
+                                                            </td>
+                                                        </tr>
 														<tr style="border: none;height: 30px;"></tr>
 														</tbody>
 
@@ -427,6 +422,7 @@
 										</td>
 										<td >
 											<span style="line-height: 93px;">买家未付款</span>
+                                            <span th:if="${test.shoesorder.cancel}==1" style="color: red">（已取消购买）</span>
 										</td>
 										<td>
 											<span style="line-height: 45px;">
@@ -443,6 +439,7 @@
                                             <span>收货人：[[${test.shoesorder.contactname}]]</span>
                                             <span>电话：[[${test.shoesorder.contactphone}]]</span>
                                             <span>收货地址：[[${test.shoesorder.receiptaddress}]]</span>
+                                            <br>
                                             <span>备注：[[${test.shoesorder.remark}]]</span>
                                         </td>
                                     </tr>
@@ -504,10 +501,12 @@
 										</td>
 										<td class="unit-price">￥<span>[[${test.shoesorder.totalprice}]]</span></td>
 										<td style="width: 13%;">
-											<span style="line-height: 93px;">[[${test.shoesorder.totalprice}]]</span>
+											<span style="line-height: 93px;">[[${test.shoesorder.orderid}]]</span>
 										</td>
 										<td >
 											<span style="line-height: 93px;">卖家尚未发货</span>
+                                            <br>
+                                            <span th:if="${test.shoesorder.cancel}==1" style="color: red">（已申请退货）</span>
 										</td>
 									    <td>
 											<span style="line-height: 45px;">
@@ -524,6 +523,7 @@
                                             <span>收货人：[[${test.shoesorder.contactname}]]</span>
                                             <span>电话：[[${test.shoesorder.contactphone}]]</span>
                                             <span>收货地址：[[${test.shoesorder.receiptaddress}]]</span>
+                                            <br>
                                             <span>备注：[[${test.shoesorder.remark}]]</span>
                                         </td>
                                     </tr>
@@ -587,6 +587,8 @@
 										</td>
 										<td >
 											<span style="line-height: 93px;">宝贝在运输途中</span>
+                                            <br>
+                                            <span th:if="${test.shoesorder.cancel}==1" style="color: red">（已申请退货）</span>
 										</td>
 										<td>
 											<span style="line-height: 45px;">
@@ -603,6 +605,7 @@
                                             <span>收货人：[[${test.shoesorder.contactname}]]</span>
                                             <span>电话：[[${test.shoesorder.contactphone}]]</span>
                                             <span>收货地址：[[${test.shoesorder.receiptaddress}]]</span>
+                                            <br>
                                             <span>备注：[[${test.shoesorder.remark}]]</span>
                                         </td>
                                     </tr>
@@ -662,7 +665,7 @@
 										</td>
 										<td class="unit-price">￥<span>[[${test.shoesorder.totalprice}]]</span></td>
 										<td style="width: 13%;">
-											<span style="line-height: 93px;">[[${test.shoesorder.totalprice}]]</span>
+											<span style="line-height: 93px;">[[${test.shoesorder.orderid}]]</span>
 										</td>
 										<td >
 											<span style="line-height: 40px;">宝贝已签收</span>
@@ -670,6 +673,8 @@
 											<br>
 											<p style="margin:0 auto;">快递客服电话：</p>
 											<a href="#">13724688462</a>
+                                            <br>
+                                            <span th:if="${test.shoesorder.cancel}==1" style="color: red">（已申请退货）</span>
 										</td>
 										<td>
 											<span style="line-height: 45px;">
@@ -685,6 +690,7 @@
                                             <span>收货人：[[${test.shoesorder.contactname}]]</span>
                                             <span>电话：[[${test.shoesorder.contactphone}]]</span>
                                             <span>收货地址：[[${test.shoesorder.receiptaddress}]]</span>
+                                            <br>
                                             <span>备注：[[${test.shoesorder.remark}]]</span>
                                         </td>
                                     </tr>
@@ -846,21 +852,21 @@
 </script>
 <script>
     $(function () {
-        $(".chaxunxinxi").click(function () {
-            $.post({url:"/UserInformation/UpdateInformation",
-                dataType:'json',
-                type: 'post',
-                success:function(result){
-                    $(".showaddress").html("<span style='color: skyblue;'>"+result.data+"</span>");
-                    $(".showphone").html("<span style='color: skyblue;'>13450438238</span>");
-                    $(".showusername").html("<span style='color: skyblue;'>顺天</span>");
-                },
-                fail: function (err) {
-                    alert("出错！");
-                    console.log(err);
-                }
-            });
-        });
+        // $(".chaxunxinxi").click(function () {
+        //     $.post({url:"/UserInformation/UpdateInformation",
+        //         dataType:'json',
+        //         type: 'post',
+        //         success:function(result){
+        //             $(".showaddress").html("<span style='color: skyblue;'>"+result.data+"</span>");
+        //             $(".showphone").html("<span style='color: skyblue;'>13450438238</span>");
+        //             $(".showusername").html("<span style='color: skyblue;'>顺天</span>");
+        //         },
+        //         fail: function (err) {
+        //             alert("出错！");
+        //             console.log(err);
+        //         }
+        //     });
+        // });
         $(".changemessage").click(function(){
             var changeaddress= $(".province").val() +$(".city").val()+$(".longaddress").val();
             var userida=[[${imformation.myInformation.user.userid}]];
