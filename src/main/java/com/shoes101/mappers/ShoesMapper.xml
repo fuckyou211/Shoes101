@@ -154,8 +154,8 @@ where shoessku.quantity > 0 GROUP BY shoesid
   <!--  auth:Vakoe-->
  <!-- getHotSales-->
   <select id="getHotSale" resultType="com.shoes101.vo.FGoodsVo">
-      select e.ticketprice,e.shoesid,e.shoesname,sum(e.skusales),shoes.isdropoff,shoes.adddate,e.buydate from shoes inner join
-      (select d.ticketprice,d.shoesid,c.shoesname,d.skusales,c.state,c.validity,c.buydate from shoessku d inner join
+      select any_value(e.price) price ,e.shoesid,any_value(e.shoesname) shoesname,any_value(sum(e.skusales)) skusales,any_value(shoes.isdropoff) isdropoff,any_value(shoes.adddate) adddate,any_value(e.buydate) buydate from shoes inner join
+      (select d.price,d.shoesid,c.shoesname,d.skusales,c.state,c.validity,c.buydate from shoessku d inner join
       (select b.skuid,b.shoesname,a.state,a.validity,a.buydate from shoesorder a inner join orderdetail b on a.orderid = b.orderid) c on d.skuid = c.skuid) as e on shoes.shoesid = e.shoesid
       where e.state = 3 and e.validity = 1 and shoes.isdropoff=1 and e.buydate like ${dateString}
       GROUP BY (e.shoesid) order by sum(e.skusales) desc limit #{count}
