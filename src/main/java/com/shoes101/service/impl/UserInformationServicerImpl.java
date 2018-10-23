@@ -67,7 +67,8 @@ public class UserInformationServicerImpl implements UserInformationServicer {
         Useraddress useraddress= useraddressMapper.selectByPrimaryKey(user.getUserid());
         if(useraddress.getAddress().equals(null))
         {
-            myInformation.put("userAdress","");
+
+            myInformation.put("userAdress",new Useraddress());
 
         }
         else
