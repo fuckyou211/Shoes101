@@ -122,6 +122,7 @@ public class CatalogServiceImpl implements CatalogService {
 
 
     //获得某节点下的所有分类节点
+    @Override
     public List<Shoescatalog> nextCatalogList(List<Shoescatalog> nextList, Shoescatalog shoescatalog){
         if(shoescatalog.getIsleaf() == 1){
             return nextList;

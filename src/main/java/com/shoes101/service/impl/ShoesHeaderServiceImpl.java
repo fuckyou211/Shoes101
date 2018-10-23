@@ -10,6 +10,7 @@ import com.shoes101.pojo.Shoescatalog;
 import com.shoes101.redis.FGoodsKey;
 import com.shoes101.redis.RedisService;
 import com.shoes101.result.Result;
+import com.shoes101.service.CatalogService;
 import com.shoes101.service.ShoesHeaderService;
 import com.shoes101.vo.CatalogInfoVo;
 import com.shoes101.vo.FGoodsVo;
@@ -65,6 +66,8 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
     private ShoespicMapper shoespicMapper;
     @Autowired
     private RedisService redisService;
+    @Autowired
+    private CatalogService catalogService;
 
     /**
      * 将所有的catalog节点全部放在一个map里，map里面包含的集合内容包含catalogInfo，childrenIndex
@@ -171,9 +174,12 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
             //取数据库
             Shoescatalog shoescatalog = shoescatalogMapper.selectByPrimaryKey(catalogId);
             //System.out.println("111"+shoescatalog);
-            List<Shoescatalog> leafList = this.getLeafList(new ArrayList<Shoescatalog>(),shoescatalog);
+            List<Shoescatalog> nextList = new ArrayList<>();
+            nextList.add(shoescatalog);
+             nextList = catalogService.nextCatalogList(nextList,shoescatalog);
             List<FGoodsVo> list = new ArrayList<FGoodsVo>();
-            for(Shoescatalog shoescatalog1 : leafList){
+            for(Shoescatalog shoescatalog1 : nextList){
+                System.out.println(shoescatalog1);
                 List<FGoodsVo> tempList = shoesMapper.getShoesIdAndNameAndPriceByCatalogId(shoescatalog1.getCatalogid());
                 System.out.println("tt"+tempList);
                 for(int i = 0;i < tempList.size();i++)

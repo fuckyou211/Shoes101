@@ -6,6 +6,7 @@ import com.shoes101.pojo.Shoescatalog;
 import com.shoes101.pojo.Splink;
 import com.shoes101.redis.FGoodsKey;
 import com.shoes101.redis.RedisService;
+import com.shoes101.service.CatalogService;
 import com.shoes101.service.PropertyFilterServie;
 import com.shoes101.service.ShoesHeaderService;
 import com.shoes101.vo.FGoodsVo;
@@ -38,6 +39,8 @@ public class PropertyFilterServieImpl implements PropertyFilterServie {
     private ShoesHeaderService shoesHeaderService;
     @Autowired
     private ShoescatalogMapper shoescatalogMapper;
+    @Autowired
+    private CatalogService catalogService;
 
     @Override
     public Set<PropertyValueVo> getGeneralPropertyValue(List<FGoodsVo> shoesList, Integer propertyId){
@@ -63,9 +66,11 @@ public class PropertyFilterServieImpl implements PropertyFilterServie {
             Shoescatalog shoescatalog = shoescatalogMapper.selectByPrimaryKey(catalogId);
             //System.out.println("111"+shoescatalog);
             //取数据库
-            List<Shoescatalog> leafList = shoesHeaderService.getLeafList(new ArrayList<Shoescatalog>(),shoescatalog);
+            List<Shoescatalog> nextList = new ArrayList<>();
+            nextList.add(shoescatalog);
+            nextList = catalogService.nextCatalogList(nextList,shoescatalog);
             list = new ArrayList<>();
-            for(Shoescatalog shoescatalog1 : leafList){
+            for(Shoescatalog shoescatalog1 : nextList){
                 List<FGoodsVo> tempList = shoesMapper.getFGoodsVoFilterPvCatalog(shoescatalog1.getCatalogid(),filterList);
                 System.out.println("tt"+tempList);
                 for(int i = 0;i < tempList.size();i++)

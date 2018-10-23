@@ -23,4 +23,6 @@ public interface CatalogService
     Shoescatalog catalogPathLast(Integer parentId);
     //获得父级节点
     List<Shoescatalog> getParentCatalog(Integer parentId);
+    //某节点下的所有节点
+    List<Shoescatalog> nextCatalogList(List<Shoescatalog> nextList, Shoescatalog shoescatalog);
 }
