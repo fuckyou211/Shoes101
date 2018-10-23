@@ -96,7 +96,7 @@ a:hover, a:link, a:active {
 }
 
 .no-choose-border {
-    border: 1px dashed #1B6D85;
+    border: 1px solid #0F8285;
 }
 
 .choose-border {
@@ -206,7 +206,7 @@ a:hover, a:link, a:active {
 }
 
 .number-disabled {
-    border: 1px dashed blue;
+    border: 1px solid #a7aaab;
     background-color: #fff;
     color: #000;
 }

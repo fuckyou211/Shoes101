@@ -6,6 +6,11 @@ $(function () {
 
     console.log("开始加载订单模块的 js");
 
+    // window.onunload=function () {
+    //     //alert("请勿重复提交订单！");
+    //     alert("刷新了页面！");
+    //     $("#order-caculate-do").addClass("reapClick");
+    // }
 });
 
 let orderTotal = 0;
@@ -13,8 +18,6 @@ let orderTotal = 0;
 let orderItemList = null;
 
 function doOrderPageRenderWhenLoad() {
-
-
 
     let token = getToken();
 
@@ -32,13 +35,20 @@ function doOrderPageRenderWhenLoad() {
             if(data.data != null){
                 renderPayPage(eval(data.data));
             }else {
-                window.location.href="/";
+                //window.location.href="/";
             }
         }
     });
 }
 
+/**
+ *  跳转购物车页面
+ */
+function returnCart() {
 
+    window.location.href="/static-front/html/shoes-cart.htm";
+
+}
 
 /**
  *  订单页面的渲染
@@ -47,6 +57,7 @@ function doOrderPageRenderWhenLoad() {
 function renderPayPage(orderItemArr){
 
     if(!orderItemArr){
+        $("#order-container").html("");
         return;
     }
     orderItemList = orderItemArr;
@@ -58,14 +69,12 @@ function renderPayPage(orderItemArr){
         str += doRenderPayPage(orderItemArr[i]);
         totalPrice += (Number(orderItemArr[i].price) * Number(orderItemArr[i].count));
     });
-
-    //$.cookie("data",window.escape(str));
-    //console.log(str);
-    //console.log($("#orderListBody"));
+    orderItemArr = null;
     $("#orderListBody").html(str);
     // 订单总额的渲染
     $("#orderTotal").html(totalPrice);
     renderOrderCart(); //  渲染订单卡片
+
 }
 
 /**
@@ -211,9 +220,6 @@ function handOrder() {
         closeAll();
         return;
     }
-
-    showLoading();
-
     // 组装数据  地址数据
     let addr = $("#order-province").html() + $("#order-city").html()+$("#order-addr").html();
     let contactName =  $("#contactName").html();
@@ -222,6 +228,13 @@ function handOrder() {
     let remark = $("#remarkTextArea").val();
 
     //orderListBody,cart-list-tr
+
+    if(!orderItemList){
+        alert("非法请求！");
+        return;
+    }
+
+    showLoading();
 
     let orderItemArr = new Array();
     $.each(orderItemList, function (i) {
@@ -254,6 +267,7 @@ function handOrder() {
         success:function (data) {
             if(data.code  == 0){
                 //alert("下单成功");
+                $("#order-container").html("");
                 closeAll();
                 layer.msg('订单创建成功！立即支付？', {
                     time: 0 //不自动关闭
@@ -261,6 +275,7 @@ function handOrder() {
                     ,yes: function(index){
                         layer.close(index);
                         //alert("跳转成功！");
+                        orderItemList = null;
                         window.location.href="/static-front/html/shoes-trace.htm?orderId="+data.data;
                     }
                     ,btn2: function(index){

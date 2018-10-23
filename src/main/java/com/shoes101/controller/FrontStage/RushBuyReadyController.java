@@ -29,6 +29,8 @@ public class RushBuyReadyController {
     @Autowired
     private RedisService redisService;
 
+
+
     @RequestMapping("/aa")
     public String aa()
     {
@@ -55,15 +57,23 @@ public class RushBuyReadyController {
 //        return prepareRushService.getAllRush();
     }
 
+	//@RequestMapping("/front/shoes-detail")
+//	public String toDetail(){
+//    	return "/front/shoes-detail";
+//	}
+//
+
     @RequestMapping("/selectOneRush")
-//    @ResponseBody
     public String getOneRush(Map<String, Object> map, @RequestParam("rushbuyid") int rushbuyid)
     {
+
+        logger.info("请求你啦！-----{}",rushbuyid);
+
 //        String str = prepareRushService.getOneRush(rushbuyid);
 //        System.out.println(str);
 //        System.out.println(JSON.parse(str));
         map.put("detail",prepareRushService.getOneRush(rushbuyid));
 //        System.out.println("asdf" + map.get("a"));
-        return "front/shoes-detail";
+        return "/front/shoes-detail";
     }
 }

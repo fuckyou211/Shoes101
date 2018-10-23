@@ -228,11 +228,12 @@ function getToken() {
     let token = getCookie("token");
 
     if(!token){
-        // alert("你还未登录,请先登录！");
+        alert("你还未登录,请先登录！");
         token = "guoguanzhi-909683502";
         // 登录成功之后跳转到该页面
         // TODO 保存数据到时候直接跳转到该页面
-        //return;
+        window.location.href="/login/to_login"
+        return;
     }
 
     return token;

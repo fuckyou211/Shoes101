@@ -171,7 +171,7 @@
                                         </div>
                                     </li>
                                     <li class="mega-jewellery">
-                                        <a href="shoes-sale.html">疯狂抢购</a>
+                                        <a href="javascript:;" id="carry-rush" onclick="carryRush()">疯狂抢购</a>
                                     </li>
                                     <li class="search">
                                         <input type="text" class="myinput" placeholder="搜索  运动鞋/休闲鞋">
@@ -233,6 +233,11 @@
             method:{
             }
         });
+
+        /*  跳转至抢购页面 */
+        function carryRush() {
+            window.location.href="/rush/getAllRush";
+        }
 
         /*获取品牌数据*/
         function getBrands() {

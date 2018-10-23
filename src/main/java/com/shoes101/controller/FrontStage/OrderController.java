@@ -6,6 +6,7 @@ import com.shoes101.pojo.User;
 import com.shoes101.redis.PageDataKey;
 import com.shoes101.redis.RedisService;
 import com.shoes101.redis.UserKey;
+import com.shoes101.result.CodeMsg;
 import com.shoes101.result.Result;
 import com.shoes101.service.OrderService;
 import com.shoes101.vo.OrderVo;
@@ -17,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.CoderResult;
 import java.util.List;
 
 @Controller
@@ -51,8 +53,11 @@ public class OrderController {
 
         String list = redisService.get(PageDataKey.orderData,key,String.class);
 
-        return Result.success(list);
+        if(list == null){
+        	return Result.error(CodeMsg.SERVER_ERROR);
+		}
 
+        return Result.success(list);
     }
 
 
@@ -107,7 +112,13 @@ public class OrderController {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
-		return Result.success(orderService.add(orderItem));
+		Integer orderId = orderService.add(orderItem);
+		if(orderId != null){
+			redisService.delete(PageDataKey.orderData,token);
+			return Result.success(orderId);
+		}
+
+		return Result.error(CodeMsg.SERVER_ERROR);
 	}
 
 

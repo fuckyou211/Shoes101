@@ -163,7 +163,7 @@ function setColorList(data, idString) {
 
         str += '<dd class="fl dd-margin no-choose-border" name='+data[i].colorid+' title='+ data[i].color+''
             +' onclick=\'$_activeChange("detail-shoes-color",this,"choose-border")\'>'
-            +'<img class="small-show-img" src='+ data[i].colorpic +'/>'
+            +'<img class="small-show-img" src='+ data[i].colorpic +'>'
             +'</dd>';
 
     });
