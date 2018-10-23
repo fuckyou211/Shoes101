@@ -68,6 +68,9 @@ function renderPayPage(orderItemArr){
     $.each(orderItemArr,function (i) {
         str += doRenderPayPage(orderItemArr[i]);
         totalPrice += (Number(orderItemArr[i].price) * Number(orderItemArr[i].count));
+        if(orderItemArr[i].rushbuyid){
+            $("#rushbuyid-order").val(orderItemArr[i].rushbuyid);
+        }
     });
     orderItemArr = null;
     $("#orderListBody").html(str);
@@ -98,6 +101,12 @@ function renderOrderCart() {
 
     $("#contactName").html(contactName);
     $("#contactPhone").html(contactPhone);
+
+    if($("#rushbuyid-order").val() == -1){
+        $("#pay-hand-order").html("<a href=\"javascript:;\" id=\"order-caculate-do\" onclick=\"handOrder()\">提交订单</a>");
+    }else {
+        $("#pay-hand-order-rush").html("<a href=\"javascript:;\" id=\"order-caculate-do-rush\" onclick=\"handRushOrder()\">开始抢购</a>");
+    }
 }
 
 function doRenderPayPage(data) {
@@ -141,7 +150,7 @@ function doRenderPayPage(data) {
  * @param price     下单时候的价格
  * @constructor
  */
-function OrderItem(colorPic,shoesName, color, size, skuid,count,price) {
+function OrderItem(colorPic,shoesName, color, size, skuid,count,price,rushbuyid) {
 
     this.colorPic = colorPic;
     this.shoesName = shoesName;
@@ -150,6 +159,7 @@ function OrderItem(colorPic,shoesName, color, size, skuid,count,price) {
     this.skuid = skuid;
     this.count = count;
     this.price = price;
+    this.rushbuyid = rushbuyid;
 }
 // 地址对象
 function Addr(province, city,deatailAddr) {
@@ -292,6 +302,96 @@ function handOrder() {
         },
         error: function () {
             $("#order-caculate-do").removeClass("reapClick");
+        }
+    });
+
+}
+
+/**
+ *  开始抢购
+ * @param handRushOrder()
+ */
+function handRushOrder(){
+
+
+    if($("#order-caculate-do-rush").hasClass("reapClick")){
+        alert("请勿重复提交订单！");
+        closeAll();
+        return;
+    }
+    // 组装数据  地址数据
+    let addr = $("#order-province").html() + $("#order-city").html()+$("#order-addr").html();
+    let contactName =  $("#contactName").html();
+    let contactPhone = $("#contactPhone").html();
+
+    let remark = $("#remarkTextArea").val();
+
+    //orderListBody,cart-list-tr
+
+    if(!orderItemList){
+        alert("非法请求！");
+        return;
+    }
+
+    showLoading();
+
+    let orderItemArr = new Array();
+    $.each(orderItemList, function (i) {
+        let orderHandItem = new OrderHandItem();
+        orderHandItem.skuid = orderItemList[i].skuid;
+        orderHandItem.quantity = orderItemList[i].count;
+        orderItemArr[i] = orderHandItem;
+    });
+
+    let token = getToken();
+
+    console.log(orderItemArr);
+    console.log("---------------");
+    // 开始提交订单
+    $.ajax({
+        url: "/RushOrder/CreateRushOrder2",
+        type:"POST",
+        data: {
+            "skuidandqty": JSON.stringify(orderItemArr),
+            "contactPhone":contactPhone,
+            "contactName":contactName,
+            "remark":remark,
+            "receiptaddress":addr,
+            "rushbuyid":rushbuyid,
+            "token":token
+        },
+        beforeSend: function () {
+            //$("loading").show();
+            $("#order-caculate-do-rush").addClass("reapClick");
+        },
+        success:function (data) {
+            if(data.code  == 0){
+                //alert("下单成功");
+                $("#order-container").html("");
+                closeAll();
+                layer.msg('订单创建成功！立即支付？', {
+                    time: 0 //不自动关闭
+                    ,btn: ['确定', '稍后支付']
+                    ,yes: function(index){
+                        layer.close(index);
+                        //alert("跳转成功！");
+                        orderItemList = null;
+                        window.location.href="/static-front/html/shoes-trace.htm?orderId="+data.data;
+                    }
+                    ,btn2: function(index){
+                        alert("跳转至我的订单！");
+                        //return false 开启该代码可禁止点击该按钮关闭
+                    }
+                });
+
+            }
+            else {
+                $("#order-caculate-do-rush").removeClass("reapClick");
+            }
+
+        },
+        error: function () {
+            $("#order-caculate-do-rush").removeClass("reapClick");
         }
     });
 

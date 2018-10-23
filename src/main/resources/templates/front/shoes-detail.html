@@ -140,7 +140,7 @@
                             </span>
                     <!--立即购买  -->
                     <span id=" ">
-                        <a href="javascript:;" class="btn-danger btn-buy" onclick="doPayNow()">立即购买</a>
+                        <a href="javascript:;" class="btn-danger btn-buy" onclick="doPayNow(2)">立即购买</a>
                     </span>
                 </li>
             </ul>
@@ -171,6 +171,9 @@
 <script src="../static-front/js/js.cookie.js"></script>
 <script src="../static-front/js/shoes-detail.js"></script>
 <script src="../js/vue.js"></script>
+<script src="../static-front/header/header-nav.js"></script>
+<script src="../static-front/header/header-user.js"></script>
+<script src="../static-front/footer/shoes-footer.js"></script>
 <!--尾部-->
 <div id="the_footer"></div>
 
@@ -178,8 +181,6 @@
 <script>
     $("#the_header").load("shoes-header.html");
     $("#the_footer").load("shoes-footer.html");
-
-
 
 
     $(document).ready(function(){

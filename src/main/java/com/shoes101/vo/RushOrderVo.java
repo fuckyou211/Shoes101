@@ -4,11 +4,8 @@ import java.util.List;
 
 public class RushOrderVo {
     private int shoesid;
-
     private int rushbuyid;
-
     private int shoessku;
-
     private int quantity;
 
     private int userid;
