@@ -344,11 +344,17 @@ function getQueryPathStringByName(name) {
 function $_chooseChange(oTarget) {
     let oParent = $(oTarget).attr("prop1");
     let className = $(oTarget).attr("prop2");
-    $_initChoose(oParent,className);
 
     let target = $(oTarget);
+    if(target.hasClass(className)){
+        target.removeClass(className)
+    }else{
+        $_initChoose(oParent,className);
+        target.addClass(className);
+    }
 
-    target.addClass(className);
+
+
 
 }
 

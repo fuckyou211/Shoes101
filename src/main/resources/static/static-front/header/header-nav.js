@@ -21,21 +21,21 @@ var sta_1="<div class=\"mainmenu-area product-items\">\n" +
     "                                        <a href=\"http://localhost:8080\">101Shoes</a>\n" +
     "                                    </li>\n" +
     "                                    <li>\n" +
-    "                                        <a href=\"shop.html\">男鞋</a>\n" +
+    "                                        <a href=\"javascript:;\" value=\"1\" onclick=\"toShoesList(this)\">男鞋</a>\n" +
     "                                        <div class=\"mega-menu\" id=\"men_sort\">" +
     "                                           <ul>";
 var sta_2 = "</ul>\n" +
     "                                        </div>\n" +
     "                                    </li>\n" +
     "                                    <li>\n" +
-    "                                        <a href=\"shop.html\">女鞋</a>\n" +
+    "                                        <a href=\"javascript:;\" value=\"1\" onclick=\"toShoesList(this)\">女鞋</a>\n" +
     "                                        <div class=\"mega-menu\" id=\"women_sort\">\n" +
     "                                            <ul>";
 var sta_3 = "</ul>\n" +
     "                                        </div>\n" +
     "                                    </li>\n" +
     "                                    <li>\n" +
-    "                                        <a href=\"shop.html\">品牌</a>\n" +
+    "                                        <a style=\"cursor:pointer\">品牌</a>\n" +
     "                                        <div class=\"mega-menu\">\n" +
     "                                            <ul id=\"theBrand\">\n" +
     "                                                <li class=\"col-md-12\" >\n" +
