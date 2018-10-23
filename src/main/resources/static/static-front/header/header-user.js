@@ -8,7 +8,7 @@ Vue.component('user-header',{
         '                            <span v-if="online"><b>{{user.username}}</b></span>\n' +
         '                            <span v-else> \n' +
         '                                <s style="text-decoration: none">请先\n' +
-        '                                   <a id="login-link" href="http://127.0.0.1:8080/login/to_login">登陆</a>\n' +
+        '                                   <a id="login-link" href="http://localhost:8080/login/to_login">登陆</a>\n' +
         '                                </s>\n' +
         '                             </span>\n'+
         '                        </p>\n' +
@@ -24,7 +24,7 @@ Vue.component('user-header',{
         '                                    </a>\n' +
         '                                    <ul v-if="online">\n' +
         '                                        <li>\n' +
-        '                                            <a href="my-account.html">我的订单</a>\n' +
+        '                                            <a href="http://localhost:8080/UserInformation/UserMyAccount">我的订单</a>\n' +
         '                                        </li>\n' +
         '                                        <li>\n' +
         '                                            <a href="wishlist.html">我的信息</a>\n' +
@@ -35,10 +35,10 @@ Vue.component('user-header',{
         '                                    </ul>\n' +
         '                                    <ul v-else>\n' +
         '                                        <li>\n' +
-        '                                            <a href="http://127.0.0.1:8080/login/to_login">登录</a>\n' +
+        '                                            <a href="http://localhost:8080/login/to_login">登录</a>\n' +
         '                                        </li>\n' +
         '                                        <li>\n' +
-        '                                            <a href="http://127.0.0.1:8080/login/to_login">注册</a>\n' +
+        '                                            <a href="http://localhost:8080/login/to_login">注册</a>\n' +
         '                                        </li>\n' +
         '                                    </ul>\n' +
         '                                </li>\n' +
@@ -86,14 +86,15 @@ Vue.component('user-header',{
     data:function(){
         return{
             user:[],//用户信息
-            online:false//是否登录
+            online:false,//是否登录
+            shopcart:[]
         }
     },
     created:function () {
         var self= this;
         //通过ajax获取用户，如返回空，则是未登录
         $.ajax({
-            url: "http://127.0.0.1:8080/getUser",
+            url: "http://localhost:8080/getUser",
             type: 'post',
             dataType: 'json',
             success: function (data) {
@@ -110,6 +111,7 @@ Vue.component('user-header',{
                 console.log("失败："+err)
             }
         });
+
     },
     methods:{
         changes:function () {
@@ -122,4 +124,7 @@ Vue.component('user-header',{
 $(function(){
     $("#header-user").html('<user-header></user-header>');
     new Vue({el:"#header-user"});
-})
+});
+
+var cart = {"detail":[{"shoesname":"123","pic":"dfngj/dfh/sss.jgp","quantity":10,"price":25.3}],
+             "sctotalprice":1230}
