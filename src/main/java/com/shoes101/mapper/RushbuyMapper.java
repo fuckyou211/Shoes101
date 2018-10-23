@@ -5,6 +5,7 @@ import com.shoes101.vo.RushShoesskuAndPropvnameVo;
 import com.shoes101.vo.RushSkuAndQtyVo;
 import com.shoes101.vo.RushbuyVo;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -48,6 +49,8 @@ public interface RushbuyMapper {
 
     //根据skuid返回RushShoesskuAndPropvnameVo
     RushShoesskuAndPropvnameVo getSoOn(@Param("skuid") int skuid);
+    @Select("select * from rushbuy where shoesid = #{shoesid} ")
+    public RushbuyVo getRushbuyByGoodid(@Param("shoesid") Integer shoesid);
 
     //根据skuid获取属性
     String getProperty(@Param("skuid") int skuid);
