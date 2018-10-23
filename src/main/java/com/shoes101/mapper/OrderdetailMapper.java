@@ -34,7 +34,7 @@ public interface OrderdetailMapper {
     //根据skuid获取商品id
     public int getIdBySkuid(@Param("skuid") int skuid);
 
-    @Select("select a.*,b.colorpicaddredd from orderdetail as a ,colorpic as b where a.detailid = #{detailid} AND a.skuid=b.skuid ")
-    public Map<String,Object> getOrderdetailByorderid(@Param("detailid") Integer detailid);
+    @Select("select a.*,b.colorpicaddredd from orderdetail as a ,colorpic as b where a.orderid = #{orderid} AND a.skuid=b.skuid ")
+    public List<Map<String,Object>> getOrderdetailByorderid(@Param("orderid") Integer orderid);
 
 }
