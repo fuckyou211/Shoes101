@@ -65,7 +65,7 @@ public class UserInformationServicerImpl implements UserInformationServicer {
         myInformation.put("myorder",myOrder(user,0));
         myInformation.put("user",user);
         Useraddress useraddress= useraddressMapper.selectByPrimaryKey(user.getUserid());
-        if(useraddress.getAddress().equals(null))
+        if(useraddress==null)
         {
 
             myInformation.put("userAdress",new Useraddress());
