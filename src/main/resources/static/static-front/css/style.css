@@ -399,16 +399,7 @@ body {
     position: relative;
     float: none;
 }
-.btn-edit {
-    background-image: url("btn_edit.gif")/*tpa=http://www.17sucai.com/preview/1191101/2018-05-14/james/img/cart/btn_edit.gif*/;
-    background-repeat: no-repeat;
-    cursor: pointer;
-    height: 11px;
-    position: absolute;
-    right: 25px;
-    width: 11px;
-    top: 4px;
-}
+
 .btn-remove {
     background-image: url("img/btn_remove.png")/*tpa=http://www.17sucai.com/preview/1191101/2018-05-14/james/img/cart/btn_remove.png*/;
     background-repeat: no-repeat;
@@ -1940,9 +1931,10 @@ ul.address li span {
     text-transform: uppercase;
 }
 .sidebar-title h2::before {
-    content: "\f036";
+    content: "\f07a";
     font-family: fontawesome;
     margin-right: 15px;
+    margin-left: 15px;
 }
 .single-sidebar-title h3 {
 	border-bottom: 1px solid #AAAAAA;

@@ -341,9 +341,10 @@ function getQueryPathStringByName(name) {
     if(r != null) return unescape(r[2]);
     return null;
 }
-function $_chooseChange(oParent,oTarget, className) {
-
-    $_initActive(oParent,className);
+function $_chooseChange(oTarget) {
+    let oParent = $(oTarget).attr("prop1");
+    let className = $(oTarget).attr("prop2");
+    $_initChoose(oParent,className);
 
     let target = $(oTarget);
 

@@ -43,25 +43,9 @@
 		<div class="product-main-items">
 			<div class="container">
 
-				<!--当前选择-->
 				<div class="row">
-					<div class="col-md-12">
-						<div class="location">
-							<ul>
-								<li>
-									<a href="index.html" title="go to homepage">101 Shoes<span>></span></a>
-								</li>
-								<li><strong>男鞋</strong><span>></span></li>
-								<li><strong>跑步鞋</strong></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<div class="row">
-
 					<!--购物选择-->
-					<div class="product-sidebar">
+					<div class="product-sidebar" style="margin-top: 25px">
 						<div class="sidebar-title">
 							<h2>购物选择</h2>
 						</div>
@@ -147,9 +131,7 @@
 							<a href="#" class="shoes-sort">默认<i></i></a>
 							<a href="#" class="shoes-sort">销量<i></i></a>
 							<a href="#" class="shoes-sort">价格<i></i></a>
-							<a href="#" title="Set Descending Direction">
-								<img src="i_asc_arrow.gif" alt="">
-							</a>
+
 						</div>
 						<!--商品数量-->
 						<div class="limit-product" v-for="(value,key,index) in list" v-if="key=='totalCount'">
@@ -250,7 +232,7 @@
 				},
 				methods: {
 				    leftButton: function(pageCode){
-				      if( pageCode>1 ){
+				      if( pageCode==1 ){
 				          pageCode--;
 				          requestPage(pageCode);
 
@@ -303,16 +285,18 @@
             }
             function requestPage(pageCode) {
 				let size=16;
-				let catalogId;
-                catalogId=getQueryString("catalogId");
-               /* console.log("获取id");
-                console.log(catalogId);*/
+				let catalogId=getQueryString("catalogId");
+				let propertyValueId=getQueryString("propertyValueId");
+
+                console.log("获取id");
+                console.log(propertyValueId);
                $.ajax({
 				   url: "/goodsf/getShoesListByPage",
 				   type: 'post',
 				   data: {
 				       size:size,
 					   catalogId:catalogId,
+                       propertyValueId,propertyValueId,
 					   pageCode:pageCode,
 				   },
 				   dataType: 'json',
