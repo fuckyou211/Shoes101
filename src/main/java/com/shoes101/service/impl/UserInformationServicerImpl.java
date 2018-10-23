@@ -64,7 +64,17 @@ public class UserInformationServicerImpl implements UserInformationServicer {
         Map<String,Object> myInformation=new HashMap<>();
         myInformation.put("myorder",myOrder(user,0));
         myInformation.put("user",user);
-        myInformation.put("userAdress",useraddressMapper.selectByPrimaryKey(user.getUserid()));
+        Useraddress useraddress= useraddressMapper.selectByPrimaryKey(user.getUserid());
+        if(useraddress.getAddress().equals(null))
+        {
+            myInformation.put("userAdress","");
+
+        }
+        else
+        {
+            myInformation.put("userAdress",useraddress);
+
+        }
         return myInformation;
     }
 
