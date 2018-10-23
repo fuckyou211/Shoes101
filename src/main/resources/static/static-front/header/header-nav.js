@@ -181,6 +181,10 @@ function toShoesList(obj) {
         window.location.href="../../ShoesShop/shoes-list?catalogId="+theClassifyId;
     }
 }
+/*  跳转至抢购页面 */
+function carryRush() {
+    window.location.href="/rush/getAllRush";
+}
 /*搜索*/
 function theSearch() {
     let theSearchContent = $("input[name='searchContent']").val();
