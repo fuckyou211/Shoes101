@@ -137,6 +137,19 @@ public interface ShoesMapper {
     @Select("select DISTINCT shoes.shoesid,shoes.shoesname,shoes.adddate,shoessku.price from shoes INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.isdropoff=1 order by shoes.adddate limit #{count}")
     List<FGoodsVo> getOldestGoods(@Param("count") Integer count);
 
+    //当月热销
     List<FGoodsVo> getHotSale(@Param("count")Integer count,@Param("dateString")String dateString);
 
+    //按分类加筛选属性值得到商品
+    List<FGoodsVo> getFGoodsVoFilterPvCatalog(@Param("catalogId")Integer catalogId,@Param("filterList")String filterList);
+
+    //按品牌加筛选属性值得到商品（分页）
+    List<FGoodsVo> getFGoodsVoFilterPvBrand(@Param("propertyValueId") Integer propertyValueId,@Param("start")Integer start,@Param("size")Integer size,@Param("filterList")String filterList);
+    //按品牌加筛选属性值得到商品数量
+    Integer getFGoodsVoFilterPvBrandCount(@Param("propertyValueId") Integer propertyValueId,@Param("filterList")String filterList);
+
+    //按名字搜索加筛选属性值得到商品（分页）
+    List<FGoodsVo> getFGoodsVoFilterPvName(@Param("name")String name,@Param("start")Integer start,@Param("size")Integer size,@Param("filterList")String filterList);
+    //按名字搜索加筛选属性值得到商品数量
+    Integer getFGoodsVoFilterPvNameCount(@Param("name")String name,@Param("filterList")String filterList);
 }

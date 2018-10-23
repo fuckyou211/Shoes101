@@ -151,6 +151,7 @@ where shoessku.quantity > 0 GROUP BY shoesid
     insert into rushsku(quantity,shoesid,skuid,rushbuyid) values (#{quantity},#{shoesid},#{skuid},#{rushbuyid})
   </insert>
 
+  <!--  auth:Vakoe-->
  <!-- getHotSales-->
   <select id="getHotSale" resultType="com.shoes101.vo.FGoodsVo">
       select e.ticketprice,e.shoesid,e.shoesname,sum(e.skusales),shoes.isdropoff,shoes.adddate,e.buydate from shoes inner join
@@ -162,4 +163,43 @@ where shoessku.quantity > 0 GROUP BY shoesid
   <!--<select id="calQtyWithoutSize" resultType="java.lang.Integer">-->
     <!--select sum(quantity) from shoessku where shoesid=#{shoesid} and skuproperty like ${cdn}-->
   <!--</select>-->
+ <!--按分类加筛选属性值得到商品-->
+  <select id="getFGoodsVoFilterPvCatalog" resultType="com.shoes101.vo.FGoodsVo">
+    select distinct a.shoesid,a.shoesname,a.adddate,a.price from spfilter inner join
+    (select distinct shoes.shoesid,shoes.shoesname,shoes.adddate,shoessku.price,shoessku.quantity,shoes.isdropoff,shoes.catalogid from shoes
+    INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.isdropoff=1 and shoes.catalogid = #{catalogId}) as a on spfilter.shoesid = a.shoesid
+    where json_contains(spfilter.propertyvalueid,${filterList},'$')
+  </select>
+  <!--按品牌加筛选属性值得到商品（分页）-->
+  <select id="getFGoodsVoFilterPvBrand" resultType="com.shoes101.vo.FGoodsVo">
+    select c.* from spfilter inner join
+    (select DISTINCT a.shoesid,a.shoesname,a.adddate,b.price from shoes as a INNER JOIN
+    (select shoessku.* from shoessku inner join splink on shoessku.shoesid = splink.shoesid where splink.propertyvalueid = #{propertyValueId}) as b
+    on a.shoesid = b.shoesid where b.quantity>0 and a.isdropoff=1) as c on c.shoesid = spfilter.shoesid
+    where json_contains(spfilter.propertyvalueid,${filterList},'$') limit #{start},#{size}
+  </select>
+  <!--按品牌加筛选属性值得到商品数量-->
+  <select id="getFGoodsVoFilterPvBrandCount" resultType="java.lang.Integer">
+    select count(*) from spfilter inner join
+    (select DISTINCT a.shoesid,a.shoesname,a.adddate,b.price from shoes as a INNER JOIN
+    (select shoessku.* from shoessku inner join splink on shoessku.shoesid = splink.shoesid where splink.propertyvalueid = #{propertyValueId}) as b
+    on a.shoesid = b.shoesid where b.quantity>0 and a.isdropoff=1) as c on c.shoesid = spfilter.shoesid
+    where json_contains(spfilter.propertyvalueid,${filterList},'$')
+  </select>
+  <!--按名字搜索加筛选属性值得到商品（分页）-->
+  <select id="getFGoodsVoFilterPvName" resultType="com.shoes101.vo.FGoodsVo">
+    select a.* from spfilter inner join
+    (select DISTINCT shoes.shoesid,shoes.shoesname,shoes.adddate,shoessku.price from shoes INNER JOIN
+    shoessku on shoes.shoesid=shoessku.shoesid
+    where shoessku.quantity > 0 and shoes.isdropoff=1 and shoes.shoesname like ${name}) as a
+    on spfilter.shoesid = a.shoesid
+    where json_contains(spfilter.propertyvalueid,${filterList},'$') limit #{start},#{size}
+  </select>
+  <!--按名字搜索加筛选属性值得到商品数量-->
+  <select id="getFGoodsVoFilterPvNameCount" resultType="java.lang.Integer">
+    select count(*) from spfilter
+    inner join (select DISTINCT shoes.shoesid,shoes.shoesname,shoes.adddate,shoessku.price from shoes
+    INNER JOIN shoessku on shoes.shoesid=shoessku.shoesid where shoessku.quantity > 0 and shoes.isdropoff=1 and shoes.shoesname like ${name}) as a
+    on spfilter.shoesid = a.shoesid where json_contains(spfilter.propertyvalueid,${filterList},'$')
+  </select>
 </mapper>

@@ -16,6 +16,7 @@ public class SearchServiceImpl implements SearchService {
     private ShoesMapper shoesMapper;
     @Autowired
     private RedisService redisService;
+    //分页搜索
     @Override
     public List<FGoodsVo> search(String value,Integer pageCode,Integer size) {
         //List<FGoodsVo> list = redisService.get(FGoodsKey.getGoodsListSearch,"value",true,FGoodsVo.class);
@@ -33,6 +34,8 @@ public class SearchServiceImpl implements SearchService {
         Integer start = pageCode*size;
         return shoesMapper.searchByNamePage(value,start,size);
     }
+
+    //不分页
     @Override
     public List<FGoodsVo> search(String value) {
         List<FGoodsVo> list = redisService.get(FGoodsKey.getGoodsListSearch,"value",true,FGoodsVo.class);
@@ -49,6 +52,7 @@ public class SearchServiceImpl implements SearchService {
             return list;
         }
     }
+    //得到条数
     @Override
     public Integer searchByNameCount(String value) {
         value = "'%"+value+"%'";

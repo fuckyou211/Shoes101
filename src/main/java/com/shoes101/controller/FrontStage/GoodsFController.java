@@ -123,20 +123,32 @@ public class GoodsFController {
     //分页（针对的是当前展示的商品为某分类下的，或者某属性值下的）
     @RequestMapping("/getShoesListByPage")
     @ResponseBody
-    public Result getShoesListByPage(Integer pageCode,Integer size,Integer catalogId, Integer propertyValueId){
+    public Result getShoesListByPage(Integer pageCode,Integer size,Integer catalogId, Integer propertyValueId,Integer filterFlag,String filterList){
         List<FGoodsVo> list = new ArrayList<FGoodsVo>();
         pageBean pb = new pageBean();
-        if(catalogId!=null){
-            //获得此catalogId下的所有鞋
-            list = redisService.get(FGoodsKey.getGoodsListCatalog,""+catalogId,true,FGoodsVo.class);
-            if(list==null)
+        if(filterFlag==0){
+            if(catalogId!=null){
+                //获得此catalogId下的所有鞋
                 list =  shoesHeaderService.listUnderCatalog(catalogId);
-            List<FGoodsVo> newList = ListHandleUtils.getPartOfList(list,pageCode,size);
-            pb = pageSevice.setTopageBean(pageCode,size,newList,list.size());
+                List<FGoodsVo> newList = ListHandleUtils.getPartOfList(list,pageCode,size);
+                pb = pageSevice.setTopageBean(pageCode,size,newList,list.size());
+            }
+            else if(propertyValueId!=null){
+                list = shoesHeaderService.listUnderProVal(propertyValueId,pageCode,size);
+                pb = pageSevice.setTopageBean(pageCode,size,list,shoesHeaderService.getFGoodsVoCountByPvId(propertyValueId));
+            }
         }
-        else if(propertyValueId!=null){
-            list = shoesHeaderService.listUnderProVal(propertyValueId,pageCode,size);
-            pb = pageSevice.setTopageBean(pageCode,size,list,shoesHeaderService.getFGoodsVoCountByPvId(propertyValueId));
+        else if(filterFlag == 1){
+            if(catalogId!=null){
+                //获得此catalogId下的所有鞋
+                list =  propertyFilterServie.filterCatalog(filterList,catalogId);
+                List<FGoodsVo> newList = ListHandleUtils.getPartOfList(list,pageCode,size);
+                pb = pageSevice.setTopageBean(pageCode,size,newList,list.size());
+            }
+            else if(propertyValueId!=null){
+                list = propertyFilterServie.filterPropVal(filterList,propertyValueId,pageCode,size);
+                pb = pageSevice.setTopageBean(pageCode,size,list,propertyFilterServie.getCountFilterPropVal(filterList,propertyValueId));
+            }
         }
         System.out.println(pb);
         //map.put("pageOfShoes", pb);
@@ -145,11 +157,17 @@ public class GoodsFController {
     //分页（针对的是商品页搜索）
     @RequestMapping("/getSearchListByPage")
     @ResponseBody
-    public Result getSearchListByPage(Integer pageCode,Integer size,String value){
-        HashMap<String,Object> map = new HashMap<>();
-        List<FGoodsVo> list = new ArrayList<>();
-        list = searchService.search(value,pageCode,size);
-        pageBean pb = pageSevice.setTopageBean(pageCode,size,list,searchService.searchByNameCount(value));
+    public Result getSearchListByPage(Integer pageCode,Integer size,String value,String filterList,Integer filterFlag){
+        pageBean pb = new pageBean();
+        if(filterFlag==0){
+            List<FGoodsVo>  list = searchService.search(value,pageCode,size);
+            pb = pageSevice.setTopageBean(pageCode,size,list,searchService.searchByNameCount(value));
+        }
+        else if(filterFlag == 1){
+            List<FGoodsVo>  list1 = propertyFilterServie.filterSearch(filterList,value, pageCode,size);
+            pb = pageSevice.setTopageBean(pageCode,size,list1,propertyFilterServie.getCountFilterSearch(filterList,value));
+        }
+
         return Result.success(pb);
     }
 }
