@@ -46,6 +46,13 @@ public class CodeMsg {
     public static CodeMsg MIAO_SHA_OVER = new CodeMsg(500500, "商品已经秒杀完毕");
     public static CodeMsg REPEATE_MIAOSHA = new CodeMsg(500501, "不能重复秒杀");
     public static CodeMsg MIAOSHA_FAIL = new CodeMsg(500502, "秒杀失败");
+    public static CodeMsg MIAOSHA_END = new CodeMsg(500503, "商品活动结束！");
+    public static CodeMsg MIAOSHA_NULLBEGIN = new CodeMsg(500504, "商品活动尚未开始！");
+    public static CodeMsg MIAOSHA_NULLGOOD = new CodeMsg(500505, "商品库存不足！");
+    public static CodeMsg MIAOSHA_OUTNUMBER = new CodeMsg(500506, "您购买的商品数量已超过规定额度！");
+    public static CodeMsg MIAOSHA_READNULL = new CodeMsg(500507, "您购买的商品有未确认的订单，请支付后再购买！");
+    public static CodeMsg MIAOSHA_ORDERNULL = new CodeMsg(500507, "您购买的商品有未支付的订单，请支付后再购买！");
+    public static CodeMsg MIAOSHA_WAIT = new CodeMsg(500508, "您有订单正在排队中！");
 
 
     private CodeMsg( ) {
