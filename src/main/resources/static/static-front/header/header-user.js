@@ -24,7 +24,7 @@ Vue.component('user-header',{
         '                                    </a>\n' +
         '                                    <ul v-if="online">\n' +
         '                                        <li>\n' +
-        '                                            <a href="my-account.html">我的订单</a>\n' +
+        '                                            <a href="http://127.0.0.1:8080/UserInformation/UserMyAccount">我的订单</a>\n' +
         '                                        </li>\n' +
         '                                        <li>\n' +
         '                                            <a href="wishlist.html">我的信息</a>\n' +
@@ -86,7 +86,8 @@ Vue.component('user-header',{
     data:function(){
         return{
             user:[],//用户信息
-            online:false//是否登录
+            online:false,//是否登录
+            shopcart:[]
         }
     },
     created:function () {
@@ -110,6 +111,7 @@ Vue.component('user-header',{
                 console.log("失败："+err)
             }
         });
+
     },
     methods:{
         changes:function () {
@@ -122,4 +124,7 @@ Vue.component('user-header',{
 $(function(){
     $("#header-user").html('<user-header></user-header>');
     new Vue({el:"#header-user"});
-})
+});
+
+var cart = {"detail":[{"shoesname":"123","pic":"dfngj/dfh/sss.jgp","quantity":10,"price":25.3}],
+             "sctotalprice":1230}
