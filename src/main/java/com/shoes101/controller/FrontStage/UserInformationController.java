@@ -3,9 +3,11 @@ package com.shoes101.controller.FrontStage;
 import com.alibaba.fastjson.JSONObject;
 import com.shoes101.pojo.User;
 import com.shoes101.result.Result;
+import com.shoes101.service.ShoesOrderService;
 import com.shoes101.service.UserInformationServicer;
 import com.shoes101.service.impl.UserInformationServicerImpl;
 import com.shoes101.vo.LoginCodeVo;
+import com.shoes101.vo.ShoesorderVo;
 import com.shoes101.vo.UserImformationVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("/UserInformation")
@@ -28,6 +31,8 @@ public class UserInformationController {
 
     @Autowired
     private UserInformationServicer userInformationServicerImpl;
+    @Autowired
+    private ShoesOrderService shoesOrderService;
 
     @RequestMapping("/UserMyAccount")
     public String UserMyAccount(HttpServletRequest request, Model model, User user)
@@ -52,6 +57,22 @@ public class UserInformationController {
         userInformationServicerImpl.UpdateInformation(request,user,userImformationVo);
         return Result.success("信息修改成功！");
     }
+
+
+    @RequestMapping("/sendOrBackAjax2")
+    @ResponseBody
+    public List<ShoesorderVo> sendOrBack(@RequestParam("orderid")int orderid, @RequestParam("validity")int validity,
+                                         @RequestParam("cancel")int cancel, @RequestParam("state")int state)
+    {
+        System.out.println("数据是：");
+        System.out.println(orderid);
+        System.out.println(validity);
+        System.out.println(cancel);
+        System.out.println(state);
+
+        return shoesOrderService.sendOrBack(orderid,validity,cancel,state);
+    }
+
 
     /**
      * 更新密码
