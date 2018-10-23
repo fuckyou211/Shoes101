@@ -2,10 +2,7 @@ package com.shoes101.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shoes101.exception.GlobalException;
-import com.shoes101.mapper.OrderdetailMapper;
-import com.shoes101.mapper.ShoesorderMapper;
-import com.shoes101.mapper.UserMapper;
-import com.shoes101.mapper.UseraddressMapper;
+import com.shoes101.mapper.*;
 import com.shoes101.pojo.Shoesorder;
 import com.shoes101.pojo.User;
 import com.shoes101.pojo.Useraddress;
@@ -67,14 +64,11 @@ public class UserInformationServicerImpl implements UserInformationServicer {
         Useraddress useraddress= useraddressMapper.selectByPrimaryKey(user.getUserid());
         if(useraddress==null)
         {
-
             myInformation.put("userAdress",new Useraddress());
-
         }
         else
         {
             myInformation.put("userAdress",useraddress);
-
         }
         return myInformation;
     }

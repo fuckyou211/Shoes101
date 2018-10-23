@@ -162,6 +162,21 @@ public class RedisService {
         }
     }
 
+    /**
+     * 减少值
+     * */
+    public <T> Long decrBy(KeyPrefix prefix, String key,Integer number) {
+        Jedis jedis = null;
+        try {
+            jedis =  jedisPool.getResource();
+            //生成真正的key
+            String realKey  = prefix.getPrefix() + key;
+            return  jedis.decrBy(realKey,number);
+        }finally {
+            returnToPool(jedis);
+        }
+    }
+
     public boolean delete(KeyPrefix prefix) {
         if(prefix == null) {
             return false;

@@ -1,14 +1,17 @@
 package com.shoes101.mapper;
 
 import com.shoes101.pojo.Rushbuy;
+import com.shoes101.pojo.Rushsku;
 import com.shoes101.vo.RushShoesskuAndPropvnameVo;
 import com.shoes101.vo.RushSkuAndQtyVo;
 import com.shoes101.vo.RushbuyVo;
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import java.util.List;
-
+@Mapper
 public interface RushbuyMapper {
     int deleteByPrimaryKey(Integer rushbuyid);
 
@@ -49,8 +52,8 @@ public interface RushbuyMapper {
 
     //根据skuid返回RushShoesskuAndPropvnameVo
     RushShoesskuAndPropvnameVo getSoOn(@Param("skuid") int skuid);
-    @Select("select * from rushbuy where shoesid = #{shoesid} ")
-    public RushbuyVo getRushbuyByGoodid(@Param("shoesid") Integer shoesid);
+    @Select("select * from rushbuy where rushbuyid = #{rushbuyid} ")
+    public RushbuyVo getRushbuyByGoodid(@Param("rushbuyid") Integer rushbuyid);
 
     //根据skuid获取属性
     String getProperty(@Param("skuid") int skuid);
@@ -60,5 +63,17 @@ public interface RushbuyMapper {
 
     //获取大图
     String getBigPic(@Param("shoesid") int shoesid);
+
+
+    @Select("select * from rushsku where rushbuyid = #{rushbuyid} ")
+    public List<Rushsku> getRushbuyByGoodrushbuyid(@Param("rushbuyid") Integer rushbuyid);
+
+    @Select("select * from rushsku where rushskuid = #{rushskuid} AND skuid = #{skuid}")
+    public Rushsku getRushbuyByrushskuid(@Param("rushbuyid") Integer rushbuyid,@Param("skuid") Integer skuid);
+
+    @Update("Update set quantity=quantity- #{quantity} where rushskuid = #{rushskuid} AND skuid = #{skuid}")
+    public Integer updateRushbuyByrushskuid(@Param("rushbuyid") Integer rushbuyid,@Param("skuid") Integer skuid,@Param("quantity") Integer quantity);
+
+
 
 }

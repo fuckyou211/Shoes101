@@ -143,12 +143,12 @@ public class PrepareRushServiceImpl implements PrepareRushService {
         map.put("rushinfo",rushbuyVo);
         map.put("rushlist",list);
         map.put("rushpic",picskulist);
-        for(int i = 0;i < list.size();i++){
-//            redisService.set(PrepareRushKey.showRushBuy,"rush_list",rushlist);
-            redisService.set(PrepareRushKey.shoesRush,"" + list.get(i).getSkuid(),list.get(i).getRushquantity());
-        }
-        redisService.set(PrepareRushKey.userlimit,"limitN",rushbuyVo.getLimitN());
-        redisService.set(PrepareRushKey.endtime,"endtime",rushbuyVo.getEndtime());
+//        for(int i = 0;i < list.size();i++){
+////            redisService.set(PrepareRushKey.showRushBuy,"rush_list",rushlist);
+//            redisService.set(PrepareRushKey.shoesRush,"" + list.get(i).getSkuid(),list.get(i).getRushquantity());
+//        }
+//        redisService.set(PrepareRushKey.userlimit,""+rushbuyVo.getRushbuyid(),rushbuyVo.getLimitN());
+//        redisService.set(PrepareRushKey.endtime,""+rushbuyVo.getRushbuyid(),rushbuyVo.getEndtime());
         return JSONObject.toJSONString(map);
     }
 }
