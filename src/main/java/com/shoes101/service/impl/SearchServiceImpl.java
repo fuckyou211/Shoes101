@@ -39,6 +39,9 @@ public class SearchServiceImpl implements SearchService {
         if(list==null){
             String value1 = "'%"+value+"%'";
             List<FGoodsVo> list1 = shoesMapper.searchByName(value1);
+            for(FGoodsVo fGoodsVo:list1){
+                fGoodsVo.setPics(shoesMapper.getAllPicById(fGoodsVo.getShoesid()));
+            }
             redisService.set(FGoodsKey.getGoodsListSearch,value,list1);
             return list1;
         }
