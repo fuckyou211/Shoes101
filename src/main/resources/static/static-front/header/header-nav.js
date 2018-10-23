@@ -8,7 +8,7 @@ var sta_1="<div class=\"mainmenu-area product-items\">\n" +
     "                <div class=\"row\">\n" +
     "                    <div class=\"col-md-3\">\n" +
     "                        <div class=\"logo\">\n" +
-    "                            <a href=\"index.html\">\n" +
+    "                            <a href=\"http://localhost:8080\">\n" +
     "                                <img src=\"../static-front/images/newlogo.png\" alt=\"\">\n" +
     "                            </a>\n" +
     "                        </div>\n" +
@@ -18,7 +18,7 @@ var sta_1="<div class=\"mainmenu-area product-items\">\n" +
     "                            <nav>\n" +
     "                                <ul>\n" +
     "                                    <li>\n" +
-    "                                        <a href=\"index.html\">101Shoes</a>\n" +
+    "                                        <a href=\"http://localhost:8080\">101Shoes</a>\n" +
     "                                    </li>\n" +
     "                                    <li>\n" +
     "                                        <a href=\"shop.html\">男鞋</a>\n" +
@@ -168,20 +168,15 @@ function loadNavData(data) {
 function brandsToNext(obj) {
     let theBrandsId = $(obj).attr("value");
     console.log(theBrandsId);
-    $.ajax({
-        url: "",
-        type: 'post',
-        data: { catalogId: theBrandsId },
-        dataType: 'json',
-    })
-
+    if(theBrandsId){
+        window.location.href="../../ShoesShop/shoes-list?propertyValueId="+theBrandsId;
+    }
 }
 /*分类跳转*/
 function toShoesList(obj) {
     let theClassifyId = $(obj).attr("value");
-    console.log("测试男女鞋分类：");
+    console.log("导航男女鞋分类：");
     console.log(theClassifyId);
-
     if(theClassifyId){
         window.location.href="../../ShoesShop/shoes-list?catalogId="+theClassifyId;
     }
@@ -191,16 +186,7 @@ function theSearch() {
     let theSearchContent = $("input[name='searchContent']").val();
     console.log("搜索");
     console.log(theSearchContent);
-    $.ajax({
-        url: "",
-        type: 'post',
-        data: {},
-        dataType: 'json',
-        success: function () {
-
-        },
-        error: function () {
-
-        }
-    })
+    if(theSearchContent){
+        window.location.href="../../ShoesShop/Search?value="+theSearchContent;
+    }
 }
