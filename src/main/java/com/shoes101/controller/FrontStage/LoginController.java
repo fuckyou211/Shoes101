@@ -146,6 +146,11 @@ public class LoginController {
     public Result<Boolean> logout(HttpServletRequest request,HttpServletResponse response){
         logger.info("申请退出！");
 
+
+        
+
+
+
         Cookie[] cookies = request.getCookies();
 
         String tk = null;
