@@ -256,7 +256,7 @@ function packageShoes() {
     let color = $($_Class("detail-shoes-color","choose-border")[0]).attr("title");
     let skuId = $("#shoes-skuid").val();        // skuid
 
-    if(!colorId){
+    if((!colorId) && (type == 1)){
         alert("请选择鞋子颜色！");
         return;
     }
@@ -295,7 +295,7 @@ function packageShoes() {
 function doPayNow(type) {
     //封装数据
     //alert('下单成功！');
-    let orderItem = packageShoes();
+    let orderItem = packageShoes(type);
     let rushbuyid = 0;
 
     if(!orderItem){
