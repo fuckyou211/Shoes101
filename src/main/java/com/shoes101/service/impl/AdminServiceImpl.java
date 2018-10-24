@@ -24,7 +24,7 @@ public class AdminServiceImpl implements AdminService {
     private  final Logger logger= LoggerFactory.getLogger(AdminServiceImpl.class) ;
 
 
-    public static final String COOKI_NAME_TOKEN = "token";
+    public static final String COOKI_NAME_TOKEN = "tokenAdmin";
     @Autowired
     private AdminMapper adminMapper;
 
