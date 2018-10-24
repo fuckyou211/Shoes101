@@ -4,6 +4,8 @@ import com.shoes101.mapper.PropertyMapper;
 import com.shoes101.mapper.PropertyvalueMapper;
 import com.shoes101.pojo.Property;
 import com.shoes101.pojo.Propertyvalue;
+import com.shoes101.redis.PropertyKey;
+import com.shoes101.redis.RedisService;
 import com.shoes101.service.PropertyService;
 
 
@@ -20,12 +22,19 @@ public class PropertyServiceImpl implements PropertyService {
 
     @Autowired
     PropertyvalueMapper propertyvalueMapper;
-
+    @Autowired
+    private RedisService redisService;
 
     //获取所有属性
     public List<Property> getAllProperty()
     {
-        return propertyMapper.selectAll();
+        List<Property> list = redisService.get(PropertyKey.getPropertyList,"",true,Property.class);
+        System.out.println("--------------"+list);
+        if(list==null){
+            list = propertyMapper.selectAll();
+            redisService.set(PropertyKey.getPropertyList,"",list);
+        }
+        return list;
     }
 
     //根据id获得属性和属性名
