@@ -1,0 +1,380 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>101 Shoes|商品</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="shortcut icon" type="image/x-icon" href="../static-front/img/101_favicon.ico">
+    <link rel="stylesheet" href="../static-front/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static-front/font/font-awesome.min.css">
+    <link rel="stylesheet" href="../static-front/css/owl.carousel.css">
+    <link rel="stylesheet" href="../static-front/css/owl.theme.css">
+    <link rel="stylesheet" href="../static-front/css/owl.transitions.css">
+    <link rel="stylesheet" href="../static-front/css/jquery-ui.css">
+    <link rel="stylesheet" href="../static-front/css/meanmenu.min.css">
+    <link rel="stylesheet" href="../static-front/css/nivo-slider.css">
+    <link rel="stylesheet" href="../static-front/css/preview.css">
+    <link rel="stylesheet" href="../static-front/css/animate.css">
+    <link rel="stylesheet" href="../static-front/css/magic.css">
+    <link rel="stylesheet" href="../static-front/css/normalize.css">
+    <link rel="stylesheet" href="../static-front/css/main.css">
+    <link rel="stylesheet" href="../static-front/css/style.css">
+    <link rel="stylesheet" href="../static-front/css/responsive.css">
+    <link rel="stylesheet" href="../static-front/css/shoes-list.css">
+
+    <script src="../static-front/js/modernizr-2.8.3.min.js"></script>
+    <script src="../static-front/js/jquery-1.12.1.min.js"></script>
+    <script src="../static-front/js/common.js"></script>
+    <script src="../static-front/js/vue.js"></script>
+</head>
+
+<body>
+<!--头部信息-->
+<header>
+    <div id="header-user"></div>
+    <div id="header-nav"></div>
+</header>
+
+<!--购物选择和商品展示-->
+<div class="product-main-items">
+    <div class="container">
+
+        <div class="row">
+            <!--购物选择-->
+            <div class="product-sidebar" style="margin-top: 25px">
+                <div class="sidebar-title">
+                    <h2>购物选择</h2>
+                </div>
+
+                <div id="theChoose">
+                    <div class="col-md-12">
+                        <!--属性选择-->
+                        <div class="single-sidebar" v-for="(value,key,index) in list">
+                            <div v-if="value.length>0&&index<3">
+                                <div class="single-sidebar-title">
+                                    <h3>{{key}}</h3>
+                                </div>
+                                <div class="single-sidebar-content">
+                                    <div :id="'shoes-attr-'+index" class="row">
+                                        <dl class="fl col-xs-9 shopping-choose" >
+
+                                            <div v-for="items in value" style="display: inline-block">
+                                                <dd class="choose-lab" :prop1="'shoes-attr-'+index" prop2="choose-lab-active" onclick="$_chooseChange(this)">
+                                                    <a href="javascript:;" :valId="items.propertyvalueid" :proId="items.propertyid" onclick="addProperty(this)">{{items.propertyvalue}}</a>
+                                                </dd>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="theBox" class="col-md-12" style="display:none">
+                        <div class="single-sidebar" v-for="(value,key,index) in list">
+                            <div v-if="value.length>0&&index>=3">
+                                <div class="single-sidebar-title">
+                                    <h3>{{key}}</h3>
+                                </div>
+                                <div class="single-sidebar-content">
+                                    <div :id="'shoes-attr-'+index" class="row">
+                                        <dl class="fl col-xs-9 shopping-choose" >
+
+                                            <div v-for="items in value" style="display: inline-block">
+                                                <dd class="choose-lab" :prop1="'shoes-attr-'+index" prop2="choose-lab-active" onclick="$_chooseChange(this)">
+                                                    <a href="javascript:;" :valId="items.propertyvalueid" :proId="items.propertyid" onclick="addProperty(this)" >{{items.propertyvalue}}</a>
+                                                </dd>
+                                            </div>
+                                        </dl>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <!--价格选择-->
+                    <div class="single-sidebar">
+                        <div class="single-sidebar-title">
+                            <h3>价格</h3>
+                        </div>
+                        <div class="single-sidebar-content">
+                            <div class="myrow">
+                                <input /><span> - </span><input />
+                                <button type="submit"> <span>确定</span> </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-12 expand" align="center">
+                    <input type="button" id="theBtn" onclick="btn()" value="更多"></input>
+                </div>
+            </div>
+
+        </div>
+
+        <!--商品展示-->
+        <div class="col-sm-12" id="theShoes">
+            <div class="product-bar">
+                <!--排序方式-->
+                <div class="sort-by">
+                    <label>排序方式</label>
+                    <a href="#" class="shoes-sort">默认<i></i></a>
+                    <a href="#" class="shoes-sort">销量<i></i></a>
+                    <a href="#" class="shoes-sort">价格<i></i></a>
+
+                </div>
+                <!--商品数量-->
+                <div class="limit-product" v-for="(value,key,index) in list" v-if="key=='totalCount'">
+                    <label>共找到<span> {{value}} </span>件商品</label>
+                </div>
+            </div>
+            <div class="row">
+                <!--列出商品-->
+                <div class="product-content">
+                    <div class="tab-content" v-for="(value,key,index) in list" v-if="key=='beanList'">
+                        <div class="tab-pane active in fade home2" v-for="items in value">
+
+                            <div class="col-lg-3 col-sm-6" align="center">
+                                <div class="single-product">
+                                    <div class="product-img">
+                                        <a target="_blank" :href="'/static-front/html/shoes-detail.htm?shoesId='+items.shoesid">
+                                            <img :src="items.pics[0]"  alt=" " class="primary-img ">
+                                            <img :src="items.pics[1]"  alt=" " class="secondary-img ">
+                                        </a>
+                                    </div>
+                                    <div class="product-name ">
+                                        <span  :title="items.shoesid">{{items.shoesname}}</span>>
+                                    </div>
+                                    <div class="price-rating ">
+                                        <span>￥{{items.price}}</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!--页码-->
+                    <div class="col-md-12">
+                        <div class="toolbar-bottom" v-for="(value,key,index) in list" v-if="key=='pageCode'">
+                            <ul>
+                                <li>
+                                    <a href="javascript:void(0);" @click="leftButton(value)" :value="value"> < </a>
+                                </li>
+                                <li class="current">
+                                    <a href="#">{{value}}</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:void(0);" @click="rightButton(value,list.totalCount)" :value="value"> > </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--尾部-->
+<div id="the_footer"></div>
+
+<script src="../static-front/js/jquery-1.12.1.min.js"></script>
+<script src="../static-front/js/bootstrap.min.js"></script>
+<script src="../static-front/js/wow.min.js"></script>
+<script src="../static-front/js/jquery-price-slider.js"></script>
+<script src="../static-front/js/jquery.nivo.slider.js"></script>
+<script src="../static-front/js/jquery.meanmenu.js"></script>
+<script src="../static-front/js/owl.carousel.min.js"></script>
+<script src="../static-front/js/jquery.elevatezoom.js"></script>
+<script src="../static-front/js/jquery.scrollUp.min.js"></script>
+<script src="../static-front/js/main.js"></script>
+<script src="../static-front/header/header-nav.js"></script>
+<script src="../static-front/header/header-user.js"></script>
+<script src="../static-front/footer/shoes-footer.js"></script>
+
+
+<script type="text/javascript">
+
+    $(function () {
+        let propertyTemp="[[${propertyFilter}]]";
+        let shoesTemp = "[[${pageOfShoes}]]";
+        propertyTemp = propertyTemp.replace(/&quot;/g,"\"");//把数据格式化
+        shoesTemp = shoesTemp.replace(/&quot;/g,"\"");
+        let propertyData = JSON.parse(propertyTemp);
+        let shoesData = JSON.parse(shoesTemp);
+        loadPropertyData(propertyData);
+        loadShoesData(shoesData);
+    });
+    var properties = [];
+    var catalogIds = [];
+    let myChoose, shoesList;
+    /*购物选择*/
+    myChoose = new Vue({
+        el: '#theChoose',
+        data: {
+            list:[]
+        }
+    });
+    /*鞋子展示*/
+    shoesList = new Vue({
+        el:'#theShoes',
+        data: {
+            list:[]
+        },
+        methods: {
+            leftButton: function(pageCode){
+                if( pageCode==1 ){
+                    pageCode--;
+                    requestPage(pageCode);
+
+                }else{
+                    return;
+                }
+            },
+            rightButton: function (pageCode,count){
+                if( pageCode<count){
+                    /*console.log(pageCode);
+                    console.log(count);*/
+                    pageCode++;
+                    requestPage(pageCode);
+                }else{
+                    return;
+                }
+
+            },
+        },
+    });
+    let btn1 = document.getElementById('theBtn');
+    let box1 = document.getElementById('theBox');
+
+    function btn() {
+
+        if(btn1.value == "收起") {
+            box1.style.display = 'none';
+            btn1.value = "更多";
+        } else {
+            box1.style.display = 'block';
+            btn1.value = "收起";
+        }
+    }
+    function loadPropertyData(data) {
+        myChoose.list = data;
+        console.log("列表页购物选择数据：");
+        console.log(myChoose.list);
+    }
+    function loadShoesData(data) {
+        shoesList.list = data;
+        console.log("列表页鞋子数据：");
+        console.log(shoesList.list);
+    }
+    /*获取地址栏参数*/
+    function getQueryString(name)
+    {
+        let reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+        let r = window.location.search.substr(1).match(reg);
+        if(r!=null)return  unescape(r[2]); return null;
+    }
+    function requestPage(pageCode) {
+        let size=16;
+        let filterFlag;
+        let value=getQueryString("value");
+        if( properties.length>0 ){
+            filterFlag = 1;
+        }else{
+            filterFlag = 0;
+        }
+        properties = JSON.stringify(properties);
+        $.ajax({
+            url: "/getSearchListByPage",
+            type: 'post',
+            data: {
+                size:size,
+                pageCode:pageCode,
+                value:value,
+                filterList:properties,
+                filterFlag:filterFlag,
+            },
+            dataType: 'json',
+            success: function (result) {
+                loadShoesData(result.data);
+            },
+            error: function (err) {
+                console.log(err);
+            },
+
+        })
+    }
+    function addProperty(obj) {
+        let catArr = [];
+        let i, theId, flag=0;
+        let thePropertyId = $(obj).attr("proId");
+        let theValueId = $(obj).attr("valId");
+        thePropertyId = parseInt(thePropertyId);
+        theValueId = parseInt(theValueId);
+
+        if(catalogIds.length>0){
+            for( i=0; i<catalogIds.length; i++ ){
+                if(catalogIds[i][0]==thePropertyId){
+                    theId = catalogIds[i][1];
+                    catalogIds.splice(i,1);
+                    break;
+                }
+            }
+        }
+        catArr.push(thePropertyId);
+        catArr.push(theValueId);
+        catalogIds.push(catArr);
+
+        if( properties.length>0 ){
+            for( i=0; i<properties.length; i++ ){
+                if( properties[i]==theValueId ){
+                    properties.splice(i,1);
+                    flag = 1;
+                    break;
+                }else if(properties[i]==theId){
+                    properties[i] = theValueId;
+                    flag = 2;
+                    break;
+                }
+            }
+        }else{
+            properties.push(theValueId);
+            flag = 3;
+        }
+        if(flag==0){
+            properties.push(theValueId);
+        }
+        console.log("选择属性数据：");
+        console.log(properties);
+        properties = JSON.stringify(properties);
+        let value=getQueryString("value");
+        $.ajax({
+            url: "/propertySearchFilter",
+            type: 'post',
+            data: {
+                filterList:properties,
+                value:value,
+            },
+            dataType: 'json',
+            success: function (result.data) {
+                loadShoesData(result);
+            },
+            error: function (err) {
+                console.log(err);
+            },
+        })
+        properties = JSON.parse(properties);
+
+    }
+</script>
+</body>
+
+
+
+</html>
