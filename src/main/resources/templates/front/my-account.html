@@ -24,10 +24,68 @@
 	<link rel="stylesheet" href="../static-front/css/style.css">
 	<link rel="stylesheet" href="../static-front/css/responsive.css">
 
+    <script>
+        function changemessage2(){
+            var alladdress=$("#province1").val()+$("#city1").val()+$("#district1").val()+$(".longaddress").val();
+            var allphone=$(".changephone").val();
+            var allname=$(".changename").val();
+            // alert(allname+allphone+"你妹啊");
+            // alert(alladdress);
+			$.ajax({
+				type: "post",
+				url: "/UserInformation/UpdateInformation",
+				data: {
+                    username:allname,
+                    phone:allphone,
+                    address:alladdress
+				},
+				dataType: "json",
+				success: function(data){
+                    $(".changetest").html("<span style='color: red;'>"+data.data+"</span>");
+                    $(".showusername").html("<span >"+allname+"</span>")
+                    $(".showaddress").html("<span >"+alladdress+"</span>")
+					// $('#resText').empty();   //清空resText里面的所有内容
+					// var html = '';
+					// $.each(data, function(commentIndex, comment){
+					// 	html += '<div class="comment"><h6>' + comment['username']
+					// 		+ ':</h6><p class="para"' + comment['content']
+					// 		+ '</p></div>';
+					// });
+					// $('#resText').html(html);
+				}
+            });
 
-	<script src="../static-front/js/city.js"></script>
+            // $.post({url:"/UserInformation/UpdateInformation",
+            //     dataType:'json',
+            //     type: 'post',
+            //     data:{
+            //         userid:1,
+            //         username: allname,
+            //         phone:allphone,
+            //         address:alladdress
+            //     },
+            //     success:function(result){
+            //         alert(result.data);
+            //         // if (allphone!=[[${imformation.myInformation.user.userid}]]||allphone!=[[${imformation.myInformation.user.phone}]])
+            //         {
+            //             alert(修改成功，请重新登录);
+            //             window.location.href="/login/to_login";
+            //         }
+            //     else {
+            //             $(".changetest").html("<span>"+result.data+"</span>");
+            //         }
+            //     },
+            //     fail: function (err) {
+            //         alert("出错！");
+            //         console.log(err);
+            //     }
+            // });
+        }
+	</script>
 
-	<script src="../static-front/js/modernizr-2.8.3.min.js"></script>
+
+
+	<!--<script src="../static-front/js/modernizr-2.8.3.min.js"></script>-->
 	<style>
 		.account-area .container .col-md-9 {
 			padding-top: 15px;
@@ -201,9 +259,11 @@
 																<div class="account-address">
 																	<ul>
 																		<li class="address-menu-title">我的地址</li>
-																		<li>地址：<span class="showaddress" th:text="((${imformation.myInformation.userAdress}!='')? ${imformation.myInformation.userAdress.address} : '还没填写')"></span></li>
-																		<li>手机：<span class="showphone">[[${imformation.myInformation.user.phone}]]</span></li>
-																		<li>姓名：<span class="showusername">[[${imformation.myInformation.user.username}]]</span></li>
+																		<li>姓名：<span  class="showusername">[[${imformation.myInformation.user.username}]]</span></li>
+																		<li>手机：<span  class="showphone">[[${imformation.myInformation.user.phone}]]</span></li>
+																		<li>地址：<span  class="showaddress" th:text="((${imformation.myInformation.userAdress}!=' ')? ${imformation.myInformation.userAdress.address} : '还没填写')"></span></li>
+
+
 																		<li>
 																			<!--<button > 更新 </button>-->
 																			<!--<button> 提交 </button>-->
@@ -238,30 +298,47 @@
 														<div class="list-style">
 															<div class="account-title">
 																<h4>如果您的个人信息发生了变化，请务必更新。</h4>
+																<h5 style="color:red;">(TS：不能更改你的手机号)</h5>
 															</div>
 															<div class="form-name">
-																<label>姓名  </label>
-																<input class="changename" type="text" placeholder="请填写你的姓名">
+																<label>用户名  </label>
+																<input class="changename" type="text" th:value="${imformation.myInformation.user.username}">
 															</div>
 															<div class="form-name">
-																<label>电话 </label>
-																<input class="changephone" type="text" placeholder="请填写你的收货电话号码">
+																<label>手机号 </label>
+																<input class="changephone" type="text" disabled="disabled" th:value="${imformation.myInformation.user.phone}">
 															</div>
+
+															<div data-toggle="distpicker">
 															<div class="form-name">
 																<label> 省份 </label>
-																<select class="province" id="province" value=""></select>
+																<label class="sr-only" for="province1">Province</label>
+																<select class="form-control" id="province1"></select>
 															</div>
 															<div class="form-name">
 																<label> 城市 </label>
-																<select class="city" id="city"></select>
+																<label class="sr-only" for="city1">City</label>
+																<select class="form-control" id="city1"></select>
+															</div>
+															<div class="form-name">
+																<label> 县/区 </label>
+																<label class="sr-only" for="district1">District</label>
+																<select class="form-control" id="district1"></select>
 															</div>
 															<div class="form-name">
 																<label>详细地址  </label>
 																<input class="longaddress" placeholder="请填写常住地址">
 															</div>
-															<div class="changemessage save-button">
-																<button>确认修改</button>
+<!--新联动-->
 															</div>
+															<div class="changetest" style="margin-left: 3em;">
+
+															</div>
+															<!--<a href="javascript:void(0)" class="btn dffmessage" id="" >确认修改</a>-->
+															<div class="save-button">
+																<button onclick="changemessage2()">确认修改</button>
+															</div>
+
 														</div>
 													</form>
 												</div>
@@ -913,6 +990,9 @@
 <script src="../static-front/header/header-nav.js"></script>
 <script src="../static-front/header/header-user.js"></script>
 <script src="../static-front/footer/shoes-footer.js"></script>
+<script src="../static-front/js/liandong/distpicker.data.js"></script>
+<script src="../static-front/js/liandong/distpicker.js"></script>
+<script src="../static-front/js/liandong/main.js"></script>
 <script type="text/javascript" src="../js/md5.js"></script>
 <script>
     $(document).ready(function() {
@@ -921,20 +1001,14 @@
                 $("li.bbbbb").removeClass("active");
             }
         });
-    });
-    $(document).ready(function() {
         $("li.bbbbb").click(function() {
             if($("li.aaaaa").hasClass("active")) {
                 $("li.aaaaa").removeClass("active");
             }
         });
-    });
-    $(document).ready(function() {
         $("li.bbbb1").click(function() {
             $("ul.aaaaa").show();
         });
-    });
-    $(document).ready(function() {
         $("li.bbbbb").click(function() {
             $("ul.aaaaa").hide();
         });
@@ -976,47 +1050,12 @@
             }
         });
     });
-    //			$(document).ready(function(){
-    //              $(".bbbb2").click(function(){
-    //                 $('#shoucang').load('index.html');
-    //              });
-    //         });
-    (function() {
-        var pHtmlStr = '';
-        for(var name in pc) {
-            pHtmlStr = pHtmlStr + '<option value=\"' + name + '\">' + name + '</option>';
-        }
-        $("#province").html(pHtmlStr);
-        $("#province").change(function() {
-            var pname = $("#province option:selected").text();
-            var pHtmlStr = '';
-            var cityList = pc[pname];
-            for(var index in cityList) {
-                pHtmlStr = pHtmlStr + '<option value=\"' + cityList[index] + '\">' + cityList[index] + '</option>';
-            }
-            $("#city").html(pHtmlStr);
-        });
-        $("#province").change();
-    })();
-</script>
-<script>
-    $(function () {
-        // $(".chaxunxinxi").click(function () {
-        //     $.post({url:"/UserInformation/UpdateInformation",
-        //         dataType:'json',
-        //         type: 'post',
-        //         success:function(result){
-        //             $(".showaddress").html("<span style='color: skyblue;'>"+result.data+"</span>");
-        //             $(".showphone").html("<span style='color: skyblue;'>13450438238</span>");
-        //             $(".showusername").html("<span style='color: skyblue;'>顺天</span>");
-        //         },
-        //         fail: function (err) {
-        //             alert("出错！");
-        //             console.log(err);
-        //         }
-        //     });
-        // });
 
+
+    $(function () {
+        $(".changemessage").click(function () {
+
+        });
     });
 
     function lianximaijia(a){
@@ -1024,7 +1063,7 @@
     }
     function shenqingtuihuo(orderid,validity,cancel,state){
         // alert("已申请订单号为："+a+"的订单退货");
-		console.log(validity);
+        console.log(validity);
         $.post({
             url:"../UserInformation/sendOrBackAjax2",
             type:'post',
@@ -1041,21 +1080,6 @@
                 console.log(err)
             }
         });
-        // $.ajax({
-        //     url:"/orderm/sendOrBackAjax",
-        //     dataType:"json",
-        //     type:"post",
-        //     data:{
-        //         orderid:a
-        //     },
-        //     success:function(result){
-        //         alert(result);
-		//
-        //         // else {
-        //         //     $("#xinmimaa").html(result.msg);
-        //         // }
-        //     }
-        // });
     }
     function tixingfahuo(a){
         alert("已提醒订单号为："+a+"的卖家发货");
@@ -1063,11 +1087,25 @@
     function lijifukuan(str) {
         window.location.href="/static-front/html/shoes-trace.htm?orderId="+str;
     }
+
+    // (function() {
+    //     var pHtmlStr = '';
+    //     for(var name in pc) {
+    //         pHtmlStr = pHtmlStr + '<option value=\"' + name + '\">' + name + '</option>';
+    //     }
+    //     $("#province").html(pHtmlStr);
+    //     $("#province").change(function() {
+    //         var pname = $("#province option:selected").text();
+    //         var pHtmlStr = '';
+    //         var cityList = pc[pname];
+    //         for(var index in cityList) {
+    //             pHtmlStr = pHtmlStr + '<option value=\"' + cityList[index] + '\">' + cityList[index] + '</option>';
+    //         }
+    //         $("#city").html(pHtmlStr);
+    //     });
+    //     $("#province").change();
+    // })();
 </script>
-
-
-
-</head>
 </body>
 
 </html>

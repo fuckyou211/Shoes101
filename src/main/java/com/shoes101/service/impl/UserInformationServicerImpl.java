@@ -135,6 +135,7 @@ public class UserInformationServicerImpl implements UserInformationServicer {
         user.setUsername(userImformationVo.getUsername());
         user.setPhone(userImformationVo.getPhone());
         userMapper.updateByPrimaryKey(user);
+        redisService.set(UserKey.getByPhone, ""+userImformationVo.getPhone(), user);
         Useraddress useraddress=useraddressMapper.selectByPrimaryKey(user.getUserid());
         if(useraddress==null)
         {
