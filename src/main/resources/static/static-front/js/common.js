@@ -241,8 +241,7 @@ function $_activeChange(oParent,oTarget, className) {
  */
 function getToken() {
     let token = getCookie("token");
-
-    if(!token){
+    if(token==""||token==null){
         alert("你还未登录,请先登录！");
         //token = "guoguanzhi-909683502";
         // 登录成功之后跳转到该页面

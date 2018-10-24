@@ -419,7 +419,7 @@ function getUserId() {
  * @param name
  * @returns {string}
  */
-function getCookie(name){
+/*function getCookie(name){
     let strcookie = document.cookie;//获取cookie字符串
     let arrcookie = strcookie.split(";");//分割
     //遍历匹配
@@ -430,5 +430,14 @@ function getCookie(name){
         }
     }
     return "";
+}*/
+//上述方法应该不行
+function getCookie(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+        return unescape(arr[2]);
+    else
+        return null;
 }
 
