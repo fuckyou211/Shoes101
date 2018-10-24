@@ -8,6 +8,7 @@
     <result column="quantity" property="quantity" jdbcType="INTEGER" />
     <result column="price" property="price" jdbcType="DOUBLE" />
     <result column="ticketprice" property="ticketprice" jdbcType="DOUBLE" />
+    <result column="adddate" property="adddate" jdbcType="DATE" />
   </resultMap>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
     delete from shopcartdetails
@@ -18,9 +19,9 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into shopcartdetails (scid, skuid, quantity, 
-      price, ticketprice)
+      price, ticketprice, adddate)
     values (#{scid,jdbcType=INTEGER}, #{skuid,jdbcType=INTEGER}, #{quantity,jdbcType=INTEGER}, 
-      #{price,jdbcType=DOUBLE}, #{ticketprice,jdbcType=DOUBLE})
+      #{price,jdbcType=DOUBLE}, #{ticketprice,jdbcType=DOUBLE}, #{adddate,jdbcType=DATE})
   </insert>
   <update id="updateByPrimaryKey" parameterType="com.shoes101.pojo.Shopcartdetails" >
     update shopcartdetails
@@ -28,16 +29,33 @@
       skuid = #{skuid,jdbcType=INTEGER},
       quantity = #{quantity,jdbcType=INTEGER},
       price = #{price,jdbcType=DOUBLE},
-      ticketprice = #{ticketprice,jdbcType=DOUBLE}
+      ticketprice = #{ticketprice,jdbcType=DOUBLE},
+      adddate = #{adddate,jdbcType=DATE}
     where scdid = #{scdid,jdbcType=INTEGER}
   </update>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
-    select scdid, scid, skuid, quantity, price, ticketprice
+    select scdid, scid, skuid, quantity, price, ticketprice, adddate
     from shopcartdetails
     where scdid = #{scdid,jdbcType=INTEGER}
   </select>
   <select id="selectAll" resultMap="BaseResultMap" >
-    select scdid, scid, skuid, quantity, price, ticketprice
+    select scdid, scid, skuid, quantity, price, ticketprice, adddate
     from shopcartdetails
+  </select>
+  <select id="selectShoesidBySkuid" resultType="java.lang.Integer" parameterType="java.lang.Integer">
+    select shoesid from shoes.shoessku where skuid = #{skuid,jdbcType=INTEGER}
+  </select>
+  <select id="selectSkupropertyBySkuid" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select skuproperty from shoes.shoessku where skuid = #{skuid,jdbcType=INTEGER}
+  </select>
+  <select id="selectShoesnameByShoesid" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select shoesname from shoes.shoes where shoesid = #{shoesid,jdbcType=INTEGER}
+  </select>
+  <select id="selectPropValByPropValId" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select propertyvalue from shoes.propertyvalue where propertyvalueid = #{propertyvalueid,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectcolorpicByid" resultType="java.lang.String" parameterType="java.lang.Integer">
+    select colorpicaddredd from shoes.colorpic where colorpicid = #{colorpicid,jdbcType=INTEGER}
   </select>
 </mapper>

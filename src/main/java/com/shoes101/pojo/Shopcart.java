@@ -18,7 +18,7 @@ public class Shopcart implements Serializable {
 
     private Double scticketprice;
 
-    private Date adddate;
+
 
     private static final long serialVersionUID = 1L;
 
@@ -54,14 +54,6 @@ public class Shopcart implements Serializable {
         this.scticketprice = scticketprice;
     }
 
-    public Date getAdddate() {
-        return adddate;
-    }
-
-    public void setAdddate(Date adddate) {
-        this.adddate = adddate;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -72,7 +64,6 @@ public class Shopcart implements Serializable {
         sb.append(", userid=").append(userid);
         sb.append(", sctotalprice=").append(sctotalprice);
         sb.append(", scticketprice=").append(scticketprice);
-        sb.append(", adddate=").append(adddate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

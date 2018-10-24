@@ -12,7 +12,7 @@ Vue.component('navigate',{
         '                            <ul class="dropdown-menu animated fadeInRight m-t-xs">\n' +
         '                                <li><a href="profile.html">修改密码</a></li>\n' +
         '                                <li class="divider"></li>\n' +
-        '                                <li><a href="login.html">退出</a></li>\n' +
+        '                                <li><a href="login">退出</a></li>\n' +
         '                            </ul>\n' +
         '                        </div>\n' +
         '                        <div class="logo-element">\n' +

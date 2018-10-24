@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Date;
 
 @Entity(name = "shopcartdetails")
 public class Shopcartdetails implements Serializable {
@@ -20,6 +21,8 @@ public class Shopcartdetails implements Serializable {
     private Double price;
 
     private Double ticketprice;
+
+    private Date adddate;
 
     private static final long serialVersionUID = 1L;
 
@@ -70,7 +73,13 @@ public class Shopcartdetails implements Serializable {
     public void setTicketprice(Double ticketprice) {
         this.ticketprice = ticketprice;
     }
+    public Date getAdddate() {
+        return adddate;
+    }
 
+    public void setAdddate(Date adddate) {
+        this.adddate = adddate;
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -83,6 +92,7 @@ public class Shopcartdetails implements Serializable {
         sb.append(", quantity=").append(quantity);
         sb.append(", price=").append(price);
         sb.append(", ticketprice=").append(ticketprice);
+        sb.append(", adddate=").append(adddate);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
