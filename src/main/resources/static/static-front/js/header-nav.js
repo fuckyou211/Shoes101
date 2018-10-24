@@ -9,7 +9,7 @@ var sta_1="<div class=\"mainmenu-area product-items\">\n" +
     "                    <div class=\"col-md-3\">\n" +
     "                        <div class=\"logo\">\n" +
     "                            <a href=\"http://localhost:8080\">\n" +
-    "                                <img src=\"../images/newlogo.png\" alt=\"\">\n" +
+    "                                <img src=\"../img/logo.png\" alt=\"\">\n" +
     "                            </a>\n" +
     "                        </div>\n" +
     "                    </div>\n" +
