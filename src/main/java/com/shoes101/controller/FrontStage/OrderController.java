@@ -107,11 +107,11 @@ public class OrderController {
 		orderItem.setRemark(remark);
 		orderItem.setUserid(user.getUserid());
 
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			Thread.sleep(5000);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 		Integer orderId = orderService.add(orderItem);
 		if(orderId != null){
 			redisService.delete(PageDataKey.orderData,token);

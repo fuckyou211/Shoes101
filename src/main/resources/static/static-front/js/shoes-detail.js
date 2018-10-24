@@ -242,7 +242,7 @@ function doAddCart() {
 }
 
 
-function packageShoes() {
+function packageShoes(type) {
     //封装数据
     // 获取鞋子的id
     let shoes_id =  $($_Id("shoes-id")).html();
@@ -293,6 +293,7 @@ function packageShoes() {
 
 
 function doPayNow(type) {
+    getToken();
     //封装数据
     //alert('下单成功！');
     let orderItem = packageShoes(type);
