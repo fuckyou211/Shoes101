@@ -31,7 +31,7 @@ public class SearchServiceImpl implements SearchService {
         }
     */
         value = "'%"+value+"%'";
-        Integer start = pageCode*size;
+        Integer start = (pageCode-1)*size;
         List<FGoodsVo> list = shoesMapper.searchByNamePage(value,start,size);
         for(FGoodsVo fGoodsVo:list){
             fGoodsVo.setPics(shoesMapper.getAllPicById(fGoodsVo.getShoesid()));
