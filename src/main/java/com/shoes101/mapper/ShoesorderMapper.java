@@ -45,11 +45,16 @@ public interface ShoesorderMapper {
     //发货或者退款
     public int sendOrBack(@Param("orderid") int orderid,@Param("validity") int validity,@Param("cancel") int cancel,@Param("state") int state);
 
-    @Select("select * from shoesorder as a where a.userid = #{userid} AND a.state=#{state} ")
+    @Select("select * from shoesorder as a where a.userid = #{userid} AND a.state=#{state} AND a.validity=1 AND a.cancel=0")
     public List<Shoesorder> getshoesorderByorderidState(@Param("userid") Integer userid,@Param("state") Integer state);
 
-    @Select("select * from shoesorder as a where a.userid = #{userid} AND a.state!= 100 AND a.state !=101 AND a.state!=102")
+    @Select("select * from shoesorder as a where a.userid = #{userid} AND a.state!= 0 AND a.state !=1 AND a.state!=2 AND a.validity=1 AND a.cancel=0")
     public List<Shoesorder> getshoesorderByorderidState1(@Param("userid") Integer userid,@Param("state") Integer state);
+
+    @Select("select * from shoesorder as a where a.validity = #{validity} AND a.cancel=1")
+    public List<Shoesorder> getshoesorderByorderidvalidity(@Param("userid") Integer userid,@Param("validity") Integer validity);
+
+
 
     //获取销量Top10
     public List<ShoesidAndSalesVo> getTop();

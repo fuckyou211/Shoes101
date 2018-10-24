@@ -126,9 +126,9 @@
   </select>
 
   <select id="getShoesForRush" resultType="com.shoes101.vo.RushMVo">
-select shoes.shoesid,shoes.shoesname,(select shoessku.price from shoessku where shoes.shoesid = shoessku.shoesid GROUP BY shoes.shoesid) AS price,
+select shoes.shoesid,shoes.shoesname,(select any_value (shoessku.price) from shoessku where shoes.shoesid = shoessku.shoesid GROUP BY shoes.shoesid) AS price,
 (select sum(shoessku.quantity) from shoessku where shoes.shoesid = shoessku.shoesid) AS shoessku,
-(SELECT picaddress from shoespic where shoes.shoesid = shoespic.shoesid GROUP BY shoesid) AS shoespic
+(SELECT any_value (picaddress) from shoespic where shoes.shoesid = shoespic.shoesid GROUP BY shoesid) AS shoespic
 from shoes
 ,shoessku
 ,shoespic

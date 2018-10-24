@@ -2,7 +2,10 @@ package com.shoes101.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.shoes101.exception.GlobalException;
-import com.shoes101.mapper.*;
+import com.shoes101.mapper.OrderdetailMapper;
+import com.shoes101.mapper.ShoesorderMapper;
+import com.shoes101.mapper.UserMapper;
+import com.shoes101.mapper.UseraddressMapper;
 import com.shoes101.pojo.Shoesorder;
 import com.shoes101.pojo.User;
 import com.shoes101.pojo.Useraddress;
@@ -59,38 +62,58 @@ public class UserInformationServicerImpl implements UserInformationServicer {
 
     public Map<String,Object> myInformation(User user){
         Map<String,Object> myInformation=new HashMap<>();
-        myInformation.put("myorder",myOrder(user,0));
+        myInformation.put("myorder",myOrder(user,5));
         myInformation.put("user",user);
         Useraddress useraddress= useraddressMapper.selectByPrimaryKey(user.getUserid());
         if(useraddress==null)
         {
+
             myInformation.put("userAdress",new Useraddress());
+
         }
         else
         {
             myInformation.put("userAdress",useraddress);
+
         }
         return myInformation;
     }
 
     public Map<String,Object> myOrderMap(User user){
         Map<String,Object> orderMap=new HashMap<>();
-        orderMap.put("nopayoder",myOrder(user,100));
-        orderMap.put("readysend",myOrder(user,101));
-        orderMap.put("alreadysend",myOrder(user,102));
-        orderMap.put("alreadyget",myOrder(user,103));
+        orderMap.put("nopayoder",myOrder(user,0));
+        orderMap.put("readysend",myOrder(user,1));
+        orderMap.put("alreadysend",myOrder(user,2));
+        orderMap.put("alreadyget",myOrder(user,3));
+        orderMap.put("readypayback",tuikuan(user,1));
+        orderMap.put("alreadyback",tuikuan(user,0));
         return orderMap;
     }
+    public List<Map<String,Object>> tuikuan(User user, Integer validity)
+    {
+        List<Map<String,Object>> mapList=new ArrayList<>();
+        List<Shoesorder> orderList=null;
+        orderList=shoesorderMapper.getshoesorderByorderidvalidity(user.getUserid(),validity);
 
+        for(int i=0;i<orderList.size();i++)
+        {
+            Map<String,Object> shoesMap=new HashMap<>();
+            Shoesorder shoesorder=orderList.get(i);
+            shoesMap.put("shoesorder",shoesorder);
+            shoesMap.put("orderDetail",orderdetailMapper.getOrderdetailByorderid(shoesorder.getOrderid()));
+            mapList.add(shoesMap);
+        }
+        return mapList;
+    }
 
     public List<Map<String,Object>> myOrder(User user, Integer state)
     {
         List<Map<String,Object>> mapList=new ArrayList<>();
         List<Shoesorder> orderList=null;
-        if(state.equals(0)){
+        if(state.equals(5)){
             orderList=shoesorderMapper.getOrderByUserId(user.getUserid());
         }
-        else if(state.equals(103)){
+        else if(state.equals(3)){
             orderList=shoesorderMapper.getshoesorderByorderidState1(user.getUserid(),state);
         }
         else {

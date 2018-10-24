@@ -12,9 +12,7 @@ $(function () {
  *  跳转至下单页面
  * @param data
  */
-function dumpToPayPage(data) {
-
-
+function dumpToPayPage(data,type,rushbuyid) {
 
     if(!data){
         return;
@@ -29,6 +27,22 @@ function dumpToPayPage(data) {
         // TODO 保存数据到时候直接跳转到该页面
         //return;
     }
+    // 抢购的
+    if(type  == 2){
+        data[0].rushbuyid = rushbuyid;
+        $.ajax({
+            url: "/order/pageData",
+            type: "POST",
+            data: {
+                "key":token,
+                "data":JSON.stringify(data[0]),
+            },
+            success: function (data) {
+                window.location.href ="/static-front/html/shoes-pay.htm";
+            }
+        });
+    }
+
 
     $.ajax({
         url: "/order/pageData",
@@ -38,13 +52,13 @@ function dumpToPayPage(data) {
             "data":JSON.stringify(data),
         },
         success: function (data) {
-
+            window.location.href ="/static-front/html/shoes-pay.htm";
         }
 
     });
 
     //renderPayPage(data);
-    window.location.href ="/static-front/html/shoes-pay.htm";
+
 }
 
 

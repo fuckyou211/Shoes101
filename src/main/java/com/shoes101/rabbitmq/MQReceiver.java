@@ -53,16 +53,17 @@ public class MQReceiver {
 				throw new GlobalException(CodeMsg.MIAOSHA_NULLGOOD);
 			}
 
-			OrderVo orderVo=new OrderVo();
-			orderVo.setContactName(rushOrderVo.getContactName());
-			orderVo.setContactPhone(rushOrderVo.getContactPhone());
-			orderVo.setReceiptaddress(rushOrderVo.getReceiptaddress());
-			orderVo.setRemark(rushOrderVo.getRemark());
-			orderVo.setSkuidandqty(rushOrderVo.getSkuidandqty());
-			orderVo.setUserid(rushOrderVo.getUserid());
-			orderVo.setToken(rushOrderVo.getToken());
-			Integer orderid=orderService.add(orderVo);
-			redisService.set(RushKey.orderId,user.getUserid()+":"+rushOrderVo.getRushbuyid(),orderid);
+//			OrderVo orderVo=new OrderVo();
+//			orderVo.setContactName(rushOrderVo.getContactName());
+//			orderVo.setContactPhone(rushOrderVo.getContactPhone());
+//			orderVo.setReceiptaddress(rushOrderVo.getReceiptaddress());
+//			orderVo.setRemark(rushOrderVo.getRemark());
+//			orderVo.setSkuidandqty(rushOrderVo.getSkuidandqty());
+//			orderVo.setUserid(rushOrderVo.getUserid());
+//			orderVo.setToken(rushOrderVo.getToken());
+//			Integer orderid=orderService.add(orderVo);
+//			redisService.set(RushKey.orderId,user.getUserid()+":"+rushOrderVo.getRushbuyid(),orderid);
+//
 			redisService.set(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),1);
 
 		}

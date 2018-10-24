@@ -292,10 +292,11 @@ function packageShoes() {
 }
 
 
-function doPayNow() {
+function doPayNow(type) {
     //封装数据
     //alert('下单成功！');
     let orderItem = packageShoes();
+    let rushbuyid = 0;
 
     if(!orderItem){
         return;
@@ -309,8 +310,17 @@ function doPayNow() {
     console.log("下单的数据："+orderItem);
 
     let orderItemArr = new Array(orderItem);
+
     //orderItemArr[orderItemArr.length] = orderItem;
-    dumpToPayPage(orderItemArr);
+
+    if(type == 2){
+        rushbuyid = getQueryPathStringByName(rushbuyid);
+        dumpToPayPage(orderItemArr,type,rushbuyid);
+    }else {
+        dumpToPayPage(orderItemArr,type);
+    }
+
+
 
     //跳转到购物车页面
     //window.location.href="./shoes-pay.html";

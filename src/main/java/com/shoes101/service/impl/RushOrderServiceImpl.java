@@ -50,8 +50,11 @@ public class RushOrderServiceImpl implements RushOrderService {
             redisSave(rushOrderVo);
         }
         Long state=redisService.get(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),Long.class);
-
-        if(state.equals(0))
+        if(state==null)
+        {
+            state=Long.valueOf(-1);
+        }
+        if(state==0)
         {
             throw new GlobalException(CodeMsg.MIAOSHA_READNULL);
         }
@@ -61,7 +64,7 @@ public class RushOrderServiceImpl implements RushOrderService {
         }
         Long overnumber=redisService.get(RushKey.userLimit,user.getUserid()+":"+rushOrderVo.getRushbuyid(),Long.class);
         Long limitnumber=redisService.get(RushKey.rushLimit,""+rushOrderVo.getRushbuyid(),Long.class);
-        if(overnumber.equals(null))
+        if(overnumber==null)
         {
             overnumber=Long.valueOf(0);
         }
@@ -74,6 +77,7 @@ public class RushOrderServiceImpl implements RushOrderService {
         Long number=redisService.decrBy(RushKey.rushsku, rushOrderVo.getRushbuyid()+":"+rushOrderVo.getShoessku(),rushOrderVo.getQuantity());
         if(number<=0)
         {
+            redisService.incrBy(RushKey.rushsku, rushOrderVo.getRushbuyid()+":"+rushOrderVo.getShoessku(),rushOrderVo.getQuantity());
             redisService.set(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),-1);
             throw new GlobalException(CodeMsg.MIAOSHA_NULLGOOD);
         }
@@ -97,7 +101,8 @@ public class RushOrderServiceImpl implements RushOrderService {
         try {
             int begintime = date.compareTo(dateFormat.parse(rushbuy.getBegintime()));
             int endtime = date.compareTo(dateFormat.parse(rushbuy.getEndtime()));
-            if(begintime==-1&&endtime==1)
+
+            if(begintime==1&&endtime==-1)
             {
                 List<Rushsku> rushskuList=rushbuyMapper.getRushbuyByGoodrushbuyid(rushbuy.getRushbuyid());
                 Calendar c1 =Calendar.getInstance();
@@ -114,7 +119,7 @@ public class RushOrderServiceImpl implements RushOrderService {
                     redisService.set(new RushKey(timeEnd-timeNew,"rushsku"),rushbuy.getRushbuyid()+":"+rushskuList.get(i).getSkuid(),rushskuList.get(i).getQuantity());
                 }
             }
-            else if(begintime==1)
+            else if(begintime==-1)
             {
                 throw new GlobalException(CodeMsg.MIAOSHA_NULLBEGIN);
             }
