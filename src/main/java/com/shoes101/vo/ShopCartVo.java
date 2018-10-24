@@ -9,10 +9,10 @@ public class ShopCartVo {
     private double price;
     private double totalprice;
     private String shoesName;
-    private String picaddress;//弃用，已改成 colorPic，
     private String colorPic;
     private String color;
     private String size;
+    private int shoesid;
 
     public int getScdid() {
         return scdid;
@@ -78,12 +78,12 @@ public class ShopCartVo {
         this.colorPic = colorPic;
     }
 
-    public String getPicaddress() {
-        return picaddress;
+    public int getShoesid() {
+        return shoesid;
     }
 
-    public void setPicaddress(String picaddress) {
-        this.picaddress = picaddress;
+    public void setShoesid(int shoesid) {
+        this.shoesid = shoesid;
     }
 
     public String getColor() {

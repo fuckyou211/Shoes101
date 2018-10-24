@@ -37,7 +37,7 @@ public class ShopCartServiceImpl implements ShopCartService {
         shopcartdetails.setSkuid(shopCartVo.getSkuid());//skuid
         shopcartdetails.setQuantity(shopCartVo.getCount());//数量
         shopcartdetails.setAdddate(new Date());//日期
-        shopcartdetails.setPrice(getTotalPrice(shopCartVo));//总价
+        shopcartdetails.setPrice(shopCartVo.getPrice());//单价
 
         //存到数据库,更新购物车详情
         scdmapper.insert(shopcartdetails);
@@ -68,20 +68,20 @@ public class ShopCartServiceImpl implements ShopCartService {
             shopCartVo.setCount(item.getQuantity());
             shopCartVo.setSkuid(item.getSkuid());//skuid
             shopCartVo.setScdid(item.getScdid());//购物车id
-            shopCartVo.setTotalprice(item.getPrice());
+            shopCartVo.setPrice(item.getPrice());
+            shopCartVo.setTotalprice(item.getPrice()*item.getQuantity());
             //颜色图片
             shopCartVo.setColorPic(scdmapper.selectcolorpicByid(item.getSkuid()));
 
             //先根据 skuid 找到 shoesid，接着再根据 shoesid 找到 name
 
             int shoesid = scdmapper.selectShoesidBySkuid(item.getSkuid());
+            shopCartVo.setShoesid(shoesid);
             shopCartVo.setShoesName(scdmapper.selectShoesnameByShoesid(shoesid));
-            System.out.println("skuid= "+item.getSkuid());
             // 再根据skuid 返回 skuproperty
             String skuproperty = scdmapper.selectSkupropertyBySkuid(item.getSkuid());
 
             //将得到的字符串解析为颜色和尺码 得到的格式：{d:d,d:d},d 为int型的id
-            System.out.println("skuproperty: "+skuproperty);
 
             skuproperty = skuproperty.replace("{", "").replace("}","");
             String[] strs = skuproperty.split(",");

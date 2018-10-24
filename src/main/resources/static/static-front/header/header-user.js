@@ -50,30 +50,20 @@ Vue.component('user-header',{
         '                                    <a href="#"><i class="fa fa-shopping-cart" style="font-size: 20px;"></i> <span>2</span> </a>\n' +
         '                                    <div class="cart-info">\n' +
         '                                        <ul>\n' +
-        '                                            <li>\n' +
-        '                                                <div class="cart-img">\n' +
-        '                                                    <img src="../static-front/img/1.png">\n' +
+        '                                            <li v-for="item in shopcart">\n' +
+        '                                                <div class="cart-img" style="width:70px">\n' +
+        '                                                    <img :src="item.colorPic">\n' +
         '                                                </div>\n' +
         '                                                <div class="cart-details">\n' +
-        '                                                    <a href="shoes-cart.html">商品1</a>\n' +
-        '                                                    <p>1 x $174.00</p>\n' +
-        '                                                </div>\n' +
-        '                                                <div class="btn-edit"></div>\n' +
-        '                                                <div class="btn-remove"></div>\n' +
-        '                                            </li>\n' +
-        '                                            <li>\n' +
-        '                                                <div class="cart-img">\n' +
-        '                                                    <img src="../static-front/img/2.png" alt="">\n' +
-        '                                                </div>\n' +
-        '                                                <div class="cart-details">\n' +
-        '                                                    <a href="shoes-cart.html">商品2</a>\n' +
-        '                                                    <p>1 x $777.00</p>\n' +
+        '                                                    <a :href="\'http://localhost:8080/static-front/html/shoes-detail.htm?shoesId=\'+ item.shoesid" ' +
+        '                                                        style="white-space:nowrap; overflow:hidden;text-overflow:ellipsis;width:100px;">{{item.shoesName}}</a>\n' +
+        '                                                    <p>{{item.count}} x ¥{{item.price}}</p>\n' +
         '                                                </div>\n' +
         '                                                <div class="btn-edit"></div>\n' +
         '                                                <div class="btn-remove"></div>\n' +
         '                                            </li>\n' +
         '                                        </ul>\n' +
-        '                                        <h3>小计: <span> $951.00</span></h3>\n' +
+        '                                        <h3>小计: <span> ¥{{shopcartprice}}</span></h3>\n' +
         '                                        <a href="checkout.html" class="checkout">查看</a>\n' +
         '                                    </div>\n' +
         '                                </li>\n' +
@@ -87,7 +77,8 @@ Vue.component('user-header',{
         return{
             user:[],//用户信息
             online:false,//是否登录
-            shopcart:[]
+            shopcart:[],
+            shopcartprice:0
         }
     },
 
@@ -113,6 +104,32 @@ Vue.component('user-header',{
                 console.log("失败："+err)
             }
         });
+
+            $.ajax({
+                url: "http://localhost:8080/cart/getShopCart",
+                type: 'post',
+                dataType: 'json',
+                success: function (result) {
+                    console.log("shopcart: ")
+
+                    if(result.data!=null){
+                        var cartdata = JSON.parse(result.data)
+                        console.log(cartdata);
+                        self.shopcart = cartdata;
+                        let toprice=0;
+                        for (let i in cartdata){
+                            toprice+=cartdata[i].totalprice;
+                        }
+                        self.shopcartprice = toprice;
+
+                    }
+                },
+                fail: function (err) {
+                    console.log("失败："+err)
+                }
+            });
+
+
 
     },
     methods:{

@@ -25,4 +25,18 @@ public class ShopCartController {
         String list = JSON.toJSONString(cartService.addShopCart(shopCartVo));
         return Result.success(list);
     }
+
+    @RequestMapping("/remove")
+    @ResponseBody
+    public Result<String> removeCart(){
+
+        return Result.success("");
+    }
+
+    @RequestMapping("/getShopCart")
+    @ResponseBody
+    public Result<String> getShopCart(){
+        String list = JSON.toJSONString(cartService.getUserShopCart());
+        return Result.success(list);
+    }
 }
