@@ -131,7 +131,7 @@ $(function(){
 
 function logout() {
     $.ajax({
-       url:"../login/logout",
+       url:"/login/logout",
        type:"GET",
        success: function (data) {
            if(data.code == 0){

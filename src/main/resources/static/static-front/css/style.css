@@ -963,8 +963,8 @@ body {
 .product-img a {
     display: block;
     position: relative;
-    height: 263px;
-    width: 263px;
+    height: 260px;
+    width: 260px;
 }
 .product-img a .secondary-img {
     height:auto;
