@@ -293,7 +293,7 @@ function packageShoes(type) {
 
 
 function doPayNow(type) {
-    getToken();
+    let token = getToken();
     //封装数据
     //alert('下单成功！');
     let orderItem = packageShoes(type);
@@ -316,9 +316,9 @@ function doPayNow(type) {
 
     if(type == 2){
         rushbuyid = getQueryPathStringByName(rushbuyid);
-        dumpToPayPage(orderItemArr,type,rushbuyid);
+        dumpToPayPage(orderItemArr,token,type,rushbuyid);
     }else {
-        dumpToPayPage(orderItemArr,type);
+        dumpToPayPage(orderItemArr,token,type);
     }
 
 

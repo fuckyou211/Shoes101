@@ -12,21 +12,22 @@ $(function () {
  *  跳转至下单页面
  * @param data
  */
-function dumpToPayPage(data,type,rushbuyid) {
+function dumpToPayPage(data,token,type,rushbuyid) {
 
     if(!data){
         return;
     }
     //$.cookie("data",data);
-    let token = getCookie("token");
+    //let token = getCookie("token");
+    //let token = getToken();
 
-    if(!token){
-        //TODO alert("你还未登录,请先登录！");
-        token = "guoguanzhi-909683502";
-        // 登录成功之后跳转到该页面
-        // TODO 保存数据到时候直接跳转到该页面
-        //return;
-    }
+    // if(!token){
+    //     //TODO alert("你还未登录,请先登录！");
+    //     token = "guoguanzhi-909683502";
+    //     // 登录成功之后跳转到该页面
+    //     // TODO 保存数据到时候直接跳转到该页面
+    //     //return;
+    // }
     // 抢购的
     if(type  == 2){
         data[0].rushbuyid = rushbuyid;
@@ -243,7 +244,7 @@ function getToken() {
 
     if(!token){
         alert("你还未登录,请先登录！");
-        token = "guoguanzhi-909683502";
+        //token = "guoguanzhi-909683502";
         // 登录成功之后跳转到该页面
         // TODO 保存数据到时候直接跳转到该页面
         window.location.href="/login/to_login"
@@ -343,13 +344,13 @@ function getShoesMaxStock(id) {
 /**
  * 判断是否登录
  */
-function isLogin() {
-    let login_tip = $($_Id("login-tip"));
-
-    // 如果有<b> 标签就表示已经登录
-    return login_tip.children("b:first-child").length === 1 ? true:false;
-}
-// 获取url参数
+//
+// 获取url参数function isLogin() {
+// //     let login_tip = $($_Id("login-tip"));
+// //
+// //     // 如果有<b> 标签就表示已经登录
+// //     return login_tip.children("b:first-child").length === 1 ? true:false;
+// // }
 function getQueryPathStringByName(name) {
     var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
     var r = window.location.search.substr(1).match(reg);
