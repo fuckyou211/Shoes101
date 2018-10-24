@@ -17,17 +17,6 @@ function dumpToPayPage(data,token,type,rushbuyid) {
     if(!data){
         return;
     }
-    //$.cookie("data",data);
-    //let token = getCookie("token");
-    //let token = getToken();
-
-    // if(!token){
-    //     //TODO alert("你还未登录,请先登录！");
-    //     token = "guoguanzhi-909683502";
-    //     // 登录成功之后跳转到该页面
-    //     // TODO 保存数据到时候直接跳转到该页面
-    //     //return;
-    // }
     // 抢购的
     if(type  == 2){
         data[0].rushbuyid = rushbuyid;
@@ -139,23 +128,7 @@ function $_Class(oParent, clazz) {
     }
 
 }
-/**
- *  根据cookie的名字获取cookie的值
- * @param name
- * @returns {string}
- */
-function getCookie(name){
-    let strcookie = document.cookie;//获取cookie字符串
-    let arrcookie = strcookie.split(";");//分割
-    //遍历匹配
-    for ( var i = 0; i < arrcookie.length; i++) {
-        var arr = arrcookie[i].split("=");
-        if (arr[0] == name){
-            return arr[1];
-        }
-    }
-    return "";
-}
+
 /**
  * 检查类
  * @param startClass
@@ -257,13 +230,20 @@ function $_activeChange(oParent,oTarget, className) {
  */
 function getToken() {
     let token = getCookie("token");
-    if(token==""||token==null){
-        alert("你还未登录,请先登录！");
-        //token = "guoguanzhi-909683502";
-        // 登录成功之后跳转到该页面
-        // TODO 保存数据到时候直接跳转到该页面
-        window.location.href="/login/to_login"
-        return;
+
+    if(!token){
+
+        layer.msg('你还未登录！登录？', {
+            time: 0 //不自动关闭
+            ,btn: ['确定', '取消']
+            ,yes: function(index){
+                window.location.href="/login/to_login";
+                return;
+            }
+            ,btn2: function(index){
+
+            }
+        });
     }
 
     return token;
