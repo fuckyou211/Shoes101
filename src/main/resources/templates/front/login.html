@@ -30,6 +30,7 @@
                         {
                             settime(obj);
                             // self.location=document.referrer;
+                            $(".dxdlyzmtest").html("<span style='color: green;'>"+result.msg+"</span>");
                         }
                         else {
                             $(".dxdlyzmtest").html("<span style='color: red;'>"+result.msg+"</span>");
@@ -445,7 +446,8 @@
                         dataType:'json',
                         type: 'post',
                         data:{
-                            mobile:$("#changepasswordphone").val()
+                            mobile:$("#phone1").val(),
+							code:$("#dlyzm").val()
                         },
                         success:function(result){
                             //eval函数解析json数据
@@ -453,7 +455,13 @@
                             console.log(result.data);
                             if (result.code==0)
                             {
-                                window.location.href="/UserInformation/UserMyAccount";
+                                var a = document.referrer+"";
+                                if(a.match("to_login")=="to_login"||a==null|| a == ""){
+                                    window.location.href="/UserInformation/UserMyAccount";
+                                }
+                                else {
+                                    self.location=document.referrer;
+                                }
                             }
                             else {
                                 $(".dxdlyzmtest").html("<span style='color: red;'>"+result.msg+"</span>");
