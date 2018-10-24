@@ -10,6 +10,8 @@ import com.alipay.api.response.AlipayOpenPublicTemplateMessageIndustryModifyResp
 import com.alipay.api.response.AlipayTradePayResponse;
 import com.shoes101.config.AlipayConfig;
 import com.shoes101.pojo.Shoesorder;
+import com.shoes101.result.CodeMsg;
+import com.shoes101.result.Result;
 import com.shoes101.service.OrderService;
 import com.shoes101.service.ShoesOrderService;
 import org.slf4j.Logger;
@@ -32,17 +34,29 @@ public class PayController {
 	@Autowired
 	ShoesOrderService shoesOrderService;
 
-	@PostMapping(value = "/{orderId}")
+	@GetMapping(value = "/total/{orderId}")
 	@ResponseBody
-	public String doPay(@PathVariable("orderId") String orderId, HttpServletResponse response, HttpServletRequest request){
+	public String getPayTotal(@PathVariable("orderId") String orderId, HttpServletResponse response, HttpServletRequest request){
 		logger.info("订单编号为的 {}",orderId);
-
 		// 根据orderiD获取订单信息
 		Shoesorder shoesorder = shoesOrderService.getOrderById(Integer.parseInt(orderId));
-
 		return shoesorder.getTotalprice()+"";	// 返回总价格
 
 		//return doPayForAliPay(shoesorder,response, request);
+	}
+
+	@PostMapping(value = "/{orderId}")
+	@ResponseBody
+	public Result<Boolean> doPay(@PathVariable("orderId") String orderId, HttpServletResponse response, HttpServletRequest request){
+		logger.info("订单编号为的 {}",orderId);
+
+		if(orderId != null || orderId.length() != 0){
+			// 更改状态
+			shoesOrderService.changeState(1,Integer.parseInt(orderId));
+			return Result.success(true);
+		}
+		else
+			return Result.error(CodeMsg.SERVER_ERROR);
 	}
 
 	/**

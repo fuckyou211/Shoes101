@@ -7,6 +7,7 @@ import com.shoes101.mapper.ShoespicMapper;
 import com.shoes101.pojo.Propertyvalue;
 import com.shoes101.pojo.Shoes;
 import com.shoes101.pojo.Shoescatalog;
+import com.shoes101.redis.CatalogKey;
 import com.shoes101.redis.FGoodsKey;
 import com.shoes101.redis.RedisService;
 import com.shoes101.result.Result;
@@ -129,23 +130,39 @@ public class ShoesHeaderServiceImpl implements ShoesHeaderService {
      *
      */
 
-    //实现NavBarService里的一个方法
+    //实现ShoesHeadre里的一个方法
     @Override
     public List<CatalogInfoVo> getCatalogInfo(Shoescatalog shoescatalog ,Integer level) {
-        //清空neededList
-        neededList.clear();
-        System.out.println("一开始的needList"+neededList);
-        //level
-        List<CatalogInfoVo> levelList = new ArrayList<CatalogInfoVo>();
-        Map<String,List<CatalogInfoVo>> map = new HashMap<String, List<CatalogInfoVo>>();
-        levelList =  getLevelList(shoescatalog,level,levelList);
-        //System.out.println("经过getLevelList的levelList:"+levelList.toString());
-        levelList = HandleLevelList(levelList,level,shoescatalog);
-       // System.out.println("经过HandleLevelList的levelList"+levelList);
+        List<CatalogInfoVo> tempList = new ArrayList<>();
         List<CatalogInfoVo> newList = new ArrayList<CatalogInfoVo>();
-        newList  = (List<CatalogInfoVo>) ((ArrayList<CatalogInfoVo>) levelList).clone();
-        //System.out.println("needList = "+neededList.toString());
-        newList  = combineList(neededList,newList);
+        newList = redisService.get(CatalogKey.getCatalogInfo,""+shoescatalog.getCatalogid()+"_"+level,true,CatalogInfoVo.class);
+        if(newList==null){
+            //清空neededList
+            neededList.clear();
+            System.out.println("一开始的needList"+neededList);
+            //level
+            List<CatalogInfoVo> levelList ;
+            Map<String,List<CatalogInfoVo>> map = new HashMap<String, List<CatalogInfoVo>>();
+            levelList = redisService.get(CatalogKey.getLevelList,""+shoescatalog.getCatalogid()+"_"+level,true,CatalogInfoVo.class);
+            if(levelList == null){
+                levelList = new ArrayList<>();
+                levelList =  getLevelList(shoescatalog,level,levelList);
+                redisService.set(CatalogKey.getLevelList,""+shoescatalog.getCatalogid()+"_"+level,levelList);
+            }
+            tempList = redisService.get(CatalogKey.getHandleList,""+shoescatalog.getCatalogid()+"_"+level,true,CatalogInfoVo.class);
+            //System.out.println("经过getLevelList的levelList:"+levelList.toString());
+            if(tempList==null){
+                levelList = HandleLevelList(levelList,level,shoescatalog);
+                redisService.set(CatalogKey.getHandleList,""+shoescatalog.getCatalogid()+"_"+level,levelList);
+            }
+
+            // System.out.println("经过HandleLevelList的levelList"+levelList);
+
+            newList  = (List<CatalogInfoVo>) ((ArrayList<CatalogInfoVo>) levelList).clone();
+            //System.out.println("needList = "+neededList.toString());
+            newList  = combineList(neededList,newList);
+            redisService.set(CatalogKey.getCatalogInfo,""+shoescatalog.getCatalogid()+"_"+level,newList);
+        }
         return newList;
     }
 

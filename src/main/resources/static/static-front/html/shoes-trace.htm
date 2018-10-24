@@ -32,8 +32,6 @@
     <script src="../js/js.cookie.js"></script>
     <script src="../js/shoes-detail.js"></script>
     <script src="../js/shoes-pay.js"></script>
-
-
 </head>
 
 <body>
@@ -41,9 +39,25 @@
 <div id="the_header"></div>
 
 <div class="container">
-    <div id="trace-tip-page" style="width: 400px;height: 300px;background-color: #77ee77;margin:80px auto;">
-
-
+    <div style="margin-top: 20px; ">
+        <img src="../img/alipaylogo.gif" alt="支付宝"/>
+    </div>
+    <div id="trace-tip-page" style="padding:20px;width: 600px;height: 500px;border:1px solid #0d8ddb;margin:80px auto;">
+        <div class="title11" style="text-align: center">
+            <h3>支付订单</h3>
+        </div>
+        <div>
+            <img style="width: 600px" src="../img/banner-4.jpg" alt="广告"/>
+        </div>
+        <div class="order-info" style="text-align: center;margin-top: 10px;">
+            <h5 style="color: #1cc09f">请在15分钟之内支付！</span></h5>
+            <p style="color: red;font-size: 25px;font-weight: bold;">￥ <span id="order-money-total">473</span></p>
+            <h5 style="color: #1cc09f">订单编号：<span>57898709808080</span></h5>
+        </div>
+        <div style="line-height: 120px;text-align:center;">
+            <a style="color: #ffffff;margin-right: 20px;" href="javascript:;" class="btn btn-success" onclick="yesPay()"> 确认支付 </a>
+            <a style="color: #ffffff;" href="javascript:;" class="btn btn-success" onclick="noPay()"> 取消支付 </a>
+        </div>
     </div>
 </div>
 
@@ -55,18 +69,34 @@
 
     $(function () {
         let orderId = getQueryPathStringByName("orderId");
-        alert("交易成功！orderId="+orderId);
-
-        doPay(orderId);
+        //alert("交易成功！orderId="+orderId);
+        getTotalPrice(orderId);
 
     });
-
-    function doPay(orderId){
+    
+    function getTotalPrice(orderId) {
+        $.ajax({
+            url: "/pay/total/"+orderId,
+            type: "GET",
+            success: function (data) {
+                $("#order-money-total").html(data);
+            },
+            error: function () {
+                alert("交易失败！");
+            }
+        });
+    }
+    
+    function yesPay(){
+        let orderId = getQueryPathStringByName("orderId");
         $.ajax({
             url: "/pay/"+orderId,
             type: "POST",
             success: function (data) {
-                $("#trace-tip-page").html(data);
+                if(data.code == 0){
+                    alert("支付成功，等待发货！");
+                    window.location.href="/UserInformation/UserMyAccount";
+                }
             },
             error: function () {
                 alert("交易失败！");
@@ -74,8 +104,11 @@
         });
     }
 
-    $("#the_header").load("shoes-header.html");
-    $("#the_footer").load("shoes-footer.html");
+    function noPay(){
+        window.location.href="/UserInformation/UserMyAccount";
+    }
+    
+
 </script>
 </body>
 

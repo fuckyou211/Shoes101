@@ -437,11 +437,11 @@
                                             <span th:if="${test.shoesorder.cancel}==1" style="color: red">（已取消购买）</span>
 										</td>
 										<td>
-											<span style="line-height: 45px;">
+											<span style="line-height: 90px;">
 											<button type="button" data-toggle="tooltip" title="宝贝马上到手" th:onclick="'javascript:lijifukuan('+${test.shoesorder.orderid}+')' " > 立即付款</button>
 											</span>
-											<br /><br />
-											<button type="button" data-toggle="tooltip" th:onclick="'javascript:lianximaijia('+${test.shoesorder.orderid}+')' "> 联系卖家</button><br />
+											<br />
+											<!--<button type="button" data-toggle="tooltip" th:onclick="'javascript:lianximaijia('+${test.shoesorder.orderid}+')' "> 联系卖家</button><br />-->
 											<a  href="#" style="margin-left: 15px" th:onclick="'javascript:quxiaogoumai('+${test.shoesorder.orderid}+')' ">取消购买</a>
 
 										</td>
@@ -521,11 +521,11 @@
                                             <span th:if="${test.shoesorder.cancel}==1" style="color: red">（已申请退货）</span>
 										</td>
 									    <td>
-											<span style="line-height: 45px;">
+											<span style="line-height: 92px;">
 											<button type="button" data-toggle="tooltip" th:onclick="'javascript:tixingfahuo('+${test.shoesorder.orderid}+')' " > 提醒发货</button>
 											</span>
 											<br /><br />
-											<button type="button" data-toggle="tooltip" th:onclick="'javascript:lianximaijia('+${test.shoesorder.orderid}+')' " > 联系卖家</button>
+											<!--<button type="button" data-toggle="tooltip" th:onclick="'javascript:lianximaijia('+${test.shoesorder.orderid}+')' " > 联系卖家</button>-->
 										</td>
 									</tr>
                                     <tr>
@@ -601,11 +601,11 @@
                                             <span th:if="${test.shoesorder.cancel}==1" style="color: red">（已申请退货）</span>
 										</td>
 										<td>
-											<span style="line-height: 45px;">
+											<span style="line-height: 92px;">
 											<button type="button" data-toggle="tooltip" th:onclick="'javascript:shenqingtuihuo('+${test.shoesorder.orderid}+',1,0,3 )' " > 确认收货</button>
 											</span>
 											<br /><br />
-											<button type="button" data-toggle="tooltip" th:onclick="'javascript:lianximaijia('+${test.shoesorder.orderid}+')' " > 联系卖家</button>
+											<!--<button type="button" data-toggle="tooltip" th:onclick="'javascript:lianximaijia('+${test.shoesorder.orderid}+')' " > 联系卖家</button>-->
 										</td>
 									</tr>
                                     <tr>
@@ -1020,7 +1020,7 @@
     });
 
     function lianximaijia(a){
-        alert("订单号为："+a+"暂时无法联系卖家");
+        alert("卖家电话：17724436332");
     }
     function shenqingtuihuo(orderid,validity,cancel,state){
         // alert("已申请订单号为："+a+"的订单退货");
