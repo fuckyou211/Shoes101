@@ -49,7 +49,7 @@ public class SearchController {
         map.put("pageOfShoes", JSON.toJSONString(pb));
         map.put("propertyFilter",JSON.toJSONString(map1));
         map.put("value",value);
-        return "/front/shoes-list";
+        return "/front/shoes-search";
     }
 
     @RequestMapping("/search")
