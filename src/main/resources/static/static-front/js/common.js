@@ -156,6 +156,21 @@ function getCookie(name){
     }
     return "";
 }
+
+/**
+ * 根据cookie的名字获取cookie的值（Vakoe的版本，上面的拿不到，有误）
+ * @param name
+ * @returns {*}
+ */
+function getCookie1(name)
+{
+    var arr,reg=new RegExp("(^| )"+name+"=([^;]*)(;|$)");
+    if(arr=document.cookie.match(reg))
+        return unescape(arr[2]);
+    else
+        return null;
+}
+
 /**
  * 检查类
  * @param startClass
@@ -256,7 +271,7 @@ function $_activeChange(oParent,oTarget, className) {
  *  获取token
  */
 function getToken() {
-    let token = getCookie("token");
+    let token = getCookie1("token");
 
     if(!token){
         alert("你还未登录,请先登录！");
@@ -269,6 +284,8 @@ function getToken() {
 
     return token;
 }
+
+
 
 /**
  * 初始化活跃状态 基于jquery处理
