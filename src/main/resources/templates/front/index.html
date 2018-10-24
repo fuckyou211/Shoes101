@@ -109,8 +109,10 @@
 												<a target="_blank" :href="'/static-front/html/shoes-detail.htm?shoesId='+item.shoesid">
 													<img :src="item.pics[0]" :alt="item.shoesname" class="primary-img">
 													<img :src="item.pics[1]" :alt="item.shoesname" class="secondary-img">
-													<div style="font-size: 18px;"><strong>{{item.shoesname}}</strong></div>
 												</a>
+											</div>
+											<div class="product-name ">
+												<span  :title="item.shoesid">{{item.shoesname}}</span>>
 											</div>
 											<div class="price-rating">
 												<span>￥{{item.price}}</span>
@@ -133,8 +135,10 @@
 												<a target="_blank" :href="'/static-front/html/shoes-detail.htm?shoesId='+item.shoesid">
 													<img :src="item.pics[0]" :alt="item.shoesname" class="primary-img">
 													<img :src="item.pics[1]" :alt="item.shoesname" class="secondary-img">
-													<div style="font-size: 18px;"><strong>{{item.shoesname}}</strong></div>
 												</a>
+											</div>
+											<div class="product-name ">
+												<span  :title="item.shoesid">{{item.shoesname}}</span>>
 											</div>
 											<div class="price-rating">
 												<span>￥{{item.price}}</span>
@@ -207,7 +211,7 @@
 				<div class="product-content" id="theClassic">
 					<div class="tab-content">
 						<div v-for="item in list">
-							<div class="col-lg-3 col-sm-6" align="center">
+							<div class="col-lg-3 col-sm-3" align="center">
 								<div class="single-product">
 									<div class="level-pro-new">
 										<span>经典</span>

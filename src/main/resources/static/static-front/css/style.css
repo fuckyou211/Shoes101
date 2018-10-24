@@ -963,17 +963,21 @@ body {
 .product-img a {
     display: block;
     position: relative;
+    height: 263px;
+    width: 263px;
 }
 .product-img a .secondary-img {
-    height: 100%;
+    height:auto;
     left: 0;
     position: absolute;
     top: 0;
     transform: translate3d(100%, 0px, 0px);
     transition: all 0.5s ease 0s;
-    width: 100%;
+    width: auto;
     opacity: 0;
     visibility: hidden;
+    max-height: 264px;
+    max-width: 264px;
 }
 .product-img a .primary-img {
     transition: all 0.5s ease 0s;
