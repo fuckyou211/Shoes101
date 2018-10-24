@@ -68,7 +68,7 @@ public class RushOrderServiceImpl implements RushOrderService {
         }
 
         Long number = redisService.decrBy(RushKey.rushsku, rushOrderVo.getRushbuyid() + ":" + rushOrderVo.getShoessku(), rushOrderVo.getQuantity());
-        if (number <= 0) {
+        if (number < 0) {
             redisService.incrBy(RushKey.rushsku, rushOrderVo.getRushbuyid() + ":" + rushOrderVo.getShoessku(), rushOrderVo.getQuantity());
             redisService.set(RushKey.orderState, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), -1);
             throw new GlobalException(CodeMsg.MIAOSHA_NULLGOOD);

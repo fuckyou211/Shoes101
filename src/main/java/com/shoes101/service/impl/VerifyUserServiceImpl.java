@@ -179,12 +179,12 @@ public class VerifyUserServiceImpl implements VerifyUserService {
         redisService.set(UserKey.loginCode,mobile,code);
         logger.info(JSONObject.toJSONString(redisService.get(UserKey.loginCode,mobile,String.class)));
 
-//        try {
-//            sMSMethodUtils.loginCode(mobile,code);
-//        } catch (ClientException e) {
-//            e.printStackTrace();
-//            throw new GlobalException(CodeMsg.SMS_VERIFICATION_CODE);
-//        }
+        try {
+            sMSMethodUtils.loginCode(mobile,code);
+        } catch (ClientException e) {
+            e.printStackTrace();
+            throw new GlobalException(CodeMsg.SMS_VERIFICATION_CODE);
+        }
         return code;
     }
 
@@ -200,12 +200,12 @@ public class VerifyUserServiceImpl implements VerifyUserService {
         redisService.set(UserKey.registerCode,mobile,code);
         logger.info(JSONObject.toJSONString(redisService.get(UserKey.registerCode,mobile,String.class)));
 
-       /* try {
+        try {
             sMSMethodUtils.registerCode(mobile,code);
         } catch (ClientException e) {
             e.printStackTrace();
             throw new GlobalException(CodeMsg.SMS_VERIFICATION_CODE);
-        }*/
+        }
         return code;
     }
 
@@ -262,12 +262,12 @@ public class VerifyUserServiceImpl implements VerifyUserService {
         redisService.set(UserKey.resetPasswordCode,mobile,code);
         logger.info(JSONObject.toJSONString(redisService.get(UserKey.resetPasswordCode,mobile,String.class)));
 
-//        try {
-//            sMSMethodUtils.resetPasswordCode(mobile,code);
-//        } catch (ClientException e) {
-//            e.printStackTrace();
-//            throw new GlobalException(CodeMsg.SMS_VERIFICATION_CODE);
-//        }
+        try {
+            sMSMethodUtils.resetPasswordCode(mobile,code);
+        } catch (ClientException e) {
+            e.printStackTrace();
+            throw new GlobalException(CodeMsg.SMS_VERIFICATION_CODE);
+        }
         return code;
 
     }
