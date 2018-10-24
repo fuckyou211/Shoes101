@@ -30,7 +30,7 @@ Vue.component('user-header',{
         '                                            <a href="wishlist.html">我的信息</a>\n' +
         '                                        </li>\n' +
         '                                        <li>\n' +
-        '                                            <a href="checkout.html">退出</a>\n' +
+        '                                            <a href="javacript:;" onclick=\"logout()\">退出</a>\n' +
         '                                        </li>\n' +
         '                                    </ul>\n' +
         '                                    <ul v-else>\n' +
@@ -90,6 +90,8 @@ Vue.component('user-header',{
             shopcart:[]
         }
     },
+
+    
     created:function () {
         var self= this;
         //通过ajax获取用户，如返回空，则是未登录
@@ -118,13 +120,29 @@ Vue.component('user-header',{
 
         }
     }
-
+    
 });
 
 $(function(){
     $("#header-user").html('<user-header></user-header>');
     new Vue({el:"#header-user"});
 });
+
+
+function logout() {
+    $.ajax({
+       url:"/login/logout",
+       type:"GET",
+       success: function (data) {
+           if(data.code == 0){
+               window.location.href="/";
+           }
+       },
+        error: function () {
+            alert("请求失败！");
+        }
+    });
+}
 
 var cart = {"detail":[{"shoesname":"123","pic":"dfngj/dfh/sss.jgp","quantity":10,"price":25.3}],
              "sctotalprice":1230}

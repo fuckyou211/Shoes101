@@ -1,6 +1,9 @@
 package com.shoes101.controller.FrontStage;
 
 
+import com.shoes101.redis.RedisService;
+import com.shoes101.redis.UserKey;
+import com.shoes101.result.CodeMsg;
 import com.shoes101.result.Result;
 import com.shoes101.service.VerifyUserService;
 import com.shoes101.vo.LoginCodeVo;
@@ -15,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -26,6 +31,10 @@ public class LoginController {
 	
 	@Autowired
     VerifyUserService verifyUserService;
+
+
+	@Autowired
+    RedisService redisService;
 
 	//跳转登录页面
     @RequestMapping("/to_login")
@@ -132,7 +141,33 @@ public class LoginController {
         return Result.success(verifyUserService.restPassword(response,resetPasswordVo));
     }
 
+    @RequestMapping("/logout")
+    @ResponseBody
+    public Result<Boolean> logout(HttpServletRequest request,HttpServletResponse response){
+        logger.info("申请退出！");
 
+        Cookie[] cookies = request.getCookies();
+
+        String tk = null;
+        logger.info("Cookies:"+cookies);
+        for (Cookie cookie: cookies) {
+            logger.info("cookiename={}, cookievalue={}", cookie.getName(), cookie.getValue());
+            if(cookie.getName().equals("token")){
+                tk = cookie.getValue();
+                logger.info("token--->"+tk);
+                cookie.setMaxAge(-122111);
+            }
+        }
+
+        if(tk == null){
+            Result.error(CodeMsg.SERVER_ERROR);
+        }
+
+        redisService.delete(UserKey.token, tk);
+
+        return Result.success(true);
+
+    }
 
 
 }
