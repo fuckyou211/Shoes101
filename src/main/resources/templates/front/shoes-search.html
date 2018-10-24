@@ -216,6 +216,7 @@
     });
     var properties = [];
     var catalogIds = [];
+    var thePage;
     let myChoose, shoesList;
     /*购物选择*/
     myChoose = new Vue({
@@ -232,20 +233,22 @@
         },
         methods: {
             leftButton: function(pageCode){
-                if( pageCode==1 ){
-                    pageCode--;
-                    requestPage(pageCode);
+                thePage = pageCode;
+                if( thePage>1 ){
+                    thePage--;
+                    requestPage(thePage);
 
                 }else{
                     return;
                 }
             },
             rightButton: function (pageCode,count){
-                if( pageCode<count){
+                thePage = pageCode;
+                if( thePage<count){
                     /*console.log(pageCode);
                     console.log(count);*/
-                    pageCode++;
-                    requestPage(pageCode);
+                    thePage++;
+                    requestPage(thePage);
                 }else{
                     return;
                 }
@@ -285,7 +288,7 @@
         if(r!=null)return  decodeURI(r[2]); return null;
     }
     function requestPage(pageCode) {
-        let size=16;
+        let size=1;
         let filterFlag;
         let value=getQueryString("value");
         if( properties.length>0 ){
@@ -293,9 +296,11 @@
         }else{
             filterFlag = 0;
         }
+        console.log("我看看数据：");
+        console.log(properties);
         properties = JSON.stringify(properties);
         $.ajax({
-            url: "/getSearchListByPage",
+            url: "/goodsf/getSearchListByPage",
             type: 'post',
             data: {
                 size:size,
@@ -307,12 +312,15 @@
             dataType: 'json',
             success: function (result) {
                 loadShoesData(result.data);
+                console.log("成功后数据：");
+                console.log(result.data);
             },
             error: function (err) {
                 console.log(err);
             },
 
         })
+        properties = JSON.parse(properties);
     }
     function addProperty(obj) {
         let catArr = [];

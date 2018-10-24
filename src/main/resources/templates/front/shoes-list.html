@@ -213,6 +213,7 @@
             });
             var properties = [];
             var catalogIds = [];
+            var thePage;
 			let myChoose, shoesList;
 			/*购物选择*/
 			myChoose = new Vue({
@@ -228,26 +229,28 @@
 				    list:[]
 				},
 				methods: {
-				    leftButton: function(pageCode){
-				      if( pageCode==1 ){
-				          pageCode--;
-				          requestPage(pageCode);
+                    leftButton: function(pageCode){
+                        thePage = pageCode;
+                        if( thePage>1 ){
+                            thePage--;
+                            requestPage(thePage);
 
-					  }else{
-				          return;
-					  }
-					},
+                        }else{
+                            return;
+                        }
+                    },
                     rightButton: function (pageCode,count){
-				        if( pageCode<count){
+                        thePage = pageCode;
+                        if( thePage<count){
                             /*console.log(pageCode);
                             console.log(count);*/
-                            pageCode++;
-                            requestPage(pageCode);
-						}else{
+                            thePage++;
+                            requestPage(thePage);
+                        }else{
                             return;
                         }
 
-                	},
+                    },
 				},
 			});
             let btn1 = document.getElementById('theBtn');
