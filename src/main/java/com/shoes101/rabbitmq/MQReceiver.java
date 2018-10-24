@@ -12,11 +12,14 @@ import com.shoes101.vo.OrderVo;
 import com.shoes101.vo.RushOrderVo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
+@RabbitListener(queues=MQConfig.MIAOSHA_QUEUE)
 public class MQReceiver {
 
 	private static Logger log = LoggerFactory.getLogger(MQReceiver.class);
@@ -31,7 +34,8 @@ public class MQReceiver {
 	@Autowired
 	private OrderService orderService;
 
-		@RabbitListener(queues=MQConfig.MIAOSHA_QUEUE)
+
+	    @RabbitHandler
 		public void receive(String message) {
 
 			log.info("receive message:"+message);
@@ -46,33 +50,36 @@ public class MQReceiver {
 				throw new GlobalException(CodeMsg.MIAOSHA_NULLGOOD);
 			}
 			int out=rushbuyMapper.updateRushbuyByrushskuid(rushOrderVo.getRushbuyid(),rushOrderVo.getShoessku(),rushOrderVo.getQuantity());
+			log.info("redisService.get:{}",redisService.get(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),Long.class));
 
+			System.out.println("redisService.get:"+redisService.get(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),Long.class));
 			if(out==0)
 			{
 				redisService.set(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),-1);
 				throw new GlobalException(CodeMsg.MIAOSHA_NULLGOOD);
 			}
 
-//			OrderVo orderVo=new OrderVo();
-//			orderVo.setContactName(rushOrderVo.getContactName());
-//			orderVo.setContactPhone(rushOrderVo.getContactPhone());
-//			orderVo.setReceiptaddress(rushOrderVo.getReceiptaddress());
-//			orderVo.setRemark(rushOrderVo.getRemark());
-//			orderVo.setSkuidandqty(rushOrderVo.getSkuidandqty());
-//			orderVo.setUserid(rushOrderVo.getUserid());
-//			orderVo.setToken(rushOrderVo.getToken());
-//			Integer orderid=orderService.add(orderVo);
-//			redisService.set(RushKey.orderId,user.getUserid()+":"+rushOrderVo.getRushbuyid(),orderid);
-//
-			redisService.set(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),1);
+			OrderVo orderVo=new OrderVo();
+			orderVo.setContactName(rushOrderVo.getContactName());
+			orderVo.setContactPhone(rushOrderVo.getContactPhone());
+			orderVo.setReceiptaddress(rushOrderVo.getReceiptaddress());
+			orderVo.setRemark(rushOrderVo.getRemark());
+			orderVo.setSkuidandqty(rushOrderVo.getSkuidandqty());
+			orderVo.setUserid(rushOrderVo.getUserid());
+			orderVo.setToken(rushOrderVo.getToken());
+			Integer orderid=orderService.add(orderVo);
+			redisService.set(RushKey.orderId,user.getUserid()+":"+rushOrderVo.getRushbuyid(),orderid);
 
+			redisService.incrBy(RushKey.userLimit, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), rushOrderVo.getQuantity());
+			redisService.set(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),1);
+            log.info("redisService.get:{}",redisService.get(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),Long.class));
 		}
 
 		@RabbitListener(queues=MQConfig.QUEUE)
 		public void receive2(String message) {
 			log.info("receive message:"+message);
 		}
-//		
+//
 //		@RabbitListener(queues=MQConfig.TOPIC_QUEUE1)
 //		public void receiveTopic1(String message) {
 //			log.info(" topic  queue1 message:"+message);

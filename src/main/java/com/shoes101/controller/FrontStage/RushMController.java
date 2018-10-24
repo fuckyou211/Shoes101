@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.servlet.http.HttpServletRequest;
 import javax.swing.*;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -65,9 +66,10 @@ public class RushMController {
         }
 
         User user = redisService.get(UserKey.token,token,User.class);
+        logger.info("userToken:{}","tk70a1dedb5536435c85a31f5ac76778af");
 
         if(user == null){
-            return Result.error(CodeMsg.USER_FREQUENTLY_LOGIN);
+            return Result.error(CodeMsg.SESSION_ERROR);
         }
 
         logger.info("user:"+ JSONObject.toJSONString(user));
@@ -97,14 +99,19 @@ public class RushMController {
         }
         rushOrderVo.setRushbuyid(Integer.parseInt(rushbuyid));
         rushOrderVo.setUserid(user.getUserid());
-        List<SkuIdAndQuantityVo> skuiobj = JSON.parseArray(skuidandqty,SkuIdAndQuantityVo.class);
-        if(skuiobj.size()<=0)
+
+        List<SkuIdAndQuantityVo> skuiobj = new ArrayList<>();
+        SkuIdAndQuantityVo skuIdAndQuantityVo=new SkuIdAndQuantityVo();
+        skuIdAndQuantityVo.setQuantity(5);
+        skuIdAndQuantityVo.setSkuid(2);
+        skuiobj.add(skuIdAndQuantityVo);
+        if(skuiobj.size()<=0||skuiobj==null)
         {
             return Result.error(CodeMsg.MIAOSHA_FAIL);
         }
         rushOrderVo.setSkuidandqty(skuiobj);
-        rushOrderVo.setShoessku(skuiobj.get(1).getSkuid());
-        rushOrderVo.setQuantity(skuiobj.get(1).getQuantity());
+        rushOrderVo.setShoessku(skuiobj.get(0).getSkuid());
+        rushOrderVo.setQuantity(skuiobj.get(0).getQuantity());
 
         miaoshaMessage.setRushOrderVo(rushOrderVo);
         logger.info("miaoshaMessage:{}",miaoshaMessage);
