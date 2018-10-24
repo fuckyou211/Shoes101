@@ -30,16 +30,17 @@
         -->
         <div class="col-md-6">
             <div class="b-shoes-show">
-                <img id="detail-shoes-bimg" :src="bigpic" class="img-responsive img-thumbnail detail-big-img"/>
+                <!--<img id="detail-shoes-bimg" :src="bigpic" class="img-responsive img-thumbnail detail-big-img"/>-->
                 <!--"../static-front/images/big-img/xie1.webp"-->
             </div>
             <div class="m-shoes-li center-block">
                 <ul id="detail-shoes-simg" class="center-block">
-                    <li v-for="item in rushpic">
+                    <li>
+                        <!--v-for="item in rushpic"-->
                         <!--"../static-front/images/sma-img/xie1.webp"-->
-                        <img :src="item"
+                        <img :src="rushpic[0]"
                              class="img-responsive img-thumbnail img-disabled img-active"
-                             onclick="$_activeChange('detail-shoes-simg',this,'img-active')"/>
+                             @click="activeChange('detail-shoes-simg',this,'img-active')"/>
                     </li>
                     <!--<li>-->
                         <!--<img src="../static-front/images/sma-img/xie2.webp"-->
@@ -70,11 +71,11 @@
                     <!--<span id="shoes-id">4546548971477</span>-->
                 </li>
                 <li class="detail-li">
-                    <p class="h3">{{rushinfo.shoesname}}</p>
+                    <p class="h3" id="shoes-name">{{rushinfo.shoesname}}</p>
                 </li>
                 <li class="detail-li">
                     <span class="h5">秒价：</span>
-                    <span style="color: red;" class="h2"> ¥ <span id="shoes-prbrice">{{rushinfo.rbprice}}</span></span>
+                    <span style="color: red;" class="h2"> ¥ <span id="ticket-price">{{rushinfo.rbprice}}</span></span>
                     <!--&nbsp;&nbsp;<span style="color: red; text-decoration: line-through;" class="h5"> ¥ 589.00</span>-->
                 </li>
                 <li class="detail-li">
@@ -102,14 +103,19 @@
 <!--放个倒计时-->
                     </p>
                 </li>
+
                 <!-- 尺码选择 -->
                 <li id="detail-shoes-size" class="detail-li lg-border-padding">
+
                     <p class="dashed-bottom-border p-padding ">配色及尺寸：</p>
                     <dl class="dl-padding">
                         <dd class="fl dd-margin number-disabled"  v-for="item in rushlist"
-                            onclick="$_activeChangeCopy('detail-shoes-size',this,'number-active')" @click="pick(item.rushquantity)">
-                            <span class="number-of-shoe">{{item.color}}</span>
-                            <span class="number-of-shoe">{{item.size}}</span>
+                            onclick="$_activeChange('detail-shoes-size',this,'number-active')" @click="pick(item.rushquantity,item.color,item.size,item.skuid,
+                            rushinfo.shoesname,rushinfo.rbprice,item.shoesid)">
+                            <input type="hidden" id="shoes-skuid" v-model="item.skuid">
+                            <span class="go-fuck-your-self" v-model="color">{{item.color}}</span>
+                            <span class="go-fuck-your-self1" v-model="size">{{item.size}}</span>
+
                         </dd>
                     </dl>
                     <div class="clearfix"></div>
@@ -140,7 +146,7 @@
                             </span>
                     <!--立即购买  -->
                     <span id=" ">
-                        <a href="javascript:;" class="btn-danger btn-buy" onclick="/static-front(2)">立即购买</a>
+                        <a href="javascript:" class="btn-danger btn-buy" @click="doPay()">立即购买</a>
                     </span>
                 </li>
             </ul>
@@ -154,30 +160,136 @@
             <div class="clearfix"></div>
         </ul>
         <div class="center-block" style="padding: 20px;">
-            <p data-spm-anchor-id="a220o.1000855.0.i6.692a10aapT0sdh">
-                <img src="https://img.alicdn.com/imgextra/i4/2986712394/TB2tjhPIqmWBuNjy1XaXXXCbXXa_!!2986712394.jpg"
+            <p data-spm-anchor-id="a220o.1000855.0.i6.692a10aapT0sdh" v-for="item in rushpic">
+                <img :src="item"
                      align="absmiddle" class="img-responsive center-block">
-                <img src="https://img.alicdn.com/imgextra/i4/2986712394/TB2WnTxIh9YBuNjy0FfXXXIsVXa_!!2986712394.jpg"
-                     align="absmiddle" class="img-responsive center-block">
+                <!--<img src="https://img.alicdn.com/imgextra/i4/2986712394/TB2WnTxIh9YBuNjy0FfXXXIsVXa_!!2986712394.jpg"-->
+                     <!--align="absmiddle" class="img-responsive center-block">-->
             </p>
 
         </div>
     </div>
 </div>
+<!--尾部信息-->
+<div class="footer-top-area" style="margin-top: 60px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3 col-sm-4">
+                <div class="footer-contact">
+                    <img src="../static-front/img/logo_4.png" alt="">
+                    <p align="center">101Shoes，买到就是赚到</p>
+                    <ul class="address">
+
+                        <li>
+                            <span class="fa fa-phone"></span> (000) 12580
+                        </li>
+                        <li>
+                            <span class="fa fa-envelope-o"></span> 1048900106@qq.com
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-md-3 hidden-sm">
+                <div class="footer-tweets">
+                    <div class="footer-title">
+                        <h3>我们的话</h3>
+                    </div>
+                    <div class="twitter-feed">
+                        <div class="twitter-article">
+                            <div class="twitter-img">
+                                <a href="#">
+                                    <img src="../static-front/img/twitter-1.png" alt="">
+                                </a>
+                            </div>
+                            <div class="twitter-text">
+                                <p>101shoes</p>
+                                <a href="#">http://www.101shoes.com</a>
+                            </div>
+                        </div>
+                        <div class="twitter-article">
+                            <div class="twitter-img">
+                                <a href="#">
+                                    <img src="../static-front/img/twitter-1.png" alt="">
+                                </a>
+                            </div>
+                            <div class="twitter-text">
+                                <p>101shoes</p>
+                                <a href="#">http://www.101shoes.com</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <div class="footer-support">
+                    <div class="footer-title">
+                        <h3>我们的支持</h3>
+                    </div>
+                    <div class="footer-menu">
+                        <ul>
+                            <li>
+                                <a href="#">您的账户</a>
+                            </li>
+                            <li>
+                                <a href="#">隐私政策</a>
+                            </li>
+                            <li>
+                                <a href="#">联系我们</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3 col-sm-4">
+                <div class="footer-info">
+                    <div class="footer-title">
+                        <h3>我们的信息</h3>
+                    </div>
+                    <div class="footer-menu">
+                        <ul>
+                            <li>
+                                <a href="">关于我们</a>
+                            </li>
+                            <li>
+                                <a href="#">客户服务</a>
+                            </li>
+                            <li>
+                                <a href="#">隐私政策</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--版权信息-->
+<div class="container">
+    <div class="row">
+        <div class="footer-copyright" align="center">
+            <p>Copyright &copy; 2018
+                <a href="#"> 山寨平台</a>
+            </p>
+        </div>
+    </div>
+</div>
+<!--返回顶层-->
+<a href="#" id="scrollUp"><i class="fa fa fa-arrow-up"></i></a>
 
 <script src="../static-front/js/jquery-1.12.1.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="../static-front/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="../static-front/js/common.js"></script>
 <script src="../static-front/js/js.cookie.js"></script>
 <script src="../static-front/js/shoes-detail.js"></script>
+<script src="../static-front/js/shoes-pay.js"></script>
 <script src="../js/vue.js"></script>
 <!--尾部-->
 <div id="the_footer"></div>
 
 <!--载入头尾部-->
 <script>
-    $("#the_header").load("shoes-header.html");
-    $("#the_footer").load("shoes-footer.html");
+
 
 
     $(document).ready(function(){
@@ -187,6 +299,8 @@
         console.log(rlist);
         console.log(JSON.parse(rlist).rushinfo);
         console.log(JSON.parse(rlist).rushlist);
+        $("#the_header").load("shoes-header.html");
+        $("#the_footer").load("shoes-footer.html");
         detail.rushinfo = JSON.parse(rlist).rushinfo;
         detail.rushlist = JSON.parse(rlist).rushlist;
         detail.rushpic = JSON.parse(rlist).rushpic;
@@ -224,10 +338,10 @@
             countdown()
         }, 1000)
     }
-<!--</script>-->
+</script>
 
 <!--&lt;!&ndash;Vue&ndash;&gt;-->
-<!--<script>-->
+<script>
     // var time = new Vue({
     //     el:'#time',
     //     data: function(){
@@ -273,11 +387,21 @@
             hr:"",
             min:"",
             sec:"",
+            size:"",
+            color:"",
+            skuid:0,
+            shoesname:""
         },
-
+        // @click="pick(item.rushquantity,item.color,item.size,item.skuid,
+        // rushinfo.shoesname,rushinfo.rbprice,item.shoesid)">
         methods:{
-            pick:function(rushquantity){
+            pick:function(rushquantity,color,size,skuid,shoesname){
                 this.activeqty = rushquantity;
+                this.size = size;
+                this.color = color;
+                this.skuid = skuid;
+                this.shoesname = shoesname;
+                // console.log(size,color,skuid,shoesname,this.rushpic[0]);
             },
             doShoesCount:function(isDecrease, target, stock){
                 let $target = $($_Id(target));
@@ -294,95 +418,159 @@
                 count += isDecrease;
                 $target.html(count);
             },
+            doPay:function(){
+                // console.log(this.size,this.color,this.skuid,this.shoesname,this.rushinfo.rushbuyid,"zzz "+this.rushpic[0]);
+                doPayNow2(2,this.activeqty,this.color,this.size,this.skuid,this.shoesname,this.rushinfo.rbprice,this.rushinfo.shoesid
+                    ,this.rushpic[0],this.rushinfo.rushbuyid);
+            }
         }
     })
 </script>
 
+<!--function activeChange(oParent,oTarget, className) {-->
+<!--let target = $(oTarget);-->
+
+<!--if(target.hasClass(className)){-->
+<!--return;-->
+<!--}-->
+<!--// init status first-->
+<!--$_initActive(oParent,className,target);-->
+
+<!--target.addClass(className);-->
+
+
+<!--// 大图的处理表示要处理大图-->
+<!--if(oParent === 'detail-shoes-simg'){-->
+<!--let imgUrl = target.attr('src');-->
+<!--imgUrl = imgUrl.replace('/sma-img','/big-img');-->
+
+<!--BigShoesImgChange(imgUrl);-->
+<!--}-->
+
+<!--// 地址选中-->
+<!--if(className == "addr-seleted"){-->
+<!--target.children("span").children(".img-radio").attr("src","../img/radio-checked.png");-->
+<!--renderOrderCart();-->
+<!--}-->
+
+
+<!--// 是颜色或者尺码才获取库存-->
+<!--if(className == "number-active" || className == "choose-border"){-->
+
+<!--//  alert("点击了尺码或者颜色！");-->
+<!--// 获取库存-->
+<!--let colorId = $($_Class("detail-shoes-color","choose-border")[0]).attr("name");-->
+<!--let sizeId = $($_Class("detail-shoes-size","number-active")[0]).attr("name");-->
+<!--let shoesId =  $($_Id("shoes-id")).html();-->
+
+<!--let stock = getShoesStock(shoesId,colorId,sizeId);-->
+<!--let shoesCount= $.trim($($_Id("detail-shoes-count")).html());-->
+
+<!--if(stock <= 0){-->
+<!--$("#detail-shoes-total").html("<font style='color: red;'>已售罄！</font>");-->
+<!--$($_Id("detail-shoes-count")).html(0);-->
+<!--return;-->
+<!--}-->
+
+<!--// 设置库存-->
+<!--$("#detail-shoes-total").html(stock);-->
+
+<!--// 如果现在选择数量大于库存，直接为库存数量-->
+<!--if(stock < shoesCount){-->
+<!--if(stock < 0){-->
+<!--$($_Id("detail-shoes-count")).html(0);-->
+<!--}else{-->
+<!--$($_Id("detail-shoes-count")).html(stock);-->
+<!--}-->
+<!--}-->
+<!--}-->
+<!--}-->
+
 <!--原页面样式所需-->
-<script>
-    function $_initActiveCopy(oParent, className,target) {
+<!--<script>-->
+    <!--function $_initActiveCopy(oParent, className,target) {-->
 
-        let $parent = $($_Id(oParent));
+        <!--let $parent = $($_Id(oParent));-->
 
-        // The first must get object with the class name is oClass but inner of the oParent
-        // is return a array
-        let aClassObj = $_Class($parent,className);
+        <!--// The first must get object with the class name is oClass but inner of the oParent-->
+        <!--// is return a array-->
+        <!--let aClassObj = $_Class($parent,className);-->
 
-        if(oParent == "order-addr-li"){
-            $parent.children(".addr-seleted").children("span").children(".img-radio").attr("src","../img/redio-no-checked.png");
-            console.log("--->"+$parent.children(".addr-seleted").children("span").children(".img-radio").attr("src"));
+        <!--if(oParent == "order-addr-li"){-->
+            <!--$parent.children(".addr-seleted").children("span").children(".img-radio").attr("src","../img/redio-no-checked.png");-->
+            <!--console.log("-&ndash;&gt;"+$parent.children(".addr-seleted").children("span").children(".img-radio").attr("src"));-->
 
-        }
+        <!--}-->
 
-        // do init
-        for (let i = 0; i<aClassObj.length; i++){
+        <!--// do init-->
+        <!--for (let i = 0; i<aClassObj.length; i++){-->
 
-            // be a jquery obj
-            if($(aClassObj[i]).hasClass(className)){
-                $(aClassObj[i]).removeClass(className);
-            }
-        }
-
-
-    }
-
-    function $_activeChangeCopy(oParent,oTarget, className) {
-        let target = $(oTarget);
-
-        if(target.hasClass(className)){
-            return;
-        }
-        // init status first
-        $_initActiveCopy(oParent,className,target);
-
-        target.addClass(className);
+            <!--// be a jquery obj-->
+            <!--if($(aClassObj[i]).hasClass(className)){-->
+                <!--$(aClassObj[i]).removeClass(className);-->
+            <!--}-->
+        <!--}-->
 
 
-        // 大图的处理表示要处理大图
-        if(oParent === 'detail-shoes-simg'){
-            let imgUrl = target.attr('src');
-            imgUrl = imgUrl.replace('/sma-img','/big-img');
+    <!--}-->
 
-            BigShoesImgChange(imgUrl);
-        }
+    <!--function $_activeChangeCopy(oParent,oTarget, className) {-->
+        <!--let target = $(oTarget);-->
 
-        // 地址选中
-        if(className == "addr-seleted"){
-            target.children("span").children(".img-radio").attr("src","../img/radio-checked.png");
-            renderOrderCart();
-        }
+        <!--if(target.hasClass(className)){-->
+            <!--return;-->
+        <!--}-->
+        <!--// init status first-->
+        <!--$_initActiveCopy(oParent,className,target);-->
 
-        // 是颜色或者尺码才获取库存
-        if(className == "number-active" || className == "choose-border"){
+        <!--target.addClass(className);-->
 
-            //  alert("点击了尺码或者颜色！");
-            // 获取库存
-            let colorId = $($_Class("detail-shoes-color","choose-border")[0]).attr("name");
-            let sizeId = $($_Class("detail-shoes-size","number-active")[0]).attr("name");
-            let shoesId =  $($_Id("shoes-id")).html();
 
-            // let stock = getShoesStock(shoesId,colorId,sizeId);
-            let shoesCount= $.trim($($_Id("detail-shoes-count")).html());
+        <!--// 大图的处理表示要处理大图-->
+        <!--if(oParent === 'detail-shoes-simg'){-->
+            <!--let imgUrl = target.attr('src');-->
+            <!--imgUrl = imgUrl.replace('/sma-img','/big-img');-->
 
-            // if(stock <= 0){
-            //     $("#detail-shoes-total").html("<font style='color: red;'>已售罄！</font>");
-            //     $($_Id("detail-shoes-count")).html(0);
-            //     return;
-            // }
+            <!--BigShoesImgChange(imgUrl);-->
+        <!--}-->
 
-            // 设置库存
-            // $("#detail-shoes-total").html(stock);
+        <!--// 地址选中-->
+        <!--if(className == "addr-seleted"){-->
+            <!--target.children("span").children(".img-radio").attr("src","../img/radio-checked.png");-->
+            <!--renderOrderCart();-->
+        <!--}-->
 
-            // 如果现在选择数量大于库存，直接为库存数量
-            // if(stock < shoesCount){
-            //     if(stock < 0){
-            //         $($_Id("detail-shoes-count")).html(0);
-            //     }else{
-            //         $($_Id("detail-shoes-count")).html(stock);
-            //     }
-            // }
-        }
-    }
+        <!--// 是颜色或者尺码才获取库存-->
+        <!--if(className == "number-active" || className == "choose-border"){-->
+
+            <!--//  alert("点击了尺码或者颜色！");-->
+            <!--// 获取库存-->
+            <!--let colorId = $($_Class("detail-shoes-color","choose-border")[0]).attr("name");-->
+            <!--let sizeId = $($_Class("detail-shoes-size","number-active")[0]).attr("name");-->
+            <!--let shoesId =  $($_Id("shoes-id")).html();-->
+
+            <!--// let stock = getShoesStock(shoesId,colorId,sizeId);-->
+            <!--let shoesCount= $.trim($($_Id("detail-shoes-count")).html());-->
+
+            <!--// if(stock <= 0){-->
+            <!--//     $("#detail-shoes-total").html("<font style='color: red;'>已售罄！</font>");-->
+            <!--//     $($_Id("detail-shoes-count")).html(0);-->
+            <!--//     return;-->
+            <!--// }-->
+
+            <!--// 设置库存-->
+            <!--// $("#detail-shoes-total").html(stock);-->
+
+            <!--// 如果现在选择数量大于库存，直接为库存数量-->
+            <!--// if(stock < shoesCount){-->
+            <!--//     if(stock < 0){-->
+            <!--//         $($_Id("detail-shoes-count")).html(0);-->
+            <!--//     }else{-->
+            <!--//         $($_Id("detail-shoes-count")).html(stock);-->
+            <!--//     }-->
+            <!--// }-->
+        <!--}-->
+    <!--}-->
 
 
 </script>

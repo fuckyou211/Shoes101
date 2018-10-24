@@ -241,19 +241,95 @@ function doAddCart() {
     }
 }
 
+function doPayNow2(type,rushquantity,color,size,skuid,shoesname,rbprice,shoesid,rushpic,rbid) {
+    let token = getToken();
+    //封装数据
+    //alert('下单成功！');
+    let orderItem = packageVueShoes(rushquantity,color,size,skuid,shoesname,rbprice,shoesid,rushpic,rbid)
+    // let rushbuyid = 0;
+
+    if(!orderItem){
+        return;
+    }
+
+    if($("#detail-shoes-count").html() == 0){
+        alert("请选择数量购买的数量");
+        return;
+    }
+
+    console.log("下单的数据："+orderItem);
+
+    let orderItemArr = new Array(orderItem);
+    let rushbuyid = rbid;
+    console.log("这个id:" + rushbuyid);
+    //orderItemArr[orderItemArr.length] = orderItem;
+
+        // rushbuyid = getQueryPathStringByName(rushbuyid);
+    dumpToPayPage(orderItemArr,token,type,rushbuyid);
+
+
+
+
+    //跳转到购物车页面
+    //window.location.href="./shoes-pay.html";
+
+}
+
+function packageVueShoes(rushquantity,color2,size2,skuid2,shoesname,rbprice,shoesid,rushpic,rbid)
+{
+    let shoesName = shoesname;
+    let price = rbprice;
+    let shoes_id = shoesid;
+    let skuid = skuid2;
+    let color = color2;
+    let size = size2;
+    let rushbuyid = getQueryPathStringByName("rushbuyid");
+    let colorPic = rushpic;
+    // let rushbuyid = getQueryPathStringByName(rushbuyid);
+    // dumpToPayPage(orderItemArr,token,type,rushbuyid);
+    // 获取数量
+    let shoes_count= $.trim($($_Id("detail-shoes-count")).html());
+    // (colorPic,shoesName, color, size, skuid,count,price,rushbuyid)
+    let orderItem = new OrderItem(colorPic,shoesName,color,size,skuid,shoes_count,price,rushbuyid);
+
+    return orderItem;
+}
 
 function packageShoes(type) {
     //封装数据
     // 获取鞋子的id
     let shoes_id =  $($_Id("shoes-id")).html();
+
     let shoesName = $($_Id("shoes-name")).html();
+
     let price = $($_Id("ticket-price")).html();
+
     // 获取当前的价格
     //let now_price= $($_Id("shoes-price")).html();
+
+    // //如果是抢购 10.24
+    // if(type == 2)
+    // {
+    //     let color = $("#go-fuck-your-self").val();
+    //     console.log(color);
+    //     let size = $($_Class("go-fuck-your-self1","choose-border")[0]).attr("title");
+    //     console.log(size);
+    //     let skuId = $("#shoes-skuid").val();
+    //     let shoes_count= $.trim($($_Id("detail-shoes-count")).html());
+    //     let colorPic = "abc";
+    //     let orderItem = new OrderItem(colorPic,shoesName,color,size,skuId,shoes_count,price);
+    //
+    //     return orderItem;
+    // }
+
     // 获取颜色
     let colorId = $($_Class("detail-shoes-color","choose-border")[0]).attr("name");
+    console.log("c" + colorId);
+    // 颜色图片
     let colorPic = $($_Class("detail-shoes-color","choose-border")[0]).children(".small-show-img").attr("src");
+    // 颜色ID
     let color = $($_Class("detail-shoes-color","choose-border")[0]).attr("title");
+
     let skuId = $("#shoes-skuid").val();        // skuid
 
     if((!colorId) && (type == 1)){
@@ -262,11 +338,12 @@ function packageShoes(type) {
     }
 
 
+
     // 获取鞋码
     let sizeId = $($_Class("detail-shoes-size","number-active")[0]).attr("name");
     let size = $($_Class("detail-shoes-size","number-active")[0]).attr("title");
 
-    if(!sizeId){
+    if((!sizeId) && (type == 1)){
         alert("请选择鞋子尺码！");
         return;
     }
