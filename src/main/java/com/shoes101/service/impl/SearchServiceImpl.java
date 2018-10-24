@@ -32,7 +32,11 @@ public class SearchServiceImpl implements SearchService {
     */
         value = "'%"+value+"%'";
         Integer start = pageCode*size;
-        return shoesMapper.searchByNamePage(value,start,size);
+        List<FGoodsVo> list = shoesMapper.searchByNamePage(value,start,size);
+        for(FGoodsVo fGoodsVo:list){
+            fGoodsVo.setPics(shoesMapper.getAllPicById(fGoodsVo.getShoesid()));
+        }
+        return list;
     }
 
     //不分页
