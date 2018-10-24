@@ -131,10 +131,10 @@ public class RushOrderServiceImpl implements RushOrderService {
         } else if (state == 0) {
             throw new GlobalException(CodeMsg.MIAOSHA_WAIT);
         } else if (state == 1) {
-            return Result.success("商品秒杀成功!");
+            Long orderid=redisService.get(RushKey.orderId,user.getUserid()+":"+rushOrderVo.getRushbuyid(),Long.class);
+            return Result.success(""+orderid);
         }
-
-        return Result.success("商品秒杀成功!");
+        return Result.error(CodeMsg.MIAOSHA_FAIL);
     }
 
 }
