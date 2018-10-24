@@ -29,7 +29,7 @@ import java.util.List;
 
 @Service
 public class RushOrderServiceImpl implements RushOrderService {
-    private  final Logger logger= LoggerFactory.getLogger(RushOrderServiceImpl.class);
+    private final Logger logger = LoggerFactory.getLogger(RushOrderServiceImpl.class);
 
     @Autowired
     RedisService redisService;
@@ -45,44 +45,36 @@ public class RushOrderServiceImpl implements RushOrderService {
     @Override
     public Result<String> CreatRushOrder(HttpServletRequest request, User user, RushOrderVo rushOrderVo) {
 
-        if(!redisService.exists(RushKey.rushsku, rushOrderVo.getRushbuyid()+":"+rushOrderVo.getShoessku()))
-        {
+        if (!redisService.exists(RushKey.rushsku, rushOrderVo.getRushbuyid() + ":" + rushOrderVo.getShoessku())) {
             redisSave(rushOrderVo);
         }
-        Long state=redisService.get(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),Long.class);
-        if(state==null)
-        {
-            state=Long.valueOf(-1);
+        Long state = redisService.get(RushKey.orderState, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), Long.class);
+        if (state == null) {
+            state = Long.valueOf(-1);
         }
-        if(state==0)
-        {
-            throw new GlobalException(CodeMsg.MIAOSHA_READNULL);
-        }
-        else if(state.equals(2))
-        {
+        if (state == 0) {
+            throw new GlobalException(CodeMsg.MIAOSHA_WAIT);
+        } else if (state.equals(2)) {
             throw new GlobalException(CodeMsg.MIAOSHA_ORDERNULL);
         }
-        Long overnumber=redisService.get(RushKey.userLimit,user.getUserid()+":"+rushOrderVo.getRushbuyid(),Long.class);
-        Long limitnumber=redisService.get(RushKey.rushLimit,""+rushOrderVo.getRushbuyid(),Long.class);
-        if(overnumber==null)
-        {
-            overnumber=Long.valueOf(0);
+        Long overnumber = redisService.get(RushKey.userLimit, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), Long.class);
+        Long limitnumber = redisService.get(RushKey.rushLimit, "" + rushOrderVo.getRushbuyid(), Long.class);
+        if (overnumber == null) {
+            overnumber = Long.valueOf(0);
         }
-        if(limitnumber<overnumber+rushOrderVo.getQuantity())
-        {
-            redisService.set(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),-1);
+        if (limitnumber < overnumber + rushOrderVo.getQuantity()) {
+            redisService.set(RushKey.orderState, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), -1);
             throw new GlobalException(CodeMsg.MIAOSHA_OUTNUMBER);
         }
 
-        Long number=redisService.decrBy(RushKey.rushsku, rushOrderVo.getRushbuyid()+":"+rushOrderVo.getShoessku(),rushOrderVo.getQuantity());
-        if(number<=0)
-        {
-            redisService.incrBy(RushKey.rushsku, rushOrderVo.getRushbuyid()+":"+rushOrderVo.getShoessku(),rushOrderVo.getQuantity());
-            redisService.set(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),-1);
+        Long number = redisService.decrBy(RushKey.rushsku, rushOrderVo.getRushbuyid() + ":" + rushOrderVo.getShoessku(), rushOrderVo.getQuantity());
+        if (number <= 0) {
+            redisService.incrBy(RushKey.rushsku, rushOrderVo.getRushbuyid() + ":" + rushOrderVo.getShoessku(), rushOrderVo.getQuantity());
+            redisService.set(RushKey.orderState, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), -1);
             throw new GlobalException(CodeMsg.MIAOSHA_NULLGOOD);
         }
         //入队
-        redisService.set(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),0);
+        redisService.set(RushKey.orderState, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), 0);
         MiaoshaMessage mm = new MiaoshaMessage();
         mm.setUser(user);
         mm.setRushOrderVo(rushOrderVo);
@@ -91,39 +83,33 @@ public class RushOrderServiceImpl implements RushOrderService {
         return Result.success("0");
     }
 
-    public boolean redisSave(RushOrderVo rushOrderVo)
-    {
+    public boolean redisSave(RushOrderVo rushOrderVo) {
         Date date = new Date();
-        SimpleDateFormat dateFormat= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        RushbuyVo rushbuy=rushbuyMapper.getRushbuyByGoodid(rushOrderVo.getRushbuyid());
+        RushbuyVo rushbuy = rushbuyMapper.getRushbuyByGoodid(rushOrderVo.getRushbuyid());
 
         try {
             int begintime = date.compareTo(dateFormat.parse(rushbuy.getBegintime()));
             int endtime = date.compareTo(dateFormat.parse(rushbuy.getEndtime()));
 
-            if(begintime==1&&endtime==-1)
-            {
-                List<Rushsku> rushskuList=rushbuyMapper.getRushbuyByGoodrushbuyid(rushbuy.getRushbuyid());
-                Calendar c1 =Calendar.getInstance();
-                Calendar c2 =Calendar.getInstance();
+            if (begintime == 1 && endtime == -1) {
+                List<Rushsku> rushskuList = rushbuyMapper.getRushbuyByGoodrushbuyid(rushbuy.getRushbuyid());
+                Calendar c1 = Calendar.getInstance();
+                Calendar c2 = Calendar.getInstance();
                 c1.setTime(dateFormat.parse(rushbuy.getEndtime()));
                 c2.setTime(date);
-                int timeEnd=c1.get(Calendar.SECOND);
-                int timeNew=c2.get(Calendar.SECOND);
-                redisService.set(new RushKey(timeEnd-timeNew,"rushLimit"),""+rushbuy.getRushbuyid(),rushbuy.getLimitN());
-                logger.info("RushTime:{}",timeEnd-timeNew);
-                logger.info("Rushbuy:{}",rushbuy);
-                for(int i=0;i<rushskuList.size();i++)
-                {
-                    redisService.set(new RushKey(timeEnd-timeNew,"rushsku"),rushbuy.getRushbuyid()+":"+rushskuList.get(i).getSkuid(),rushskuList.get(i).getQuantity());
+                int timeEnd = c1.get(Calendar.SECOND);
+                int timeNew = c2.get(Calendar.SECOND);
+                redisService.set(new RushKey(timeEnd - timeNew, "rushLimit"), "" + rushbuy.getRushbuyid(), rushbuy.getLimitN());
+                logger.info("RushTime:{}", timeEnd - timeNew);
+                logger.info("Rushbuy:{}", rushbuy);
+                for (int i = 0; i < rushskuList.size(); i++) {
+                    redisService.set(new RushKey(timeEnd - timeNew, "rushsku"), rushbuy.getRushbuyid() + ":" + rushskuList.get(i).getSkuid(), rushskuList.get(i).getQuantity());
                 }
-            }
-            else if(begintime==-1)
-            {
+            } else if (begintime == -1) {
                 throw new GlobalException(CodeMsg.MIAOSHA_NULLBEGIN);
-            }
-            else {
+            } else {
                 throw new GlobalException(CodeMsg.MIAOSHA_END);
             }
 
@@ -133,4 +119,22 @@ public class RushOrderServiceImpl implements RushOrderService {
         return false;
 
     }
+
+
+    @Override
+    public Result<String> QueryRushOrder(HttpServletRequest request, User user, RushOrderVo rushOrderVo) {
+        Long state = redisService.get(RushKey.orderState, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), Long.class);
+
+        if (state == null || state == -1) {
+            state = Long.valueOf(-1);
+            throw new GlobalException(CodeMsg.MIAOSHA_FAIL);
+        } else if (state == 0) {
+            throw new GlobalException(CodeMsg.MIAOSHA_WAIT);
+        } else if (state == 1) {
+            return Result.success("商品秒杀成功!");
+        }
+
+        return Result.success("商品秒杀成功!");
+    }
+
 }

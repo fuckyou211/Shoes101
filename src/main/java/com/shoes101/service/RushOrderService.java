@@ -10,4 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 public interface RushOrderService {
     public Result<String> CreatRushOrder(HttpServletRequest request, User user, RushOrderVo rushOrderVo);
 
-}
+    public Result<String> QueryRushOrder(HttpServletRequest request, User user, RushOrderVo rushOrderVo);
+
+    }
