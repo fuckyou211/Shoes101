@@ -27,7 +27,7 @@ Vue.component('user-header',{
         '                                            <a href="http://localhost:8080/UserInformation/UserMyAccount">我的订单</a>\n' +
         '                                        </li>\n' +
         '                                        <li>\n' +
-        '                                            <a href="wishlist.html">我的信息</a>\n' +
+        '                                            <a href="http://localhost:8080/UserInformation/UserMyAccount">我的信息</a>\n' +
         '                                        </li>\n' +
         '                                        <li>\n' +
         '                                            <a href="javacript:;" onclick=\"logout()\">退出</a>\n' +
