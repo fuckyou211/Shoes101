@@ -61,12 +61,10 @@
 										<div class="single-sidebar-content">
 											<div :id="'shoes-attr-'+index" class="row">
 												<dl class="fl col-xs-9 shopping-choose" >
-													<dd class="choose-lab choose-lab-active" :prop1="'shoes-attr-'+index" prop2="choose-lab-active" onclick="$_chooseChange(this)">
-														<a href="#">全部</a>
-													</dd>
+
 													<div v-for="items in value" style="display: inline-block">
 													<dd class="choose-lab" :prop1="'shoes-attr-'+index" prop2="choose-lab-active" onclick="$_chooseChange(this)">
-														<a href="javascript:;" >{{items.propertyvalue}}</a>
+														<a href="javascript:;" :value="items.propertyid" onclick="addProperty(this)">{{items.propertyvalue}}</a>
 													</dd>
 													</div>
 												</dl>
@@ -84,9 +82,7 @@
 										<div class="single-sidebar-content">
 											<div :id="'shoes-attr-'+index" class="row">
 												<dl class="fl col-xs-9 shopping-choose" >
-													<dd class="choose-lab choose-lab-active" :prop1="'shoes-attr-'+index" prop2="choose-lab-active" onclick="$_chooseChange(this)">
-														<a href="#">全部</a>
-													</dd>
+
 													<div v-for="items in value" style="display: inline-block">
 														<dd class="choose-lab" :prop1="'shoes-attr-'+index" prop2="choose-lab-active" onclick="$_chooseChange(this)">
 															<a href="javascript:;" >{{items.propertyvalue}}</a>
@@ -268,8 +264,8 @@
             }
             function loadPropertyData(data) {
                 myChoose.list = data;
-                /*console.log("列表页vue数据：");
-                console.log(myChoose.list);*/
+                console.log("列表页购物选择数据：");
+                console.log(myChoose.list);
             }
             function loadShoesData(data) {
 				shoesList.list = data;
@@ -308,6 +304,9 @@
                    },
 
 			   })
+            }
+            function addProperty(obj) {
+				let propertuId = $(obj).val();
             }
 		</script>
 	</body>

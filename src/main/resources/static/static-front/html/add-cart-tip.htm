@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>101 Shoes|我的购物车</title>
+    <!--注意这样在提示成功加入购物车的时候，title要修改-->
+    <link rel="shortcut icon" href="/static-front/img/101_favicon.ico" type="image/x-icon"/>
+    <!--商品名称-->
+    <link rel="stylesheet" type="text/css" href="/static-front/css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="/static-front/css/myrest.css"/>
+    <link rel="stylesheet" type="text/css" href="/static-front/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static-front/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static-front/css/shoes-cart.css"/>
+    <link rel="stylesheet" type="text/css" href="/static-front/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static-front/font/font-awesome.min.css">
+
+    <script src="/static-front/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static-front/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static-front/js/common.js"></script>
+    <script src="/static-front/js/js.cookie.js"></script>
+    <script src="/static-front/js/shoes-cart.js"></script>
+
+</head>
+
+<body>
+
+<!--头部信息-->
+<div id="the_header"></div>
+
+<div class="container">
+    <!-- 购物提示 -->
+    <div id="cart-tip-div">
+        <div class="row add-cart-tip">
+            <!--显示加入购物车商品中图-->
+            <div class="pull-left">
+                <img src="/static-front/images/mid-img/add-cart-tip.jpg"/>
+            </div>
+            <!--显示加入购物车的商品信息-->
+            <div class="pull-left add-cart-tip-info">
+                <p style="color: red; font-size: 16px;">已成功加入购物车...</p>
+                <ul>
+                    <li>&nbsp;品牌:<b>Kobe Hunter</b></li>
+                    <li>&nbsp;名称:<b>Kobe 2th Killer</b></li>
+                    <li>&nbsp;颜色:<b>1040</b></li>
+                    <li>&nbsp;尺码:<b>40</b></li>
+                    <li>&nbsp;数量:<b>1</b></li>
+                    <li>&nbsp;小计:<b>¥17.50</b></li>
+                    <li style="display: none" id="shoes-id">44646456465654</li>
+                </ul>
+            </div>
+            <div class="pull-right add-cart-tip-info">
+                <div class="success-tip">
+
+                </div>
+                <div class="tip-link">
+                    <a href="javascript:;" id="return-detail-btn" onclick="returnDetail()">＜ 返回商品详情</a>
+                    <a href="javascript:;" id="to-cart-btn" onclick="toCartList()">去购物车结算</a>
+                </div>
+            </div>
+        </div>
+        <!--清除浮动-->
+        <div class="clearfix">
+
+        </div>
+        <!-- 为了好看，把底部版权栏推下去-->
+        <div style="height: 300px;"></div>
+    </div>
+</div>
+
+<!--尾部-->
+<div id="the_footer"></div>
+
+<!--载入头尾部-->
+<script>
+    $("#the_header").load("shoes-header.html");
+    $("#the_footer").load("shoes-footer.html");
+</script>
+
+</body>
+
+</html>

@@ -148,6 +148,21 @@ public class RedisService {
     }
 
     /**
+     * 增加值
+     * */
+    public <T> Long incrBy(KeyPrefix prefix, String key,Integer number) {
+        Jedis jedis = null;
+        try {
+            jedis =  jedisPool.getResource();
+            //生成真正的key
+            String realKey  = prefix.getPrefix() + key;
+            return  jedis.incrBy(realKey,number);
+        }finally {
+            returnToPool(jedis);
+        }
+    }
+
+    /**
      * 减少值
      * */
     public <T> Long decr(KeyPrefix prefix, String key) {
@@ -157,6 +172,21 @@ public class RedisService {
             //生成真正的key
             String realKey  = prefix.getPrefix() + key;
             return  jedis.decr(realKey);
+        }finally {
+            returnToPool(jedis);
+        }
+    }
+
+    /**
+     * 减少值
+     * */
+    public <T> Long decrBy(KeyPrefix prefix, String key,Integer number) {
+        Jedis jedis = null;
+        try {
+            jedis =  jedisPool.getResource();
+            //生成真正的key
+            String realKey  = prefix.getPrefix() + key;
+            return  jedis.decrBy(realKey,number);
         }finally {
             returnToPool(jedis);
         }

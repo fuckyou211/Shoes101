@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>101 Shoes|我的购物车</title>
+    <!--注意这样在提示成功加入购物车的时候，title要修改-->
+    <link rel="shortcut icon" href="/static-front/img/101_favicon.ico" type="image/x-icon"/>
+    <!--商品名称-->
+    <link rel="stylesheet" type="text/css" href="/static-front/css/normalize.css"/>
+    <link rel="stylesheet" type="text/css" href="/static-front/css/myrest.css"/>
+    <link rel="stylesheet" type="text/css" href="/static-front/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static-front/css/bootstrap-theme.min.css"/>
+    <link rel="stylesheet" type="text/css" href="/static-front/css/shoes-cart.css"/>
+    <link rel="stylesheet" type="text/css" href="/static-front/css/style.css">
+    <link rel="stylesheet" type="text/css" href="/static-front/font/font-awesome.min.css">
+
+    <script src="/static-front/js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static-front/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="/static-front/js/common.js"></script>
+    <script src="/static-front/js/js.cookie.js"></script>
+    <script src="/static-front/js/shoes-cart.js"></script>
+
+
+</head>
+
+<body>
+
+<!--头部信息-->
+<div id="the_header"></div>
+
+<div class="container">
+    <!-- 购物车列表 -->
+    <div id="cart-list-div" class="row">
+        <h3 class="h3 cart-title" style="border-bottom: 1px solid #f1858c;">
+            全部商品&nbsp;&nbsp;<span>50</span>
+        </h3>
+
+        <table class="table">
+
+            <tr class="cart-list-th">
+                <td class="checkbox-w">
+                    <input type="checkbox" class="checkbox-inline" id="check_all" value=""/>&nbsp;&nbsp;全选
+                </td>
+                <td class="cart-info-w">商品信息</td>
+                <td></td>
+                <td>单价</td>
+                <td>数量</td>
+                <td>金额</td>
+                <td>操作</td>
+            </tr>
+            <tr class="cart-list-line"></tr>
+            <tr class="cart-list-tr not-selected">
+                <td>
+                    <input type="checkbox" class="checkbox-inline" id="check_one" value=""/>
+                </td>
+                <td>
+                    <img src="/static-front/images/cart-xiezi.jpg" style="width: 80px;height: 80px;"/>
+                    <a class="cart-shoes-name" href="javascript:;">ADDS y3黑武士男鞋新款个性透气运动休闲鞋厚底增高时尚潮牌男鞋</a>
+                </td>
+                <td> 颜色分类：白蓝
+                    尺码：39
+                </td>
+                <td class="price-now">¥ 489.00</td>
+                <td>
+							<span class="cart-shoes-count">
+								<a href="javascript:;" class="cart-incr">∧</a>
+								<b>23</b>
+								<a href="javascript:;" class="cart-decr">∨</a>
+							</span>
+
+                </td>
+                <td class="price-total">¥ 489.00</td>
+                <td>
+                    <a href="javascript:;">删除</a>
+                </td>
+            </tr>
+            <!--隔行作用-->
+            <tr class="cart-list-line"></tr>
+            <tr class="cart-list-tr is-selected">
+                <td>
+                    <input type="checkbox" class="checkbox-inline" id="a16" value=""/>
+                </td>
+                <td>
+                    <img src="/static-front/images/cart-xiezi.jpg" style="width: 80px;height: 80px;"/>
+                    <a class="cart-shoes-name" href="javascript:;">ADDS y3黑武士男鞋新款个性透气运动休闲鞋厚底增高时尚潮牌男鞋</a>
+                </td>
+                <td> 颜色分类：白蓝
+                    尺码：39
+                </td>
+                <td class="price-now">¥ 489.00</td>
+                <td>
+							<span class="cart-shoes-count">
+								<a href="javascript:;" class="cart-incr">∧</a>
+								<b>23</b>
+								<a href="javascript:;" class="cart-decr">∨</a>
+							</span>
+
+                </td>
+                <td class="price-total">¥ 489.00</td>
+                <td>
+                    <a href="javascript:;">删除</a>
+                </td>
+            </tr>
+        </table>
+
+        <!-- 计算总额 -->
+        <div id="">
+            <div class="delete-tip">
+                成功删除&nbsp;<b>2</b>&nbsp;件宝贝!
+            </div>
+            <div class="cart-caculate">
+                <ul>
+                    <li class="pull-left" style="padding: 0px 25px; color: #3f3f3f">
+                        <input type="checkbox" name="" id="dele" value=""/>&nbsp;全选
+                    </li>
+                    <li class="pull-left" style="padding: 0px 25px; color: #3f3f3f">
+                        <a href="javascript:;">删除</a>
+                    </li>
+                    <li class="pull-right">
+                        <a href="javascript:;" id="cart-jiesuan" class="cart-has-shoe-seleted">结算</a>
+                    </li>
+                    <li class="pull-right" style="margin: 0px 40px;">
+                        合计：&nbsp;<b style="color: #f40;font-weight: 600; font-size: 16px;">¥ 489.00</b>
+                    </li>
+                    <li class="pull-right" style="margin: 0px 40px;">
+                        已选商品&nbsp;<b style="color: #f40;font-weight: 600; font-size: 16px;">3</b>&nbsp;件
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--尾部-->
+<div id="the_footer"></div>
+
+<!--载入头尾部-->
+<script>
+    $("#the_header").load("shoes-header.html");
+    $("#the_footer").load("shoes-footer.html");
+</script>
+
+</body>
+
+</html>

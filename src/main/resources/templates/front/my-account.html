@@ -133,6 +133,9 @@
 										<a href="#daishou" aria-controls="profile" role="tab" data-toggle="tab">待收货</a>
 									</li>
 									<li class="aaaaa">
+										<a href="#yishou" aria-controls="profile" role="tab" data-toggle="tab">已收货</a>
+									</li>
+									<li class="aaaaa">
 										<a href="#tuikuan" aria-controls="profile" role="tab" data-toggle="tab">退款/售后</a>
 									</li>
 								</ul>
@@ -322,13 +325,22 @@
 															</td>
                                                             <td class="unit-price">￥<span>[[${test.shoesorder.totalprice}]]</span></td>
                                                             <td style="width: 13%;">
-                                                                <div th:switch="${test.shoesorder.state}">
-                                                                    <span style="line-height: 93px;" th:case="100">未付款</span>
-                                                                    <span style="line-height: 93px;" th:case="101">未发货</span>
-                                                                    <span style="line-height: 93px;" th:case="102">未收货</span>
-                                                                    <span style="line-height: 93px;" th:case="103">已收货</span>
-                                                                </div>
-                                                                <span th:if="${test.shoesorder.cancel}==1" style="color: red">（已申请退货）</span>
+																<div th:if="${test.shoesorder.validity}==1">
+																	<div th:if="${test.shoesorder.cancel}==0">
+																		<div th:switch="${test.shoesorder.state}">
+																			<span style="line-height: 93px;" th:case="0">未付款</span>
+																			<span style="line-height: 93px;" th:case="1">未发货</span>
+																			<span style="line-height: 93px;" th:case="2">未收货</span>
+																			<span style="line-height: 93px;" th:case="3">已收货</span>
+																		</div>
+																	</div>
+																	<div th:if="${test.shoesorder.cancel}==1">
+																		<span style="line-height: 93px;color: red;" >申请退款</span>
+																	</div>
+																</div>
+																<div th:if="${test.shoesorder.validity}==0">
+																	<span style="line-height: 93px;color: red;" >已退款</span>
+																</div>
                                                                 <!--<span style="line-height: 93px;" th:if="">[[${test.shoesorder.orderid}]]</span>-->
                                                             </td>
 															<td>
@@ -429,8 +441,8 @@
 											<button type="button" data-toggle="tooltip" title="宝贝马上到手" th:onclick="'javascript:lijifukuan('+${test.shoesorder.orderid}+')' " > 立即付款</button>
 											</span>
 											<br /><br />
-											<button type="button" data-toggle="tooltip" > 联系卖家</button><br />
-											<a  href="#" style="margin-left: 15px">取消购买</a>
+											<button type="button" data-toggle="tooltip" th:onclick="'javascript:lianximaijia('+${test.shoesorder.orderid}+')' "> 联系卖家</button><br />
+											<a  href="#" style="margin-left: 15px" th:onclick="'javascript:quxiaogoumai('+${test.shoesorder.orderid}+')' ">取消购买</a>
 
 										</td>
 									</tr>
@@ -513,9 +525,7 @@
 											<button type="button" data-toggle="tooltip" th:onclick="'javascript:tixingfahuo('+${test.shoesorder.orderid}+')' " > 提醒发货</button>
 											</span>
 											<br /><br />
-											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
-											<br />
-											<a  href="#" style="margin-left: 15px">申请退货</a>
+											<button type="button" data-toggle="tooltip" th:onclick="'javascript:lianximaijia('+${test.shoesorder.orderid}+')' " > 联系卖家</button>
 										</td>
 									</tr>
                                     <tr>
@@ -592,12 +602,10 @@
 										</td>
 										<td>
 											<span style="line-height: 45px;">
-											<button type="button" data-toggle="tooltip" th:onclick="'javascript:querenshouhuo('+${test.shoesorder.orderid}+')' " > 确认收货</button>
+											<button type="button" data-toggle="tooltip" th:onclick="'javascript:shenqingtuihuo('+${test.shoesorder.orderid}+',1,0,3 )' " > 确认收货</button>
 											</span>
 											<br /><br />
-											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
-											<br />
-											<a  href="#" style="margin-left: 15px">申请退货</a>
+											<button type="button" data-toggle="tooltip" th:onclick="'javascript:lianximaijia('+${test.shoesorder.orderid}+')' " > 联系卖家</button>
 										</td>
 									</tr>
                                     <tr>
@@ -632,7 +640,7 @@
 										<th>交易操作</th>
 									</tr>
 									</thead>
-									<tbody th:each="test : ${imformation.order.alreadyget}">
+									<tbody th:each="test : ${imformation.order.readypayback}">
 									<tr>
 										<td style="width: 45%;">
                                             <div class="container-fluid">
@@ -670,7 +678,6 @@
 										<td >
 											<span style="line-height: 40px;">宝贝已签收</span>
 											<br>
-											<br>
 											<p style="margin:0 auto;">快递客服电话：</p>
 											<a href="#">13724688462</a>
                                             <br>
@@ -678,10 +685,10 @@
 										</td>
 										<td>
 											<span style="line-height: 45px;">
-											<button type="button" data-toggle="tooltip"  th:onclick="'javascript:申请退货('+${test.shoesorder.orderid}+')' "> 申请退货</button>
+											<button type="button" data-toggle="tooltip"  th:onclick="'javascript:shenqingtuihuo('+${test.shoesorder.orderid}+',1,0,3 )' "> 取消退货</button>
 											</span>
 											<br /><br />
-											<button type="button" data-toggle="tooltip"  > 联系卖家</button>
+											<button type="button" data-toggle="tooltip" th:onclick="'javascript:lianximaijia('+${test.shoesorder.orderid}+')' " > 联系卖家</button>
 
 										</td>
 									</tr>
@@ -697,12 +704,154 @@
 									<tr style="border: none;height: 30px;"></tr>
 									</tbody>
 
+									<tbody th:each="test : ${imformation.order.alreadyback}">
+									<tr>
+										<td style="width: 45%;">
+											<div class="container-fluid">
+												<div th:each="testdetail : ${test.orderDetail}">
+													<div class=" row" >
+														<div class="col-md-3">
+															<a href="#" class="text-center">
+																<img th:src="${testdetail.colorpicaddredd}" >
+															</a>
+														</div>
+														<div class="col-md-5">
+															<a href="single-product.html">[[${testdetail.shoesname}]]</a>
+														</div>
+														<div class="col-md-4">
+															<div class="container-fluid">
+																<div class="row">
+																	<div class="col-md-12 " style="height: 40px;">
+																		￥<span>[[${testdetail.price}]]</span>
+																	</div>
+																	<div class="col-md-12" style="height: 40px;">
+																		数量：<span>[[${testdetail.quantity}]]</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<hr />
+												</div>
+											</div>
+										</td>
+										<td class="unit-price">￥<span>[[${test.shoesorder.totalprice}]]</span></td>
+										<td style="width: 13%;">
+											<span style="line-height: 93px;">[[${test.shoesorder.orderid}]]</span>
+										</td>
+										<td >
+											<span th:if="${test.shoesorder.cancel}==1" style="color: red;line-height: 93px;">退货成功</span>
+										</td>
+										<td>
+											<span style="line-height: 93px;" >
+											</span>
+											<button  type="button" data-toggle="tooltip" th:onclick="'javascript:lianximaijia('+${test.shoesorder.orderid}+')' " > 联系卖家</button>
+
+										</td>
+									</tr>
+									<tr>
+										<td id="message" colspan="5">
+											<span>收货人：[[${test.shoesorder.contactname}]]</span>
+											<span>电话：[[${test.shoesorder.contactphone}]]</span>
+											<span>收货地址：[[${test.shoesorder.receiptaddress}]]</span>
+											<br>
+											<span>备注：[[${test.shoesorder.remark}]]</span>
+										</td>
+									</tr>
+									<tr style="border: none;height: 30px;"></tr>
+									</tbody>
+
 								</table>
 							</div>
 							<!--<button type="submit" value="Continue" class="check-button">一键付款</button>-->
 						</div>
 					</div>
+					<div role="tabpanel" class="tab-pane fade" id="yishou">
+						<div class="wishlist-heading">
+							<h2>已收货</h2>
+						</div>
+						<div class="wishlist-content">
+							<div class="table-responsive">
+								<table class="table table-bordered table-hover">
+									<thead>
+									<tr>
+										<th>商品</th>
+										<th>实付金额</th>
+										<th>订单号</th>
+										<th>交易状态</th>
+										<th>交易操作</th>
+									</tr>
+									</thead>
+									<tbody th:each="test : ${imformation.order.alreadyget}">
+									<tr>
+										<td style="width: 45%;">
+											<div class="container-fluid">
+												<div th:each="testdetail : ${test.orderDetail}">
+													<div class=" row" >
+														<div class="col-md-3">
+															<a href="#" class="text-center">
+																<img th:src="${testdetail.colorpicaddredd}" >
+															</a>
+														</div>
+														<div class="col-md-5">
+															<a href="single-product.html">[[${testdetail.shoesname}]]</a>
+														</div>
+														<div class="col-md-4">
+															<div class="container-fluid">
+																<div class="row">
+																	<div class="col-md-12 " style="height: 40px;">
+																		￥<span>[[${testdetail.price}]]</span>
+																	</div>
+																	<div class="col-md-12" style="height: 40px;">
+																		数量：<span>[[${testdetail.quantity}]]</span>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<hr />
+												</div>
+											</div>
+										</td>
+										<td class="unit-price">￥<span>[[${test.shoesorder.totalprice}]]</span></td>
+										<td style="width: 13%;">
+											<span style="line-height: 93px;">[[${test.shoesorder.orderid}]]</span>
+										</td>
+										<td >
+											<span style="line-height: 40px;">宝贝已签收</span>
+											<br>
+											<br>
+											<p style="margin:0 auto;">快递客服电话：</p>
+											<a href="#">13724688462</a>
+											<br>
+											<span th:if="${test.shoesorder.cancel}==1" style="color: red">（已申请退货）</span>
+										</td>
+										<td>
+											<span style="line-height: 45px;">
+											<button type="button" data-toggle="tooltip"  th:onclick="'javascript:shenqingtuihuo('+${test.shoesorder.orderid}+',1,1,1 )' "> 申请退货</button>
+											</span>
+											<br /><br />
+											<button type="button" data-toggle="tooltip" th:onclick="'javascript:lianximaijia('+${test.shoesorder.orderid}+')' " > 联系卖家</button>
 
+										</td>
+									</tr>
+									<tr>
+										<td id="message" colspan="5">
+											<span>收货人：[[${test.shoesorder.contactname}]]</span>
+											<span>电话：[[${test.shoesorder.contactphone}]]</span>
+											<span>收货地址：[[${test.shoesorder.receiptaddress}]]</span>
+											<br>
+											<span>备注：[[${test.shoesorder.remark}]]</span>
+										</td>
+									</tr>
+									<tr style="border: none;height: 30px;"></tr>
+									</tbody>
+
+								</table>
+							</div>
+							<!--<button type="submit" value="Continue" class="check-button">一键付款</button>-->
+						</div>
+					</div>
 					<div role="tabpanel" class="tab-pane fade" id="gaimima">
 						<form action="#">
 							<div class="list-style">
@@ -814,7 +963,7 @@
                     },
                     success:function(result){
                         if (result.code==0){
-                            alert(result.msg);
+                            $("#xinmimaa").html(result.msg);
                         }
                         else {
                             $("#xinmimaa").html(result.msg);
@@ -867,116 +1016,52 @@
         //         }
         //     });
         // });
-        $(".changemessage").click(function(){
-            var changeaddress= $(".province").val() +$(".city").val()+$(".longaddress").val();
-            var userida=[[${imformation.myInformation.user.userid}]];
-            alert(userida);
-            $.post({url:"/UserInformation/UpdateInformation",
-                dataType:'json',
-                type: 'post',
-                data:{
-                    userid:userida,
-                    username:$(".changename").val(),
-                    phone:$(".changephone").val(),
-                    address:changeaddress
-                },
-                success:function(result){
-                    alert(result.data);
-                },
-                fail: function (err) {
-                    alert("出错！");
-                    console.log(err);
-                }
-            });
-        });
 
-        $(".lijifukuan").click(function(){
-            $.post({url:"/a/d",
-                dataType:'json',
-                type: 'post',
-                // data:{
-                //     mobile:$(".d1").val(),
-                //     password:$(".d2").val()
-                // },
-                success:function(result){
-                    //eval函数解析json数据
-                    // alert(result.toString());
-                    console.log(result);
-                    $(".d1").html("<span style='color: red;'>"+result+"</span>");
-
-                },
-                fail: function (err) {
-                    alert("出错！");
-                    console.log(err);
-                }
-            });
-        });
-        $(".tixingfahuo").click(function(){
-            $.post({url:"/a/d",
-                dataType:'json',
-                type: 'post',
-                // data:{
-                //     mobile:$(".d1").val(),
-                //     password:$(".d2").val()
-                // },
-                success:function(result){
-                    //eval函数解析json数据
-                    // alert(result.toString());
-                    console.log(result);
-                    $(".d1").html("<span style='color: red;'>"+result+"</span>");
-
-                },
-                fail: function (err) {
-                    alert("出错！");
-                    console.log(err);
-                }
-            });
-        });
-        $(".querenshouhuo").click(function(){
-            $.post({url:"/a/d",
-                dataType:'json',
-                type: 'post',
-                // data:{
-                //     mobile:$(".d1").val(),
-                //     password:$(".d2").val()
-                // },
-                success:function(result){
-                    //eval函数解析json数据
-                    // alert(result.toString());
-                    console.log(result);
-                    $(".d1").html("<span style='color: red;'>"+result+"</span>");
-
-                },
-                fail: function (err) {
-                    alert("出错！");
-                    console.log(err);
-                }
-            });
-        });
     });
-    function lijifukuan(str) {
-        alert(str);
+
+    function lianximaijia(a){
+        alert("订单号为："+a+"暂时无法联系卖家");
+    }
+    function shenqingtuihuo(orderid,validity,cancel,state){
+        // alert("已申请订单号为："+a+"的订单退货");
+		console.log(validity);
+        $.post({
+            url:"../UserInformation/sendOrBackAjax2",
+            type:'post',
+            dataType:'json',
+            //传入list所需条件 traditional
+            // traditional:true,
+            data:{"orderid":orderid,"validity":validity,"cancel":cancel,"state":state},
+            //传入成功后 获取库存并且返回
+            success:function(data) {
+                // alert("操作成功");
+                window.location.reload();
+            },
+            fail: function(err){
+                console.log(err)
+            }
+        });
         // $.ajax({
+        //     url:"/orderm/sendOrBackAjax",
+        //     dataType:"json",
         //     type:"post",
-        //     url:"/zhifu",
-        //     dataType:'json',
         //     data:{
-        //
+        //         orderid:a
         //     },
-        //     success:function(data){
-        //         if(isStrEmpty(data.error)){
-        //             $("#sendResult").text(sendResult);
-        //             gotoStep3();
-        //         }else{
-        //             $.alert(data.error);
-        //             gotoLoginForm();
-        //         }
-        //     },
-        //     error:function(){
-        //         $.alert("<s:text name="err.system"/>");
-        //         gotoLoginForm();
+        //     success:function(result){
+        //         alert(result);
+		//
+        //         // else {
+        //         //     $("#xinmimaa").html(result.msg);
+        //         // }
         //     }
         // });
+    }
+    function tixingfahuo(a){
+        alert("已提醒订单号为："+a+"的卖家发货");
+    }
+    function lijifukuan(str) {
+        window.location.href="/static-front/html/shoes-trace.htm?orderId="+str;
     }
 </script>
 

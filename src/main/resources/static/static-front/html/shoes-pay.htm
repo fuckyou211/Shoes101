@@ -32,7 +32,7 @@
 <!--头部信息-->
 <div id="the_header"></div>
 
-<div class="container">
+<div class="container" id="order-container">
     <!-- 头部 -->
     <!--<div class="row cart-head" style="margin-bottom: 20px;">
         <div class="cart-logo pull-left">
@@ -145,8 +145,15 @@
             <!--清除浮动-->
             <div class="clearfix"></div>
             <div class="order-caculate-btn pull-right">
-                <a href="javascript:;" id="order-caculate-return" class="btn-link">返回购物车</a>
-                <a href="javascript:;" id="order-caculate-do" onclick="handOrder()">提交订单</a>
+                <input type="hidden" id="rushbuyid-order" value="-1"/>
+                <a href="javascript:;" id="order-caculate-return" class="btn-link" onclick="returnCart()">返回购物车</a>
+
+                <span id="pay-hand-order">
+                    <!--<a href="javascript:;" id="order-caculate-do" onclick="handOrder()">提交订单</a>-->
+                </span>
+                <span id="pay-hand-order-rush">
+                    <!--<a href="javascript:;" id="order-caculate-do-rush" onclick="handRushOrder()">开始抢购</a>-->
+                </span>
             </div>
         </div>
     </div>

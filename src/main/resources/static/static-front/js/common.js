@@ -12,9 +12,7 @@ $(function () {
  *  跳转至下单页面
  * @param data
  */
-function dumpToPayPage(data) {
-
-
+function dumpToPayPage(data,type,rushbuyid) {
 
     if(!data){
         return;
@@ -29,6 +27,22 @@ function dumpToPayPage(data) {
         // TODO 保存数据到时候直接跳转到该页面
         //return;
     }
+    // 抢购的
+    if(type  == 2){
+        data[0].rushbuyid = rushbuyid;
+        $.ajax({
+            url: "/order/pageData",
+            type: "POST",
+            data: {
+                "key":token,
+                "data":JSON.stringify(data[0]),
+            },
+            success: function (data) {
+                window.location.href ="/static-front/html/shoes-pay.htm";
+            }
+        });
+    }
+
 
     $.ajax({
         url: "/order/pageData",
@@ -38,13 +52,13 @@ function dumpToPayPage(data) {
             "data":JSON.stringify(data),
         },
         success: function (data) {
-
+            window.location.href ="/static-front/html/shoes-pay.htm";
         }
 
     });
 
     //renderPayPage(data);
-    window.location.href ="/static-front/html/shoes-pay.htm";
+
 }
 
 
@@ -228,11 +242,12 @@ function getToken() {
     let token = getCookie("token");
 
     if(!token){
-        // alert("你还未登录,请先登录！");
+        alert("你还未登录,请先登录！");
         token = "guoguanzhi-909683502";
         // 登录成功之后跳转到该页面
         // TODO 保存数据到时候直接跳转到该页面
-        //return;
+        window.location.href="/login/to_login"
+        return;
     }
 
     return token;
@@ -344,11 +359,17 @@ function getQueryPathStringByName(name) {
 function $_chooseChange(oTarget) {
     let oParent = $(oTarget).attr("prop1");
     let className = $(oTarget).attr("prop2");
-    $_initChoose(oParent,className);
 
     let target = $(oTarget);
+    if(target.hasClass(className)){
+        target.removeClass(className)
+    }else{
+        $_initChoose(oParent,className);
+        target.addClass(className);
+    }
 
-    target.addClass(className);
+
+
 
 }
 

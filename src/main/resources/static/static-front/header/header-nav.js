@@ -21,21 +21,21 @@ var sta_1="<div class=\"mainmenu-area product-items\">\n" +
     "                                        <a href=\"http://localhost:8080\">101Shoes</a>\n" +
     "                                    </li>\n" +
     "                                    <li>\n" +
-    "                                        <a href=\"shop.html\">男鞋</a>\n" +
+    "                                        <a href=\"javascript:;\" value=\"1\" onclick=\"toShoesList(this)\">男鞋</a>\n" +
     "                                        <div class=\"mega-menu\" id=\"men_sort\">" +
     "                                           <ul>";
 var sta_2 = "</ul>\n" +
     "                                        </div>\n" +
     "                                    </li>\n" +
     "                                    <li>\n" +
-    "                                        <a href=\"shop.html\">女鞋</a>\n" +
+    "                                        <a href=\"javascript:;\" value=\"1\" onclick=\"toShoesList(this)\">女鞋</a>\n" +
     "                                        <div class=\"mega-menu\" id=\"women_sort\">\n" +
     "                                            <ul>";
 var sta_3 = "</ul>\n" +
     "                                        </div>\n" +
     "                                    </li>\n" +
     "                                    <li>\n" +
-    "                                        <a href=\"shop.html\">品牌</a>\n" +
+    "                                        <a style=\"cursor:pointer\">品牌</a>\n" +
     "                                        <div class=\"mega-menu\">\n" +
     "                                            <ul id=\"theBrand\">\n" +
     "                                                <li class=\"col-md-12\" >\n" +
@@ -48,7 +48,7 @@ var sta_4 = "</div>\n" +
     "                                        </div>\n" +
     "                                    </li>\n" +
     "                                    <li class=\"mega-jewellery\">\n" +
-    "                                        <a href=\"shoes-sale.html\">疯狂抢购</a>\n" +
+    "                                        <a href=\"javascript:;\" onclick=\"carryRush()\">疯狂抢购</a>\n" +
     "                                    </li>\n" +
     "                                    <li class=\"search\">\n" +
     "                                        <input name=\"searchContent\" type=\"text\" class=\"myinput\" placeholder=\"搜索  运动鞋/休闲鞋\">\n" +
@@ -61,7 +61,6 @@ var sta_4 = "</div>\n" +
     "                </div>\n" +
     "            </div>\n" +
     "        </div>";
-
 var inner_1 = "";
 var inner_2 = "";
 var inner_3 = "";
@@ -180,6 +179,10 @@ function toShoesList(obj) {
     if(theClassifyId){
         window.location.href="../../ShoesShop/shoes-list?catalogId="+theClassifyId;
     }
+}
+/*  跳转至抢购页面 */
+function carryRush() {
+    window.location.href="/rush/getAllRush";
 }
 /*搜索*/
 function theSearch() {

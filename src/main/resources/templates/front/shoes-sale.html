@@ -257,25 +257,31 @@
 				},
 				methods:{
 				    selectOne:function(rushbuyid){
-                        $.ajax({
-                            url:"../rush/selectOneRush",
-                            type:'get',
-                            dataType:'json',
-                            //传入list所需条件 traditional
-                            traditional:true,
-                            data:{"rushbuyid":rushbuyid},
-                            //传入成功后 获取库存并且返回
-                            success:function(data) {
-                                alert("操作成功");
-                                console.log(data);
-                                // alert("100");
-                                // ordervue.orders = data;
 
-                            },
-                            fail: function(err){
-                                console.log(err)
-                            }
-                        });
+                        window.location.href="/rush/selectOneRush?rushbuyid="+rushbuyid;
+                        // $.ajax({
+                        //     url:"/rush/selectOneRush",
+                        //     type:'get',
+                        //     dataType:'json',
+                        //     //传入list所需条件 traditional
+                        //     traditional:true,
+                        //     data:{"rushbuyid":rushbuyid},
+                        //     //传入成功后 获取库存并且返回
+                        //     success: function(data) {
+                        //         alert("操作成功");
+                        //         console.log("----->"+data);
+                        //         // alert("100");
+                        //         // ordervue.orders = data;
+						//
+						//
+                        //     },
+                        //     error: function(err){
+						//
+						// 		window.location.href="/rush/front/shoes-detail";
+						//
+                        //         console.log(err)
+                        //     }
+                        // });
 					}
 				}
 			})
