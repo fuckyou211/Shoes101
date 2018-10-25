@@ -64,7 +64,7 @@ public class RushOrderServiceImpl implements RushOrderService {
         }
         if (limitnumber < overnumber + rushOrderVo.getQuantity()) {
             redisService.set(RushKey.orderState, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), -1);
-            throw new GlobalException(CodeMsg.MIAOSHA_OUTNUMBER);
+            throw new GlobalException(new CodeMsg(5000,"商品限购"+limitnumber+"件,您购买的商品数量已超过规定额度！"));
         }
 
         Long number = redisService.decrBy(RushKey.rushsku, rushOrderVo.getRushbuyid() + ":" + rushOrderVo.getShoessku(), rushOrderVo.getQuantity());
