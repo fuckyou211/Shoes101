@@ -357,7 +357,7 @@ function handRushOrder(){
             "contactName":contactName,
             "remark":remark,
             "receiptaddress":addr,
-            "rushbuyid":rushbuyid,
+            "rushbuyid":orderItemList[0].rushbuyid,
             "token":token
         },
         beforeSend: function () {

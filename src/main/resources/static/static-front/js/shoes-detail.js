@@ -260,7 +260,7 @@ function doPayNow2(type,rushquantity,color,size,skuid,shoesname,rbprice,shoesid,
     console.log("下单的数据："+orderItem);
 
     let orderItemArr = new Array(orderItem);
-    let rushbuyid = rbid;
+    let rushbuyid = orderItem.rushbuyid;
     console.log("这个id:" + rushbuyid);
     //orderItemArr[orderItemArr.length] = orderItem;
 
