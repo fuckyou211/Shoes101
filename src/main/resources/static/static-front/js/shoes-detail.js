@@ -80,8 +80,8 @@ function renderDetailPage(data) {
     $("#detail-shoes-total").html(details.quantity);
     let str = details.shoesdetails;
 
-    let newStr = str.replace("\\\r\\\n","<br/>");
-    $("#shoes-details").html(newStr.substr(1,newStr.length-2));
+    let newStr = str.replace("\\\r\\\n","");
+    $("#shoes-details").html(newStr);
 
 
 }
