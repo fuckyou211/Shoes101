@@ -58,7 +58,7 @@
         <div class="order-info" style="text-align: center;margin-top: 10px;">
             <h5 style="color: #1cc09f">请在15分钟之内支付！</span></h5>
             <p style="color: red;font-size: 25px;font-weight: bold;">￥ <span id="order-money-total">473</span></p>
-            <h5 style="color: #1cc09f">订单编号：<span>57898709808080</span></h5>
+            <h5 style="color: #1cc09f">订单编号：<span id="orderId-set"></span></h5>
         </div>
         <div style="line-height: 120px;text-align:center;">
             <a style="color: #ffffff;margin-right: 20px;" href="javascript:;" class="btn btn-success" onclick="yesPay()"> 确认支付 </a>
@@ -76,6 +76,7 @@
     $(function () {
         let orderId = getQueryPathStringByName("orderId");
         //alert("交易成功！orderId="+orderId);
+        $("#orderId-set").html(orderId);
         getTotalPrice(orderId);
 
     });

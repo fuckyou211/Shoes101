@@ -131,7 +131,12 @@ public class RushMController {
     public Result<String> QueryRushOrder(HttpServletRequest request, String skuidandqty, String contactPhone,
                                           String contactName, String remark, String receiptaddress, String token, String rushbuyid) {
 
+        logger.info("--------请求来啦！！！！");
+
         if(token == null || token.length() == 0){
+
+
+
             return Result.error(CodeMsg.USER_FREQUENTLY_LOGIN);
         }
 
@@ -179,8 +184,8 @@ public class RushMController {
 
         miaoshaMessage.setRushOrderVo(rushOrderVo);
         logger.info("miaoshaMessage:{}",miaoshaMessage);
-
-        return rushOrderServiceImpl.QueryRushOrder(request,user,rushOrderVo);
+        Result<String> stringResult = rushOrderServiceImpl.QueryRushOrder(request, user, rushOrderVo);
+        return stringResult;
     }
 
 

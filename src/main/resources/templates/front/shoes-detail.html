@@ -279,6 +279,7 @@
 
 <script src="../static-front/js/jquery-1.12.1.min.js" type="text/javascript" charset="utf-8"></script>
 <script src="../static-front/js/bootstrap.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../static-front/js/layer.js"></script>
 <script src="../static-front/js/common.js"></script>
 <script src="../static-front/js/js.cookie.js"></script>
 <script src="../static-front/js/shoes-detail.js"></script>
@@ -342,39 +343,6 @@
 
 <!--&lt;!&ndash;Vue&ndash;&gt;-->
 <script>
-    // var time = new Vue({
-    //     el:'#time',
-    //     data: function(){
-    //         return {
-    //             day: 0, hr: 0, min: 0, sec: 0
-    //         }
-    //     },
-    //     mounted: function () {
-    //         this.countdown()
-    //     },
-    //     methods: {
-    //         countdown: function () {
-    //             let date = new Date();
-    //             const end = Date.parse('2017-12-01');
-    //             const now = Date.parse(date.toString());
-    //             const msec = end - now
-    //             let day = parseInt(msec / 1000 / 60 / 60 / 24)
-    //             let hr = parseInt(msec / 1000 / 60 / 60 % 24)
-    //             let min = parseInt(msec / 1000 / 60 % 60)
-    //             let sec = parseInt(msec / 1000 % 60)
-    //             this.day = day
-    //             this.hr = hr > 9 ? hr : '0' + hr
-    //             this.min = min > 9 ? min : '0' + min
-    //             this.sec = sec > 9 ? sec : '0' + sec
-    //             const that = this
-    //             setTimeout(function () {
-    //                 that.countdown()
-    //             }, 1000)
-    //         }
-    //     }
-    // })
-
-
     var detail = new Vue({
         el:'#detail',
         data:{

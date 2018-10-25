@@ -244,6 +244,7 @@ function doAddCart() {
 function doPayNow2(type,rushquantity,color,size,skuid,shoesname,rbprice,shoesid,rushpic,rbid) {
     let token = getToken();
     if(!token){
+
         return;
     }
     //封装数据
@@ -269,9 +270,6 @@ function doPayNow2(type,rushquantity,color,size,skuid,shoesname,rbprice,shoesid,
 
         // rushbuyid = getQueryPathStringByName(rushbuyid);
     dumpToPayPage(orderItemArr,token,type,rushbuyid);
-
-
-
 
     //跳转到购物车页面
     //window.location.href="./shoes-pay.html";
@@ -306,25 +304,6 @@ function packageShoes(type) {
     let shoesName = $($_Id("shoes-name")).html();
 
     let price = $($_Id("ticket-price")).html();
-
-    // 获取当前的价格
-    //let now_price= $($_Id("shoes-price")).html();
-
-    // //如果是抢购 10.24
-    // if(type == 2)
-    // {
-    //     let color = $("#go-fuck-your-self").val();
-    //     console.log(color);
-    //     let size = $($_Class("go-fuck-your-self1","choose-border")[0]).attr("title");
-    //     console.log(size);
-    //     let skuId = $("#shoes-skuid").val();
-    //     let shoes_count= $.trim($($_Id("detail-shoes-count")).html());
-    //     let colorPic = "abc";
-    //     let orderItem = new OrderItem(colorPic,shoesName,color,size,skuId,shoes_count,price);
-    //
-    //     return orderItem;
-    // }
-
     // 获取颜色
     let colorId = $($_Class("detail-shoes-color","choose-border")[0]).attr("name");
     console.log("c" + colorId);
@@ -353,18 +332,6 @@ function packageShoes(type) {
 
     // 获取数量
     let shoes_count= $.trim($($_Id("detail-shoes-count")).html());
-
-    // console.log(shoes_id+";"+now_price+";"+shoes_color+";"+shoes_size);
-
-    // let data={
-    //     "id":shoes_id,
-    //     "color":shoes_color,
-    //     "size":shoes_size,
-    //     "count":shoes_count,
-    //     toString : function () {
-    //         return "id:"+this.id +"color:"+this.color+"size:"+this.size+"count:"+this.count;
-    //     }
-    // };
 
     let orderItem = new OrderItem(colorPic,shoesName,color,size,skuId,shoes_count,price);
 

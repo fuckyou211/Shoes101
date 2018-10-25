@@ -276,6 +276,7 @@ function handOrder() {
         },
         success:function (data) {
             if(data.code  == 0){
+
                 //alert("下单成功");
                 $("#pay-body").html("");
                 closeAll();
@@ -316,7 +317,7 @@ function handRushOrder(){
 
 
     if($("#order-caculate-do-rush").hasClass("reapClick")){
-        alert("请勿重复提交订单！");
+        layer.alert("请勿重复提交订单！", {icon: 6});
         closeAll();
         return;
     }
@@ -330,7 +331,7 @@ function handRushOrder(){
     //orderListBody,cart-list-tr
 
     if(!orderItemList){
-        alert("非法请求！");
+        layer.alert("非法请求！", {icon: 6});
         return;
     }
 
@@ -345,9 +346,10 @@ function handRushOrder(){
     });
 
     let token = getToken();
-
+    let time = null;
     console.log(orderItemArr);
     console.log("---------------");
+    let rushbuyid = orderItemList[0].rushbuyid;
     // 开始提交订单
     $.ajax({
         url: "/RushOrder/CreateRushOrder",
@@ -358,7 +360,7 @@ function handRushOrder(){
             "contactName":contactName,
             "remark":remark,
             "receiptaddress":addr,
-            "rushbuyid":orderItemList[0].rushbuyid,
+            "rushbuyid":rushbuyid,
             "token":token
         },
         beforeSend: function () {
@@ -366,29 +368,13 @@ function handRushOrder(){
             $("#order-caculate-do-rush").addClass("reapClick");
         },
         success:function (data) {
-            if(data.code  == 0){
-                //alert("下单成功");
-                $("#order-container").html("");
-                closeAll();
-                layer.msg('订单创建成功！立即支付？', {
-                    time: 0 //不自动关闭
-                    ,btn: ['确定', '稍后支付']
-                    ,yes: function(index){
-                        layer.close(index);
-                        //alert("跳转成功！");
-                        orderItemList = null;
-                        window.location.href="/static-front/html/shoes-trace.htm?orderId="+data.data;
-                    }
-                    ,btn2: function(index){
-                        alert("跳转至我的订单！");
-                        //return false 开启该代码可禁止点击该按钮关闭
-                    }
-                });
 
-            }
-            else {
-                $("#order-caculate-do-rush").removeClass("reapClick");
-            }
+            // if(code == )
+            //
+            // setInterval(function () {
+            //
+            // },500)
+                getRushResult(data,orderItemArr,contactPhone,contactName,remark,addr,rushbuyid,token);
 
         },
         error: function () {
@@ -396,6 +382,71 @@ function handRushOrder(){
         }
     });
 
+}
+
+function getRushResult(data,orderItemArr,contactPhone,contactName,remark,addr,rushbuyid,token) {
+    showLoading();
+    let soure = data;
+    if(soure.code  == 0){
+
+        $.ajax({
+            url: "/RushOrder/QueryRushOrder",
+            type:"POST",
+            data: {
+                "skuidandqty": JSON.stringify(orderItemArr),
+                "contactPhone":contactPhone,
+                "contactName":contactName,
+                "remark":remark,
+                "receiptaddress":addr,
+                "rushbuyid":rushbuyid,
+                "token":token
+            },
+            success:function (data) {
+
+                //alert("dingsjhskhskhh----"+data.code);
+                if(data.code == 0){
+                    //alert("下单成功");
+                    $("#pay-body").html("");
+                    closeAll();
+                    layer.msg('抢购成功！立即支付？', {
+                        time: 0 //不自动关闭
+                        ,btn: ['确定', '稍后支付']
+                        ,yes: function(index){
+                            layer.close(index);
+                            //alert("跳转成功！");
+                            orderItemList = null;
+                            //alert("只爱地阿迪："+data.data);
+                            window.location.href="/static-front/html/shoes-trace.htm?orderId="+data.data;
+                        }
+                        ,btn2: function(index){
+                            window.location.href="/UserInformation/UserMyAccount";
+                        }
+                    });
+                }
+                else if(data.code == 500508){
+                    // showLoading();
+                    //
+                    // closeAll();
+                    //alert(data.message);
+                    getRushResult(soure,orderItemArr,contactPhone,contactName,remark,addr,rushbuyid,token);
+                }else {
+                    closeAll();
+                    layer.alert("抢购失败！", {icon: 6});
+                }
+            }
+        })
+    }
+    else {
+        layer.alert(soure.msg+",即 5 秒后将返回首页！", {icon: 6},function () {
+            $("#order-caculate-do-rush").removeClass("reapClick");
+            window.location.href="/";
+        });
+        setInterval(function () {
+            $("#order-caculate-do-rush").removeClass("reapClick");
+            window.location.href="/";
+        },5000);
+
+    }
 }
 
 function getUserId() {
