@@ -199,7 +199,7 @@
                                                         <a href="javascript:void(0);" class="tb-color" :value="item.colorid"
                                                            onclick="chooseColor(this)" >
 			                                            	<span data-toggle = "tooltip" :title="item.color" >
-			                                            		<img :src="'../'+item.colorpic" class="img-responsive center-block "/>
+			                                            		<img :src="item.colorpic" class="img-responsive center-block "/>
 			                                            	</span>
                                                             <i class="fa fa-check red hidden"></i>
                                                         </a>
@@ -297,15 +297,7 @@
 
 
 
-<script>
-    $(document).ready(function(){
-        //一些初始化
-        $('[data-toggle="tooltip"]').tooltip();
-        $('.product-images').slick({
-             dots: true
-         });
-    });
-</script>
+
 
 <script>
     function getShoesId(){
@@ -340,7 +332,6 @@
         shoesvue.bigpics = temp.bigpics;
         shoesvue.allquantity = temp.totalQty;
         shoesvue.catalog = temp.catalog;
-
     }
 
     function chooseSize(obj) {
@@ -426,10 +417,31 @@
             catalog:[],
             allquantity:0,
             skuquantity:0
+        },
+        watch:{
+            bigpics:function(){
+                this.$nextTick(function(){
+                    //////方法
+                    $('.product-images').slick({
+                        dots: true
+                    });
+                });
+            }
         }
     });
-    //获取数据
-    getShoesDetail();
+
+</script>
+
+<script>
+    $(document).ready(function(){
+        //一些初始化
+        //获取数据
+        getShoesDetail();
+        $('[data-toggle="tooltip"]').tooltip();
+        // $('.product-images').slick({
+        //     dots: true
+        // });
+    });
 </script>
 </body>
 </html>

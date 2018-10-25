@@ -12,7 +12,7 @@ Vue.component('navigate',{
         '                            <ul class="dropdown-menu animated fadeInRight m-t-xs">\n' +
         '                                <li><a href="profile.html">修改密码</a></li>\n' +
         '                                <li class="divider"></li>\n' +
-        '                                <li><a href="login">退出</a></li>\n' +
+        '                                <li><a href="javascript:void(0);" onclick="logout()">退出</a></li>\n' +
         '                            </ul>\n' +
         '                        </div>\n' +
         '                        <div class="logo-element">\n' +
@@ -42,7 +42,7 @@ Vue.component('navigate',{
         '                    <li>\n' +
         '                        <a href="../../property/toproperty"><i class="fa fa-rocket"></i> <span class="nav-label">属性管理 </span></a>\n' +
         '                    </li>\n' +
-        '                    <li class="active">\n' +
+        /*'                    <li class="active">\n' +
         '                        <a href="metrics.html"><i class="fa fa-telegram"></i> <span class="nav-label">首页内容管理</span><span class="fa arrow"></span>  </a>\n' +
         '                        <ul class="nav nav-second-level">\n' +
         '                            <li class="active"><a href="index.html">导航栏管理</a></li>\n' +
@@ -55,7 +55,7 @@ Vue.component('navigate',{
         '                    </li>\n' +
         '                    <li>\n' +
         '                        <a href="metrics.html"><i class="fa fa-tags"></i> <span class="nav-label">系统说明</span>  </a>\n' +
-        '                    </li>\n' +
+        '                    </li>\n' +*/
         '                </ul>\n' +
         '\n' +
         '            </div>\n' +
@@ -74,7 +74,7 @@ Vue.component('navigate-assist',{
         '                        </li>\n' +
         '        \n' +
         '                        <li>\n' +
-        '                            <a href="login.html">\n' +
+        '                            <a href="javascript:void(0);" onclick="logout()">\n' +
         '                                <i class="fa fa-sign-out"></i> 退出\n' +
         '                            </a>\n' +
         '                        </li>\n' +
@@ -88,3 +88,18 @@ Vue.component('navigate-assist',{
         '                </nav>\n' +
         '            </div>'
 })
+
+function logout() {
+    $.ajax({
+        url:"../login/logout",
+        type:"GET",
+        success: function (data) {
+            if(data.code == 0){
+                window.location.href="http://localhost:8080/admin/login";
+            }
+        },
+        error: function () {
+            alert("请求失败！");
+        }
+    });
+}
