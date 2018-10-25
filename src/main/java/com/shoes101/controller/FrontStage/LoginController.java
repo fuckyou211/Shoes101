@@ -146,11 +146,6 @@ public class LoginController {
     public Result<Boolean> logout(HttpServletRequest request,HttpServletResponse response){
         logger.info("申请退出！");
 
-
-        
-
-
-
         Cookie[] cookies = request.getCookies();
 
         String tk = null;
@@ -160,7 +155,9 @@ public class LoginController {
             if(cookie.getName().equals("token")){
                 tk = cookie.getValue();
                 logger.info("token--->"+tk);
-                cookie.setMaxAge(-122111);
+                cookie.setMaxAge(0);
+                cookie.setPath("/");
+                response.addCookie(cookie);
             }
         }
 

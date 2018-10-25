@@ -243,6 +243,9 @@ function doAddCart() {
 
 function doPayNow2(type,rushquantity,color,size,skuid,shoesname,rbprice,shoesid,rushpic,rbid) {
     let token = getToken();
+    if(!token){
+        return;
+    }
     //封装数据
     //alert('下单成功！');
     let orderItem = packageVueShoes(rushquantity,color,size,skuid,shoesname,rbprice,shoesid,rushpic,rbid)
@@ -371,6 +374,10 @@ function packageShoes(type) {
 
 function doPayNow(type) {
     let token = getToken();
+
+    if(!token){
+        return;
+    }
     //封装数据
     //alert('下单成功！');
     let orderItem = packageShoes(type);

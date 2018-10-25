@@ -277,7 +277,7 @@ function handOrder() {
         success:function (data) {
             if(data.code  == 0){
                 //alert("下单成功");
-                $("#order-container").html("");
+                $("#pay-body").html("");
                 closeAll();
                 layer.msg('订单创建成功！立即支付？', {
                     time: 0 //不自动关闭
@@ -289,8 +289,9 @@ function handOrder() {
                         window.location.href="/static-front/html/shoes-trace.htm?orderId="+data.data;
                     }
                     ,btn2: function(index){
-                        alert("跳转至我的订单！");
+                        //alert("跳转至我的订单！");
                         //return false 开启该代码可禁止点击该按钮关闭
+                        window.location.href="/UserInformation/UserMyAccount";
                     }
                 });
 

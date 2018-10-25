@@ -100,7 +100,7 @@
             type: "POST",
             success: function (data) {
                 if(data.code == 0){
-                    alert("支付成功，等待发货！");
+                    layer.alert('支付成功，等待发货。。。', {icon: 6});
                     window.location.href="/UserInformation/UserMyAccount";
                 }
             },

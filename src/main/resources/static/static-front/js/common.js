@@ -274,14 +274,20 @@ function getToken() {
     let token = getCookie1("token");
 
     if(!token){
-        alert("你还未登录,请先登录！");
-        //token = "guoguanzhi-909683502";
-        // 登录成功之后跳转到该页面
-        // TODO 保存数据到时候直接跳转到该页面
-        window.location.href="/login/to_login"
+        layer.msg('你还没有登录，立即登录？', {
+            time: 0 //不自动关闭
+            ,btn: ['登录', '取消']
+            ,yes: function(index){
+                layer.closeAll();
+                window.location.href="/login/to_login";
+                return;
+            }
+            ,btn2: function(index){
+                return;
+            }
+        });
         return;
     }
-
     return token;
 }
 
