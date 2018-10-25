@@ -15,11 +15,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
-@RabbitListener(queues=MQConfig.MIAOSHA_QUEUE)
 public class MQReceiver {
 
 	private static Logger log = LoggerFactory.getLogger(MQReceiver.class);
@@ -35,14 +33,14 @@ public class MQReceiver {
 	private OrderService orderService;
 
 
-	    @RabbitHandler
+		@RabbitHandler
+		@RabbitListener(queues=MQConfig.MIAOSHA_QUEUE)
 		public void receive(String message) {
 
 			log.info("receive message:"+message);
 			MiaoshaMessage mm  = RedisService.stringToBean(message, MiaoshaMessage.class);
 			User user = mm.getUser();
 			RushOrderVo rushOrderVo=mm.getRushOrderVo();
-
 			Rushsku rushsku=rushbuyMapper.getRushbuyByrushskuid(rushOrderVo.getRushbuyid(),rushOrderVo.getShoessku());
 			if(rushsku.getQuantity()<=0||rushsku.getQuantity()<rushOrderVo.getQuantity())
 			{
@@ -75,7 +73,7 @@ public class MQReceiver {
             log.info("redisService.get:{}",redisService.get(RushKey.orderState,user.getUserid()+":"+rushOrderVo.getRushbuyid(),Long.class));
 		}
 
-		@RabbitListener(queues=MQConfig.QUEUE)
+	//	@RabbitListener(queues=MQConfig.MIAOSHA_QUEUE)
 		public void receive2(String message) {
 			log.info("receive message:"+message);
 		}

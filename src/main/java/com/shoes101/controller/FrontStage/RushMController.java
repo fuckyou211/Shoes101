@@ -100,12 +100,13 @@ public class RushMController {
         rushOrderVo.setRushbuyid(Integer.parseInt(rushbuyid));
         rushOrderVo.setUserid(user.getUserid());
 
-        List<SkuIdAndQuantityVo> skuiobj = new ArrayList<>();
-        SkuIdAndQuantityVo skuIdAndQuantityVo=new SkuIdAndQuantityVo();
-        skuIdAndQuantityVo.setQuantity(5);
-        skuIdAndQuantityVo.setSkuid(2);
-        skuiobj.add(skuIdAndQuantityVo);
-        if(skuiobj.size()<=0||skuiobj==null)
+        List<SkuIdAndQuantityVo> skuiobj = JSON.parseArray(skuidandqty,SkuIdAndQuantityVo.class);
+//        List<SkuIdAndQuantityVo> skuiobj = new ArrayList<>();
+//        SkuIdAndQuantityVo skuIdAndQuantityVo=new SkuIdAndQuantityVo();
+//        skuIdAndQuantityVo.setQuantity(2);
+//        skuIdAndQuantityVo.setSkuid(3);
+//        skuiobj.add(skuIdAndQuantityVo);
+        if(skuiobj==null||skuiobj.size()<=0)
         {
             return Result.error(CodeMsg.MIAOSHA_FAIL);
         }
@@ -168,13 +169,13 @@ public class RushMController {
         rushOrderVo.setRushbuyid(Integer.parseInt(rushbuyid));
         rushOrderVo.setUserid(user.getUserid());
         List<SkuIdAndQuantityVo> skuiobj = JSON.parseArray(skuidandqty,SkuIdAndQuantityVo.class);
-        if(skuiobj.size()<=0)
+        if(skuiobj==null||skuiobj.size()<=0)
         {
             return Result.error(CodeMsg.MIAOSHA_FAIL);
         }
         rushOrderVo.setSkuidandqty(skuiobj);
-        rushOrderVo.setShoessku(skuiobj.get(1).getSkuid());
-        rushOrderVo.setQuantity(skuiobj.get(1).getQuantity());
+        rushOrderVo.setShoessku(skuiobj.get(0).getSkuid());
+        rushOrderVo.setQuantity(skuiobj.get(0).getQuantity());
 
         miaoshaMessage.setRushOrderVo(rushOrderVo);
         logger.info("miaoshaMessage:{}",miaoshaMessage);

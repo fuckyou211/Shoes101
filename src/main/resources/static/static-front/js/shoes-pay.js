@@ -349,7 +349,7 @@ function handRushOrder(){
     console.log("---------------");
     // 开始提交订单
     $.ajax({
-        url: "/RushOrder/CreateRushOrder2",
+        url: "/RushOrder/CreateRushOrder",
         type:"POST",
         data: {
             "skuidandqty": JSON.stringify(orderItemArr),
