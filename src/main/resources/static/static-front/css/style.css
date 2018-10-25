@@ -442,7 +442,7 @@ body {
 /*----------------------------------------*/
 
 .mainmenu-area .logo {
-    max-width: 100%;
+    max-width: 300px;
     position: absolute;
     top: -55px;
 }

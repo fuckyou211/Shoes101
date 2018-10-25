@@ -29,20 +29,20 @@ function dumpToPayPage(data,token,type,rushbuyid) {
     //     //return;
     // }
     // 抢购的
-    if(type  == 2){
-        data[0].rushbuyid = rushbuyid;
-        $.ajax({
-            url: "/order/pageData",
-            type: "POST",
-            data: {
-                "key":token,
-                "data":JSON.stringify(data[0]),
-            },
-            success: function (data) {
-                window.location.href ="/static-front/html/shoes-pay.htm";
-            }
-        });
-    }
+    // if(type  == 2){
+    //     data[0].rushbuyid = rushbuyid;
+    //     $.ajax({
+    //         url: "/rush/pageData",
+    //         type: "POST",
+    //         data: {
+    //             "key":token,
+    //             "data":JSON.stringify(data[0]),
+    //         },
+    //         success: function (data) {
+    //             window.location.href ="/static-front/html/shoes-pay.htm";
+    //         }
+    //     });
+    // }
 
 
     $.ajax({

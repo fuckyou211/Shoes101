@@ -67,7 +67,8 @@ body {
 .order-caculate-btn{
 	
 }
-.order-caculate-btn #order-caculate-do{
+.order-caculate-btn #order-caculate-do,
+.order-caculate-btn #order-caculate-do-rush{
 	display: inline-block;
     width: 182px;
     height: 39px;
