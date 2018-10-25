@@ -47,7 +47,7 @@ Vue.component('user-header',{
         '                        <div class="cart-menu">\n' +
         '                            <ul>\n' +
         '                                <li>\n' +
-        '                                    <a href="#"><i class="fa fa-shopping-cart" style="font-size: 20px;"></i> <span>2</span> </a>\n' +
+        '                                    <a href="#"><i class="fa fa-shopping-cart" style="font-size: 20px;"></i> <span>{{cartlenth}}</span> </a>\n' +
         '                                    <div class="cart-info">\n' +
         '                                        <ul>\n' +
         '                                            <li v-for="item in shopcart">\n' +
@@ -78,6 +78,7 @@ Vue.component('user-header',{
             user:[],//用户信息
             online:false,//是否登录
             shopcart:[],
+            cartlenth:0,
             shopcartprice:0
         }
     },
@@ -91,8 +92,6 @@ Vue.component('user-header',{
             type: 'post',
             dataType: 'json',
             success: function (data) {
-                //var result = JSON.parse(data.data);
-                console.log("token:= ");
                 console.log(data);
                 if(data!=null&&data!=""){
                     self.online = true;
@@ -105,29 +104,31 @@ Vue.component('user-header',{
             }
         });
 
-            $.ajax({
-                url: "http://localhost:8080/cart/getShopCart",
-                type: 'post',
-                dataType: 'json',
-                success: function (result) {
-                    console.log("shopcart: ")
-
+        $.ajax({
+            url: "http://localhost:8080/cart/getShopCart",
+            type: 'post',
+            dataType: 'json',
+            success: function (result) {
+                console.log("shopcart: 8")
+                if(result.code==0){
                     if(result.data!=null){
                         var cartdata = JSON.parse(result.data)
                         console.log(cartdata);
                         self.shopcart = cartdata;
                         let toprice=0;
                         for (let i in cartdata){
+                            self.cartlenth++;
                             toprice+=cartdata[i].totalprice;
                         }
                         self.shopcartprice = toprice;
-
                     }
-                },
-                fail: function (err) {
-                    console.log("失败："+err)
                 }
-            });
+
+            },
+            fail: function (err) {
+                console.log("失败："+err)
+            }
+        });
 
 
 

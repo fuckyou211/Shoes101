@@ -43,10 +43,7 @@ public class ShopCartServiceImpl implements ShopCartService {
         scdmapper.insert(shopcartdetails);
 
         //同时也更新购物车的总价格
-
-        Shopcart shopcart = userShopcart();
-        shopcart.setSctotalprice(getShopCartPrice(getUserShopCart()));
-        shopcartMapper.updateByPrimaryKey(shopcart);
+        updataShopCartPrice();
 
         //再从新获取当前用户的购物车
         return getUserShopCart();
@@ -108,12 +105,25 @@ public class ShopCartServiceImpl implements ShopCartService {
 
     @Override
     public List<ShopCartVo> editShopCart(ShopCartVo shopCartVo) {
-        return null;
+        //获取要编辑的购物车详情
+        Shopcartdetails detail = scdmapper.selectByPrimaryKey(shopCartVo.getScdid());
+        //改变一下数量
+        detail.setQuantity(shopCartVo.getCount());
+        //编辑完成
+        scdmapper.updateByPrimaryKey(detail);
+        updataShopCartPrice();//更改后要重新改一下购物车总价格
+        return getUserShopCart();
     }
 
     @Override
     public List<ShopCartVo> removeFormCart(List<ShopCartVo> shopCartVos) {
-        return null;
+        for(ShopCartVo ov:shopCartVos){
+            //要删除的一个一个来
+            Shopcartdetails detail = scdmapper.selectByPrimaryKey(ov.getScdid());
+            scdmapper.deleteByPrimaryKey(detail.getScdid());
+        }
+        updataShopCartPrice();//更改后要重新改一下购物车总价格
+        return getUserShopCart();
     }
 
     //计算一个购物车详情的总价
@@ -140,6 +150,12 @@ public class ShopCartServiceImpl implements ShopCartService {
         }
 
         return shopcart;
+    }
+
+    public void updataShopCartPrice(){
+        Shopcart shopcart = userShopcart();
+        shopcart.setSctotalprice(getShopCartPrice(getUserShopCart()));
+        shopcartMapper.updateByPrimaryKey(shopcart);
     }
 
     public double getShopCartPrice(List<ShopCartVo> ovlist){

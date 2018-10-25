@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/cart")
 public class ShopCartController {
@@ -28,9 +30,18 @@ public class ShopCartController {
 
     @RequestMapping("/remove")
     @ResponseBody
-    public Result<String> removeCart(){
+    public Result<String> removeCart(List<ShopCartVo> shopCartVos ){
 
-        return Result.success("");
+        String list = JSON.toJSONString(cartService.removeFormCart(shopCartVos));
+        return Result.success(list);
+    }
+
+    @RequestMapping("/edit")
+    @ResponseBody
+    public Result<String> editCart(ShopCartVo shopCartVo){
+
+        String list = JSON.toJSONString(cartService.editShopCart(shopCartVo));
+        return Result.success(list);
     }
 
     @RequestMapping("/getShopCart")
