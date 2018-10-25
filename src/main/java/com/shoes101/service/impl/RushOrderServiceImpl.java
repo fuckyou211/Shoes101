@@ -53,9 +53,9 @@ public class RushOrderServiceImpl implements RushOrderService {
             state = Long.valueOf(-1);
         }
         if (state == 0) {
-            throw new GlobalException(CodeMsg.MIAOSHA_WAIT);
+            return Result.error(CodeMsg.MIAOSHA_WAIT);
         } else if (state.equals(2)) {
-            throw new GlobalException(CodeMsg.MIAOSHA_ORDERNULL);
+            return Result.error(CodeMsg.MIAOSHA_ORDERNULL);
         }
         Long overnumber = redisService.get(RushKey.userLimit, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), Long.class);
         Long limitnumber = redisService.get(RushKey.rushLimit, "" + rushOrderVo.getRushbuyid(), Long.class);
@@ -64,14 +64,14 @@ public class RushOrderServiceImpl implements RushOrderService {
         }
         if (limitnumber < overnumber + rushOrderVo.getQuantity()) {
             redisService.set(RushKey.orderState, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), -1);
-            throw new GlobalException(new CodeMsg(5000,"商品限购"+limitnumber+"件,您购买的商品数量已超过规定额度！"));
+            return Result.error(new CodeMsg(5000,"商品限购"+limitnumber+"件,您购买的商品数量已超过规定额度！"));
         }
 
         Long number = redisService.decrBy(RushKey.rushsku, rushOrderVo.getRushbuyid() + ":" + rushOrderVo.getShoessku(), rushOrderVo.getQuantity());
         if (number < 0) {
             redisService.incrBy(RushKey.rushsku, rushOrderVo.getRushbuyid() + ":" + rushOrderVo.getShoessku(), rushOrderVo.getQuantity());
             redisService.set(RushKey.orderState, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), -1);
-            throw new GlobalException(CodeMsg.MIAOSHA_NULLGOOD);
+            return Result.error(CodeMsg.MIAOSHA_NULLGOOD);
         }
         //入队
         redisService.set(RushKey.orderState, user.getUserid() + ":" + rushOrderVo.getRushbuyid(), 0);
@@ -127,9 +127,9 @@ public class RushOrderServiceImpl implements RushOrderService {
 
         if (state == null || state == -1) {
             state = Long.valueOf(-1);
-            throw new GlobalException(CodeMsg.MIAOSHA_FAIL);
+            return Result.error(CodeMsg.MIAOSHA_FAIL);
         } else if (state == 0) {
-            throw new GlobalException(CodeMsg.MIAOSHA_WAIT);
+            return Result.error(CodeMsg.MIAOSHA_WAIT);
         } else if (state == 1) {
             Long orderid=redisService.get(RushKey.orderId,user.getUserid()+":"+rushOrderVo.getRushbuyid(),Long.class);
             return Result.success(""+orderid);
