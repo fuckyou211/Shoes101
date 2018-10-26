@@ -335,7 +335,7 @@
                     data:{"orderid":orderid,"validity":validity,"cancel":cancel,"state":state},
                     //传入成功后 获取库存并且返回
                     success:function(data) {
-                        alert("操作成功");
+                        //alert("操作成功");
                         console.log(data);
                         // alert("100");
                         ordervue.orders = data;
@@ -357,7 +357,7 @@
                     data:{"orderid":orderid},
                     //传入成功后 获取库存并且返回
                     success:function(data) {
-                        alert("操作成功");
+                        //alert("操作成功");
                         openmodal();
                         console.log(data);
                         detailvue.detail = data;
