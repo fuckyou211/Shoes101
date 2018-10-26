@@ -51,12 +51,12 @@
     select IFNULL(count(userid),0) from user where user.date >= ${ym1} and user.date &lt; ${ym2}
   </select>
   <select id="getDaySell" resultType="com.shoes101.vo.DaySellVo">
-    select count(orderdetail.quantity) as sell,substr(shoesorder.buydate,1,10) as dayy from shoesorder,orderdetail where shoesorder.buydate like ${ym1} group by substr(shoesorder.buydate,1,10)
+    select any_value(count(orderdetail.quantity)) as sell,substr(shoesorder.buydate,1,10) as dayy from shoesorder,orderdetail where shoesorder.buydate like ${ym1} group by substr(shoesorder.buydate,1,10)
   </select>
   <select id="getMonthSell" resultType="com.shoes101.vo.MonthSellVo">
-   select sum(orderdetail.quantity) as sell,month(buydate) as month,year(buydate) from shoesorder INNER JOIN orderdetail on shoesorder.orderid = orderdetail.orderid GROUP BY month(buydate)
+   select any_value(sum(orderdetail.quantity)) as sell,month(buydate) as month,any_value(year(buydate)) from shoesorder INNER JOIN orderdetail on shoesorder.orderid = orderdetail.orderid GROUP BY month(buydate)
   </select>
   <select id="getYearSell" resultType="com.shoes101.vo.YearSellVo">
-    select year(shoesorder.buydate),sum(orderdetail.quantity) from shoesorder INNER JOIN orderdetail on shoesorder.orderid = orderdetail.orderid GROUP BY year(buydate)
+    select year(shoesorder.buydate),any_value(sum(orderdetail.quantity)) from shoesorder INNER JOIN orderdetail on shoesorder.orderid = orderdetail.orderid GROUP BY year(buydate)
   </select>
 </mapper>
