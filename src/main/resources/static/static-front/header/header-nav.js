@@ -28,7 +28,7 @@ var sta_2 = "</ul>\n" +
     "                                        </div>\n" +
     "                                    </li>\n" +
     "                                    <li>\n" +
-    "                                        <a href=\"javascript:;\" value=\"1\" onclick=\"toShoesList(this)\">女鞋</a>\n" +
+    "                                        <a href=\"javascript:;\" value=\"2\" onclick=\"toShoesList(this)\">女鞋</a>\n" +
     "                                        <div class=\"mega-menu\" id=\"women_sort\">\n" +
     "                                            <ul>";
 var sta_3 = "</ul>\n" +
