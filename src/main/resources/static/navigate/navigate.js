@@ -10,7 +10,7 @@ Vue.component('navigate',{
         '                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">欢迎你！</strong>\n' +
         '                             </span> <span class="text-muted text-xs block">靓仔！<b class="caret"></b></span> </span> </a>\n' +
         '                            <ul class="dropdown-menu animated fadeInRight m-t-xs">\n' +
-        '                                <li><a href="profile.html">修改密码</a></li>\n' +
+/*        '                                <li><a href="profile.html">修改密码</a></li>\n' +*/
         '                                <li class="divider"></li>\n' +
         '                                <li><a href="javascript:void(0);" onclick="logout()">退出</a></li>\n' +
         '                            </ul>\n' +
