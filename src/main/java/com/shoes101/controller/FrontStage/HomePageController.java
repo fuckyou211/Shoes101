@@ -27,7 +27,7 @@ public class HomePageController {
     public String goHomePage(){
         /*List<FGoodsVo> newestGoods = homePageService.getNewestGoods(10);
         System.out.println(newestGoods);*/
-        return"/front/index";
+        return"front/index";
     }
 
     //得到最新的商品,用参数区分是男鞋的最新还是女鞋的最新
