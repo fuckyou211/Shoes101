@@ -170,7 +170,7 @@
                                     <a href="#">{{value}}</a>
                                 </li>
                                 <li>
-                                    <a href="javascript:void(0);" @click="rightButton(value,list.totalCount)" :value="value"> > </a>
+                                    <a href="javascript:void(0);" @click="rightButton(value,list.totalPage)" :value="value"> > </a>
                                 </li>
                             </ul>
                         </div>
@@ -245,8 +245,8 @@
             rightButton: function (pageCode,count){
                 thePage = pageCode;
                 if( thePage<count){
-                    /*console.log(pageCode);
-                    console.log(count);*/
+                    console.log(pageCode);
+                    console.log(count);
                     thePage++;
                     requestPage(thePage);
                 }else{
@@ -288,7 +288,7 @@
         if(r!=null)return  decodeURI(r[2]); return null;
     }
     function requestPage(pageCode) {
-        let size=1;
+        let size=4;
         let filterFlag;
         let value=getQueryString("value");
         if( properties.length>0 ){

@@ -170,7 +170,7 @@
 											<a href="#">{{value}}</a>
 										</li>
 										<li>
-											<a href="javascript:void(0);" @click="rightButton(value,list.totalCount)" :value="value"> > </a>
+											<a href="javascript:void(0);" @click="rightButton(value,list.totalPage)" :value="value"> > </a>
 										</li>
 									</ul>
 								</div>
@@ -284,7 +284,7 @@
                 if(r!=null)return  unescape(r[2]); return null;
             }
             function requestPage(pageCode) {
-				let size=16;
+				let size=4;
 				let filterFlag;
 				let catalogId=getQueryString("catalogId");
 				let propertyValueId=getQueryString("propertyValueId");
@@ -297,7 +297,7 @@
                     filterFlag = 0;
 				}
                $.ajax({
-				   url: "/getShoesListByPage",
+				   url: "/goodsf/getShoesListByPage",
 				   type: 'post',
 				   data: {
 				       size:size,

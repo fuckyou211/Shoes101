@@ -38,9 +38,9 @@ public class SearchController {
         List<FGoodsVo> list = new ArrayList<>();
         List<FGoodsVo> newList = new ArrayList<>();
         list = searchService.search(value);
-        newList = ListHandleUtils.getPartOfList(list,1,16);
+        newList = ListHandleUtils.getPartOfList(list,1,4);
         pageBean pb;
-        pb = pageSevice.setTopageBean(1,16,newList,list.size());
+        pb = pageSevice.setTopageBean(1,4,newList,list.size());
         List<Property> propertyList = propertyService.getAllProperty();
         for(Property property:propertyList){
             Set<PropertyValueVo> propertyValueSet = propertyFilterServie.getGeneralPropertyValue(list,property.getPropertyid());
@@ -49,7 +49,7 @@ public class SearchController {
         map.put("pageOfShoes", JSON.toJSONString(pb));
         map.put("propertyFilter",JSON.toJSONString(map1));
         map.put("value",value);
-        return "/front/shoes-search";
+        return "front/shoes-search";
     }
 
     @RequestMapping("/search")
@@ -61,15 +61,15 @@ public class SearchController {
         List<FGoodsVo> list = new ArrayList<>();
         List<FGoodsVo> newList = new ArrayList<>();
         list = searchService.search(value);
-        newList = ListHandleUtils.getPartOfList(list,1,16);
+        newList = ListHandleUtils.getPartOfList(list,1,4);
         pageBean pb;
-        pb = pageSevice.setTopageBean(1,16,newList,list.size());
+        pb = pageSevice.setTopageBean(1,4,newList,list.size());
         List<Property> propertyList = propertyService.getAllProperty();
         for(Property property:propertyList){
             Set<PropertyValueVo> propertyValueSet = propertyFilterServie.getGeneralPropertyValue(list,property.getPropertyid());
             map1.put(property.getPropertyname(),propertyValueSet);
         }
-        pb = pageSevice.setTopageBean(1,16,list,searchService.searchByNameCount(value));
+        pb = pageSevice.setTopageBean(1,4,list,searchService.searchByNameCount(value));
         map.put("pageOfShoes", pb);
         map.put("propertyFilter",map1);
         return Result.success(map);

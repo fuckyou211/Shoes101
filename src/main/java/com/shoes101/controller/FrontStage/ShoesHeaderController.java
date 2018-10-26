@@ -59,7 +59,7 @@ public class ShoesHeaderController {
     public Result<List<Propertyvalue>> getBrandInfo(){
         String propertyName = "品牌";
         Integer propertyId = propertyService.getPropertyIdByPropertyName(propertyName);
-        System.out.println(propertyService.getProperty(propertyId));
+        //System.out.println(propertyService.getProperty(propertyId));
         return Result.success(propertyService.getProperty(propertyId));
     }
     @RequestMapping("/header/toShoes-header")
@@ -79,22 +79,22 @@ public class ShoesHeaderController {
         if(catalogId!=null){
             //获得此catalogId下的所有鞋
             list =  shoesHeaderService.listUnderCatalog(catalogId);
-            newList = ListHandleUtils.getPartOfList(list,1,16);
+            newList = ListHandleUtils.getPartOfList(list,1,4);
         }
         else if(propertyValueId!=null){
             list = shoesHeaderService.listUnderProVal(propertyValueId);
-            newList = ListHandleUtils.getPartOfList(list,1,16);
+            newList = ListHandleUtils.getPartOfList(list,1,4);
         }
-        pb = pageSevice.setTopageBean(1,16,newList,list.size());
+        pb = pageSevice.setTopageBean(1,4,newList,list.size());
         List<Property> propertyList = propertyService.getAllProperty();
         for(Property property:propertyList){
             Set<PropertyValueVo> propertyValueSet = propertyFilterServie.getGeneralPropertyValue(list,property.getPropertyid());
             map1.put(property.getPropertyname(),propertyValueSet);
         }
-        System.out.println(pb);
+        //System.out.println(pb);
         map.put("pageOfShoes",JSON.toJSONString(pb));
         map.put("propertyFilter",JSON.toJSONString(map1));
-        return "/front/shoes-list";
+        return "front/shoes-list";
     }
     //拿用户数据
     @RequestMapping("/getUser")
